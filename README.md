@@ -32,10 +32,13 @@ Then enter a stock ticker when prompted to generate a complete analysis.
 ### Requirements
 
 - Python 3.7+
-- yfinance
-- pandas
-- numpy
-- Various AI/ML libraries for analysis
+- Dependencies listed in `requirements.txt`
+
+To install required dependencies:
+
+```bash
+pip install -r requirements.txt
+```
 
 ### Output
 
