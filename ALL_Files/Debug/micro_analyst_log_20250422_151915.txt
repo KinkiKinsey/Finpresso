@@ -1,0 +1,181 @@
+
+🔄 Starting fact discovery process...
+==================================
+🔍 STEP 1: Loading the latest rating JSON file
+
+📊 Discovering facts about MSFT...
+
+🌎 Macro Context: The U.S. economy shows resilience but faces pressures from persistent inflation, cooling consumer demand, and tightening monetary policy. Growth is decelerating, with sticky inflation and softening la...
+
+🔍 STEP 2: Identifying fact claims and expectations to verify
+
+🤔 THINKING PROCESS: Analyzing news to separate fact from expectations
+  - Reading macro news context for MSFT
+  - Identifying key facts in micro news
+  - Comparing market expectations to actual developments
+  - Determining tools needed to verify claims and expectations
+
+📝 PROMPT: Sending prompt to LLM to determine appropriate tools
+
+🔄 RESPONSE: Received tool selection from LLM
+
+⚠️ WARNING: Failed to parse LLM response as JSON: Expecting value: line 1 column 1 (char 0)
+Falling back to regex extraction of tool names
+
+🔧 Selected Tools: get_stock_metrics, get_stock_dcf_valuation, get_peer_valuation_comparison, analyze_earnings_vs_estimates, get_company_profile, get_stock_metrics, get_stock_dcf_valuation, get_peer_valuation_comparison, analyze_earnings_vs_estimates, get_company_profile
+
+🔍 Facts to Verify:
+  1. Extracted from news context but not explicitly identified
+
+🔮 Market Expectations to Test:
+  1. Extracted from news context but not explicitly identified
+
+📝 Tool Selection Rationale:
+  - get_stock_metrics: Automatically selected based on context
+  - get_stock_dcf_valuation: Automatically selected based on context
+  - get_peer_valuation_comparison: Automatically selected based on context
+  - analyze_earnings_vs_estimates: Automatically selected based on context
+  - get_company_profile: Automatically selected based on context
+
+🔍 STEP 3: Gathering data to verify facts and test expectations
+  ⚙️ Running get_stock_metrics...
+
+⚙️ EXECUTING TOOL: get_stock_metrics
+  Purpose: analyzing key financial metrics like EPS, ROIC, debt, and cash flow
+  Input: Ticker = MSFT
+Error calculating ROIC: Total Current Liabilities not found in balance sheet
+Error calculating Free Cash Flow: Cash flow information not found
+  Result: Successfully executed get_stock_metrics
+  Data returned: key_metrics
+     ✓ Completed successfully
+  ⚙️ Running get_stock_dcf_valuation...
+
+⚙️ EXECUTING TOOL: get_stock_dcf_valuation
+  Purpose: calculating discounted cash flow valuation
+  Input: Ticker = MSFT
+  Result: Successfully executed get_stock_dcf_valuation
+  Data returned: symbol, date, dcf, Stock Price
+     ✓ Completed successfully
+  ⚙️ Running get_peer_valuation_comparison...
+
+⚙️ EXECUTING TOOL: get_peer_valuation_comparison
+  Purpose: comparing valuation multiples against industry peers
+  Input: Ticker = MSFT
+Found 13 peers from LLM
+Warning: Could only find 13 peers for MSFT, which is less than the requested minimum of 15
+  Result: Successfully executed get_peer_valuation_comparison
+     ✓ Completed successfully
+  ⚙️ Running analyze_earnings_vs_estimates...
+
+⚙️ EXECUTING TOOL: analyze_earnings_vs_estimates
+  Purpose: examining analysts' estimate accuracy
+  Input: Ticker = MSFT
+  Result: Successfully executed analyze_earnings_vs_estimates
+  Data returned: data, summary
+     ✓ Completed successfully
+  ⚙️ Running get_company_profile...
+
+⚙️ EXECUTING TOOL: get_company_profile
+  Purpose: understanding the company's business model and operations
+  Input: Ticker = MSFT
+  Result: Successfully executed get_company_profile
+  Data returned: symbol, price, beta, volAvg, mktCap
+    ... and 31 more fields
+     ✓ Completed successfully
+  ⚙️ Running get_stock_metrics...
+
+⚙️ EXECUTING TOOL: get_stock_metrics
+  Purpose: analyzing key financial metrics like EPS, ROIC, debt, and cash flow
+  Input: Ticker = MSFT
+Error calculating ROIC: Total Current Liabilities not found in balance sheet
+Error calculating Free Cash Flow: Cash flow information not found
+  Result: Successfully executed get_stock_metrics
+  Data returned: key_metrics
+     ✓ Completed successfully
+  ⚙️ Running get_stock_dcf_valuation...
+
+⚙️ EXECUTING TOOL: get_stock_dcf_valuation
+  Purpose: calculating discounted cash flow valuation
+  Input: Ticker = MSFT
+  Result: Successfully executed get_stock_dcf_valuation
+  Data returned: symbol, date, dcf, Stock Price
+     ✓ Completed successfully
+  ⚙️ Running get_peer_valuation_comparison...
+
+⚙️ EXECUTING TOOL: get_peer_valuation_comparison
+  Purpose: comparing valuation multiples against industry peers
+  Input: Ticker = MSFT
+Found 13 peers from LLM
+Warning: Could only find 13 peers for MSFT, which is less than the requested minimum of 15
+  Result: Successfully executed get_peer_valuation_comparison
+     ✓ Completed successfully
+  ⚙️ Running analyze_earnings_vs_estimates...
+
+⚙️ EXECUTING TOOL: analyze_earnings_vs_estimates
+  Purpose: examining analysts' estimate accuracy
+  Input: Ticker = MSFT
+  Result: Successfully executed analyze_earnings_vs_estimates
+  Data returned: data, summary
+     ✓ Completed successfully
+  ⚙️ Running get_company_profile...
+
+⚙️ EXECUTING TOOL: get_company_profile
+  Purpose: understanding the company's business model and operations
+  Input: Ticker = MSFT
+  Result: Successfully executed get_company_profile
+  Data returned: symbol, price, beta, volAvg, mktCap
+    ... and 31 more fields
+     ✓ Completed successfully
+
+🔍 STEP 4: Analyzing data to provide reasoning, tools used, and results
+
+🧠 FACT DISCOVERY PROCESS:
+  1. Separating factual information from market expectations/narratives
+  2. Verifying factual claims in the news against data from micro tools
+  3. Testing market expectations against actual company metrics
+  4. Identifying misalignments between facts and market perception
+  5. Highlighting overlooked facts in current market narratives
+
+📊 Analysis Results:
+
+🧠 Reasoning for Tool Selection:
+  Analysis of MSFT based on macro and micro news:
+  
+  Based on macro indicators like Real GDP growth slowed from 5.6% (early 2024) to 4.8% (early 2025), indicating gradual deceleration. and
+  Fed Funds Rate dropped from 5.33% to 4.33%, signaling potential easing as growth slows., combined with
+  company-specific news like earnings reports and market movements, I have selected these tools to verify facts and test
+  market expectations for MSFT.
+  
+  The overall macro sentiment is: Mixed sentiment with moderate fear due to inflation persistence, consumer weakness, and geopolitical tensions.
+  The current market trend is: Late expansion phase with high inflation; growth slowing but recession risks easing.
+  
+  These tools will help verify factual claims about MSFT's performance metrics, recent earnings results,
+  valuation compared to peers, and company fundamentals.
+
+🔧 Tools Used:
+  1. get_stock_metrics
+  2. get_stock_dcf_valuation
+  3. get_peer_valuation_comparison
+  4. analyze_earnings_vs_estimates
+  5. get_company_profile
+
+📈 Tool Results:
+  • get_stock_metrics: 
+  • get_stock_dcf_valuation: symbol: MSFT, date: 2025-04-22, dcf: 358.2576826579609, Stock Price: 365.03
+  • get_peer_valuation_comparison: DataFrame with 13 rows and 13 columns. Columns: ticker, price, market_cap, forward_pe, price_to_book, ev_to_ebitda, profit_margins, sector, industry, market_cap_B, forward_pe_rank, price_to_book_rank, ev_to_ebitda_rank
+  • analyze_earnings_vs_estimates: 
+  • get_company_profile: symbol: MSFT, price: 365.03, beta: 1, volAvg: 25603621.7, mktCap: 2713625719400 and 31 more fields
+
+🔍 STEP 5: Updating Micro section in rating JSON with simplified format
+
+✅ Updated the Micro section in rating JSON with simplified format
+📊 Tools used: get_stock_metrics, get_stock_dcf_valuation, get_peer_valuation_comparison, analyze_earnings_vs_estimates, get_company_profile
+💾 File saved: /Users/xikinki/Desktop/Xpresso/Xpresso_AI_Agent/Rating_Json/rating_20250420_011516 copy 3.json
+
+✅ Fact discovery for MSFT completed and saved to /Users/xikinki/Desktop/Xpresso/Xpresso_AI_Agent/Rating_Json/rating_20250420_011516 copy 3.json
+
+✅ Fact discovery completed!
+==========================
+
+📊 FACT DISCOVERY SUMMARY
+Ticker: MSFT

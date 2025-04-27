@@ -1,0 +1,16 @@
+Articles processed: 16
+Successful extractions: 15
+Failed extractions: 1
+Success rate: 93.75%
+Total tokens: 10621
+
+Failure reasons:
+- Extraction failed: 0
+- Content too short: 1
+- Token limit reached: 0
+- Exception thrown: 0
+
+Note: If you need more articles, consider:
+1. Increasing the MAX_TOKENS limit (currently 15000)
+2. Increasing the min_target_articles in process_ticker (to fetch more articles initially)
+3. Improving the extract_news_content function to handle more website structures

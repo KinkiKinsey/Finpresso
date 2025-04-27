@@ -1,0 +1,67 @@
+Here’s the macroeconomic analysis based on the provided news:
+
+### **1. Japan’s Loan to Ukraine Backed by Frozen Russian Assets**  
+- **Event**: Japan signed a $3.3 billion loan agreement with Ukraine, funded by proceeds from frozen Russian assets under the G7’s ERA program. Russia condemned the move as "theft" and warned of deteriorating relations.  
+- **Impact**: This could escalate geopolitical tensions, particularly between Russia and Japan, potentially disrupting trade and diplomatic relations. It also strengthens Western financial support for Ukraine amid ongoing conflict.  
+- **Stock Market Implication**: Increased geopolitical risk may weigh on global markets, particularly sectors sensitive to Russia-Japan trade (e.g., energy, commodities).  
+
+### **2. German Finance Minister Advocates for Zero-Tariff Deal with U.S.**  
+- **Event**: Germany’s finance minister expressed optimism about resolving U.S.-EU tariff disputes, preferring a "zero-for-zero" tariff solution despite Trump’s rejection of earlier EU proposals. Germany revised its 2025 growth forecast to stagnation (0%) due to tariff pressures.  
+- **Impact**: Prolonged tariff uncertainty could further weaken Germany’s trade-dependent economy, though a potential deal might ease supply chain disruptions.  
+- **Stock Market Implication**: Positive for European automakers and exporters if tariffs ease, but continued uncertainty may dampen investor confidence.  
+
+### **3. Bank of England Warns of Tariff-Driven "Growth Shock"**  
+- **Event**: BOE Governor Andrew Bailey highlighted concerns over U.S. tariffs impacting U.K. growth, though he downplayed near-term recession risks. The IMF cut U.K. growth forecasts to 1.1% for 2025 due to tariffs and higher borrowing costs.  
+- **Impact**: Weak demand and trade redirection could disinflationary, but retaliatory tariffs might spike inflation.  
+- **Stock Market Implication**: Sterling-sensitive sectors (e.g., FTSE multinationals) may face volatility; services-heavy U.K. economy remains vulnerable to global trade slowdowns.  
+
+### **4. U.S. Durable Goods Orders Surge 9.2% Ahead of Tariffs**  
+- **Event**: Companies rushed orders for big-ticket items (e.g., autos, aircraft) in March to avoid Trump’s April tariffs, driving a sharp rise in durable goods demand.  
+- **Impact**: Short-term demand pull-forward may lead to a subsequent slump, distorting Q2 economic data.  
+- **Stock Market Implication**: Cyclical sectors (e.g., industrials, autos) could see near-term gains but face downside risks as tariff effects materialize.  
+
+### **5. Fed Beige Book Reports Firms Passing Tariff Costs to Consumers**  
+- **Event**: Businesses are adding tariff surcharges, with firms expecting to raise prices amid weak demand in some sectors. Federal layoffs (via DOGE cuts) also dampened D.C.-area activity.  
+- **Impact**: Higher consumer prices could fuel inflation, while government job cuts may pressure local economies.  
+- **Stock Market Implication**: Inflation-sensitive sectors (e.g., staples, utilities) may outperform, but margin pressures could hurt discretionary spending.  
+
+### **6. China Demands U.S. Cancel Tariffs Before Trade Talks Resume**  
+- **Event**: China insists the U.S. must lift "unilateral" tariffs before negotiations, while Trump claims talks are "active"—denied by Beijing.  
+- **Impact**: Stalemate risks further trade fragmentation, disrupting global supply chains.  
+- **Stock Market Implication**: Volatility in China-exposed sectors (e.g., tech, manufacturing) likely until clarity emerges.  
+
+### **Key Themes**:  
+- **Tariffs dominate macroeconomic risks**, distorting trade flows, inflation, and growth forecasts.  
+- **Geopolitical tensions** (Russia-Japan, U.S.-China, U.S.-EU) add uncertainty.  
+- **Central banks** (BOE, Fed) face balancing acts between growth shocks and inflation.  
+
+**No significant non-tariff-related macroeconomic news detected.** Let me know if you'd like deeper analysis on any specific item.
+
+================================================================================
+
+📅 TOP 10 IMPORTANT ECONOMIC DATA RELEASES 📅
+
+📆 April 24, 2025
+  • 08:00:00 | DE: Ifo Business Climate (Apr) (🔴 High Impact)
+    [Previous: 86.7, Estimate: 85.2, Actual: 86.9]
+  • 12:30:00 | US: Initial Jobless Claims (Apr/19) (🔴 High Impact)
+    [Previous: 216, Estimate: 222, Actual: 222]
+  • 12:30:00 | US: Durable Goods Orders MoM (Mar) (🔴 High Impact)
+    [Previous: 0.9, Estimate: 2, Actual: 9.2]
+  • 12:30:00 | US: Durable Goods Orders Ex Transp MoM (Mar) (🔴 High Impact)
+    [Previous: 0.7, Estimate: 0.3, Actual: None]
+  • 12:30:00 | US: Durable Goods Orders ex Defense MoM (Mar) (🔴 High Impact)
+    [Previous: 0.8, Estimate: 0.2, Actual: 10.4]
+  • 12:30:00 | US: Continuing Jobless Claims (Apr/12) (🔴 High Impact)
+    [Previous: 1878, Estimate: 1880, Actual: 1841]
+  • 12:30:00 | US: Jobless Claims 4-Week Average (Apr/19) (🔴 High Impact)
+    [Previous: 221, Estimate: 222, Actual: 220.25]
+  • 14:00:00 | US: Existing Home Sales MoM (🔴 High Impact)
+    [Previous: 4.4, Estimate: -3, Actual: -5.9]
+  • 14:00:00 | US: Existing Home Sales (Mar) (🔴 High Impact)
+    [Previous: 4.27, Estimate: 4.13, Actual: 4.02]
+
+📆 April 25, 2025
+  • 06:00:00 | UK: Retail Sales Ex Fuel MoM (Mar) (🔴 High Impact)
+    [Previous: 1, Estimate: -0.4, Actual: None]
+

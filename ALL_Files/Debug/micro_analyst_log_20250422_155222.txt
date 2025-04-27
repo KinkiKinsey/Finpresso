@@ -1,0 +1,161 @@
+
+🔄 Starting fact discovery process...
+==================================
+🔍 STEP 1: Loading the latest rating JSON file
+
+📊 Discovering facts about MSFT...
+
+🌎 Macro Context: The economy is showing signs of growth with moderate inflation....
+
+🔍 STEP 2: Identifying fact claims and expectations to verify
+
+🤔 THINKING PROCESS: Analyzing news to separate fact from expectations
+  - Reading macro news context for MSFT
+  - Identifying key facts in micro news
+  - Comparing market expectations to actual developments
+  - Determining tools needed to verify claims and expectations
+
+📝 PROMPT: Sending prompt to LLM to determine appropriate tools
+
+🔄 RESPONSE: Received tool selection from LLM
+
+⚠️ WARNING: Failed to parse LLM response as JSON: Expecting value: line 1 column 1 (char 0)
+Falling back to regex extraction of tool names
+
+🔧 Selected Tools: get_stock_dcf_valuation, get_peer_valuation_comparison, get_earnings_surprises, analyze_earnings_vs_estimates, get_stock_detailed_dcf, get_stock_dcf_valuation, get_peer_valuation_comparison, get_earnings_surprises, analyze_earnings_vs_estimates, get_stock_detailed_dcf
+
+🔍 Facts to Verify:
+  1. Extracted from news context but not explicitly identified
+
+🔮 Market Expectations to Test:
+  1. Extracted from news context but not explicitly identified
+
+📝 Tool Selection Rationale:
+  - get_stock_dcf_valuation: Automatically selected based on context
+  - get_peer_valuation_comparison: Automatically selected based on context
+  - get_earnings_surprises: Automatically selected based on context
+  - analyze_earnings_vs_estimates: Automatically selected based on context
+  - get_stock_detailed_dcf: Automatically selected based on context
+
+🔍 STEP 3: Gathering data to verify facts and test expectations
+  ⚙️ Running get_stock_dcf_valuation...
+
+⚙️ EXECUTING TOOL: get_stock_dcf_valuation
+  Purpose: calculating discounted cash flow valuation
+  Input: Ticker = MSFT
+  Result: Successfully executed get_stock_dcf_valuation
+  Data returned: symbol, date, dcf, Stock Price
+     ✓ Completed successfully
+  ⚙️ Running get_peer_valuation_comparison...
+
+⚙️ EXECUTING TOOL: get_peer_valuation_comparison
+  Purpose: comparing valuation multiples against industry peers
+  Input: Ticker = MSFT
+Found 13 peers from LLM
+Warning: Could only find 13 peers for MSFT, which is less than the requested minimum of 15
+  Result: Successfully executed get_peer_valuation_comparison
+Error saving tool results cache: Object of type DataFrame is not JSON serializable
+     ✓ Completed successfully
+  ⚙️ Running get_earnings_surprises...
+
+⚙️ EXECUTING TOOL: get_earnings_surprises
+  Purpose: analyzing historical earnings surprises
+  Input: Ticker = MSFT
+  Result: Successfully executed get_earnings_surprises
+Error saving tool results cache: Object of type DataFrame is not JSON serializable
+     ✓ Completed successfully
+  ⚙️ Running analyze_earnings_vs_estimates...
+
+⚙️ EXECUTING TOOL: analyze_earnings_vs_estimates
+  Purpose: examining analysts' estimate accuracy
+  Input: Ticker = MSFT
+  Result: Successfully executed analyze_earnings_vs_estimates
+  Data returned: data, summary
+     ✓ Completed successfully
+  ⚙️ Running get_stock_detailed_dcf...
+
+⚙️ EXECUTING TOOL: get_stock_detailed_dcf
+  Purpose: performing detailed DCF valuation with multiple scenarios
+  Input: Ticker = MSFT
+  Result: Successfully executed get_stock_detailed_dcf
+  Data returned: status, current_price, intrinsic_value, margin_of_safety_pct, projected_fcf
+    ... and 4 more fields
+     ✓ Completed successfully
+  ⚙️ Running get_stock_dcf_valuation...
+
+⚙️ EXECUTING TOOL: get_stock_dcf_valuation
+  Purpose: calculating discounted cash flow valuation
+  Input: Ticker = MSFT
+  Result: Successfully executed get_stock_dcf_valuation
+  Data returned: symbol, date, dcf, Stock Price
+     ✓ Completed successfully
+  ⚙️ Running get_peer_valuation_comparison...
+
+⚙️ EXECUTING TOOL: get_peer_valuation_comparison
+  Purpose: comparing valuation multiples against industry peers
+  Input: Ticker = MSFT
+Found 13 peers from LLM
+Warning: Could only find 13 peers for MSFT, which is less than the requested minimum of 15
+  Result: Successfully executed get_peer_valuation_comparison
+Error saving tool results cache: Object of type DataFrame is not JSON serializable
+     ✓ Completed successfully
+  ⚙️ Running get_earnings_surprises...
+
+⚙️ EXECUTING TOOL: get_earnings_surprises
+  Purpose: analyzing historical earnings surprises
+  Input: Ticker = MSFT
+  Result: Successfully executed get_earnings_surprises
+Error saving tool results cache: Object of type DataFrame is not JSON serializable
+     ✓ Completed successfully
+  ⚙️ Running analyze_earnings_vs_estimates...
+
+⚙️ EXECUTING TOOL: analyze_earnings_vs_estimates
+  Purpose: examining analysts' estimate accuracy
+  Input: Ticker = MSFT
+  Result: Successfully executed analyze_earnings_vs_estimates
+  Data returned: data, summary
+     ✓ Completed successfully
+  ⚙️ Running get_stock_detailed_dcf...
+
+⚙️ EXECUTING TOOL: get_stock_detailed_dcf
+  Purpose: performing detailed DCF valuation with multiple scenarios
+  Input: Ticker = MSFT
+  Result: Successfully executed get_stock_detailed_dcf
+  Data returned: status, current_price, intrinsic_value, margin_of_safety_pct, projected_fcf
+    ... and 4 more fields
+     ✓ Completed successfully
+
+🔍 STEP 4: Analyzing data to provide reasoning, tools used, and results
+
+🧠 FACT DISCOVERY PROCESS:
+  1. Separating factual information from market expectations/narratives
+  2. Verifying factual claims in the news against data from micro tools
+  3. Testing market expectations against actual company metrics
+  4. Identifying misalignments between facts and market perception
+  5. Highlighting overlooked facts in current market narratives
+
+🔍 STEP 5: Updating Micro section in rating JSON with enhanced format
+
+🧠 Processing tool results with LLM...
+  Processing get_stock_dcf_valuation...
+  ✓ Generated comment for get_stock_dcf_valuation
+  Processing get_peer_valuation_comparison...
+  ✓ Generated comment for get_peer_valuation_comparison
+  Processing get_earnings_surprises...
+  ✓ Generated comment for get_earnings_surprises
+  Processing analyze_earnings_vs_estimates...
+  ✓ Generated comment for analyze_earnings_vs_estimates
+  Processing get_stock_detailed_dcf...
+  ✓ Generated comment for get_stock_detailed_dcf
+
+✅ Updated the Micro section in rating JSON with enhanced format
+📊 Tools used: get_stock_dcf_valuation, get_peer_valuation_comparison, get_earnings_surprises, analyze_earnings_vs_estimates, get_stock_detailed_dcf
+💾 File saved: /Users/xikinki/Desktop/Xpresso/Xpresso_AI_Agent/Rating_Json/test_rating_20250422_154931.json
+
+✅ Fact discovery for MSFT completed and saved to /Users/xikinki/Desktop/Xpresso/Xpresso_AI_Agent/Rating_Json/test_rating_20250422_154931.json
+
+✅ Fact discovery completed!
+==========================
+
+📊 FACT DISCOVERY SUMMARY
+Ticker: MSFT
