@@ -1,0 +1,31 @@
+{
+  "get_earnings_surprises": {
+    "__dataframe__": true,
+    "data": [
+      {
+        "date": "2025-04-24",
+        "symbol": "GOOG",
+        "actualEarningResult": 2.81,
+        "estimatedEarning": 2.02
+      },
+      {
+        "date": "2025-02-04",
+        "symbol": "GOOG",
+        "actualEarningResult": 2.15,
+        "estimatedEarning": 2.12
+      },
+      {
+        "date": "2024-10-29",
+        "symbol": "GOOG",
+        "actualEarningResult": 2.12,
+        "estimatedEarning": 1.85
+      },
+      {
+        "date": "2024-07-23",
+        "symbol": "GOOG",
+        "actualEarningResult": 1.89,
+        "estimatedEarning": 1.84
+      }
+    ]
+  }
+}

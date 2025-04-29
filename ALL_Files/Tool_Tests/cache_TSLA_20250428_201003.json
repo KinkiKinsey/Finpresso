@@ -1,0 +1,42 @@
+{
+  "analyze_earnings_vs_estimates": {
+    "data": [
+      {
+        "date": "2025-04-22",
+        "symbol": "TSLA",
+        "actualEarningResult": 0.27,
+        "estimatedEarning": 0.4097,
+        "surprise_pct": -34.098120576031235
+      },
+      {
+        "date": "2025-01-29",
+        "symbol": "TSLA",
+        "actualEarningResult": 0.73,
+        "estimatedEarning": 0.774,
+        "surprise_pct": -5.684754521963829
+      },
+      {
+        "date": "2024-10-23",
+        "symbol": "TSLA",
+        "actualEarningResult": 0.72,
+        "estimatedEarning": 0.58,
+        "surprise_pct": 24.13793103448276
+      },
+      {
+        "date": "2024-07-23",
+        "symbol": "TSLA",
+        "actualEarningResult": 0.52,
+        "estimatedEarning": 0.62,
+        "surprise_pct": -16.129032258064512
+      }
+    ],
+    "summary": {
+      "total_quarters": 4,
+      "beats": 1,
+      "misses": 3,
+      "beat_rate": 0.25,
+      "average_surprise_pct": -7.9434940803942045,
+      "surprise_trend": -17.969088317966722
+    }
+  }
+}

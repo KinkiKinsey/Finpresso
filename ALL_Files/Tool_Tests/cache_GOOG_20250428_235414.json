@@ -1,0 +1,8 @@
+{
+  "get_stock_dcf_valuation": {
+    "symbol": "GOOG",
+    "date": "2025-04-28",
+    "dcf": 259.2663732369459,
+    "Stock Price": 159.12
+  }
+}

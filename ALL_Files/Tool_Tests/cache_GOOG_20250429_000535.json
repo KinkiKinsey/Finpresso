@@ -1,0 +1,18 @@
+{
+  "get_stock_metrics": {
+    "key_metrics": {
+      "EPS": "$8.96",
+      "ROIC": "Data unavailable",
+      "Debt_to_Equity": "0.09",
+      "Revenue_Growth": "13.87% YoY",
+      "Free_Cash_Flow": "Data unavailable",
+      "Beta": "1.03",
+      "Current_Price": "$162.42",
+      "Market_Cap": "$1936.61B",
+      "PE_Ratio": "18.13",
+      "PB_Ratio": "5.72"
+    },
+    "ticker": "GOOG",
+    "last_updated": "2025-04-29 00:05:35"
+  }
+}

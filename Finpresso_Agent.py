@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 # Finpresso_Agent.py - Main orchestration file for the Finpresso AI analysis workflow
-
+from __future__ import annotations         # ★新增：放在所有 import 之前
+import sys, pathlib                         # ★新增
+sys.path.append(str(pathlib.Path(__file__).parent / "ALL_Files"))   # ★新增
 import os
 import sys
 import json
@@ -48,6 +50,12 @@ class Colors:
     BOLD = '\033[1m'
     UNDERLINE = '\033[4m'
 
+from job_registry import jobs               # ★新增：全局 dict
+STEP_TOTAL = {"macro": 8, "micro": 8, "price": 8, "strategy": 4}
+_step_done: dict[str, int] = {}
+_current_job: str | None = None
+ANSI_RE = re.compile(r"\x1B\[[0-9;]*m") 
+
 # Stream output queue for real-time updates
 output_queue = queue.Queue()
 streaming_active = False
@@ -88,16 +96,20 @@ def stop_streaming():
     global streaming_active
     streaming_active = False
 
-def stream_message(message, color=None, add_newline=True):
-    """Add a message to the streaming output queue with optional color"""
-    formatted_message = message
-    if color:
-        formatted_message = f"{color}{message}{Colors.ENDC}"
-    
+def stream_message(message, color=None, add_newline=True, job_id = None):
+    if job_id is None:
+        job_id = _current_job   
+    txt = f"{color}{message}{Colors.ENDC}" if color else message
     if add_newline:
-        formatted_message += '\n'
-    
-    output_queue.put(formatted_message)
+        txt += '\n'
+    output_queue.put(txt)
+
+    # 写入前端日志
+    if job_id and job_id in jobs:
+        clean = ANSI_RE.sub("", message)
+        jobs[job_id].log.append(clean)
+        jobs[job_id].message = clean
+
 
 def stream_progress(title, steps, current_step):
     """Display a progress bar with the current step highlighted"""
@@ -115,6 +127,16 @@ def stream_thinking(message, duration=3, dots=3):
         for i in range(dots + 1):
             stream_message(f"\r{Colors.CYAN}{base_message}{'.' * i}{' ' * (dots - i)}{Colors.ENDC}", add_newline=False)
             time.sleep(0.3)
+
+def _incr(panel: str, job_id: str | None):
+    if job_id and job_id in jobs:
+        _step_done[panel] = _step_done.get(panel, 0) + 1
+        pct = int(100 * _step_done[panel] / STEP_TOTAL[panel])
+        jobs[job_id].panel_progress[panel] = pct
+
+def _finish(panel: str, job_id: str | None):
+    if job_id and job_id in jobs:
+        jobs[job_id].panel_progress[panel] = 100
 
 def validate_ticker(ticker):
     """Validate if the provided ticker exists on Yahoo Finance"""
@@ -194,7 +216,7 @@ def create_rating_json(ticker):
     
     return output_path
 
-def run_macro_analyst(rating_json_path):
+def run_macro_analyst(rating_json_path, job_id: str | None = None):
     """Run the Macro Analyst Agent and update the Rating JSON with macro analysis"""
     stream_message("\n" + "=" * 50, Colors.YELLOW)
     stream_message(f"{Colors.BOLD}{Colors.YELLOW}MACRO ANALYSIS PHASE{Colors.ENDC}")
@@ -219,6 +241,8 @@ def run_macro_analyst(rating_json_path):
             stream_thinking("  Processing", 2)
             stream_message(f"    ✓ {step} complete", Colors.GREEN)
             time.sleep(0.5)
+            _incr("macro", job_id)          
+
         
         stream_message("\n🧠 Running Macro inference engine...", Colors.CYAN)
         stream_thinking("Generating macro insights", 3)
@@ -251,6 +275,7 @@ def run_macro_analyst(rating_json_path):
                     json.dump(rating_data, rating_file, indent=4)
                 
                 stream_message("\n✅ Macro analysis complete!", Colors.GREEN)
+                _finish("macro", job_id) 
                 return True
             else:
                 stream_message(f"\n❌ Macro Analyst JSON file not found at {macro_json_path}", Colors.RED)
@@ -262,7 +287,7 @@ def run_macro_analyst(rating_json_path):
         stream_message(f"\n❌ Error running Macro Analyst Agent: {str(e)}", Colors.RED)
         return False
 
-def run_micro_analyst(rating_json_path):
+def run_micro_analyst(rating_json_path, job_id: str | None = None):
     """Run the Micro Analyst Agent and update the Rating JSON with micro analysis"""
     stream_message("\n" + "=" * 50, Colors.BLUE)
     stream_message(f"{Colors.BOLD}{Colors.BLUE}MICRO ANALYSIS PHASE{Colors.ENDC}")
@@ -288,6 +313,7 @@ def run_micro_analyst(rating_json_path):
             stream_thinking("  Processing", 2)
             stream_message(f"    ✓ {step} complete", Colors.GREEN)
             time.sleep(0.5)
+            _incr("micro", job_id)
         
         stream_message("\n🧠 Running Micro inference engine...", Colors.CYAN)
         stream_thinking("Generating company insights", 3)
@@ -314,6 +340,7 @@ def run_micro_analyst(rating_json_path):
         
         if result:
             stream_message("\n✅ Micro analysis complete!", Colors.GREEN)
+            _finish("micro", job_id) 
             return True
         else:
             stream_message("\n❌ Failed to get micro analysis data", Colors.RED)
@@ -322,7 +349,7 @@ def run_micro_analyst(rating_json_path):
         stream_message(f"\n❌ Error running Micro Analyst Agent: {str(e)}", Colors.RED)
         return False
 
-def run_price_analyst(rating_json_path):
+def run_price_analyst(rating_json_path, job_id: str | None = None):
     """Run the Price Analyst Agent and update the Rating JSON with price analysis and strategy"""
     stream_message("\n" + "=" * 50, Colors.GREEN)
     stream_message(f"{Colors.BOLD}{Colors.GREEN}PRICE ANALYSIS PHASE{Colors.ENDC}")
@@ -362,6 +389,9 @@ def run_price_analyst(rating_json_path):
             stream_thinking("  Processing", 2)
             stream_message(f"    ✓ {step} complete", Colors.GREEN)
             time.sleep(0.5)
+            _incr("price", job_id)
+
+
         
         stream_message("\n🧠 Running Price inference engine...", Colors.CYAN)
         stream_thinking("Generating price strategy", 3)
@@ -441,6 +471,7 @@ def run_price_analyst(rating_json_path):
                 stream_message(f"Note: Could not extract strategy insights: {str(e)}", Colors.YELLOW)
             
             stream_message("\n✅ Price analysis and strategy complete!", Colors.GREEN)
+            _finish("price", job_id)
             return True
             
         except Exception as agent_error:
@@ -470,6 +501,7 @@ def run_price_analyst(rating_json_path):
                     json.dump(rating_data, f, indent=4)
                 
                 stream_message("Created fallback strategy data in Rating JSON", Colors.YELLOW)
+                _finish("price", job_id)
                 return True
             except Exception as fallback_error:
                 stream_message(f"\n❌ Fatal error in fallback strategy creation: {str(fallback_error)}", Colors.RED)
@@ -500,7 +532,7 @@ def run_price_analyst(rating_json_path):
             stream_message(f"\n❌ Critical failure in emergency fallback: {str(emergency_error)}", Colors.RED)
             return False
 
-def run_investment_integration_agent(rating_json_path):
+def run_investment_integration_agent(rating_json_path, job_id: str | None = None):
     """Run the Investment Integration Agent and get the final investment mindmap"""
     stream_message("\n" + "=" * 50, Colors.BLUE)
     stream_message(f"{Colors.BOLD}{Colors.BLUE}INTEGRATION PHASE{Colors.ENDC}")
@@ -515,6 +547,7 @@ def run_investment_integration_agent(rating_json_path):
         
         stream_message("\n🧠 Running Investment Integration Agent...", Colors.CYAN)
         stream_thinking("Integrating all analyses", 3)
+        _incr("strategy", job_id) 
         
         # Create Graph directory if it doesn't exist (needed for Price_Agent)
         ticker = None
@@ -558,7 +591,7 @@ def run_investment_integration_agent(rating_json_path):
                             stream_message(section, Colors.CYAN)
                     
                     stream_message("\n" + "*" * 60, Colors.BLUE)
-                
+                _finish("strategy", job_id) 
                 return True
             except Exception as e:
                 stream_message(f"\n⚠️ Warning: Error generating investment mindmap: {str(e)}", Colors.YELLOW)
@@ -695,7 +728,24 @@ def main():
     finally:
         # Stop the streaming thread
         stop_streaming()
-        stream_thread.join(timeout=1.0)
+        stream_thread.join(timeout=1.0)    
 
+def run_analysis(ticker: str, job_id: str | None = None) -> dict:
+    """
+    外部调用入口：同步执行完整分析并将结果以 dict 形式返回。
+    """
+    global _current_job; _current_job = job_id
+    for k in STEP_TOTAL:
+        _step_done[k] = 0
+
+    rating_json_path = create_rating_json(ticker)
+
+    run_macro_analyst(rating_json_path, job_id)
+    run_micro_analyst(rating_json_path, job_id)
+    run_price_analyst(rating_json_path, job_id)
+    run_investment_integration_agent(rating_json_path, job_id)
+    
+    with open(rating_json_path, "r", encoding="utf-8") as f:
+        return json.load(f)
 if __name__ == "__main__":
     main() 

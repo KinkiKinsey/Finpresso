@@ -1,0 +1,31 @@
+{
+  "get_earnings_surprises": {
+    "__dataframe__": true,
+    "data": [
+      {
+        "date": "2025-04-22",
+        "symbol": "TSLA",
+        "actualEarningResult": 0.27,
+        "estimatedEarning": 0.4097
+      },
+      {
+        "date": "2025-01-29",
+        "symbol": "TSLA",
+        "actualEarningResult": 0.73,
+        "estimatedEarning": 0.774
+      },
+      {
+        "date": "2024-10-23",
+        "symbol": "TSLA",
+        "actualEarningResult": 0.72,
+        "estimatedEarning": 0.58
+      },
+      {
+        "date": "2024-07-23",
+        "symbol": "TSLA",
+        "actualEarningResult": 0.52,
+        "estimatedEarning": 0.62
+      }
+    ]
+  }
+}

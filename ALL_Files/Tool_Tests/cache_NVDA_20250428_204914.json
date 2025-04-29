@@ -1,0 +1,18 @@
+{
+  "get_stock_metrics": {
+    "key_metrics": {
+      "EPS": "$2.94",
+      "ROIC": "Data unavailable",
+      "Debt_to_Equity": "0.14",
+      "Revenue_Growth": "114.20% YoY",
+      "Free_Cash_Flow": "Data unavailable",
+      "Beta": "1.96",
+      "Current_Price": "$108.73",
+      "Market_Cap": "$2653.01B",
+      "PE_Ratio": "36.98",
+      "PB_Ratio": "33.55"
+    },
+    "ticker": "NVDA",
+    "last_updated": "2025-04-28 20:49:14"
+  }
+}

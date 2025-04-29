@@ -1,0 +1,42 @@
+{
+  "analyze_earnings_vs_estimates": {
+    "data": [
+      {
+        "date": "2025-01-30",
+        "symbol": "AAPL",
+        "actualEarningResult": 2.4,
+        "estimatedEarning": 2.36,
+        "surprise_pct": 1.6949152542372898
+      },
+      {
+        "date": "2024-10-31",
+        "symbol": "AAPL",
+        "actualEarningResult": 1.64,
+        "estimatedEarning": 1.6,
+        "surprise_pct": 2.4999999999999885
+      },
+      {
+        "date": "2024-08-01",
+        "symbol": "AAPL",
+        "actualEarningResult": 1.4,
+        "estimatedEarning": 1.35,
+        "surprise_pct": 3.7037037037036904
+      },
+      {
+        "date": "2024-05-02",
+        "symbol": "AAPL",
+        "actualEarningResult": 1.53,
+        "estimatedEarning": 1.5,
+        "surprise_pct": 2.0000000000000018
+      }
+    ],
+    "summary": {
+      "total_quarters": 4,
+      "beats": 4,
+      "misses": 0,
+      "beat_rate": 1.0,
+      "average_surprise_pct": 2.4746547394852425,
+      "surprise_trend": -0.30508474576271194
+    }
+  }
+}
