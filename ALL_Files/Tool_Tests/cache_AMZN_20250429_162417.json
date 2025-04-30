@@ -1,0 +1,18 @@
+{
+  "get_stock_metrics": {
+    "key_metrics": {
+      "EPS": "$5.54",
+      "ROIC": "Data unavailable",
+      "Debt_to_Equity": "0.51",
+      "Revenue_Growth": "10.99% YoY",
+      "Free_Cash_Flow": "Data unavailable",
+      "Beta": "1.39",
+      "Current_Price": "$187.39",
+      "Market_Cap": "$1988.66B",
+      "PE_Ratio": "33.82",
+      "PB_Ratio": "6.94"
+    },
+    "ticker": "AMZN",
+    "last_updated": "2025-04-29 16:24:17"
+  }
+}
