@@ -1,0 +1,278 @@
+{
+  "get_stock_metrics": {
+    "key_metrics": {
+      "EPS": "$12.96",
+      "ROIC": "Data unavailable",
+      "Debt_to_Equity": "0.55",
+      "Revenue_Growth": "15.67% YoY",
+      "Free_Cash_Flow": "Data unavailable",
+      "Beta": "0.98",
+      "Current_Price": "$435.00",
+      "Market_Cap": "$3233.12B",
+      "PE_Ratio": "33.56",
+      "PB_Ratio": "10.05"
+    },
+    "ticker": "MSFT",
+    "last_updated": "2025-05-07 13:48:33"
+  },
+  "get_stock_dcf_valuation": {
+    "symbol": "MSFT",
+    "date": "2025-05-07",
+    "dcf": 368.30406820011444,
+    "Stock Price": 435.74
+  },
+  "get_peer_valuation_comparison": {
+    "__dataframe__": true,
+    "data": [
+      {
+        "ticker": "MSFT",
+        "price": 434.995,
+        "market_cap": 3233117896704,
+        "forward_pe": 29.096655,
+        "price_to_book": 10.046074,
+        "ev_to_ebitda": 21.76,
+        "profit_margins": 0.35789,
+        "sector": "Technology",
+        "industry": "Software - Infrastructure",
+        "market_cap_B": 3233.117896704,
+        "forward_pe_rank": 0.5,
+        "price_to_book_rank": 0.5,
+        "ev_to_ebitda_rank": 0.5454545454545454
+      },
+      {
+        "ticker": "SAP",
+        "price": 297.4,
+        "market_cap": 348520087552,
+        "forward_pe": 44.059258,
+        "price_to_book": 7.592351,
+        "ev_to_ebitda": 34.94,
+        "profit_margins": 0.16308,
+        "sector": "Technology",
+        "industry": "Software - Application",
+        "market_cap_B": 348.520087552,
+        "forward_pe_rank": 0.6666666666666666,
+        "price_to_book_rank": 0.3333333333333333,
+        "ev_to_ebitda_rank": 0.7272727272727273
+      },
+      {
+        "ticker": "CRM",
+        "price": 277.6,
+        "market_cap": 266349985792,
+        "forward_pe": 24.941599,
+        "price_to_book": 4.365535,
+        "ev_to_ebitda": 23.399,
+        "profit_margins": 0.16353,
+        "sector": "Technology",
+        "industry": "Software - Application",
+        "market_cap_B": 266.349985792,
+        "forward_pe_rank": 0.25,
+        "price_to_book_rank": 0.16666666666666666,
+        "ev_to_ebitda_rank": 0.6363636363636364
+      },
+      {
+        "ticker": "NOW",
+        "price": 983.65,
+        "market_cap": 203594907648,
+        "forward_pe": 58.901196,
+        "price_to_book": 20.080227,
+        "ev_to_ebitda": 92.697,
+        "profit_margins": 0.1341,
+        "sector": "Technology",
+        "industry": "Software - Application",
+        "market_cap_B": 203.594907648,
+        "forward_pe_rank": 0.8333333333333334,
+        "price_to_book_rank": 0.8333333333333334,
+        "ev_to_ebitda_rank": 1.0
+      },
+      {
+        "ticker": "INTU",
+        "price": 640.02,
+        "market_cap": 178925273088,
+        "forward_pe": 28.790825,
+        "price_to_book": 9.974908,
+        "ev_to_ebitda": NaN,
+        "profit_margins": 0.17691,
+        "sector": "Technology",
+        "industry": "Software - Application",
+        "market_cap_B": 178.925273088,
+        "forward_pe_rank": 0.4166666666666667,
+        "price_to_book_rank": 0.4166666666666667,
+        "ev_to_ebitda_rank": NaN
+      },
+      {
+        "ticker": "ADBE",
+        "price": 385.3,
+        "market_cap": 164214849536,
+        "forward_pe": 18.749392,
+        "price_to_book": 12.799388,
+        "ev_to_ebitda": 18.737,
+        "profit_margins": 0.30635,
+        "sector": "Technology",
+        "industry": "Software - Application",
+        "market_cap_B": 164.214849536,
+        "forward_pe_rank": 0.16666666666666666,
+        "price_to_book_rank": 0.5833333333333334,
+        "ev_to_ebitda_rank": 0.45454545454545453
+      },
+      {
+        "ticker": "PANW",
+        "price": 188.91,
+        "market_cap": 125077307392,
+        "forward_pe": 26.237501,
+        "price_to_book": 19.568054,
+        "ev_to_ebitda": 89.835,
+        "profit_margins": 0.14637,
+        "sector": "Technology",
+        "industry": "Software - Infrastructure",
+        "market_cap_B": 125.077307392,
+        "forward_pe_rank": 0.3333333333333333,
+        "price_to_book_rank": 0.75,
+        "ev_to_ebitda_rank": 0.9090909090909091
+      },
+      {
+        "ticker": "WDAY",
+        "price": 249.29,
+        "market_cap": 66680586240,
+        "forward_pe": 30.034939,
+        "price_to_book": 7.349785,
+        "ev_to_ebitda": 74.251,
+        "profit_margins": 0.062280003,
+        "sector": "Technology",
+        "industry": "Software - Application",
+        "market_cap_B": 66.68058624,
+        "forward_pe_rank": 0.5833333333333334,
+        "price_to_book_rank": 0.25,
+        "ev_to_ebitda_rank": 0.8181818181818182
+      },
+      {
+        "ticker": "SNOW",
+        "price": 169.4999,
+        "market_cap": 56629915648,
+        "forward_pe": 182.25795,
+        "price_to_book": 18.864763,
+        "ev_to_ebitda": -41.382,
+        "profit_margins": -0.35452,
+        "sector": "Technology",
+        "industry": "Software - Application",
+        "market_cap_B": 56.629915648,
+        "forward_pe_rank": 1.0,
+        "price_to_book_rank": 0.6666666666666666,
+        "ev_to_ebitda_rank": 0.2727272727272727
+      },
+      {
+        "ticker": "TEAM",
+        "price": 205.93,
+        "market_cap": 54057857024,
+        "forward_pe": 50.104618,
+        "price_to_book": 39.586697,
+        "ev_to_ebitda": -690.289,
+        "profit_margins": -0.08659001,
+        "sector": "Technology",
+        "industry": "Software - Application",
+        "market_cap_B": 54.057857024,
+        "forward_pe_rank": 0.75,
+        "price_to_book_rank": 1.0,
+        "ev_to_ebitda_rank": 0.09090909090909091
+      },
+      {
+        "ticker": "ZS",
+        "price": 232.91,
+        "market_cap": 36036997120,
+        "forward_pe": 65.42416,
+        "price_to_book": 22.421064,
+        "ev_to_ebitda": -591.001,
+        "profit_margins": -0.00641,
+        "sector": "Technology",
+        "industry": "Software - Infrastructure",
+        "market_cap_B": 36.03699712,
+        "forward_pe_rank": 0.9166666666666666,
+        "price_to_book_rank": 0.9166666666666666,
+        "ev_to_ebitda_rank": 0.18181818181818182
+      },
+      {
+        "ticker": "DBX",
+        "price": 29.275,
+        "market_cap": 8428594688,
+        "forward_pe": 11.435547,
+        "price_to_book": -11.511993,
+        "ev_to_ebitda": 15.05,
+        "profit_margins": 0.1775,
+        "sector": "Technology",
+        "industry": "Software - Infrastructure",
+        "market_cap_B": 8.428594688,
+        "forward_pe_rank": 0.08333333333333333,
+        "price_to_book_rank": 0.08333333333333333,
+        "ev_to_ebitda_rank": 0.36363636363636365
+      }
+    ]
+  },
+  "get_earnings_surprises": {
+    "__dataframe__": true,
+    "data": [
+      {
+        "date": "2025-04-30",
+        "symbol": "MSFT",
+        "actualEarningResult": 3.46,
+        "estimatedEarning": 3.22
+      },
+      {
+        "date": "2025-01-29",
+        "symbol": "MSFT",
+        "actualEarningResult": 3.23,
+        "estimatedEarning": 3.15
+      },
+      {
+        "date": "2024-10-30",
+        "symbol": "MSFT",
+        "actualEarningResult": 3.3,
+        "estimatedEarning": 3.1
+      },
+      {
+        "date": "2024-07-30",
+        "symbol": "MSFT",
+        "actualEarningResult": 2.95,
+        "estimatedEarning": 2.93
+      }
+    ]
+  },
+  "analyze_earnings_vs_estimates": {
+    "data": [
+      {
+        "date": "2025-04-30",
+        "symbol": "MSFT",
+        "actualEarningResult": 3.46,
+        "estimatedEarning": 3.22,
+        "surprise_pct": 7.453416149068315
+      },
+      {
+        "date": "2025-01-29",
+        "symbol": "MSFT",
+        "actualEarningResult": 3.23,
+        "estimatedEarning": 3.15,
+        "surprise_pct": 2.539682539682542
+      },
+      {
+        "date": "2024-10-30",
+        "symbol": "MSFT",
+        "actualEarningResult": 3.3,
+        "estimatedEarning": 3.1,
+        "surprise_pct": 6.451612903225798
+      },
+      {
+        "date": "2024-07-30",
+        "symbol": "MSFT",
+        "actualEarningResult": 2.95,
+        "estimatedEarning": 2.93,
+        "surprise_pct": 0.6825938566552906
+      }
+    ],
+    "summary": {
+      "total_quarters": 4,
+      "beats": 4,
+      "misses": 0,
+      "beat_rate": 1.0,
+      "average_surprise_pct": 4.281826362157987,
+      "surprise_trend": 6.770822292413024
+    }
+  }
+}

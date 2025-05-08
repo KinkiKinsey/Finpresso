@@ -13,7 +13,12 @@ DATA_DIR  = pathlib.Path("ALL_Files/Rating_Json")
 GRAPH_DIR = pathlib.Path("ALL_Files/Graph")
 DATA_DIR.mkdir(parents=True, exist_ok=True)
 
-app = FastAPI(title="Finpresso API")
+app = FastAPI(title="Finpresso API")    
+@app.get("/health", include_in_schema=False)
+async def _health_check():
+    return {"status": "ok"}
+
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["http://localhost:5173"],
@@ -27,6 +32,7 @@ class AnalyzeReq(BaseModel):
     ticker: str
 
 # ---------------- 创建任务 ----------------
+
 @app.post("/api/v1/analysis", response_model=JobStatus)
 def create_job(req: AnalyzeReq, bg: BackgroundTasks):
     job_id = str(uuid.uuid4())

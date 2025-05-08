@@ -1,67 +1,61 @@
-Here’s the macroeconomic analysis based on the provided news:
+Here is the macroeconomic analysis based on the provided news:
 
-### **1. Japan’s Loan to Ukraine Backed by Frozen Russian Assets**  
-- **Event**: Japan signed a $3.3 billion loan agreement with Ukraine, funded by proceeds from frozen Russian assets under the G7’s ERA program. Russia condemned the move as "theft" and warned of deteriorating relations.  
-- **Impact**: This could escalate geopolitical tensions, particularly between Russia and Japan, potentially disrupting trade and diplomatic relations. It also strengthens Western financial support for Ukraine amid ongoing conflict.  
-- **Stock Market Implication**: Increased geopolitical risk may weigh on global markets, particularly sectors sensitive to Russia-Japan trade (e.g., energy, commodities).  
+1. **Event**: U.S. Defense Secretary Pete Hegseth ordered a temporary halt to military aid shipments to Ukraine, catching the White House and Pentagon off guard. The pause lasted several days before being reversed.  
+   **Impact**: This reflects internal policy disarray within the Trump administration, potentially undermining U.S. credibility in foreign military commitments. The abrupt halt could strain U.S.-Ukraine relations and disrupt defense supply chains.  
+   **Impact on Stock**: Defense and logistics stocks may face volatility due to uncertainty in military aid flows and policy instability.  
 
-### **2. German Finance Minister Advocates for Zero-Tariff Deal with U.S.**  
-- **Event**: Germany’s finance minister expressed optimism about resolving U.S.-EU tariff disputes, preferring a "zero-for-zero" tariff solution despite Trump’s rejection of earlier EU proposals. Germany revised its 2025 growth forecast to stagnation (0%) due to tariff pressures.  
-- **Impact**: Prolonged tariff uncertainty could further weaken Germany’s trade-dependent economy, though a potential deal might ease supply chain disruptions.  
-- **Stock Market Implication**: Positive for European automakers and exporters if tariffs ease, but continued uncertainty may dampen investor confidence.  
+2. **Event**: President Trump downplays tariff negotiations, stating, "We don't have to sign deals," while the EU trade chief insists the bloc won’t accept unfair U.S. tariff terms.  
+   **Impact**: Prolonged trade tensions could exacerbate global economic fragmentation, raising costs for businesses and consumers. The U.S. trade deficit has already hit a record high as firms rush to stockpile imports ahead of expected tariffs.  
+   **Impact on Stock**: Trade-sensitive sectors (automotive, agriculture, tech) may face pressure, while domestic manufacturers could see short-term gains.  
 
-### **3. Bank of England Warns of Tariff-Driven "Growth Shock"**  
-- **Event**: BOE Governor Andrew Bailey highlighted concerns over U.S. tariffs impacting U.K. growth, though he downplayed near-term recession risks. The IMF cut U.K. growth forecasts to 1.1% for 2025 due to tariffs and higher borrowing costs.  
-- **Impact**: Weak demand and trade redirection could disinflationary, but retaliatory tariffs might spike inflation.  
-- **Stock Market Implication**: Sterling-sensitive sectors (e.g., FTSE multinationals) may face volatility; services-heavy U.K. economy remains vulnerable to global trade slowdowns.  
+3. **Event**: The Federal Reserve is expected to keep rates unchanged despite Trump’s public pressure for cuts. Markets anticipate a potential rate cut in July.  
+   **Impact**: The Fed’s cautious stance signals concerns over lingering inflation risks, particularly from tariff-related price pressures. Higher-for-longer rates may slow economic growth but stabilize the dollar.  
+   **Impact on Stock**: Financial stocks may benefit from steady rates, while rate-sensitive sectors (real estate, utilities) could underperform.  
 
-### **4. U.S. Durable Goods Orders Surge 9.2% Ahead of Tariffs**  
-- **Event**: Companies rushed orders for big-ticket items (e.g., autos, aircraft) in March to avoid Trump’s April tariffs, driving a sharp rise in durable goods demand.  
-- **Impact**: Short-term demand pull-forward may lead to a subsequent slump, distorting Q2 economic data.  
-- **Stock Market Implication**: Cyclical sectors (e.g., industrials, autos) could see near-term gains but face downside risks as tariff effects materialize.  
+4. **Event**: China risks deeper deflation as it diverts U.S.-bound exports to its domestic market, triggering price wars.  
+   **Impact**: Excess supply in China’s domestic market could worsen deflationary pressures globally, dampening corporate profits and wage growth. This may also delay China’s economic recovery.  
+   **Impact on Stock**: Commodity-linked and China-exposed stocks (mining, luxury goods) may decline, while discount retailers could benefit from cheaper imports.  
 
-### **5. Fed Beige Book Reports Firms Passing Tariff Costs to Consumers**  
-- **Event**: Businesses are adding tariff surcharges, with firms expecting to raise prices amid weak demand in some sectors. Federal layoffs (via DOGE cuts) also dampened D.C.-area activity.  
-- **Impact**: Higher consumer prices could fuel inflation, while government job cuts may pressure local economies.  
-- **Stock Market Implication**: Inflation-sensitive sectors (e.g., staples, utilities) may outperform, but margin pressures could hurt discretionary spending.  
+5. **Event**: El Salvador’s President Bukele orders arrests of bus company executives for defying a free-transport order, citing "sabotage."  
+   **Impact**: Such interventionist policies risk destabilizing private sector confidence and could deter foreign investment in emerging markets.  
+   **Impact on Stock**: Latin American markets may see heightened political risk premiums, affecting regional equities and bonds.  
 
-### **6. China Demands U.S. Cancel Tariffs Before Trade Talks Resume**  
-- **Event**: China insists the U.S. must lift "unilateral" tariffs before negotiations, while Trump claims talks are "active"—denied by Beijing.  
-- **Impact**: Stalemate risks further trade fragmentation, disrupting global supply chains.  
-- **Stock Market Implication**: Volatility in China-exposed sectors (e.g., tech, manufacturing) likely until clarity emerges.  
+6. **Event**: U.S. payrolls grew by 177,000 in April, defying tariff concerns, while wage growth slowed to 3.8% YoY.  
+   **Impact**: Resilient labor markets suggest underlying economic strength, but slowing wage growth may ease inflation fears.  
+   **Impact on Stock**: Cyclical stocks (consumer discretionary, industrials) could rally on sustained demand optimism.  
 
-### **Key Themes**:  
-- **Tariffs dominate macroeconomic risks**, distorting trade flows, inflation, and growth forecasts.  
-- **Geopolitical tensions** (Russia-Japan, U.S.-China, U.S.-EU) add uncertainty.  
-- **Central banks** (BOE, Fed) face balancing acts between growth shocks and inflation.  
+7. **Event**: Eurozone inflation holds at 2.2% in April, with core inflation rising to 2.7%, complicating the ECB’s rate-cut path.  
+   **Impact**: Sticky inflation may delay further ECB easing, tightening financial conditions in Europe.  
+   **Impact on Stock**: European banking stocks may rise on higher rate expectations, while export-driven firms could suffer from a stronger euro.  
 
-**No significant non-tariff-related macroeconomic news detected.** Let me know if you'd like deeper analysis on any specific item.
+### Summary:  
+The macroeconomic landscape is dominated by **trade policy uncertainty** (tariffs, U.S.-EU tensions), **central bank divergence** (Fed/ECB caution vs. political pressure), and **geopolitical disruptions** (Ukraine aid, China deflation). Markets face mixed signals—strong labor data vs. inflation risks and policy volatility—likely sustaining equity market choppiness.  
+
+Let me know if you'd like deeper analysis on any specific trend.
 
 ================================================================================
 
 📅 TOP 10 IMPORTANT ECONOMIC DATA RELEASES 📅
 
-📆 April 24, 2025
-  • 08:00:00 | DE: Ifo Business Climate (Apr) (🔴 High Impact)
-    [Previous: 86.7, Estimate: 85.2, Actual: 86.9]
-  • 12:30:00 | US: Initial Jobless Claims (Apr/19) (🔴 High Impact)
-    [Previous: 216, Estimate: 222, Actual: 222]
-  • 12:30:00 | US: Durable Goods Orders MoM (Mar) (🔴 High Impact)
-    [Previous: 0.9, Estimate: 2, Actual: 9.2]
-  • 12:30:00 | US: Durable Goods Orders Ex Transp MoM (Mar) (🔴 High Impact)
-    [Previous: 0.7, Estimate: 0.3, Actual: None]
-  • 12:30:00 | US: Durable Goods Orders ex Defense MoM (Mar) (🔴 High Impact)
-    [Previous: 0.8, Estimate: 0.2, Actual: 10.4]
-  • 12:30:00 | US: Continuing Jobless Claims (Apr/12) (🔴 High Impact)
-    [Previous: 1878, Estimate: 1880, Actual: 1841]
-  • 12:30:00 | US: Jobless Claims 4-Week Average (Apr/19) (🔴 High Impact)
-    [Previous: 221, Estimate: 222, Actual: 220.25]
-  • 14:00:00 | US: Existing Home Sales MoM (🔴 High Impact)
-    [Previous: 4.4, Estimate: -3, Actual: -5.9]
-  • 14:00:00 | US: Existing Home Sales (Mar) (🔴 High Impact)
-    [Previous: 4.27, Estimate: 4.13, Actual: 4.02]
-
-📆 April 25, 2025
-  • 06:00:00 | UK: Retail Sales Ex Fuel MoM (Mar) (🔴 High Impact)
-    [Previous: 1, Estimate: -0.4, Actual: None]
+📆 May 06, 2025
+  • 04:30:00 | AU: Interest Rate Decision (May) (🔴 High Impact)
+    [Previous: 4.1, Estimate: None, Actual: None]
+  • 05:45:00 | CH: Unemployment Rate (Apr) (🔴 High Impact)
+    [Previous: 2.9, Estimate: 2.9, Actual: 2.8]
+  • 07:00:00 | ES: Employment Change (Apr) (🔴 High Impact)
+    [Previous: -13.3, Estimate: 6.5, Actual: -67.4]
+  • 07:15:00 | ES: HCOB Services PMI (Apr) (🔴 High Impact)
+    [Previous: 54.7, Estimate: 53.9, Actual: 53.4]
+  • 07:45:00 | IT: HCOB Services PMI (Apr) (🔴 High Impact)
+    [Previous: 52, Estimate: 51.4, Actual: 52.9]
+  • 07:50:00 | FR: HCOB Services PMI (Apr) (🔴 High Impact)
+    [Previous: 47.9, Estimate: 46.8, Actual: 47.3]
+  • 07:55:00 | DE: HCOB Services PMI (Apr) (🔴 High Impact)
+    [Previous: 50.9, Estimate: 48.8, Actual: 49]
+  • 08:00:00 | EU: HCOB Services PMI (Apr) (🔴 High Impact)
+    [Previous: 51, Estimate: 49.7, Actual: 50.1]
+  • 08:30:00 | UK: S&P Global Services PMI (Apr) (🔴 High Impact)
+    [Previous: 52.5, Estimate: 48.9, Actual: 49]
+  • 12:30:00 | CA: Balance of Trade (Mar) (🔴 High Impact)
+    [Previous: -1.41, Estimate: -1.6, Actual: -0.51]
 

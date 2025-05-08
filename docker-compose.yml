@@ -1,0 +1,20 @@
+version: "3.8"
+services:
+  backend:
+    image: fin-backend:latest
+    container_name: fin-backend
+    environment:
+      - API_KEY=Wmx@20020413
+    ports:
+      - "8000:8000"
+
+  frontend:
+    build:
+      context: ./finpresso-frontend
+      dockerfile: Dockerfile
+    container_name: fin-frontend
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+

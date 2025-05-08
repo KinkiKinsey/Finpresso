@@ -1,8 +1,0 @@
-{
-  "get_stock_dcf_valuation": {
-    "symbol": "AAPL",
-    "date": "2025-04-25",
-    "dcf": 157.53089390523178,
-    "Stock Price": 208.895
-  }
-}

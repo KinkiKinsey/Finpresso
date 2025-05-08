@@ -1,0 +1,14 @@
+{
+  "ServiceName": "fin-frontend-service",
+  "SourceConfiguration": {
+    "AutoDeploymentsEnabled": true,
+    "ImageRepository": {
+      "ImageIdentifier": "460453678467.dkr.ecr.us-east-1.amazonaws.com/fin-frontend:latest",
+      "ImageRepositoryType": "ECR",
+      "ImageConfiguration": {
+        "Port": "80"
+      }
+    }
+  }
+}
+

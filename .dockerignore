@@ -1,0 +1,13 @@
+# 后端镜像无需前端源代码
+finpresso-frontend/
+
+# Python 缓存
+__pycache__/
+*.py[cod]
+
+# Git
+.git/
+
+# Editor / OS
+*.DS_Store
+

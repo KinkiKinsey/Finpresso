@@ -1,0 +1,11 @@
+# 忽略本地依赖和构建产物
+node_modules
+dist
+build
+
+# IDE / OS 文件
+.vscode
+.DS_Store
+
+# 环境文件
+.env

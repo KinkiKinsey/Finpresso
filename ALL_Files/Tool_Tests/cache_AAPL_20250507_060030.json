@@ -1,0 +1,312 @@
+{
+  "get_stock_metrics": {
+    "key_metrics": {
+      "EPS": "$6.41",
+      "ROIC": "Data unavailable",
+      "Debt_to_Equity": "1.87",
+      "Revenue_Growth": "2.02% YoY",
+      "Free_Cash_Flow": "Data unavailable",
+      "Beta": "1.27",
+      "Current_Price": "$198.51",
+      "Market_Cap": "$2964.91B",
+      "PE_Ratio": "30.97",
+      "PB_Ratio": "44.40"
+    },
+    "ticker": "AAPL",
+    "last_updated": "2025-05-07 06:00:21"
+  },
+  "get_stock_dcf_valuation": {
+    "symbol": "AAPL",
+    "date": "2025-05-07",
+    "dcf": 156.00165096777735,
+    "Stock Price": 198.51
+  },
+  "get_peer_valuation_comparison": {
+    "__dataframe__": true,
+    "data": [
+      {
+        "ticker": "MSFT",
+        "price": 433.31,
+        "market_cap": 3220593967104,
+        "forward_pe": 28.983946,
+        "price_to_book": 10.007159,
+        "ev_to_ebitda": 21.76,
+        "profit_margins": 0.35789,
+        "sector": "Technology",
+        "industry": "Software - Infrastructure",
+        "market_cap_B": 3220.593967104,
+        "forward_pe_rank": 0.875,
+        "price_to_book_rank": 0.875,
+        "ev_to_ebitda_rank": 0.8666666666666667
+      },
+      {
+        "ticker": "AAPL",
+        "price": 198.51,
+        "market_cap": 2964905525248,
+        "forward_pe": 23.888084,
+        "price_to_book": 44.39946,
+        "ev_to_ebitda": 21.709,
+        "profit_margins": 0.24301,
+        "sector": "Technology",
+        "industry": "Consumer Electronics",
+        "market_cap_B": 2964.905525248,
+        "forward_pe_rank": 0.75,
+        "price_to_book_rank": 0.9375,
+        "ev_to_ebitda_rank": 0.8
+      },
+      {
+        "ticker": "GOOGL",
+        "price": 163.23,
+        "market_cap": 1991503773696,
+        "forward_pe": 18.217634,
+        "price_to_book": 5.7465234,
+        "ev_to_ebitda": 14.104,
+        "profit_margins": 0.30857,
+        "sector": "Communication Services",
+        "industry": "Internet Content & Information",
+        "market_cap_B": 1991.503773696,
+        "forward_pe_rank": 0.625,
+        "price_to_book_rank": 0.75,
+        "ev_to_ebitda_rank": 0.6
+      },
+      {
+        "ticker": "AMZN",
+        "price": 185.01,
+        "market_cap": 1964140134400,
+        "forward_pe": 30.082926,
+        "price_to_book": 6.4195004,
+        "ev_to_ebitda": 16.073,
+        "profit_margins": 0.1014,
+        "sector": "Consumer Cyclical",
+        "industry": "Internet Retail",
+        "market_cap_B": 1964.1401344,
+        "forward_pe_rank": 0.9375,
+        "price_to_book_rank": 0.8125,
+        "ev_to_ebitda_rank": 0.6666666666666666
+      },
+      {
+        "ticker": "TCEHY",
+        "price": 64.89,
+        "market_cap": 590906523648,
+        "forward_pe": 17.121372,
+        "price_to_book": 0.6087356,
+        "ev_to_ebitda": 2.99,
+        "profit_margins": 0.29393998,
+        "sector": "Communication Services",
+        "industry": "Internet Content & Information",
+        "market_cap_B": 590.906523648,
+        "forward_pe_rank": 0.5625,
+        "price_to_book_rank": 0.3125,
+        "ev_to_ebitda_rank": 0.26666666666666666
+      },
+      {
+        "ticker": "SSNLF",
+        "price": 40.5999,
+        "market_cap": 301846429696,
+        "forward_pe": 9.144121,
+        "price_to_book": 0.0008192704,
+        "ev_to_ebitda": -1.237,
+        "profit_margins": 0.11368,
+        "sector": "Technology",
+        "industry": "Consumer Electronics",
+        "market_cap_B": 301.846429696,
+        "forward_pe_rank": 0.25,
+        "price_to_book_rank": 0.1875,
+        "ev_to_ebitda_rank": 0.13333333333333333
+      },
+      {
+        "ticker": "SONY",
+        "price": 25.23,
+        "market_cap": 156313468928,
+        "forward_pe": 21.20168,
+        "price_to_book": 0.01857198,
+        "ev_to_ebitda": 1.883,
+        "profit_margins": 0.082049996,
+        "sector": "Technology",
+        "industry": "Consumer Electronics",
+        "market_cap_B": 156.313468928,
+        "forward_pe_rank": 0.6875,
+        "price_to_book_rank": 0.25,
+        "ev_to_ebitda_rank": 0.2
+      },
+      {
+        "ticker": "DELL",
+        "price": 93.95,
+        "market_cap": 65562161152,
+        "forward_pe": 9.994681,
+        "price_to_book": -44.1287,
+        "ev_to_ebitda": 8.981,
+        "profit_margins": 0.048049998,
+        "sector": "Technology",
+        "industry": "Computer Hardware",
+        "market_cap_B": 65.562161152,
+        "forward_pe_rank": 0.375,
+        "price_to_book_rank": 0.0625,
+        "ev_to_ebitda_rank": 0.4666666666666667
+      },
+      {
+        "ticker": "GRMN",
+        "price": 187.14,
+        "market_cap": 36032122880,
+        "forward_pe": 25.08579,
+        "price_to_book": 4.409104,
+        "ev_to_ebitda": 18.532,
+        "profit_margins": 0.22761999,
+        "sector": "Technology",
+        "industry": "Scientific & Technical Instruments",
+        "market_cap_B": 36.03212288,
+        "forward_pe_rank": 0.8125,
+        "price_to_book_rank": 0.625,
+        "ev_to_ebitda_rank": 0.7333333333333333
+      },
+      {
+        "ticker": "FITB",
+        "price": 36.63,
+        "market_cap": 24442173440,
+        "forward_pe": 10.035617,
+        "price_to_book": 1.3365687,
+        "ev_to_ebitda": NaN,
+        "profit_margins": 0.29202,
+        "sector": "Financial Services",
+        "industry": "Banks - Regional",
+        "market_cap_B": 24.44217344,
+        "forward_pe_rank": 0.4375,
+        "price_to_book_rank": 0.5,
+        "ev_to_ebitda_rank": NaN
+      },
+      {
+        "ticker": "HPQ",
+        "price": 25.63,
+        "market_cap": 24161476608,
+        "forward_pe": 7.1194444,
+        "price_to_book": -22.581497,
+        "ev_to_ebitda": 6.52,
+        "profit_margins": 0.05045,
+        "sector": "Technology",
+        "industry": "Computer Hardware",
+        "market_cap_B": 24.161476608,
+        "forward_pe_rank": 0.0625,
+        "price_to_book_rank": 0.125,
+        "ev_to_ebitda_rank": 0.4
+      },
+      {
+        "ticker": "HPE",
+        "price": 16.49,
+        "market_cap": 21660934144,
+        "forward_pe": 7.852381,
+        "price_to_book": 0.85863054,
+        "ev_to_ebitda": 5.337,
+        "profit_margins": 0.09028,
+        "sector": "Technology",
+        "industry": "Communication Equipment",
+        "market_cap_B": 21.660934144,
+        "forward_pe_rank": 0.1875,
+        "price_to_book_rank": 0.4375,
+        "ev_to_ebitda_rank": 0.3333333333333333
+      },
+      {
+        "ticker": "LNVGY",
+        "price": 24.2,
+        "market_cap": 15009639424,
+        "forward_pe": 9.641435,
+        "price_to_book": 59.75309,
+        "ev_to_ebitda": 88.979,
+        "profit_margins": 0.02339,
+        "sector": "Technology",
+        "industry": "Computer Hardware",
+        "market_cap_B": 15.009639424,
+        "forward_pe_rank": 0.3125,
+        "price_to_book_rank": 1.0,
+        "ev_to_ebitda_rank": 1.0
+      },
+      {
+        "ticker": "LOGI",
+        "price": 76.52,
+        "market_cap": 11459329024,
+        "forward_pe": 16.315563,
+        "price_to_book": 5.34171,
+        "ev_to_ebitda": 13.247,
+        "profit_margins": 0.13865,
+        "sector": "Technology",
+        "industry": "Computer Hardware",
+        "market_cap_B": 11.459329024,
+        "forward_pe_rank": 0.5,
+        "price_to_book_rank": 0.6875,
+        "ev_to_ebitda_rank": 0.5333333333333333
+      },
+      {
+        "ticker": "BB",
+        "price": 3.61,
+        "market_cap": 2152404736,
+        "forward_pe": 45.125,
+        "price_to_book": 2.9908864,
+        "ev_to_ebitda": 32.327,
+        "profit_margins": -0.14769,
+        "sector": "Technology",
+        "industry": "Software - Infrastructure",
+        "market_cap_B": 2.152404736,
+        "forward_pe_rank": 1.0,
+        "price_to_book_rank": 0.5625,
+        "ev_to_ebitda_rank": 0.9333333333333333
+      },
+      {
+        "ticker": "XPER",
+        "price": 7.02,
+        "market_cap": 319538464,
+        "forward_pe": 7.237113,
+        "price_to_book": 0.7252066,
+        "ev_to_ebitda": -9.02,
+        "profit_margins": -0.028369999,
+        "sector": "Technology",
+        "industry": "Software - Application",
+        "market_cap_B": 0.319538464,
+        "forward_pe_rank": 0.125,
+        "price_to_book_rank": 0.375,
+        "ev_to_ebitda_rank": 0.06666666666666667
+      }
+    ]
+  },
+  "get_earnings_surprises": {
+    "__dataframe__": true,
+    "data": [
+      {
+        "date": "2025-05-01",
+        "symbol": "AAPL",
+        "actualEarningResult": 1.65,
+        "estimatedEarning": 1.63
+      },
+      {
+        "date": "2025-01-30",
+        "symbol": "AAPL",
+        "actualEarningResult": 2.4,
+        "estimatedEarning": 2.36
+      }
+    ]
+  },
+  "analyze_earnings_vs_estimates": {
+    "data": [
+      {
+        "date": "2025-05-01",
+        "symbol": "AAPL",
+        "actualEarningResult": 1.65,
+        "estimatedEarning": 1.63,
+        "surprise_pct": 1.2269938650306762
+      },
+      {
+        "date": "2025-01-30",
+        "symbol": "AAPL",
+        "actualEarningResult": 2.4,
+        "estimatedEarning": 2.36,
+        "surprise_pct": 1.6949152542372898
+      }
+    ],
+    "summary": {
+      "total_quarters": 2,
+      "beats": 2,
+      "misses": 0,
+      "beat_rate": 1.0,
+      "average_surprise_pct": 1.460954559633983,
+      "surprise_trend": -0.46792138920661364
+    }
+  }
+}

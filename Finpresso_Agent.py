@@ -51,7 +51,7 @@ class Colors:
     UNDERLINE = '\033[4m'
 
 from job_registry import jobs               # ★新增：全局 dict
-STEP_TOTAL = {"macro": 8, "micro": 8, "price": 8, "strategy": 4}
+STEP_TOTAL = {"macro": 8, "micro": 17, "price": 8, "strategy": 4}
 _step_done: dict[str, int] = {}
 _current_job: str | None = None
 ANSI_RE = re.compile(r"\x1B\[[0-9;]*m") 
@@ -243,48 +243,186 @@ def run_macro_analyst(rating_json_path, job_id: str | None = None):
             time.sleep(0.5)
             _incr("macro", job_id)          
 
-        
         stream_message("\n🧠 Running Macro inference engine...", Colors.CYAN)
         stream_thinking("Generating macro insights", 3)
         
-        # Actually run the macro analysis
-        macro_data = run_macro_kick_off_agent()
-        
-        if macro_data and isinstance(macro_data, dict):
-            # Copy the Macro_Analyst_Json.json data to the Rating JSON
-            macro_json_path = os.path.join(MACRO_FILES_DIR, "Macro_Analyst_Json.json")
-            if os.path.exists(macro_json_path):
-                with open(macro_json_path, 'r') as macro_file:
-                    macro_data = json.load(macro_file)
+        # Run the macro analysis to update or create Macro_Analyst_Json.json
+        success = run_macro_kick_off_agent()
+        if not success:
+            stream_message("\n❌ Failed to generate/update macro analysis", Colors.RED)
+            return False
+            
+        # Read the macro analysis from Macro_Files/Macro_Analyst_Json.json
+        macro_json_path = os.path.join(ALL_FILES_DIR, 'Macro_Files', 'Macro_Analyst_Json.json')
+        try:
+            with open(macro_json_path, 'r') as f:
+                macro_data = json.load(f)['data']
+        except Exception as e:
+            stream_message(f"\n❌ Error reading macro analysis: {e}", Colors.RED)
+            return False
+            
+        # Generate next inference hint based on macro data and ticker
+        try:
+            # Get ticker from rating JSON
+            with open(rating_json_path, 'r') as f:
+                rating_data = json.load(f)
+                ticker = rating_data.get('Ticker')
                 
-                # Display some macro insights
-                stream_message("\n📈 Key Macro Insights:", Colors.BLUE)
-                if "key_findings" in macro_data:
-                    for finding in macro_data["key_findings"][:3]:  # Show top 3 findings
-                        stream_message(f"  • {finding}", Colors.BLUE)
+            if not ticker:
+                stream_message("\n❌ No ticker found in rating JSON", Colors.RED)
+                return False
                 
-                # Load the Rating JSON
-                with open(rating_json_path, 'r') as rating_file:
-                    rating_data = json.load(rating_file)
+            # Generate inference hint using LLM
+            prompt = f"""
+            You are a financial analyst creating a forward-looking inference about how macro conditions will affect {ticker}.
+            
+            Based on the following macro analysis:
+            Summary: {macro_data.get('summary', '')}
+            Market Sentiment: {macro_data.get('sentiment', '')}
+            Market Trend: {macro_data.get('trend', '')}
+            Key Indicators:
+            - GDP Growth: {macro_data.get('key_indicators', {}).get('GDP_growth_description', '')}
+            - Inflation: {macro_data.get('key_indicators', {}).get('Inflation_rate_description', '')}
+            - Interest Rates: {macro_data.get('key_indicators', {}).get('Interest_rate_description', '')}
+            
+            Upcoming Catalysts:
+            {', '.join(macro_data.get('macro_catalysts', [])[:3]) if macro_data.get('macro_catalysts') else 'No major catalysts identified'}
+            
+            Provide a concise, forward-looking inference about how these macro conditions will likely impact {ticker} in the next 1-3 months.
+            Focus on:
+            1. The most significant macro factor that will affect this stock
+            2. Whether this creates a tailwind or headwind
+            3. Any specific catalyst that could change this outlook
+            
+            Return ONLY a single paragraph, no more than 3-4 sentences.
+            """
+            
+            from LLM_API_CALL import deepseek_api_call
+            next_inference = deepseek_api_call(prompt).strip()
+            
+            # Update rating JSON with macro data and inference hint
+            rating_data['Macro'] = macro_data
+            rating_data['Macro']['next_inference_hint'] = next_inference
+            
+            with open(rating_json_path, 'w') as f:
+                json.dump(rating_data, f, indent=4, cls=NumpyJSONEncoder)
                 
-                # Update the Macro section
-                rating_data["Macro"] = macro_data
+            # Display key insights
+            stream_message("\n📈 Key Macro Insights:", Colors.BLUE)
+            if macro_data.get('summary'):
+                stream_message(f"  • Summary: {macro_data['summary']}", Colors.BLUE)
+            
+            if macro_data.get('sentiment'):
+                stream_message(f"  • Market Sentiment: {macro_data['sentiment']}", Colors.BLUE)
                 
-                # Save the updated Rating JSON
-                with open(rating_json_path, 'w') as rating_file:
-                    json.dump(rating_data, rating_file, indent=4)
+            if macro_data.get('trend'):
+                stream_message(f"  • Market Trend: {macro_data['trend']}", Colors.BLUE)
                 
-                stream_message("\n✅ Macro analysis complete!", Colors.GREEN)
-                _finish("macro", job_id) 
-                return True
-            else:
-                stream_message(f"\n❌ Macro Analyst JSON file not found at {macro_json_path}", Colors.RED)
-        else:
-            stream_message("\n❌ Failed to get macro analysis data", Colors.RED)
-        
-        return False
+            if macro_data.get('macro_catalysts'):
+                stream_message("\n  • Key Catalysts:", Colors.BLUE)
+                for catalyst in macro_data['macro_catalysts'][:2]:
+                    stream_message(f"    - {catalyst}", Colors.BLUE)
+                    
+            stream_message("\n🔮 Next Inference Hint:", Colors.YELLOW)
+            stream_message(f"  {next_inference}", Colors.YELLOW)
+            
+            stream_message("\n✅ Macro analysis complete!", Colors.GREEN)
+            _finish("macro", job_id)
+            return True
+            
+        except Exception as e:
+            stream_message(f"\n❌ Error generating inference hint: {e}", Colors.RED)
+            return False
+            
     except Exception as e:
-        stream_message(f"\n❌ Error running Macro Analyst Agent: {str(e)}", Colors.RED)
+        stream_message(f"\n❌ Error in macro analysis: {e}", Colors.RED)
+        return False
+
+def run_micro_news(rating_json_path, job_id: str | None = None):
+    """Run the Micro News Agent to analyze company news and generate inference hints"""
+    stream_message("\n" + "=" * 50, Colors.CYAN)
+    stream_message(f"{Colors.BOLD}{Colors.CYAN}MICRO NEWS ANALYSIS PHASE{Colors.ENDC}")
+    stream_message("=" * 50, Colors.CYAN)
+    
+    stream_message("🔍 Initializing Micro News Agent...", Colors.CYAN)
+    
+    try:
+        # Import and run the Micro News Agent
+        sys.path.append(ALL_FILES_DIR)
+        from Micro_News_Agent import process_ticker
+        
+        # Get ticker from rating JSON
+        with open(rating_json_path, 'r') as f:
+            rating_data = json.load(f)
+            ticker = rating_data.get("Ticker")
+            
+        if not ticker:
+            stream_message("❌ No ticker found in rating JSON", Colors.RED)
+            return False
+            
+        # Simulate news analysis steps
+        news_steps = ["Fetching recent news", "Filtering relevant articles", 
+                     "Analyzing news sentiment", "Extracting key takeaways",
+                     "Identifying market expectations", "Generating news inference",
+                     "Validating news impact", "Synthesizing news view"]
+                     
+        stream_message("\n📰 News Analysis Process:", Colors.CYAN)
+        for i, step in enumerate(news_steps):
+            stream_progress("News Analysis", len(news_steps), i)
+            stream_message(f"\n  - {step}...", Colors.CYAN)
+            stream_thinking("  Processing", 2)
+            stream_message(f"    ✓ {step} complete", Colors.GREEN)
+            time.sleep(0.5)
+            _incr("micro", job_id)
+            
+        stream_message("\n🧠 Running News inference engine...", Colors.CYAN)
+        stream_thinking("Analyzing company news", 3)
+        
+        # Process the ticker's news
+        news_data = process_ticker(ticker)
+        if not isinstance(news_data, dict):
+            stream_message("\n❌ News data is not a dictionary", Colors.RED)
+            return False
+            
+        # Read current rating JSON
+        with open(rating_json_path, 'r') as f:
+            rating_data = json.load(f)
+            
+        # Update Micro section with news data
+        if "Micro" not in rating_data:
+            rating_data["Micro"] = {}
+            
+        rating_data["Micro"].update({
+            "Three_Key_Takeaways": news_data.get("Three_Key_Takeaways", ""),
+            "Micro_Expectation": news_data.get("Micro_Expectation", ""),
+            "Next_Inference_Hint_Micro_News": news_data.get("Next_Inference_Hint_Micro_News", "")
+        })
+        
+        # Save updated rating JSON
+        with open(rating_json_path, 'w') as f:
+            json.dump(rating_data, f, indent=4, cls=NumpyJSONEncoder)
+            
+        # Display key insights
+        stream_message("\n📊 Key News Insights:", Colors.BLUE)
+        
+        if news_data.get("Three_Key_Takeaways"):
+            stream_message("\n  • Key Takeaways:", Colors.BLUE)
+            for takeaway in news_data["Three_Key_Takeaways"][:3]:
+                stream_message(f"    - {takeaway}", Colors.BLUE)
+                
+        if news_data.get("Micro_Expectation"):
+            stream_message("\n  • Market Expectations:", Colors.BLUE)
+            stream_message(f"    {news_data['Micro_Expectation']}", Colors.BLUE)
+            
+        if news_data.get("Next_Inference_Hint_Micro_News"):
+            stream_message("\n🔮 Next Inference Hint:", Colors.YELLOW)
+            stream_message(f"  {news_data['Next_Inference_Hint_Micro_News']}", Colors.YELLOW)
+            
+        stream_message("\n✅ News analysis complete!", Colors.GREEN)
+        return True
+        
+    except Exception as e:
+        stream_message(f"\n❌ Error in news analysis: {e}", Colors.RED)
         return False
 
 def run_micro_analyst(rating_json_path, job_id: str | None = None):
@@ -340,6 +478,7 @@ def run_micro_analyst(rating_json_path, job_id: str | None = None):
         
         if result:
             stream_message("\n✅ Micro analysis complete!", Colors.GREEN)
+            _incr("micro", job_id)
             _finish("micro", job_id) 
             return True
         else:
@@ -388,7 +527,6 @@ def run_price_analyst(rating_json_path, job_id: str | None = None):
             stream_message(f"\n  - {step}...", Colors.CYAN)
             stream_thinking("  Processing", 2)
             stream_message(f"    ✓ {step} complete", Colors.GREEN)
-            time.sleep(0.5)
             _incr("price", job_id)
 
 
@@ -558,6 +696,7 @@ def run_investment_integration_agent(rating_json_path, job_id: str | None = None
                 if ticker:
                     # Create ticker-specific graph directory
                     ensure_ticker_graph_directory(ticker)
+                _incr("strategy", job_id) 
         except Exception as e:
             stream_message(f"Warning: Error ensuring Graph directory: {str(e)}", Colors.YELLOW)
         
@@ -572,6 +711,7 @@ def run_investment_integration_agent(rating_json_path, job_id: str | None = None
                 
                 # Save the mindmap to the Rating JSON
                 investment_agent.update_rating_json()
+                _incr("strategy", job_id)
                 
                 # Display the investment mindmap sections with formatting
                 if investment_mindmap:
@@ -591,6 +731,7 @@ def run_investment_integration_agent(rating_json_path, job_id: str | None = None
                             stream_message(section, Colors.CYAN)
                     
                     stream_message("\n" + "*" * 60, Colors.BLUE)
+                _incr("strategy", job_id)
                 _finish("strategy", job_id) 
                 return True
             except Exception as e:
@@ -708,6 +849,10 @@ def main():
         if not run_macro_analyst(rating_json_path):
             stream_message("Failed to complete Macro analysis. Continuing with the workflow...", Colors.YELLOW)
         
+        # Run the Micro News Agent
+        if not run_micro_news(rating_json_path):
+            stream_message("Failed to complete Micro News analysis. Continuing with the workflow...", Colors.YELLOW)
+        
         # Run the Micro Analyst Agent
         if not run_micro_analyst(rating_json_path):
             stream_message("Failed to complete Micro analysis. Continuing with the workflow...", Colors.YELLOW)
@@ -731,21 +876,51 @@ def main():
         stream_thread.join(timeout=1.0)    
 
 def run_analysis(ticker: str, job_id: str | None = None) -> dict:
-    """
-    外部调用入口：同步执行完整分析并将结果以 dict 形式返回。
-    """
-    global _current_job; _current_job = job_id
+    global _current_job
+    _current_job = job_id
     for k in STEP_TOTAL:
         _step_done[k] = 0
+    """Run the complete analysis pipeline for a given ticker"""
+    try:
+        # Create rating JSON
+        rating_json_path = create_rating_json(ticker)
+        if not rating_json_path:
+            return None
+            
+        # Run macro analysis
+        if not run_macro_analyst(rating_json_path, job_id):
+            return None
+            
+        # Run micro news analysis
+        if not run_micro_news(rating_json_path, job_id):
+            return None
+            
+        # Run micro analysis
+        if not run_micro_analyst(rating_json_path, job_id):
+            return None
+            
+        # Run price analysis
+        if not run_price_analyst(rating_json_path, job_id):
+            return None
+            
+        # Run investment integration
+        if not run_investment_integration_agent(rating_json_path, job_id):
+            return None
+            
+        # Display final results
+        display_final_results(rating_json_path, ticker)
+        
+        # Return the final rating data
+        try:
+            with open(rating_json_path, 'r') as f:
+                return json.load(f)
+        except Exception as e:
+            print(f"Error reading final rating JSON: {e}")
+            return None
+            
+    except Exception as e:
+        print(f"Error in analysis pipeline: {e}")
+        return None
 
-    rating_json_path = create_rating_json(ticker)
-
-    run_macro_analyst(rating_json_path, job_id)
-    run_micro_analyst(rating_json_path, job_id)
-    run_price_analyst(rating_json_path, job_id)
-    run_investment_integration_agent(rating_json_path, job_id)
-    
-    with open(rating_json_path, "r", encoding="utf-8") as f:
-        return json.load(f)
 if __name__ == "__main__":
     main() 

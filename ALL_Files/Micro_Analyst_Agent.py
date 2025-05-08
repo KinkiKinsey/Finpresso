@@ -405,27 +405,41 @@ class MicroAnalystAgent:
         
         if verbose:
             print(f"\n🔄 RESPONSE: Received tool selection from LLM")
+            print(f"RAW LLM RESPONSE:\n{llm_response}\n")
         
-        # Try to parse the response as JSON
+        # Try to extract JSON from markdown/code blocks
+        json_str = None
+        if llm_response:
+            # Remove markdown code block if present
+            match = re.search(r"```json\\s*(\\{[\\s\\S]*?\\})\\s*```", llm_response)
+            if match:
+                json_str = match.group(1)
+            else:
+                # Try to find any JSON object in the string
+                match = re.search(r"(\\{[\\s\\S]*\\})", llm_response)
+                if match:
+                    json_str = match.group(1)
+                else:
+                    json_str = llm_response.strip()
+
+        # Try to parse the cleaned JSON
         try:
-            tool_selection = json.loads(llm_response)
-            
+            tool_selection = json.loads(json_str)
             if verbose and "reasoning_process" in tool_selection:
                 print(f"\n🧠 REASONING PROCESS:")
                 reasoning = tool_selection["reasoning_process"]
-                # Print reasoning in chunks
-                for line in reasoning.split("\n"):
+                for line in reasoning.split("\\n"):
                     print(f"  {line}")
-                    
             return tool_selection
         except Exception as e:
             if verbose:
                 print(f"\n⚠️ WARNING: Failed to parse LLM response as JSON: {str(e)}")
                 print(f"Falling back to regex extraction of tool names")
+                print(f"RAW LLM RESPONSE (for debugging):\n{llm_response}\n")
             
             # If JSON parsing fails, extract tool names using regex
             tool_regex = r'(get_stock_metrics|get_stock_beta|get_stock_dcf_valuation|get_stock_detailed_dcf|get_company_profile|get_stock_peers|get_peer_valuation_comparison|get_peer_beta_comparison|get_earnings_calendar|get_earnings_surprises|analyze_earnings_vs_estimates)'
-            tools = re.findall(tool_regex, llm_response)
+            tools = re.findall(tool_regex, llm_response or "")
             
             # If no tools found, return a default set
             if not tools:
@@ -924,12 +938,9 @@ class MicroAnalystAgent:
         
         # Preserve important existing Micro fields
         preserve_fields = [
-            "Three_Key_Takeaway_News", 
-            "Micro_Expectations", 
-            "news",
-            "key_news",
-            "news_summary",
-            "Next_Inference_Hint_Micro_News"  # Also preserve the hint for reference
+            "Three_Key_Takeaways",
+            "Micro_Expectation",
+            "Next_Inference_Hint_Micro_News"
         ]
         
         for field in preserve_fields:
@@ -961,6 +972,11 @@ class MicroAnalystAgent:
             print(f"\n✅ Updated the Micro section in rating JSON with enhanced format")
             print(f"📊 Tools used: {', '.join(analysis_results.get('tools_used', []))}")
             print(f"💾 File saved: {rating_path}")
+        
+        # Optionally, clean up legacy keys
+        for legacy_key in ["Three_Key_Takeaway_News", "Micro_Expectations"]:
+            if legacy_key in rating_data["Micro"]:
+                del rating_data["Micro"][legacy_key]
     
     def run_analysis(self, rating_path: str = None, verbose: bool = True) -> Dict:
         """
@@ -974,278 +990,96 @@ class MicroAnalystAgent:
         Returns:
             Dict containing discovered facts and analysis
         """
-        # Get the rating JSON file
-        if rating_path is None:
-            if verbose:
-                print("🔍 STEP 1: Loading the latest rating JSON file")
-            rating_path, rating_data = self.get_latest_rating_json()
-        else:
-            if verbose:
-                print(f"🔍 STEP 1: Loading rating JSON from {rating_path}")
-            rating_data = self.load_rating_json(rating_path)
-        
+        # Load the rating JSON
+        rating_data = self.load_rating_json(rating_path)
         ticker = rating_data.get("Ticker", "")
-        macro_data = rating_data.get("Macro", {})
-        micro_data = rating_data.get("Micro", {})
-        
-        if not ticker:
-            raise ValueError("No ticker found in rating data")
-        
-        if verbose:
-            print(f"\n📊 Analyzing {ticker}...")
-            print(f"\n🌎 Macro Context: {macro_data.get('summary', 'N/A')[:200]}...")
-            
-            # Print key news points if available
-            if "key_news" in macro_data:
-                print("\n📰 Key Macro News Points:")
-                for i, news in enumerate(macro_data.get("key_news", [])[:3], 1):
-                    print(f"  {i}. {news[:150]}...")
-            
-            # Print key micro news if available
-            if "Three_Key_Takeaway_News" in micro_data:
-                print("\n📰 Key Micro News:")
-                print(f"  {micro_data.get('Three_Key_Takeaway_News', '')[:200]}...")
-        
-        # Determine which micro tools to use for fact-checking
-        if verbose:
-            print("\n🔍 STEP 2: Identifying fact claims and expectations to verify")
-        tool_selection = self.determine_micro_tools(rating_data, verbose)
-        selected_tools = tool_selection.get("selected_tools", [])
-        
-        if verbose:
-            print(f"\n🔧 Selected Tools: {', '.join(selected_tools)}")
-            
-            # Print facts to verify
-            facts_to_verify = tool_selection.get("facts_to_verify", [])
-            if facts_to_verify:
-                print("\n🔍 Facts to Verify:")
-                for i, fact in enumerate(facts_to_verify[:5], 1):
-                    print(f"  {i}. {fact}")
-                
-            # Print expectations to test
-            expectations_to_test = tool_selection.get("expectations_to_test", [])
-            if expectations_to_test:
-                print("\n🔮 Market Expectations to Test:")
-                for i, expectation in enumerate(expectations_to_test[:5], 1):
-                    print(f"  {i}. {expectation}")
-            
-            print("\n📝 Tool Selection Rationale:")
-            for tool, rationale in tool_selection.get("rationale", {}).items():
-                print(f"  - {tool}: {rationale}")
-        
-        # Execute the selected micro tools to gather data for fact-checking
-        if verbose:
-            print("\n🔍 STEP 3: Gathering data to verify facts and test expectations")
-        
-        tool_results = {}
-        for tool in selected_tools:
-            if verbose:
-                print(f"  ⚙️ Running {tool}...")
-            
-            # Execute each tool individually to track progress
-            single_result = self.execute_micro_tools(ticker, [tool], verbose)
-            tool_results.update(single_result)
-            
-            if verbose:
-                # Print a brief summary of the result
-                if tool in single_result:
-                    result = single_result[tool]
-                    if isinstance(result, dict) and "error" in result:
-                        print(f"     ❌ Error: {result['error']}")
-                    else:
-                        print(f"     ✓ Completed successfully")
-        
-        # Analyze the results, separating fact from fiction
-        if verbose:
-            print("\n🔍 STEP 4: Analyzing data to provide reasoning, tools used, and results")
-        analysis_results = self.analyze_results(ticker, macro_data, micro_data, tool_results, verbose)
-        
-        # Generate price inference
-        if verbose:
-            print("\n🔍 STEP 5: Generating price inference based on micro analysis")
-        price_inference = self.generate_price_inference(ticker, self.extract_inference_hints(rating_data, verbose), tool_results, analysis_results, verbose)
-        
-        # Update the rating JSON with the enhanced output format including LLM-processed insights
-        if verbose:
-            print("\n🔍 STEP 6: Updating Micro section in rating JSON with enhanced format")
-        self.update_rating_json(rating_path, analysis_results, tool_selection, tool_results, price_inference, verbose)
-        
-        if verbose:
-            print(f"\n✅ Analysis for {ticker} completed and saved to {rating_path}")
-        
+
+        # --- Read both hints ---
+        macro_hint = rating_data["Macro"].get("next_inference_hint", "") if "Macro" in rating_data else ""
+        micro_news_hint = rating_data["Micro"].get("Next_Inference_Hint_Micro_News", "") if "Micro" in rating_data else ""
+        print(f"[DEBUG] Macro Inference Hint: {macro_hint}")
+        print(f"[DEBUG] Micro News Inference Hint: {micro_news_hint}")
+
+        # Tool selection
+        print("[DEBUG] Calling tool selection...")
+        try:
+            tool_selection = self.determine_micro_tools(rating_data, verbose=verbose)
+            print(f"[DEBUG] Tool selection result: {tool_selection}")
+        except Exception as e:
+            print(f"[ERROR] Tool selection crashed: {e}")
+            tool_selection = {
+                "selected_tools": ["get_stock_metrics", "get_company_profile"],
+                "facts_to_verify": [],
+                "expectations_to_test": [],
+                "rationale": {},
+                "reasoning_process": "Fallback to default tools due to error."
+            }
+
+        if not tool_selection or not tool_selection.get("selected_tools"):
+            print("[ERROR] Tool selection failed or returned no tools.")
+            return None
+
+        # Tool execution
+        print("[DEBUG] Executing selected tools...")
+        try:
+            tool_results = self.execute_micro_tools(ticker, tool_selection["selected_tools"], verbose=verbose)
+            print(f"[DEBUG] Tool execution results: {tool_results}")
+        except Exception as e:
+            print(f"[ERROR] Tool execution crashed: {e}")
+            tool_results = {}
+
+        if not tool_results:
+            print("[ERROR] Tool execution failed or returned no results.")
+            return None
+
+        # Analysis results
+        print("[DEBUG] Analyzing results...")
+        try:
+            analysis_results = self.analyze_results(
+                ticker,
+                rating_data.get("Macro", {}),
+                rating_data.get("Micro", {}),
+                tool_results,
+                verbose=verbose
+            )
+            print(f"[DEBUG] Analysis results: {analysis_results}")
+        except Exception as e:
+            print(f"[ERROR] Analysis crashed: {e}")
+            analysis_results = {}
+
+        if not analysis_results:
+            print("[ERROR] Analysis failed or returned no results.")
+            return None
+
+        # Price inference (optional)
+        print("[DEBUG] Generating price inference...")
+        try:
+            price_inference = self.generate_price_inference(
+                ticker, {}, tool_results, analysis_results, verbose=verbose
+            )
+            print(f"[DEBUG] Price inference: {price_inference}")
+        except Exception as e:
+            print(f"[ERROR] Price inference crashed: {e}")
+            price_inference = {}
+
+        # Update rating JSON
+        print("[DEBUG] Updating rating JSON...")
+        try:
+            self.update_rating_json(
+                rating_path, analysis_results, tool_selection, tool_results, price_inference, verbose=verbose
+            )
+            print("[DEBUG] Rating JSON updated successfully.")
+        except Exception as e:
+            print(f"[ERROR] Failed to update rating JSON: {e}")
+
+        # Return results
         return {
             "ticker": ticker,
+            "analysis_results": analysis_results,
             "tool_selection": tool_selection,
             "tool_results": tool_results,
-            "analysis_results": analysis_results,
             "price_inference": price_inference
         }
-    
-    def run_langchain_agent(self, rating_path: str = None, verbose: bool = True) -> str:
-        """
-        Run fact discovery using LangChain agent
-        
-        Args:
-            rating_path (str, optional): Path to a specific rating JSON file.
-                                         If None, the latest rating JSON will be used.
-            verbose (bool): Whether to print detailed logs
-            
-        Returns:
-            String containing agent's response
-        """
-        if not self.use_langchain:
-            return "LangChain agent not available"
-        
-        # Get the rating JSON file
-        if rating_path is None:
-            if verbose:
-                print("🔍 STEP 1: Loading the latest rating JSON file")
-            rating_path, rating_data = self.get_latest_rating_json()
-        else:
-            if verbose:
-                print(f"🔍 STEP 1: Loading rating JSON from {rating_path}")
-            rating_data = self.load_rating_json(rating_path)
-        
-        ticker = rating_data.get("Ticker", "")
-        macro_data = rating_data.get("Macro", {})
-        micro_data = rating_data.get("Micro", {})
-        
-        if not ticker:
-            return "No ticker found in rating data"
-        
-        if verbose:
-            print(f"\n📊 Discovering facts about {ticker} using LangChain agent...")
-            print(f"\n🌎 Macro Context: {macro_data.get('summary', 'N/A')[:200]}...")
-        
-        # Extract inference hints
-        inference_hints = self.extract_inference_hints(rating_data, verbose)
-        
-        # Prepare the query
-        query = f"""
-        Discover facts about {ticker} by comparing news data against verified information. Focus ONLY on identifying facts and misalignments with market expectations - do NOT generate investment recommendations.
-        
-        MACRO CONTEXT:
-        {macro_data.get('summary', 'No macro summary available')}
-        
-        MACRO KEY NEWS:
-        {json.dumps(macro_data.get('key_news', []), indent=2, cls=NumpyJSONEncoder)[:500]}
-        
-        MICRO NEWS:
-        {json.dumps(micro_data.get('news', []), indent=2, cls=NumpyJSONEncoder)[:500]}
-        
-        Your task:
-        1. Identify factual claims in the news that need verification
-        2. Determine which market expectations should be tested
-        3. Use appropriate micro tools to gather data for verification
-        4. Compare facts against market expectations
-        5. Identify overlooked facts and misalignments
-        
-        Format your response as follows:
-        1. Fact Claims Identified: factual statements from news requiring verification
-        2. Market Expectations: current market narratives that should be tested
-        3. Tools Used: list of tools you decided to use for verification
-        4. Verified Facts: factual claims confirmed by data
-        5. Unverified Claims: claims not supported by data
-        6. Expectation vs. Reality Gaps: where market expectations differ from verified facts
-        7. Overlooked Facts: important facts missing from current market narratives
-        """
-        
-        if verbose:
-            print("\n🔍 STEP 2: Running agent to discover facts")
-        
-        # Run the agent
-        response = self.agent_chain.run(query)
-        
-        if verbose:
-            print("\n🔍 STEP 3: Processing agent's fact discovery")
-        
-        # Extract tool usage from memory if available
-        tool_selection = {"selected_tools": [], "rationale": {}, "facts_to_verify": [], "expectations_to_test": []}
-        tool_results = {}
-        
-        # LangChain memory contains information about which tools were used
-        if hasattr(self, 'memory') and hasattr(self.memory, 'chat_memory'):
-            # Parse memory to find tool usage
-            tools_used = []
-            for msg in self.memory.chat_memory.messages:
-                if hasattr(msg, 'content') and isinstance(msg.content, str):
-                    # Look for tool names in the content
-                    tool_patterns = [
-                        "get_stock_metrics", "get_stock_beta", "get_stock_dcf_valuation", 
-                        "get_detailed_dcf", "get_company_profile", "get_stock_peers",
-                        "get_peer_valuation_comparison", "get_peer_beta_comparison",
-                        "get_earnings_calendar", "get_earnings_surprises", "analyze_earnings_vs_estimates"
-                    ]
-                    
-                    for tool in tool_patterns:
-                        if tool in msg.content and tool not in tools_used:
-                            tools_used.append(tool)
-            
-            tool_selection["selected_tools"] = tools_used
-            tool_selection["rationale"] = {tool: "Selected by LangChain agent" for tool in tools_used}
-            
-            # Try to extract facts and expectations from memory
-            fact_pattern = r"Facts? to verify:(.+?)(?=Expectations|Market expectations|Tools used|$)"
-            expectation_pattern = r"(?:Expectations|Market expectations) to test:(.+?)(?=Tools used|Facts verified|$)"
-            
-            for msg in self.memory.chat_memory.messages:
-                if hasattr(msg, 'content') and isinstance(msg.content, str):
-                    # Extract facts to verify
-                    fact_matches = re.search(fact_pattern, msg.content, re.DOTALL | re.IGNORECASE)
-                    if fact_matches:
-                        facts_text = fact_matches.group(1).strip()
-                        facts = [f.strip() for f in re.split(r'\n-|\n\d+\.|\n•', facts_text) if f.strip()]
-                        tool_selection["facts_to_verify"] = facts
-                    
-                    # Extract expectations to test
-                    expectation_matches = re.search(expectation_pattern, msg.content, re.DOTALL | re.IGNORECASE)
-                    if expectation_matches:
-                        expectations_text = expectation_matches.group(1).strip()
-                        expectations = [e.strip() for e in re.split(r'\n-|\n\d+\.|\n•', expectations_text) if e.strip()]
-                        tool_selection["expectations_to_test"] = expectations
-            
-            # Try to extract results from memory, but this might be limited
-            tool_results = {tool: {"result": "Used by LangChain agent (detailed results not captured)"} for tool in tools_used}
-        
-        # Parse the response to extract structured information
-        analysis_results = {
-            "verified_facts": [],
-            "unverified_claims": [],
-            "market_expectations": [],
-            "expectation_reality_gaps": [],
-            "overlooked_facts": []
-        }
-        
-        # Best-effort extraction of analysis parts
-        sections = {
-            "verified_facts": r"(?:Verified Facts|VERIFIED FACTS):(.*?)(?=\n\n|\n\d+\.|\n[A-Z]|$)",
-            "unverified_claims": r"(?:Unverified Claims|UNVERIFIED CLAIMS):(.*?)(?=\n\n|\n\d+\.|\n[A-Z]|$)",
-            "market_expectations": r"(?:Market Expectations|MARKET EXPECTATIONS):(.*?)(?=\n\n|\n\d+\.|\n[A-Z]|$)",
-            "expectation_reality_gaps": r"(?:Expectation vs\. Reality Gaps|EXPECTATION VS\. REALITY GAPS):(.*?)(?=\n\n|\n\d+\.|\n[A-Z]|$)",
-            "overlooked_facts": r"(?:Overlooked Facts|OVERLOOKED FACTS):(.*?)(?=\n\n|\n\d+\.|\n[A-Z]|$)"
-        }
-        
-        for key, pattern in sections.items():
-            matches = re.search(pattern, response, re.DOTALL | re.IGNORECASE)
-            if matches:
-                content = matches.group(1).strip()
-                items = [item.strip() for item in re.split(r'\n-|\n\d+\.|\n•', content) if item.strip()]
-                analysis_results[key] = items
-        
-        # Generate price inference based on analysis results
-        if verbose:
-            print("\n🔍 STEP 4: Generating price inference based on micro analysis")
-        price_inference = self.generate_price_inference(ticker, inference_hints, tool_results, analysis_results, verbose)
-        
-        # Update the rating JSON with ONLY micro facts (not strategy)
-        if verbose:
-            print("\n🔍 STEP 5: Updating Micro section in rating JSON with enhanced format")
-        self.update_rating_json(rating_path, analysis_results, tool_selection, tool_results, price_inference, verbose)
-        
-        if verbose:
-            print(f"\n✅ Fact discovery for {ticker} completed and saved to {rating_path}")
-        
-        return response
 
 # Example usage
 if __name__ == "__main__":

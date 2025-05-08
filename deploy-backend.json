@@ -1,0 +1,28 @@
+{
+  "ServiceName": "fin-backend-service",
+  "SourceConfiguration": {
+    "AuthenticationConfiguration": {
+      "AccessRoleArn": "arn:aws:iam::460453678467:role/AppRunnerECRAccessRole"
+    },
+    "AutoDeploymentsEnabled": true,
+    "ImageRepository": {
+      "ImageIdentifier": "460453678467.dkr.ecr.us-east-1.amazonaws.com/fin-backend:latest",
+      "ImageRepositoryType": "ECR",
+      "ImageConfiguration": {
+        "Port": "8000",
+        "RuntimeEnvironmentVariables": {
+          "API_KEY": "Wmx@20020413"
+        }
+      }
+    },
+    "HealthCheckConfiguration": {
+      "Protocol": "HTTP",
+      "Path": "/",
+      "Interval": 10,
+      "Timeout": 5,
+      "HealthyThreshold": 2,
+      "UnhealthyThreshold": 3
+    }
+  }
+}
+
