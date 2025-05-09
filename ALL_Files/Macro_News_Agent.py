@@ -99,7 +99,7 @@ def fetch_news(download=True):
 
         for idx, entry in enumerate(feed.entries[:5], start=1):  # Get top 5 articles per source
             counter += 1
-            print(f"Reading {counter} more News about Maroeconomic ...")
+            print(f"Reading {counter} more News about Macroeconomic ...")
             full_content = extract_news_content(entry.link)
 
             # Store in cache
