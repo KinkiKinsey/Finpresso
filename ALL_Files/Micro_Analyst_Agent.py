@@ -422,15 +422,20 @@ class MicroAnalystAgent:
                 else:
                     json_str = llm_response.strip()
 
-        # Try to parse the cleaned JSON
         try:
-            tool_selection = json.loads(json_str)
+            # Clean json_str in case it's wrapped in markdown
+            match = re.search(r"\{.*\}", json_str, re.DOTALL)
+            cleaned_json_str = match.group(0) if match else json_str.strip()
+
+            tool_selection = json.loads(cleaned_json_str)
+
             if verbose and "reasoning_process" in tool_selection:
                 print(f"\n🧠 REASONING PROCESS:")
                 reasoning = tool_selection["reasoning_process"]
                 for line in reasoning.split("\\n"):
                     print(f"  {line}")
             return tool_selection
+
         except Exception as e:
             if verbose:
                 print(f"\n⚠️ WARNING: Failed to parse LLM response as JSON: {str(e)}")

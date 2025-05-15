@@ -13,6 +13,25 @@ from datetime import datetime, timedelta
 import json
 import inspect
 from typing import List, Dict, Any, Optional
+from tqdm import tqdm
+import time
+from functools import wraps
+from sklearn.preprocessing import StandardScaler
+from sklearn.metrics.pairwise import euclidean_distances
+
+
+def tqdm_timer(func):
+    @wraps(func)
+    def wrapper(*args, **kwargs):
+        with tqdm(total=1, desc=f"Running {func.__name__}") as pbar:
+            start_time = time.time()
+            result = func(*args, **kwargs)
+            elapsed = time.time() - start_time
+            pbar.update(1)
+            pbar.set_description_str(f"{func.__name__} completed")
+            pbar.set_postfix_str(f"Time: {elapsed:.2f}s")
+        return result
+    return wrapper
 
 # Custom JSON encoder to handle NumPy types
 class NumpyJSONEncoder(json.JSONEncoder):
@@ -26,6 +45,7 @@ class NumpyJSONEncoder(json.JSONEncoder):
         return super().default(obj)
 
 # Function to check and install required packages
+@tqdm_timer
 def check_and_install_packages():
     """Check if required packages are installed and install them if necessary"""
     required_packages = {
@@ -98,6 +118,7 @@ class MicroTools:
     """Collection of micro financial analysis tools for stock analysis"""
     
     @staticmethod
+    @tqdm_timer
     def get_key_metrics(ticker):
         """
         Calculate key financial metrics for a given stock ticker.
@@ -304,6 +325,7 @@ class MicroTools:
             }
     
     @staticmethod
+    @tqdm_timer
     def get_beta(ticker):
         """
         Get the beta value for a stock ticker.
@@ -323,6 +345,7 @@ class MicroTools:
             return None
     
     @staticmethod
+    @tqdm_timer
     def get_dcf_valuation(ticker):
         """
         Fetch the Discounted Cash Flow (DCF) valuation for a company.
@@ -346,6 +369,7 @@ class MicroTools:
             return {}
     
     @staticmethod
+    @tqdm_timer
     def get_detailed_dcf(ticker):
         """
         Calculate a detailed Discounted Cash Flow (DCF) valuation for a company.
@@ -461,6 +485,7 @@ class MicroTools:
             return {'status': 'error', 'message': f'DCF calculation error: {str(e)}'}
     
     @staticmethod
+    @tqdm_timer
     def get_company_profile(ticker):
         """
         Fetch company profile information including beta.
@@ -484,68 +509,106 @@ class MicroTools:
             return {}
     
     @staticmethod
-    def get_peers(ticker, min_peers=15):
-        """
-        Fetch the peer companies for a given ticker, ensuring at least min_peers results when possible.
+    @tqdm_timer
+    def get_peers(ticker, candidate_features=['beta', 'marketCap', 'volume'], top_n=15):
+        df = pd.read_csv('us_equities_metadata.csv')
+        if ticker not in df['symbol'].values:
+            print(f"Ticker {ticker} not found.")
+            return pd.DataFrame()
+
+        target = df[df['symbol'] == ticker].iloc[0]
+        peers = df[(df['industry'] == target['industry']) & (df['symbol'] != ticker)].copy()
+
+        # Determine usable features (non-null for both target and peers)
+        usable_features = []
+        for feat in candidate_features:
+            if pd.notnull(target.get(feat)) and peers[feat].notnull().sum() > 0:
+                usable_features.append(feat)
+
+        if not usable_features:
+            print("No sufficient features available for similarity matching.")
+            return pd.DataFrame()
+
+        # Drop peers with missing values in usable features
+        peers = peers.dropna(subset=usable_features)
+
+        # Include target in matrix for standardization
+        temp_df = pd.concat([peers, pd.DataFrame([target])], ignore_index=True)
+
+        # Standardize and compute distances
+        scaler = StandardScaler()
+        X_scaled = scaler.fit_transform(temp_df[usable_features])
+        distances = euclidean_distances([X_scaled[-1]], X_scaled[:-1])[0]
+
+        peers['similarity_distance'] = distances
+        closest_peers = peers.sort_values('similarity_distance').head(top_n)
+
+        if len(closest_peers) < top_n:
+            print(f"Warning: Could only find {len(closest_peers)} peers for {ticker}, which is less than the requested minimum of {top_n}")
+        return list(closest_peers['symbol'])
+    # def get_peers(ticker, min_peers=15):
+    #     """
+    #     Fetch the peer companies for a given ticker, ensuring at least min_peers results when possible.
         
-        Parameters:
-            ticker (str): Stock ticker symbol
-            min_peers (int): Minimum number of peers to return (default is 15)
+    #     Parameters:
+    #         ticker (str): Stock ticker symbol
+    #         min_peers (int): Minimum number of peers to return (default is 15)
             
-        Returns:
-            list: List of peer company ticker symbols
-        """
-        all_peers = []
+    #     Returns:
+    #         list: List of peer company ticker symbols
+    #     """
+    #     all_peers = []
         
-        # First strategy: Try to get peers from LLM (most relevant since it can understand business models)
-        llm_peers = MicroTools._get_peers_from_llm(ticker)
-        if llm_peers and len(llm_peers) > 0:
-            all_peers.extend(llm_peers)
-            print(f"Found {len(llm_peers)} peers from LLM")
+    #     # First strategy: Try to get peers from LLM (most relevant since it can understand business models)
+    #     llm_peers = MicroTools._get_peers_from_llm(ticker)
+    #     if llm_peers and len(llm_peers) > 0:
+    #         all_peers.extend(llm_peers)
+    #         print(f"Found {len(llm_peers)} peers from LLM")
         
-        # Second strategy: Try the Financial Modeling Prep API endpoints
-        if len(all_peers) < min_peers:
-            api_peers = MicroTools._get_api_peers(ticker)
+    #     # Second strategy: Try the Financial Modeling Prep API endpoints
+    #     if len(all_peers) < min_peers:
+    #         api_peers = MicroTools._get_api_peers(ticker)
             
-            # Add new peers to our list
-            for peer in api_peers:
-                if peer not in all_peers and peer != ticker:
-                    all_peers.append(peer)
+    #         # Add new peers to our list
+    #         for peer in api_peers:
+    #             if peer not in all_peers and peer != ticker:
+    #                 all_peers.append(peer)
             
-            if api_peers:
-                print(f"Found {len(api_peers)} peers from API")
+    #         if api_peers:
+    #             print(f"Found {len(api_peers)} peers from API")
         
-        # Third strategy: Use sector-based discovery (most reliable for finding peers in same industry)
-        if len(all_peers) < min_peers:
-            sector_peers = MicroTools._get_sector_peers(ticker, min_peers - len(all_peers))
-            for peer in sector_peers:
-                if peer not in all_peers and peer != ticker:
-                    all_peers.append(peer)
+    #     # Third strategy: Use sector-based discovery (most reliable for finding peers in same industry)
+    #     if len(all_peers) < min_peers:
+    #         sector_peers = MicroTools._get_sector_peers(ticker, min_peers - len(all_peers))
+    #         for peer in sector_peers:
+    #             if peer not in all_peers and peer != ticker:
+    #                 all_peers.append(peer)
             
-            if sector_peers:
-                print(f"Found {len(sector_peers)} peers from sector analysis")
+    #         if sector_peers:
+    #             print(f"Found {len(sector_peers)} peers from sector analysis")
         
-        # Last resort: Use index component scanning to find at least some peers
-        if len(all_peers) < min_peers:
-            # Try to find additional peers using a more intensive sector scan
-            index_peers = MicroTools._scan_indices_for_peers(ticker, min_peers - len(all_peers))
-            for peer in index_peers:
-                if peer not in all_peers and peer != ticker:
-                    all_peers.append(peer)
+    #     # Last resort: Use index component scanning to find at least some peers
+    #     if len(all_peers) < min_peers:
+    #         # Try to find additional peers using a more intensive sector scan
+    #         index_peers = MicroTools._scan_indices_for_peers(ticker, min_peers - len(all_peers))
+    #         for peer in index_peers:
+    #             if peer not in all_peers and peer != ticker:
+    #                 all_peers.append(peer)
             
-            if index_peers:
-                print(f"Found {len(index_peers)} peers from index scan")
+    #         if index_peers:
+    #             print(f"Found {len(index_peers)} peers from index scan")
                     
-        # Remove duplicates
-        all_peers = list(dict.fromkeys(all_peers))
+    #     # Remove duplicates
+    #     all_peers = list(dict.fromkeys(all_peers))
         
-        # If still not enough peers, we'll warn but return what we have
-        if len(all_peers) < min_peers:
-            print(f"Warning: Could only find {len(all_peers)} peers for {ticker}, which is less than the requested minimum of {min_peers}")
+    #     # If still not enough peers, we'll warn but return what we have
+    #     if len(all_peers) < min_peers:
+    #         print(f"Warning: Could only find {len(all_peers)} peers for {ticker}, which is less than the requested minimum of {min_peers}")
             
-        return all_peers
+    #     return all_peers
     
     @staticmethod
+    @tqdm_timer
     def _get_api_peers(ticker):
         """
         Get peer companies for a ticker using the Financial Modeling Prep API.
@@ -598,6 +661,7 @@ class MicroTools:
         return api_peers
     
     @staticmethod
+    @tqdm_timer
     def _get_sector_peers(ticker, count=15):
         """
         Get peer companies for a given ticker based on their sector and industry.
@@ -704,6 +768,7 @@ class MicroTools:
             return []
     
     @staticmethod
+    @tqdm_timer
     def _scan_indices_for_peers(ticker, count=15):
         """
         Scan major indices to find peers with similar characteristics.
@@ -801,6 +866,7 @@ class MicroTools:
             return []
     
     @staticmethod
+    @tqdm_timer
     def _get_peers_from_llm(ticker):
         """
         Get peer companies for a given ticker using the LLM API.
@@ -880,6 +946,7 @@ class MicroTools:
             return []
     
     @staticmethod
+    @tqdm_timer
     def get_peer_valuation_comparison(ticker):
         """
         Compare key valuation metrics of a company with its peers from the same sector.
@@ -938,6 +1005,7 @@ class MicroTools:
             return pd.DataFrame()
     
     @staticmethod
+    @tqdm_timer
     def get_peer_beta_comparison(ticker):
         """
         Compare the beta and volatility metrics of a company with its peers.
@@ -991,6 +1059,7 @@ class MicroTools:
             return pd.DataFrame()
     
     @staticmethod
+    @tqdm_timer
     def get_companies_earnings_calendar(months=6):
         """
         Gets the earnings calendar for companies for the specified period.
@@ -1051,6 +1120,7 @@ class MicroTools:
             
     # Keep the old function name for backward compatibility
     @staticmethod
+    @tqdm_timer
     def get_companies_one_month_calendar():
         """
         Gets the earnings calendar for the next month (legacy function)
@@ -1061,6 +1131,7 @@ class MicroTools:
         return MicroTools.get_companies_earnings_calendar(months=1)
     
     @staticmethod
+    @tqdm_timer
     def _get_market_cap(ticker):
         """Helper method to get market cap for a ticker"""
         try:
@@ -1070,6 +1141,7 @@ class MicroTools:
             return 0
     
     @staticmethod
+    @tqdm_timer
     def get_earnings_surprises(ticker, limit=4):
         """
         Fetch the earnings surprises (actual vs. estimate) for a company.
@@ -1094,6 +1166,7 @@ class MicroTools:
             return pd.DataFrame()
     
     @staticmethod
+    @tqdm_timer
     def analyze_earnings_estimates_vs_actual(ticker, limit=4):
         """
         Analyze the gap between earnings estimates and actual results.
@@ -1140,6 +1213,7 @@ class MicroTools:
 
     # Add LangChain compatibility
     @staticmethod
+    @tqdm_timer
     def get_langchain_tools() -> List[Any]:
         """
         Return a list of LangChain-compatible tools based on the MicroTools class methods.
