@@ -12,10 +12,26 @@ import sys
 import numpy as np
 import subprocess
 import importlib.util
+from tqdm import tqdm
+from functools import wraps
 from typing import List, Dict, Any, Optional, Tuple
+
+def tqdm_timer(func):
+    @wraps(func)
+    def wrapper(*args, **kwargs):
+        with tqdm(total=1, desc=f"Running {func.__name__}") as pbar:
+            start_time = time.time()
+            result = func(*args, **kwargs)
+            elapsed = time.time() - start_time
+            pbar.update(1)
+            pbar.set_description_str(f"{func.__name__} completed")
+            pbar.set_postfix_str(f"Time: {elapsed:.2f}s")
+        return result
+    return wrapper
 
 # Custom JSON encoder to handle NumPy types
 class NumpyJSONEncoder(json.JSONEncoder):
+    @tqdm_timer
     def default(self, obj):
         if isinstance(obj, pd.DataFrame):
             return {"__dataframe__": True, "data": obj.to_dict(orient='records')}
@@ -29,6 +45,7 @@ class NumpyJSONEncoder(json.JSONEncoder):
             return None
         return super().default(obj)
 
+@tqdm_timer
 def check_and_install_packages():
     """Check if required packages are installed and install them if necessary"""
     required_packages = {
@@ -105,6 +122,7 @@ except ImportError as e:
 try:
     from LLM_API_CALL import deepseek_api_call, Open_api_key, deepseek_api
 except ImportError:
+    @tqdm_timer
     def deepseek_api_call(prompt):
         print("Warning: Deepseek API function not available")
         return "LLM API not available"
@@ -140,7 +158,7 @@ class MicroAnalystAgent:
     between actual facts and market expectations to provide deeper financial analysis
     and investment recommendations.
     """
-    
+    @tqdm_timer
     def __init__(self, use_langchain=True):
         """
         Initialize the Micro Analyst Agent
@@ -159,7 +177,8 @@ class MicroAnalystAgent:
         # Initialize LangChain agent if available
         if self.use_langchain:
             self._setup_langchain_agent()
-        
+
+    @tqdm_timer
     def _setup_langchain_agent(self):
         """Set up LangChain agent with appropriate tools"""
         if not LANGCHAIN_AVAILABLE:
@@ -262,6 +281,7 @@ class MicroAnalystAgent:
             print("Agent functionality will be limited")
             self.agent_chain = None
     
+    @tqdm_timer
     def get_latest_rating_json(self) -> Tuple[str, Dict]:
         """
         Get the latest rating JSON file from the Rating_Json directory
@@ -284,6 +304,7 @@ class MicroAnalystAgent:
         
         return latest_file, rating_data
     
+    @tqdm_timer
     def load_rating_json(self, file_path: str) -> Dict:
         """
         Load a specific rating JSON file
@@ -302,6 +323,7 @@ class MicroAnalystAgent:
             
         return rating_data
     
+    @tqdm_timer
     def extract_inference_hints(self, rating_data: Dict, verbose: bool = True) -> Dict:
         """
         Extract inference hints from the rating data
@@ -335,6 +357,7 @@ class MicroAnalystAgent:
             "micro_hint": micro_hint
         }
     
+    @tqdm_timer
     def determine_micro_tools(self, rating_data: Dict, verbose: bool = True) -> Dict:
         """
         Determine which micro tools to use based on the rating data
@@ -471,6 +494,7 @@ class MicroAnalystAgent:
                 "reasoning_process": "Tools were automatically extracted from the LLM response, which couldn't be parsed as JSON."
             }
     
+    @tqdm_timer
     def execute_micro_tools(self, ticker: str, selected_tools: List[str], verbose: bool = True) -> Dict:
         """
         Execute the selected micro tools for a given ticker
@@ -576,6 +600,7 @@ class MicroAnalystAgent:
                 
         return results
     
+    @tqdm_timer
     def save_tool_results_cache(self, ticker: str, tool_results: Dict) -> str:
         """
         Save the raw tool results to a cache file
@@ -600,6 +625,7 @@ class MicroAnalystAgent:
             print(f"Error saving tool results cache: {e}")
             return ""
     
+    @tqdm_timer
     def process_tool_results_with_llm(self, ticker: str, tool_results: Dict, verbose: bool = True) -> Dict:
         """
         Process tool results with LLM to convert them to readable comments
@@ -711,6 +737,7 @@ class MicroAnalystAgent:
         
         return llm_processed_results
     
+    @tqdm_timer
     def analyze_results(self, ticker: str, macro_data: Dict, micro_data: Dict, tool_results: Dict, verbose: bool = True) -> Dict:
         """
         Analyze tool results to discover facts and separate them from market expectations
@@ -807,6 +834,7 @@ class MicroAnalystAgent:
         
         return analysis_results
     
+    @tqdm_timer
     def generate_price_inference(self, ticker: str, inference_hints: Dict, tool_results: Dict, analysis_results: Dict, verbose: bool = True) -> Dict:
         """
         Generate price inference based on micro analysis and inference hints
@@ -912,6 +940,7 @@ class MicroAnalystAgent:
                 "trade_type": "ERROR"
             }
     
+    @tqdm_timer
     def update_rating_json(self, rating_path: str, analysis_results: Dict, tool_selection: Dict, tool_results: Dict, price_inference: Dict = None, verbose: bool = True) -> None:
         """
         Update the rating JSON file with micro analysis results only
@@ -983,6 +1012,7 @@ class MicroAnalystAgent:
             if legacy_key in rating_data["Micro"]:
                 del rating_data["Micro"][legacy_key]
     
+    @tqdm_timer
     def run_analysis(self, rating_path: str = None, verbose: bool = True) -> Dict:
         """
         Run the fact discovery process based on macro and micro news

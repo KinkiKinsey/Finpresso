@@ -72,7 +72,8 @@ def check_and_install_packages():
     return len(missing_packages) == 0
 
 # Check and install required packages
-LANGCHAIN_AVAILABLE = check_and_install_packages()
+LANGCHAIN_AVAILABLE = True
+# check_and_install_packages()
 
 # Global variables for API configuration
 API_KEY = "9dfbbfa29d93f4793f246e8fb5ca5e74"  # Financial Modeling Prep API key
@@ -227,12 +228,20 @@ class MicroTools:
                     total_assets = balance_sheet.loc["Total Assets"].iloc[0]
                 else:
                     raise ValueError("Total Assets not found in balance sheet")
-                    
-                if isinstance(balance_sheet, pd.DataFrame) and "Total Current Liabilities" in balance_sheet.index:
-                    current_liabilities = balance_sheet.loc["Total Current Liabilities"].iloc[0]
+    
+                # --- Current Liabilities fallback ---
+                possible_current_liab = [
+                    "Total Current Liabilities", # only have Current Liabilities, not "Total Current Minorities"
+                    "Total Current Liab",
+                    "Current Liabilities",
+                ]
+                for lbl in possible_current_liab:
+                    if isinstance(balance_sheet, pd.DataFrame) and lbl in balance_sheet.index:
+                        current_liabilities = balance_sheet.loc[lbl].iloc[0]
+                        break
                 else:
-                    raise ValueError("Total Current Liabilities not found in balance sheet")
-
+                    raise ValueError(f"Current liabilities label not found in {possible_current_liab}")
+                
                 # Invested Capital = Total Assets - Current Liabilities
                 invested_capital = total_assets - current_liabilities
 
@@ -280,9 +289,9 @@ class MicroTools:
             
             # Free Cash Flow
             try:
-                if isinstance(cash_flow, pd.DataFrame) and "Operating Cash Flow" in cash_flow.index and "Capital Expenditures" in cash_flow.index:
+                if isinstance(cash_flow, pd.DataFrame) and "Operating Cash Flow" in cash_flow.index and "Capital Expenditure" in cash_flow.index:
                     operating_cash = cash_flow.loc["Operating Cash Flow"].iloc[0]
-                    capital_expenditures = abs(cash_flow.loc["Capital Expenditures"].iloc[0])
+                    capital_expenditures = abs(cash_flow.loc["Capital Expenditure"].iloc[0])
                     fcf = operating_cash - capital_expenditures
                     fcf_billions = fcf / 1e9
                     metrics["Free_Cash_Flow"] = f"${fcf_billions:.2f}B"
