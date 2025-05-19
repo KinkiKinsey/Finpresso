@@ -18,6 +18,22 @@ import time
 from functools import wraps
 from sklearn.preprocessing import StandardScaler
 from sklearn.metrics.pairwise import euclidean_distances
+from functools import lru_cache
+
+@lru_cache(maxsize=None)
+def _get_stock_data(ticker: str) -> Dict[str, Any]:
+    """
+    Cache all yfinance.Ticker attributes for the duration of a single script run.
+    """
+    stock = yf.Ticker(ticker)
+    return {
+        "stock":        stock,
+        "info":         stock.info,
+        "balance_sheet": stock.balance_sheet,
+        "income_stmt":   stock.income_stmt,
+        "cash_flow":     stock.cashflow,
+        "financials":    stock.financials,
+    }
 
 
 def tqdm_timer(func):
@@ -121,28 +137,17 @@ class MicroTools:
     @staticmethod
     @tqdm_timer
     def get_key_metrics(ticker):
-        """
-        Calculate key financial metrics for a given stock ticker.
-        
-        Parameters:
-            ticker (str): Stock ticker symbol
-            
-        Returns:
-            dict: Dictionary containing the calculated metrics
-        """
         print(f"Fetching key metrics for {ticker}...")
-        
         try:
-            # Get stock data
-            stock = yf.Ticker(ticker)
+            # 2) Use cached data
+            data = _get_stock_data(ticker)
+            stock         = data["stock"]
+            info          = data["info"]
+            income_stmt   = data["income_stmt"]
+            balance_sheet = data["balance_sheet"]
+            cash_flow     = data["cash_flow"]
+            financials    = data["financials"]
             
-            # Get financial statements
-            income_stmt = stock.income_stmt
-            balance_sheet = stock.balance_sheet
-            cash_flow = stock.cashflow
-            financials = stock.financials
-            
-            # Initialize result dictionary
             metrics = {
                 "EPS": "Data unavailable",
                 "ROIC": "Data unavailable",
@@ -156,182 +161,115 @@ class MicroTools:
                 "PB_Ratio": "Data unavailable"
             }
             
-            # Debug info
             print(f"Got data for {ticker}")
             print(f"Balance sheet rows: {len(balance_sheet.index) if isinstance(balance_sheet, pd.DataFrame) else 'Not a DataFrame'}")
             print(f"Income statement rows: {len(income_stmt.index) if isinstance(income_stmt, pd.DataFrame) else 'Not a DataFrame'}")
             
             # Current Price
             try:
-                current_price = stock.info.get("currentPrice")
-                if current_price is not None:
-                    metrics["Current_Price"] = f"${current_price:.2f}"
+                cp = info.get("currentPrice")
+                if cp is not None:
+                    metrics["Current_Price"] = f"${cp:.2f}"
             except Exception as e:
                 print(f"Error getting current price: {e}")
             
             # Market Cap
             try:
-                market_cap = stock.info.get("marketCap")
-                if market_cap is not None:
-                    metrics["Market_Cap"] = f"${market_cap / 1e9:.2f}B"
+                mc = info.get("marketCap")
+                if mc is not None:
+                    metrics["Market_Cap"] = f"${mc/1e9:.2f}B"
             except Exception as e:
                 print(f"Error getting market cap: {e}")
             
             # P/E Ratio
             try:
-                pe_ratio = stock.info.get("trailingPE")
-                if pe_ratio is not None:
-                    metrics["PE_Ratio"] = f"{pe_ratio:.2f}"
+                pe = info.get("trailingPE")
+                if pe is not None:
+                    metrics["PE_Ratio"] = f"{pe:.2f}"
             except Exception as e:
                 print(f"Error getting P/E ratio: {e}")
-                
+            
             # P/B Ratio
             try:
-                pb_ratio = stock.info.get("priceToBook")
-                if pb_ratio is not None:
-                    metrics["PB_Ratio"] = f"{pb_ratio:.2f}"
+                pb = info.get("priceToBook")
+                if pb is not None:
+                    metrics["PB_Ratio"] = f"{pb:.2f}"
             except Exception as e:
                 print(f"Error getting P/B ratio: {e}")
-                
-            # EPS (Earnings Per Share)
+            
+            # EPS
             try:
-                eps = stock.info.get("trailingEps")
+                eps = info.get("trailingEps")
                 if eps is not None:
                     metrics["EPS"] = f"${eps:.2f}"
             except Exception as e:
                 print(f"Error calculating EPS: {e}")
             
-            # ROIC (Return on Invested Capital)
+            # ROIC
             try:
-                # Try with financials first
+                # net income
                 if isinstance(financials, pd.DataFrame) and "Net Income" in financials.index:
                     net_income = financials.loc["Net Income"].iloc[0]
-                # Fallback to income_stmt
                 elif isinstance(income_stmt, pd.DataFrame) and "Net Income" in income_stmt.index:
                     net_income = income_stmt.loc["Net Income"].iloc[0]
                 else:
-                    # Try alternative labels
-                    possible_income_labels = [
-                        "Net Income Common Stockholders",
-                        "Net Income Including Noncontrolling Interests"
-                    ]
-                    found = False
-                    for label in possible_income_labels:
-                        if isinstance(income_stmt, pd.DataFrame) and label in income_stmt.index:
-                            net_income = income_stmt.loc[label].iloc[0]
-                            found = True
-                            break
-                    if not found:
-                        raise ValueError("Net Income not found in income statement")
-                        
-                if isinstance(balance_sheet, pd.DataFrame) and "Total Assets" in balance_sheet.index:
-                    total_assets = balance_sheet.loc["Total Assets"].iloc[0]
-                else:
-                    raise ValueError("Total Assets not found in balance sheet")
-    
-                # --- Current Liabilities fallback ---
-                possible_current_liab = [
-                    "Total Current Liabilities", # only have Current Liabilities, not "Total Current Minorities"
-                    "Total Current Liab",
-                    "Current Liabilities",
-                ]
-                for lbl in possible_current_liab:
-                    if isinstance(balance_sheet, pd.DataFrame) and lbl in balance_sheet.index:
-                        current_liabilities = balance_sheet.loc[lbl].iloc[0]
-                        break
-                else:
-                    raise ValueError(f"Current liabilities label not found in {possible_current_liab}")
-                
-                # Invested Capital = Total Assets - Current Liabilities
+                    raise ValueError("Net Income not found")
+                # assets & liabilities
+                total_assets = balance_sheet.loc["Total Assets"].iloc[0]
+                current_liabilities = balance_sheet.loc["Total Current Liabilities"].iloc[0]
                 invested_capital = total_assets - current_liabilities
-
-                # ROIC Calculation
                 roic_value = (net_income / invested_capital) * 100
                 metrics["ROIC"] = f"{roic_value:.2f}%"
             except Exception as e:
                 print(f"Error calculating ROIC: {e}")
             
-            # Debt to Equity Ratio
+            # Debt to Equity
             try:
-                if isinstance(balance_sheet, pd.DataFrame):
-                    if "Total Debt" in balance_sheet.index:
-                        total_debt = balance_sheet.loc["Total Debt"].iloc[0]
-                    elif "Long Term Debt" in balance_sheet.index:
-                        total_debt = balance_sheet.loc["Long Term Debt"].iloc[0]
-                    else:
-                        raise ValueError("Debt information not found in balance sheet")
-                        
-                    if "Total Stockholder Equity" in balance_sheet.index:
-                        total_equity = balance_sheet.loc["Total Stockholder Equity"].iloc[0]
-                    elif "Tangible Book Value" in balance_sheet.index:
-                        total_equity = balance_sheet.loc["Tangible Book Value"].iloc[0]
-                    else:
-                        raise ValueError("Equity information not found in balance sheet")
-                        
-                    debt_to_equity = total_debt / total_equity
-                    metrics["Debt_to_Equity"] = f"{debt_to_equity:.2f}"
-                else:
-                    print("Balance sheet is not a DataFrame")
+                total_debt = balance_sheet.loc["Total Debt"].iloc[0] if "Total Debt" in balance_sheet.index else balance_sheet.loc["Long Term Debt"].iloc[0]
+                total_equity = balance_sheet.loc["Total Stockholder Equity"].iloc[0] if "Total Stockholder Equity" in balance_sheet.index else balance_sheet.loc["Tangible Book Value"].iloc[0]
+                metrics["Debt_to_Equity"] = f"{(total_debt/total_equity):.2f}"
             except Exception as e:
                 print(f"Error calculating Debt to Equity: {e}")
             
             # Revenue Growth
             try:
-                if isinstance(income_stmt, pd.DataFrame) and "Total Revenue" in income_stmt.index:
-                    recent_revenue = income_stmt.loc["Total Revenue"].iloc[0]
-                    previous_revenue = income_stmt.loc["Total Revenue"].iloc[1]
-                    growth = ((recent_revenue - previous_revenue) / previous_revenue) * 100
-                    metrics["Revenue_Growth"] = f"{growth:.2f}% YoY"
-                else:
-                    raise ValueError("Revenue information not found in income statement")
+                recent = income_stmt.loc["Total Revenue"].iloc[0]
+                prev   = income_stmt.loc["Total Revenue"].iloc[1]
+                growth = ((recent - prev) / prev) * 100
+                metrics["Revenue_Growth"] = f"{growth:.2f}% YoY"
             except Exception as e:
                 print(f"Error calculating Revenue Growth: {e}")
             
             # Free Cash Flow
             try:
-                if isinstance(cash_flow, pd.DataFrame) and "Operating Cash Flow" in cash_flow.index and "Capital Expenditure" in cash_flow.index:
-                    operating_cash = cash_flow.loc["Operating Cash Flow"].iloc[0]
-                    capital_expenditures = abs(cash_flow.loc["Capital Expenditure"].iloc[0])
-                    fcf = operating_cash - capital_expenditures
-                    fcf_billions = fcf / 1e9
-                    metrics["Free_Cash_Flow"] = f"${fcf_billions:.2f}B"
-                else:
-                    raise ValueError("Cash flow information not found")
+                op_cf = cash_flow.loc["Operating Cash Flow"].iloc[0]
+                capex = abs(cash_flow.loc["Capital Expenditures"].iloc[0])
+                fcf   = op_cf - capex
+                metrics["Free_Cash_Flow"] = f"${(fcf/1e9):.2f}B"
             except Exception as e:
                 print(f"Error calculating Free Cash Flow: {e}")
             
             # Beta
             try:
-                beta = stock.info.get("beta")
-                if beta is not None:
-                    metrics["Beta"] = f"{beta:.2f}"
+                b = info.get("beta")
+                if b is not None:
+                    metrics["Beta"] = f"{b:.2f}"
             except Exception as e:
                 print(f"Error calculating Beta: {e}")
             
-            # Check if we have any valid metrics
-            valid_metrics = {k: v for k, v in metrics.items() if v != "Data unavailable"}
-            if not valid_metrics:
-                print(f"Warning: No valid metrics found for {ticker}")
-                metrics = {
-                    "error": f"No valid metrics could be retrieved for {ticker}. The data sources may be unavailable."
-                }
-            
-            # Return the metrics in the required format
+            # final result
             result = {
                 "key_metrics": metrics,
                 "ticker": ticker,
                 "last_updated": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
             }
-            
             print(f"Successfully fetched metrics for {ticker}")
             return result
-            
+        
         except Exception as e:
             print(f"Error in get_key_metrics for {ticker}: {e}")
-            return {
-                "error": f"Failed to retrieve metrics for {ticker}: {str(e)}",
-                "ticker": ticker
-            }
+            return {"error": f"Failed to retrieve metrics for {ticker}: {e}", "ticker": ticker}
+
     
     @staticmethod
     @tqdm_timer
@@ -346,8 +284,8 @@ class MicroTools:
             float: Beta value or None if not available
         """
         try:
-            stock = yf.Ticker(ticker)
-            beta = stock.info.get("beta")
+            info = _get_stock_data(ticker)["info"]
+            beta = info.get("beta")
             return beta
         except Exception as e:
             print(f"Error getting beta for {ticker}: {e}")
