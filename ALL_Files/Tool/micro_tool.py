@@ -19,7 +19,10 @@ from functools import wraps
 from sklearn.preprocessing import StandardScaler
 from sklearn.metrics.pairwise import euclidean_distances
 from functools import lru_cache
+from concurrent.futures import ThreadPoolExecutor, as_completed
 
+    # --- HTTP 会话复用，避免每次新建连接 ---
+_session = requests.Session()
 @lru_cache(maxsize=None)
 def _get_stock_data(ticker: str) -> Dict[str, Any]:
     """
@@ -305,7 +308,7 @@ class MicroTools:
         """
         url = f"{BASE_URL}/discounted-cash-flow/{ticker}?apikey={API_KEY}"
         try:
-            response = requests.get(url)
+            response = MicroTools._session.get(url, timeout=5)
             response.raise_for_status()
             data = response.json()
             if data and len(data) > 0:
@@ -445,7 +448,7 @@ class MicroTools:
         """
         url = f"{BASE_URL}/profile/{ticker}?apikey={API_KEY}"
         try:
-            response = requests.get(url)
+            response = MicroTools._session.get(url, timeout=5)
             response.raise_for_status()
             data = response.json()
             if data and len(data) > 0:
@@ -577,7 +580,7 @@ class MicroTools:
         
         for url in endpoints:
             try:
-                response = requests.get(url)
+                response = MicroTools._session.get(url, timeout=5)
                 response.raise_for_status()
                 data = response.json()
                 
@@ -1029,7 +1032,7 @@ class MicroTools:
         url = f"{BASE_URL}/earning-calendar?from={from_date}&to={to_date}&apikey={API_KEY}"
         
         try:
-            response = requests.get(url)
+            response = MicroTools._session.get(url, timeout=10)
             response.raise_for_status()
             data = response.json()
             
@@ -1044,7 +1047,11 @@ class MicroTools:
                 
                 # Add market cap if we have the symbol
                 if 'symbol' in df.columns:
-                    df['market_cap'] = df['symbol'].apply(MicroTools._get_market_cap)
+                    # 并行获取 market_cap，加速批量调用
+                    symbols = df['symbol'].tolist()
+                    with ThreadPoolExecutor(max_workers=8) as exe:
+                        caps = list(exe.map(MicroTools._get_market_cap, symbols))
+                    df['market_cap'] = caps
                     
                     # Convert market cap to billions for readability
                     df['market_cap_B'] = df['market_cap'] / 1e9
@@ -1102,7 +1109,7 @@ class MicroTools:
         """
         url = f"{BASE_URL}/earnings-surprises/{ticker}?limit={limit}&apikey={API_KEY}"
         try:
-            response = requests.get(url)
+            response = MicroTools._session.get(url, timeout=5)
             response.raise_for_status()
             data = response.json()
             if data:
