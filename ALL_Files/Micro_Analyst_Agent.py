@@ -7,13 +7,13 @@ import time
 from datetime import datetime
 import pandas as pd
 import glob
-import re
+import re, orjson
 import sys
 import numpy as np
 import subprocess
 import importlib.util
 from tqdm import tqdm
-from functools import wraps
+from functools import wraps, lru_cache
 from typing import List, Dict, Any, Optional, Tuple
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
@@ -370,6 +370,23 @@ class MicroAnalystAgent:
         Returns:
             Dict containing selected tools and rationale
         """
+        # Precompile regex
+        TOOL_REGEX = re.compile(r'(get_stock_metrics|get_stock_beta|get_stock_dcf_valuation|'
+                                r'get_stock_detailed_dcf|get_company_profile|get_stock_peers|'
+                                r'get_peer_valuation_comparison|get_peer_beta_comparison|'
+                                r'get_earnings_calendar|get_earnings_surprises|'
+                                r'analyze_earnings_vs_estimates)')
+
+        # Cached version of your LLM API call
+        @lru_cache(maxsize=128)
+        def cached_deepseek_api_call(prompt: str) -> str:
+            return deepseek_api_call(prompt)
+
+        # Utility to extract JSON from raw LLM response
+        def extract_json_string(raw: str) -> str:
+            match = re.search(r"\{.*\}", raw, re.DOTALL)
+            return match.group(0).strip() if match else raw.strip()
+        
         ticker = rating_data.get("Ticker", "")
         macro_data = rating_data.get("Macro", {})
         micro_data = rating_data.get("Micro", {})
@@ -383,30 +400,33 @@ class MicroAnalystAgent:
             print(f"  - Identifying key facts in micro news")
             print(f"  - Comparing market expectations to actual developments")
             print(f"  - Determining tools needed to verify claims and expectations")
-            
+        
+        # Use orjson for faster serialization
+        macro_str = orjson.dumps(macro_data).decode()[:1000]
+        micro_str = orjson.dumps(micro_data).decode()[:1000]
         # Build a prompt for the LLM to determine which tools to use
         prompt = f"""
         Based on the following macro and micro news for {ticker}, determine which micro analysis tools would be most useful to separate facts from market expectations and identify potential investment opportunities.
 
         MACRO DATA:
-        {json.dumps(macro_data, indent=2, cls=NumpyJSONEncoder)[:1000]}
+        {macro_str}
         
         MICRO DATA:
-        {json.dumps(micro_data, indent=2, cls=NumpyJSONEncoder)[:1000]}
+        {micro_str}
         
         Available micro tools and their purposes:
-        1. get_stock_metrics - Get key financial metrics to verify claims about company performance
-        2. get_stock_beta - Check actual market correlation against claimed market sensitivity
-        3. get_stock_dcf_valuation - Compare actual valuation metrics against market expectations
-        4. get_stock_detailed_dcf - Perform detailed valuation analysis to test optimistic/pessimistic views
-        5. get_company_profile - Understand the company's actual business model beyond market narratives
-        6. get_stock_peers - Identify true industry peers to compare performance claims
-        7. get_peer_valuation_comparison - Compare actual valuation to peers to test "undervalued/overvalued" claims
-        8. get_peer_beta_comparison - Compare volatility with peers to test risk narratives
-        9. get_earnings_calendar - Verify upcoming event dates mentioned in news
-        10. get_earnings_surprises - Check if company consistently meets/misses expectations
-        11. analyze_earnings_vs_estimates - Compare analyst expectations with actual performance
-        
+        - get_stock_metrics: verify company performance
+        - get_stock_beta: check market sensitivity
+        - get_stock_dcf_valuation: test valuation assumptions
+        - get_stock_detailed_dcf: full DCF to verify views
+        - get_company_profile: understand actual business model
+        - get_stock_peers: find true industry peers
+        - get_peer_valuation_comparison: compare valuation to peers
+        - get_peer_beta_comparison: compare volatility with peers
+        - get_earnings_calendar: confirm upcoming events
+        - get_earnings_surprises: check if firm beats/misses estimates
+        - analyze_earnings_vs_estimates: compare actual vs analyst estimates
+
         TASK:
         1. Identify which facts in the news need verification 
         2. Determine which market expectations need to be tested against data
@@ -424,57 +444,34 @@ class MicroAnalystAgent:
         if verbose:
             print(f"\n📝 PROMPT: Sending prompt to LLM to determine appropriate tools")
         
-        # Use LLM to determine tools
-        llm_response = deepseek_api_call(prompt)
-        
-        if verbose:
-            print(f"\n🔄 RESPONSE: Received tool selection from LLM")
-            print(f"RAW LLM RESPONSE:\n{llm_response}\n")
-        
-        # Try to extract JSON from markdown/code blocks
-        json_str = None
-        if llm_response:
-            # Remove markdown code block if present
-            match = re.search(r"```json\\s*(\\{[\\s\\S]*?\\})\\s*```", llm_response)
-            if match:
-                json_str = match.group(1)
-            else:
-                # Try to find any JSON object in the string
-                match = re.search(r"(\\{[\\s\\S]*\\})", llm_response)
-                if match:
-                    json_str = match.group(1)
-                else:
-                    json_str = llm_response.strip()
-
         try:
-            # Clean json_str in case it's wrapped in markdown
-            match = re.search(r"\{.*\}", json_str, re.DOTALL)
-            cleaned_json_str = match.group(0) if match else json_str.strip()
+            llm_response = cached_deepseek_api_call(prompt)
 
-            tool_selection = json.loads(cleaned_json_str)
+            if verbose:
+                print(f"\n🔄 RESPONSE: Received tool selection from LLM")
+                print(f"RAW LLM RESPONSE:\n{llm_response[:1000]}...")  # Limit length in logs
+
+            json_str = extract_json_string(llm_response)
+
+            tool_selection = orjson.loads(json_str)
 
             if verbose and "reasoning_process" in tool_selection:
                 print(f"\n🧠 REASONING PROCESS:")
-                reasoning = tool_selection["reasoning_process"]
-                for line in reasoning.split("\\n"):
+                for line in tool_selection["reasoning_process"].split("\n"):
                     print(f"  {line}")
+
             return tool_selection
 
         except Exception as e:
             if verbose:
                 print(f"\n⚠️ WARNING: Failed to parse LLM response as JSON: {str(e)}")
                 print(f"Falling back to regex extraction of tool names")
-                print(f"RAW LLM RESPONSE (for debugging):\n{llm_response}\n")
-            
-            # If JSON parsing fails, extract tool names using regex
-            tool_regex = r'(get_stock_metrics|get_stock_beta|get_stock_dcf_valuation|get_stock_detailed_dcf|get_company_profile|get_stock_peers|get_peer_valuation_comparison|get_peer_beta_comparison|get_earnings_calendar|get_earnings_surprises|analyze_earnings_vs_estimates)'
-            tools = re.findall(tool_regex, llm_response or "")
-            
-            # If no tools found, return a default set
+
+            tools = TOOL_REGEX.findall(llm_response or "")
             if not tools:
                 if verbose:
-                    print(f"\n⚠️ WARNING: No tools found in LLM response, using default tools")
-                    
+                    print(f"\n⚠️ No tools found in LLM response, using default fallback")
+
                 return {
                     "selected_tools": ["get_stock_metrics", "get_company_profile", "get_earnings_surprises"],
                     "facts_to_verify": ["Company performance claims", "Business model descriptions", "Historical earnings performance"],
@@ -486,7 +483,7 @@ class MicroAnalystAgent:
                     },
                     "reasoning_process": "Default reasoning process based on standard fact vs. expectations framework."
                 }
-                
+
             return {
                 "selected_tools": tools,
                 "facts_to_verify": ["Extracted from news context but not explicitly identified"],
@@ -522,11 +519,11 @@ class MicroAnalystAgent:
             "get_stock_dcf_valuation": MicroTools.get_dcf_valuation,
             "get_stock_detailed_dcf": MicroTools.get_detailed_dcf,
             "get_company_profile": MicroTools.get_company_profile,
-            "get_stock_peers": MicroTools.get_peers,
+            "get_stock_peers": MicroTools.get_peers, #how to share results across?
             "get_peer_valuation_comparison": MicroTools.get_peer_valuation_comparison,
             "get_peer_beta_comparison": MicroTools.get_peer_beta_comparison,
             "get_earnings_calendar": MicroTools.get_companies_earnings_calendar,
-            "get_earnings_surprises": MicroTools.get_earnings_surprises,
+            "get_earnings_surprises": MicroTools.get_earnings_surprises, #how to share results across?
             "analyze_earnings_vs_estimates": MicroTools.analyze_earnings_estimates_vs_actual
         }
         
