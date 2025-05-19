@@ -219,7 +219,7 @@ class MicroTools:
                     raise ValueError("Net Income not found")
                 # assets & liabilities
                 total_assets = balance_sheet.loc["Total Assets"].iloc[0]
-                current_liabilities = balance_sheet.loc["Total Current Liabilities"].iloc[0]
+                current_liabilities = balance_sheet.loc["Current Liabilities"].iloc[0]
                 invested_capital = total_assets - current_liabilities
                 roic_value = (net_income / invested_capital) * 100
                 metrics["ROIC"] = f"{roic_value:.2f}%"
@@ -246,7 +246,7 @@ class MicroTools:
             # Free Cash Flow
             try:
                 op_cf = cash_flow.loc["Operating Cash Flow"].iloc[0]
-                capex = abs(cash_flow.loc["Capital Expenditures"].iloc[0])
+                capex = abs(cash_flow.loc["Capital Expenditure"].iloc[0])
                 fcf   = op_cf - capex
                 metrics["Free_Cash_Flow"] = f"${(fcf/1e9):.2f}B"
             except Exception as e:
@@ -352,9 +352,9 @@ class MicroTools:
             # Get Free Cash Flow
             if "Free Cash Flow" in cash_flow.index:
                 fcf_data = cash_flow.loc["Free Cash Flow"]
-            elif "Operating Cash Flow" in cash_flow.index and "Capital Expenditures" in cash_flow.index:
+            elif "Operating Cash Flow" in cash_flow.index and "Capital Expenditure" in cash_flow.index:
                 operating_cash = cash_flow.loc["Operating Cash Flow"]
-                capital_expenditures = cash_flow.loc["Capital Expenditures"]
+                capital_expenditures = cash_flow.loc["Capital Expenditure"]
                 fcf_data = operating_cash + capital_expenditures  # Capital expenditures are negative
             else:
                 return {'status': 'error', 'message': 'Could not retrieve Free Cash Flow data'}
@@ -911,45 +911,37 @@ class MicroTools:
         peers = MicroTools.get_peers(ticker)
         all_tickers = [ticker] + peers  # Include the original ticker first
         
-        # Get data for each ticker using yfinance
-        valuation_data = []
-        for peer_ticker in all_tickers:
-            try:
-                stock = yf.Ticker(peer_ticker)
-                info = stock.info
-                
-                # Check if we have the necessary data
-                if info and 'currentPrice' in info:
-                    valuation_data.append({
-                        'ticker': peer_ticker,
-                        'price': info.get('currentPrice', None),
-                        'market_cap': info.get('marketCap', None),
-                        'forward_pe': info.get('forwardPE', None),
-                        'price_to_book': info.get('priceToBook', None),
-                        'ev_to_ebitda': info.get('enterpriseToEbitda', None),
-                        'profit_margins': info.get('profitMargins', None),
-                        'sector': info.get('sector', None),
-                        'industry': info.get('industry', None)
-                    })
-            except Exception as e:
-                print(f"Error fetching data for {peer_ticker}: {e}")
+        # Bulk creation
+        bulk = yf.Tickers(" ".join(all_tickers))
+
+        # Parallel extraction (non-blocking access to already-fetched .info)
+        def extract(t):
+            info = bulk.tickers[t].info
+            return {
+                'ticker': t,
+                'price': info.get('currentPrice'),
+                'market_cap_B': info.get('marketCap', 0) / 1e9,
+                'forward_pe': info.get('forwardPE'),
+                'price_to_book': info.get('priceToBook'),
+                'ev_to_ebitda': info.get('enterpriseToEbitda'),
+                'profit_margins': info.get('profitMargins'),
+                'sector': info.get('sector'),
+                'industry': info.get('industry'),
+            }
+
+        try:
+            with ThreadPoolExecutor(max_workers=8) as exe:
+                valuation_data = list(exe.map(extract, all_tickers))
+
+        except Exception as e:
+            print(f"Error fetching data for {all_tickers}: {e}")
         
         # Create DataFrame and sort by forward PE
         if valuation_data:
             df = pd.DataFrame(valuation_data)
-            
-            # Convert market cap to billions for readability
-            if 'market_cap' in df.columns:
-                df['market_cap_B'] = df['market_cap'] / 1e9
-            
-            # Calculate percentile ranks for key metrics
-            metrics_to_rank = ['forward_pe', 'price_to_book', 'ev_to_ebitda']
-            for metric in metrics_to_rank:
-                if metric in df.columns:
-                    df[f'{metric}_rank'] = df[metric].rank(pct=True)
-            
-            # Sort by market cap by default
-            return df.sort_values('market_cap', ascending=False).reset_index(drop=True)
+            for metric in ['forward_pe','price_to_book','ev_to_ebitda']:
+                df[f'{metric}_rank'] = df[metric].rank(pct=True)
+            return df.sort_values('market_cap_B', ascending=False).reset_index(drop=True)
         else:
             print("No valuation data available for any ticker")
             return pd.DataFrame()

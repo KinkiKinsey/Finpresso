@@ -491,8 +491,8 @@ class MicroAnalystAgent:
                 "rationale": {tool: "Automatically selected based on context" for tool in tools},
                 "reasoning_process": "Tools were automatically extracted from the LLM response, which couldn't be parsed as JSON."
             }
-    @tqdm_timer
     
+    @tqdm_timer
     def execute_micro_tools(self, ticker: str, selected_tools: List[str], verbose: bool = True) -> Dict:
         """
         Execute the selected micro tools for a given ticker
