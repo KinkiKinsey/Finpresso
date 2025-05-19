@@ -15,6 +15,7 @@ import importlib.util
 from tqdm import tqdm
 from functools import wraps
 from typing import List, Dict, Any, Optional, Tuple
+from concurrent.futures import ThreadPoolExecutor, as_completed
 
 def tqdm_timer(func):
     @wraps(func)
@@ -493,8 +494,8 @@ class MicroAnalystAgent:
                 "rationale": {tool: "Automatically selected based on context" for tool in tools},
                 "reasoning_process": "Tools were automatically extracted from the LLM response, which couldn't be parsed as JSON."
             }
-    
     @tqdm_timer
+    
     def execute_micro_tools(self, ticker: str, selected_tools: List[str], verbose: bool = True) -> Dict:
         """
         Execute the selected micro tools for a given ticker
@@ -545,55 +546,36 @@ class MicroAnalystAgent:
         }
         
         # Create a cache for the raw results
-        raw_results = {}
-        
+        results: Dict[str, Any] = {}
+        raw_results: Dict[str, Any] = {}
+        def run_tool(tool_name: str) -> Tuple[str, Any]:
+            if verbose:
+                print(f"\n⚙️ [Thread] EXECUTING TOOL: {tool_name}")
+                print(f"  Purpose: {tool_descriptions.get(tool_name, 'No description available')}")
+                print(f"  Input: Ticker = {ticker}")
+            try:
+                if tool_name == "get_earnings_calendar":
+                    result = tool_map
+                else:
+                    result = tool_map[tool_name](ticker)
+                if verbose:
+                    print(f"  ✓ [Thread] {tool_name} completed")
+                return tool_name, result
+            except Exception as e:
+                error_msg = str(e)
+                if verbose:
+                    print(f"  ❌ [Thread] Error executing {tool_name}: {error_msg}")
+                return tool_name, {"error": error_msg}
         # Execute each selected tool
-        for tool_name in selected_tools:
-            if tool_name in tool_map:
-                if verbose:
-                    print(f"\n⚙️ EXECUTING TOOL: {tool_name}")
-                    print(f"  Purpose: {tool_descriptions.get(tool_name, 'No description available')}")
-                    print(f"  Input: Ticker = {ticker}")
-                
-                try:
-                    # Special case for get_earnings_calendar which takes a months parameter
-                    if tool_name == "get_earnings_calendar":
-                        if verbose:
-                            print(f"  Special parameter: months = 6")
-                        tool_result = tool_map[tool_name](6)  # Default to 6 months
-                    else:
-                        tool_result = tool_map[tool_name](ticker)
-                    
-                    # Save the raw result in the cache
-                    raw_results[tool_name] = tool_result
-                    
-                    # Process the result for the regular output
-                    results[tool_name] = tool_result
-                        
-                    if verbose:
-                        print(f"  Result: Successfully executed {tool_name}")
-                        
-                        # Print summary of results if available
-                        if isinstance(results[tool_name], dict):
-                            keys = list(results[tool_name].keys())
-                            if keys:
-                                print(f"  Data returned: {', '.join(keys[:5])}")
-                                if len(keys) > 5:
-                                    print(f"    ... and {len(keys) - 5} more fields")
-                        elif isinstance(results[tool_name], (float, int, str)):
-                            print(f"  Value: {results[tool_name]}")
-                            
-                except Exception as e:
-                    error_msg = str(e)
-                    results[tool_name] = {"error": error_msg}
-                    raw_results[tool_name] = {"error": error_msg}
-                    if verbose:
-                        print(f"  ❌ Error executing {tool_name}: {error_msg}")
-            else:
-                if verbose:
-                    print(f"\n⚠️ UNKNOWN TOOL: {tool_name}")
-                results[tool_name] = {"error": "Tool not found"}
-                raw_results[tool_name] = {"error": "Tool not found"}
+        with ThreadPoolExecutor(max_workers=min(len(selected_tools), 8)) as executor:
+            future_to_tool = {
+                executor.submit(run_tool, name): name
+                for name in selected_tools
+            }
+            for future in as_completed(future_to_tool):
+                name, result = future.result()
+                raw_results[name] = result
+                results[name] = result
         
         # Save the raw results to a cache file
         self.save_tool_results_cache(ticker, raw_results)
@@ -626,9 +608,9 @@ class MicroAnalystAgent:
             return ""
     
     @tqdm_timer
-    def process_tool_results_with_llm(self, ticker: str, tool_results: Dict, verbose: bool = True) -> Dict:
+    def process_tool_results_with_llm(self, ticker: str, tool_results: Dict[str, Any], verbose: bool = True) -> Dict[str, Any]:
         """
-        Process tool results with LLM to convert them to readable comments
+        Process tool results with LLM to convert them to readable comments (multithreaded version)
         
         Args:
             ticker (str): Stock ticker
@@ -640,10 +622,10 @@ class MicroAnalystAgent:
         """
         if verbose:
             print("\n🧠 Processing tool results with LLM...")
-        
-        llm_processed_results = {}
-        
-        for tool_name, result in tool_results.items():
+
+        llm_processed_results: Dict[str, Any] = {}
+
+        def _process_tool(tool_name: str, result: Any) -> Tuple[str, Dict[str, str]]:
             if verbose:
                 print(f"  Processing {tool_name}...")
             
@@ -651,91 +633,93 @@ class MicroAnalystAgent:
             result_str = str(result)
             if len(result_str) > 8000:  # Limit input size for LLM
                 result_str = result_str[:8000] + "... [truncated]"
-            
+
             # Check if this is a peer comparison tool
             is_peer_tool = any(x in tool_name.lower() for x in ["peer", "comparison", "competitors", "compare"])
-            
+
             # Create a more structured prompt for LLM based on the tool type
             if is_peer_tool:
                 prompt = f"""
-                You are a financial data reporter. Analyze the following peer comparison data from the {tool_name} tool for ticker {ticker}.
-                
-                DATA:
-                {result_str}
-                
-                Your response MUST be structured in exactly two parts:
-                
-                PART 1: FACTUAL REPORT
-                First, extract and list the key metrics for {ticker} AND its peers in simple format:
-                1. List {ticker}'s metrics first (at least 3-5 key values)
-                2. EXPLICITLY list the top 3-5 peers by name with their corresponding metrics
-                3. Use a "metric = value" format for all data points
-                
-                For example:
-                {ticker} METRICS:
-                - {ticker} EPS = $X.XX
-                - {ticker} Revenue Growth = X.X%
-                - {ticker} Beta = X.XX
-                
-                PEER METRICS:
-                - Peer1 EPS = $X.XX, Beta = X.XX
-                - Peer2 EPS = $X.XX, Beta = X.XX
-                ...and so on for other peers
-                
-                PART 2: ANALYSIS
-                Only after listing the factual values, provide a brief interpretation (2-3 sentences) comparing {ticker} to its peers.
-                
-                Remember to STRICTLY separate the factual report (PART 1) from your analysis (PART 2) and ensure you report BOTH {ticker} AND its peers' data.
-                """
+                    You are a financial data reporter. Analyze the following peer comparison data from the {tool_name} tool for ticker {ticker}.
+                    
+                    DATA:
+                    {result_str}
+                    
+                    Your response MUST be structured in exactly two parts:
+                    
+                    PART 1: FACTUAL REPORT
+                    First, extract and list the key metrics for {ticker} AND its peers in simple format:
+                    1. List {ticker}'s metrics first (at least 3-5 key values)
+                    2. EXPLICITLY list the top 3-5 peers by name with their corresponding metrics
+                    3. Use a "metric = value" format for all data points
+                    
+                    For example:
+                    {ticker} METRICS:
+                    - {ticker} EPS = $X.XX
+                    - {ticker} Revenue Growth = X.X%
+                    - {ticker} Beta = X.XX
+                    
+                    PEER METRICS:
+                    - Peer1 EPS = $X.XX, Beta = X.XX
+                    - Peer2 EPS = $X.XX, Beta = X.XX
+                    ...and so on for other peers
+                    
+                    PART 2: ANALYSIS
+                    Only after listing the factual values, provide a brief interpretation (2-3 sentences) comparing {ticker} to its peers.
+                    
+                    Remember to STRICTLY separate the factual report (PART 1) from your analysis (PART 2) and ensure you report BOTH {ticker} AND its peers' data.
+                    """
             else:
                 prompt = f"""
-                You are a financial data reporter. Analyze the following data from the {tool_name} tool for ticker {ticker}.
-                
-                DATA:
-                {result_str}
-                
-                Your response MUST be structured in exactly two parts:
-                
-                PART 1: FACTUAL REPORT
-                First, extract and list the key metrics and values directly from the data in simple "metric = value" format.
-                Report just the raw values without interpretation. List at least 3-5 key metrics with their exact values.
-                Example format:
-                - EPS = $X.XX
-                - Revenue Growth = X.X%
-                - Beta = X.XX
-                - Current Price = $XXX.XX
-                
-                PART 2: ANALYSIS
-                Only after listing the factual values, provide a brief interpretation (2-3 sentences) explaining what these values 
-                suggest about the company.
-                
-                Remember to STRICTLY separate the factual report (PART 1) from your analysis (PART 2).
-                """
-            
+                    You are a financial data reporter. Analyze the following data from the {tool_name} tool for ticker {ticker}.
+                    
+                    DATA:
+                    {result_str}
+                    
+                    Your response MUST be structured in exactly two parts:
+                    
+                    PART 1: FACTUAL REPORT
+                    First, extract and list the key metrics and values directly from the data in simple "metric = value" format.
+                    Report just the raw values without interpretation. List at least 3-5 key metrics with their exact values.
+                    Example format:
+                    - EPS = $X.XX
+                    - Revenue Growth = X.X%
+                    - Beta = X.XX
+                    - Current Price = $XXX.XX
+                    
+                    PART 2: ANALYSIS
+                    Only after listing the factual values, provide a brief interpretation (2-3 sentences) explaining what these values 
+                    suggest about the company.
+                    
+                    Remember to STRICTLY separate the factual report (PART 1) from your analysis (PART 2).
+                    """
+
             try:
                 # Call the LLM API
-                llm_response = deepseek_api_call(prompt)
-                
-                # Clean up the response
-                llm_response = llm_response.strip()
-                
-                llm_processed_results[tool_name] = {
-                    "name": tool_name,
-                    "result": llm_response
-                }
+                llm_response = deepseek_api_call(prompt).strip()
                 
                 if verbose:
                     print(f"  ✓ Generated factual report and analysis for {tool_name}")
+                
+                return tool_name, {"name": tool_name, "result": llm_response}
             except Exception as e:
                 error_msg = str(e)
-                llm_processed_results[tool_name] = {
-                    "name": tool_name,
-                    "result": f"Error processing with LLM: {error_msg}"
-                }
                 if verbose:
                     print(f"  ❌ Error processing {tool_name} with LLM: {error_msg}")
-        
+                return tool_name, {"name": tool_name, "result": f"Error processing with LLM: {error_msg}"}
+
+        # Use a thread pool to process all tools in parallel
+        with ThreadPoolExecutor(max_workers=min(len(tool_results), 8)) as executor:
+            futures = {
+                executor.submit(_process_tool, tool_name, result): tool_name
+                for tool_name, result in tool_results.items()
+            }
+            for future in as_completed(futures):
+                tool_name, processed = future.result()
+                llm_processed_results[tool_name] = processed
+
         return llm_processed_results
+
     
     @tqdm_timer
     def analyze_results(self, ticker: str, macro_data: Dict, micro_data: Dict, tool_results: Dict, verbose: bool = True) -> Dict:

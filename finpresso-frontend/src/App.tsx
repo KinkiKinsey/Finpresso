@@ -519,92 +519,111 @@ const MacroPanel: React.FC<{ data: any }> = ({ data }) => (
 );
 
 
-const MicroPanel: React.FC<{ data: any }> = ({ data }) => (
-  <Box
-    sx={{
-      maxWidth: 900,
-      mx: "auto",
-      p: { xs: 3, md: 5 },
-      borderRadius: 4,
-      backdropFilter: "blur(18px)",
-      background: "rgba(255,255,255,0.75)",
-      border: "1px solid rgba(255,255,255,.6)",       // Salt glass edge
-      boxShadow: "0 10px 32px rgba(0,0,0,.06)",
-      transition: "box-shadow .25s",
-      "&:hover": { boxShadow: "0 14px 40px rgba(0,0,0,.12)" },
-    }}
-  >
-    {/* —— Top Info Banner —— */}
-    <Alert
-      icon={<InfoIcon fontSize="inherit" />}
-      severity="info"
+const MicroPanel: React.FC<{ data: any }> = ({ data }) => {
+  // 1) 取出原始 Three_Key_Takeaways
+  const raw = data.Three_Key_Takeaways;
+
+  // 2) 规范成字符串数组，兼容 Array、String、Object
+  let takeaways: string[] = [];
+  if (Array.isArray(raw)) {
+    takeaways = raw.map(item => String(item).trim()).filter(Boolean);
+  } else if (typeof raw === "string") {
+    takeaways = raw
+      .split(/\r?\n+/)          // 按换行拆分
+      .map(line => line.trim()) // 去两端空白
+      .filter(Boolean);         // 丢掉空行
+  } else if (raw && typeof raw === "object") {
+    takeaways = Object.values(raw)
+      .map(item => String(item).trim())
+      .filter(Boolean);
+  }
+
+  return (
+    <Box
       sx={{
-        mb: 3,
-        bgcolor: "rgba(99,102,241,.12)",               // indigo tint like Chase
-        ".MuiAlert-message": { fontSize: 18, fontWeight: 600 },
+        maxWidth: 900,
+        mx: "auto",
+        p: { xs: 3, md: 5 },
+        borderRadius: 4,
+        backdropFilter: "blur(18px)",
+        background: "rgba(255,255,255,0.75)",
+        border: "1px solid rgba(255,255,255,.6)",
+        boxShadow: "0 10px 32px rgba(0,0,0,.06)",
+        transition: "box-shadow .25s",
+        "&:hover": { boxShadow: "0 14px 40px rgba(0,0,0,.12)" },
       }}
     >
-      {data.Micro_Expectation || "—"}
-    </Alert>
-
-    {/* —— Three Key Takeaways —— */}
-    <Card
-      variant="outlined"
-      sx={{
-        borderRadius: 3,
-        overflow: "hidden",
-        ":before": {
-          /* JP Morgan / Salt gradient accent bar */
-          content: '""',
-          display: "block",
-          width: "100%",
-          height: 4,
-          background: "linear-gradient(90deg,#06b6d4 0%,#6366f1 100%)",
-        },
-      }}
-    >
-      <CardContent sx={{ pt: 3 }}>
-        <Typography
-          variant="subtitle1"
-          sx={{ fontWeight: 700, mb: 2, letterSpacing: 0.2 }}
-        >
-          ✨ Three Key Takeaways
-        </Typography>
-        <List disablePadding>
-          {(data.Three_Key_Takeaways || []).map((t: string, i: number) => (
-            <ListItem key={i} sx={{ py: 1 }}>
-              <ListItemIcon>
-                <StarIcon sx={{ color: "#10b981" /* emerald-500 */ }} />
-              </ListItemIcon>
-              <ListItemText
-                primaryTypographyProps={{
-                  fontFamily: "Roboto Mono, monospace",
-                  fontWeight: 700,                     // black-bold number / KPI feel
-                }}
-                primary={t}
-              />
-            </ListItem>
-          ))}
-        </List>
-      </CardContent>
-    </Card>
-
-    {/* —— Next-Step Hint —— */}
-    {data.Next_Inference_Hint_Micro_News && (
+      {/* —— Top Info Banner —— */}
       <Alert
-        icon={<ArrowCircleRightIcon fontSize="inherit" />}
-        severity="warning"
+        icon={<InfoIcon fontSize="inherit" />}
+        severity="info"
         sx={{
-          mt: 3,
-          bgcolor: "rgba(234,179,8,.15)",              // amber-400 tint
-          ".MuiAlert-message": { fontWeight: 600 },
+          mb: 3,
+          bgcolor: "rgba(99,102,241,.12)",
+          ".MuiAlert-message": { fontSize: 18, fontWeight: 600 },
         }}
       >
-        {data.Next_Inference_Hint_Micro_News}
+        {data.Micro_Expectation || "—"}
       </Alert>
-    )}
-  </Box>
-);
+
+      {/* —— Three Key Takeaways —— */}
+      <Card
+        variant="outlined"
+        sx={{
+          borderRadius: 3,
+          overflow: "hidden",
+          ":before": {
+            content: '""',
+            display: "block",
+            width: "100%",
+            height: 4,
+            background: "linear-gradient(90deg,#06b6d4 0%,#6366f1 100%)",
+          },
+        }}
+      >
+        <CardContent sx={{ pt: 3 }}>
+          <Typography
+            variant="subtitle1"
+            sx={{ fontWeight: 700, mb: 2, letterSpacing: 0.2 }}
+          >
+            ✨ Three Key Takeaways
+          </Typography>
+          <List disablePadding>
+            {takeaways.map((t, i) => (
+              <ListItem key={i} sx={{ py: 1 }}>
+                <ListItemIcon>
+                  <StarIcon sx={{ color: "#10b981" }} />
+                </ListItemIcon>
+                <ListItemText
+                  primaryTypographyProps={{
+                    fontFamily: "Roboto Mono, monospace",
+                    fontWeight: 700,
+                  }}
+                  primary={t}
+                />
+              </ListItem>
+            ))}
+          </List>
+        </CardContent>
+      </Card>
+
+      {/* —— Next-Step Hint —— */}
+      {data.Next_Inference_Hint_Micro_News && (
+        <Alert
+          icon={<ArrowCircleRightIcon fontSize="inherit" />}
+          severity="warning"
+          sx={{
+            mt: 3,
+            bgcolor: "rgba(234,179,8,.15)",
+            ".MuiAlert-message": { fontWeight: 600 },
+          }}
+        >
+          {data.Next_Inference_Hint_Micro_News}
+        </Alert>
+      )}
+    </Box>
+  );
+};
 
 /* ---------- Price (Technical) Panel ---------- */
 const GRAPHS_BASE = "http://localhost:8000/static/graphs";

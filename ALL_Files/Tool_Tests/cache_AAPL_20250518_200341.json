@@ -1,0 +1,338 @@
+{
+  "get_stock_dcf_valuation": {
+    "symbol": "AAPL",
+    "date": "2025-05-18",
+    "dcf": 151.16247829430543,
+    "Stock Price": 211.252
+  },
+  "get_earnings_surprises": {
+    "__dataframe__": true,
+    "data": [
+      {
+        "date": "2025-05-01",
+        "symbol": "AAPL",
+        "actualEarningResult": 1.65,
+        "estimatedEarning": 1.63
+      },
+      {
+        "date": "2025-01-30",
+        "symbol": "AAPL",
+        "actualEarningResult": 2.4,
+        "estimatedEarning": 2.36
+      },
+      {
+        "date": "2024-10-31",
+        "symbol": "AAPL",
+        "actualEarningResult": 1.64,
+        "estimatedEarning": 1.6
+      },
+      {
+        "date": "2024-08-01",
+        "symbol": "AAPL",
+        "actualEarningResult": 1.4,
+        "estimatedEarning": 1.35
+      }
+    ]
+  },
+  "analyze_earnings_vs_estimates": {
+    "data": [
+      {
+        "date": "2025-05-01",
+        "symbol": "AAPL",
+        "actualEarningResult": 1.65,
+        "estimatedEarning": 1.63,
+        "surprise_pct": 1.2269938650306762
+      },
+      {
+        "date": "2025-01-30",
+        "symbol": "AAPL",
+        "actualEarningResult": 2.4,
+        "estimatedEarning": 2.36,
+        "surprise_pct": 1.6949152542372898
+      },
+      {
+        "date": "2024-10-31",
+        "symbol": "AAPL",
+        "actualEarningResult": 1.64,
+        "estimatedEarning": 1.6,
+        "surprise_pct": 2.4999999999999885
+      },
+      {
+        "date": "2024-08-01",
+        "symbol": "AAPL",
+        "actualEarningResult": 1.4,
+        "estimatedEarning": 1.35,
+        "surprise_pct": 3.7037037037036904
+      }
+    ],
+    "summary": {
+      "total_quarters": 4,
+      "beats": 4,
+      "misses": 0,
+      "beat_rate": 1.0,
+      "average_surprise_pct": 2.2814032057429112,
+      "surprise_trend": -2.476709838673014
+    }
+  },
+  "get_stock_metrics": {
+    "key_metrics": {
+      "EPS": "$6.42",
+      "ROIC": "49.70%",
+      "Debt_to_Equity": "1.87",
+      "Revenue_Growth": "2.02% YoY",
+      "Free_Cash_Flow": "$108.81B",
+      "Beta": "1.27",
+      "Current_Price": "$211.26",
+      "Market_Cap": "$3155.34B",
+      "PE_Ratio": "32.91",
+      "PB_Ratio": "47.25"
+    },
+    "ticker": "AAPL",
+    "last_updated": "2025-05-18 20:03:39"
+  },
+  "get_peer_valuation_comparison": {
+    "__dataframe__": true,
+    "data": [
+      {
+        "ticker": "AAPL",
+        "price": 211.26,
+        "market_cap": 3155336888320,
+        "forward_pe": 25.42238,
+        "price_to_book": 47.25117,
+        "ev_to_ebitda": 23.08,
+        "profit_margins": 0.24301,
+        "sector": "Technology",
+        "industry": "Consumer Electronics",
+        "market_cap_B": 3155.33688832,
+        "forward_pe_rank": 1.0,
+        "price_to_book_rank": 1.0,
+        "ev_to_ebitda_rank": 0.875
+      },
+      {
+        "ticker": "SSNLF",
+        "price": 40.5999,
+        "market_cap": 301846429696,
+        "forward_pe": 9.144121,
+        "price_to_book": 0.0008192704,
+        "ev_to_ebitda": -1.237,
+        "profit_margins": 0.11368,
+        "sector": "Technology",
+        "industry": "Consumer Electronics",
+        "market_cap_B": 301.846429696,
+        "forward_pe_rank": 0.5,
+        "price_to_book_rank": 0.125,
+        "ev_to_ebitda_rank": 0.25
+      },
+      {
+        "ticker": "XIACY",
+        "price": 32.5,
+        "market_cap": 169335390208,
+        "forward_pe": 3.650045,
+        "price_to_book": 4.3212337,
+        "ev_to_ebitda": 27.418,
+        "profit_margins": 0.06466,
+        "sector": "Technology",
+        "industry": "Consumer Electronics",
+        "market_cap_B": 169.335390208,
+        "forward_pe_rank": 0.4166666666666667,
+        "price_to_book_rank": 0.875,
+        "ev_to_ebitda_rank": 0.9375
+      },
+      {
+        "ticker": "SONY",
+        "price": 24.68,
+        "market_cap": 148919369728,
+        "forward_pe": 20.739494,
+        "price_to_book": 0.018178698,
+        "ev_to_ebitda": 1.134,
+        "profit_margins": 0.08811,
+        "sector": "Technology",
+        "industry": "Consumer Electronics",
+        "market_cap_B": 148.919369728,
+        "forward_pe_rank": 0.8333333333333334,
+        "price_to_book_rank": 0.3125,
+        "ev_to_ebitda_rank": 0.4375
+      },
+      {
+        "ticker": "FIS",
+        "price": 79.86,
+        "market_cap": 41958043648,
+        "forward_pe": 13.98599,
+        "price_to_book": 2.7885053,
+        "ev_to_ebitda": 19.713,
+        "profit_margins": 0.08056,
+        "sector": "Technology",
+        "industry": "Information Technology Services",
+        "market_cap_B": 41.958043648,
+        "forward_pe_rank": 0.75,
+        "price_to_book_rank": 0.75,
+        "ev_to_ebitda_rank": 0.8125
+      },
+      {
+        "ticker": "PCRFF",
+        "price": 11.5,
+        "market_cap": 26847784960,
+        "forward_pe": NaN,
+        "price_to_book": 0.0057181413,
+        "ev_to_ebitda": 0.939,
+        "profit_margins": 0.0433,
+        "sector": "Technology",
+        "industry": "Consumer Electronics",
+        "market_cap_B": 26.84778496,
+        "forward_pe_rank": NaN,
+        "price_to_book_rank": 0.25,
+        "ev_to_ebitda_rank": 0.375
+      },
+      {
+        "ticker": "KYOCY",
+        "price": 12.43,
+        "market_cap": 17510762496,
+        "forward_pe": 21.431036,
+        "price_to_book": 0.0054418566,
+        "ev_to_ebitda": -0.316,
+        "profit_margins": 0.01196,
+        "sector": "Industrials",
+        "industry": "Conglomerates",
+        "market_cap_B": 17.510762496,
+        "forward_pe_rank": 0.9166666666666666,
+        "price_to_book_rank": 0.1875,
+        "ev_to_ebitda_rank": 0.3125
+      },
+      {
+        "ticker": "SHCAF",
+        "price": 6.27,
+        "market_cap": 4071110912,
+        "forward_pe": NaN,
+        "price_to_book": 0.026325513,
+        "ev_to_ebitda": 3.419,
+        "profit_margins": 0.01671,
+        "sector": "Technology",
+        "industry": "Consumer Electronics",
+        "market_cap_B": 4.071110912,
+        "forward_pe_rank": NaN,
+        "price_to_book_rank": 0.375,
+        "ev_to_ebitda_rank": 0.5625
+      },
+      {
+        "ticker": "TCLHF",
+        "price": 1.41,
+        "market_cap": 3554384128,
+        "forward_pe": NaN,
+        "price_to_book": 0.20659341,
+        "ev_to_ebitda": -1.74,
+        "profit_margins": 0.01771,
+        "sector": "Technology",
+        "industry": "Consumer Electronics",
+        "market_cap_B": 3.554384128,
+        "forward_pe_rank": NaN,
+        "price_to_book_rank": 0.4375,
+        "ev_to_ebitda_rank": 0.1875
+      },
+      {
+        "ticker": "LPL",
+        "price": 3.14,
+        "market_cap": 3140000000,
+        "forward_pe": -10.466666,
+        "price_to_book": 0.0002502248,
+        "ev_to_ebitda": 3.228,
+        "profit_margins": -0.07446,
+        "sector": "Technology",
+        "industry": "Consumer Electronics",
+        "market_cap_B": 3.14,
+        "forward_pe_rank": 0.16666666666666666,
+        "price_to_book_rank": 0.0625,
+        "ev_to_ebitda_rank": 0.5
+      },
+      {
+        "ticker": "SONO",
+        "price": 10.89,
+        "market_cap": 1307747456,
+        "forward_pe": -72.6,
+        "price_to_book": 3.4148638,
+        "ev_to_ebitda": 48.733,
+        "profit_margins": -0.04736,
+        "sector": "Technology",
+        "industry": "Consumer Electronics",
+        "market_cap_B": 1.307747456,
+        "forward_pe_rank": 0.08333333333333333,
+        "price_to_book_rank": 0.8125,
+        "ev_to_ebitda_rank": 1.0
+      },
+      {
+        "ticker": "TBCH",
+        "price": 12.2,
+        "market_cap": 245786080,
+        "forward_pe": 10.295359,
+        "price_to_book": 2.003613,
+        "ev_to_ebitda": 6.019,
+        "profit_margins": 0.04034,
+        "sector": "Technology",
+        "industry": "Consumer Electronics",
+        "market_cap_B": 0.24578608,
+        "forward_pe_rank": 0.5833333333333334,
+        "price_to_book_rank": 0.6875,
+        "ev_to_ebitda_rank": 0.6875
+      },
+      {
+        "ticker": "VUZI",
+        "price": 2.56,
+        "market_cap": 195180544,
+        "forward_pe": -6.095238,
+        "price_to_book": 5.213849,
+        "ev_to_ebitda": -3.577,
+        "profit_margins": 0.0,
+        "sector": "Technology",
+        "industry": "Consumer Electronics",
+        "market_cap_B": 0.195180544,
+        "forward_pe_rank": 0.25,
+        "price_to_book_rank": 0.9375,
+        "ev_to_ebitda_rank": 0.0625
+      },
+      {
+        "ticker": "GPRO",
+        "price": 0.6083,
+        "market_cap": 95837048,
+        "forward_pe": 3.3794441,
+        "price_to_book": 0.8714899,
+        "ev_to_ebitda": -1.988,
+        "profit_margins": -0.17933,
+        "sector": "Technology",
+        "industry": "Consumer Electronics",
+        "market_cap_B": 0.095837048,
+        "forward_pe_rank": 0.3333333333333333,
+        "price_to_book_rank": 0.5625,
+        "ev_to_ebitda_rank": 0.125
+      },
+      {
+        "ticker": "UEIC",
+        "price": 7.04,
+        "market_cap": 92716800,
+        "forward_pe": 10.666666,
+        "price_to_book": 0.61673236,
+        "ev_to_ebitda": 9.43,
+        "profit_margins": -0.054780003,
+        "sector": "Technology",
+        "industry": "Consumer Electronics",
+        "market_cap_B": 0.0927168,
+        "forward_pe_rank": 0.6666666666666666,
+        "price_to_book_rank": 0.5,
+        "ev_to_ebitda_rank": 0.75
+      },
+      {
+        "ticker": "DBOXF",
+        "price": 0.14,
+        "market_cap": 31062780,
+        "forward_pe": NaN,
+        "price_to_book": 1.971831,
+        "ev_to_ebitda": 5.042,
+        "profit_margins": 0.08928,
+        "sector": "Technology",
+        "industry": "Consumer Electronics",
+        "market_cap_B": 0.03106278,
+        "forward_pe_rank": NaN,
+        "price_to_book_rank": 0.625,
+        "ev_to_ebitda_rank": 0.625
+      }
+    ]
+  }
+}

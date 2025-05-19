@@ -1,8 +1,0 @@
-{
-  "get_stock_dcf_valuation": {
-    "symbol": "TSLA",
-    "date": "2025-05-04",
-    "dcf": 48.15877639925661,
-    "Stock Price": 287.21
-  }
-}

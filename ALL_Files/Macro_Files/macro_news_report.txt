@@ -1,61 +1,90 @@
-Here is the macroeconomic analysis based on the provided news:
+Here’s the macroeconomic analysis based on the available news:
 
-1. **Event**: U.S. Defense Secretary Pete Hegseth ordered a temporary halt to military aid shipments to Ukraine, catching the White House and Pentagon off guard. The pause lasted several days before being reversed.  
-   **Impact**: This reflects internal policy disarray within the Trump administration, potentially undermining U.S. credibility in foreign military commitments. The abrupt halt could strain U.S.-Ukraine relations and disrupt defense supply chains.  
-   **Impact on Stock**: Defense and logistics stocks may face volatility due to uncertainty in military aid flows and policy instability.  
+---
 
-2. **Event**: President Trump downplays tariff negotiations, stating, "We don't have to sign deals," while the EU trade chief insists the bloc won’t accept unfair U.S. tariff terms.  
-   **Impact**: Prolonged trade tensions could exacerbate global economic fragmentation, raising costs for businesses and consumers. The U.S. trade deficit has already hit a record high as firms rush to stockpile imports ahead of expected tariffs.  
-   **Impact on Stock**: Trade-sensitive sectors (automotive, agriculture, tech) may face pressure, while domestic manufacturers could see short-term gains.  
+### **1. Federal Reserve Announces Staff Reduction**  
+- **Event**: Federal Reserve plans to reduce staff by 10% over the coming years, as per a memo from Chair Jerome Powell.  
+- **Impact**: Could signal operational streamlining or cost-cutting, potentially affecting the Fed’s capacity for economic analysis and policy implementation.  
+- **Stock Market Implication**: Neutral to slightly negative if investors perceive reduced Fed effectiveness, but unlikely to cause major market shifts.  
 
-3. **Event**: The Federal Reserve is expected to keep rates unchanged despite Trump’s public pressure for cuts. Markets anticipate a potential rate cut in July.  
-   **Impact**: The Fed’s cautious stance signals concerns over lingering inflation risks, particularly from tariff-related price pressures. Higher-for-longer rates may slow economic growth but stabilize the dollar.  
-   **Impact on Stock**: Financial stocks may benefit from steady rates, while rate-sensitive sectors (real estate, utilities) could underperform.  
+---
 
-4. **Event**: China risks deeper deflation as it diverts U.S.-bound exports to its domestic market, triggering price wars.  
-   **Impact**: Excess supply in China’s domestic market could worsen deflationary pressures globally, dampening corporate profits and wage growth. This may also delay China’s economic recovery.  
-   **Impact on Stock**: Commodity-linked and China-exposed stocks (mining, luxury goods) may decline, while discount retailers could benefit from cheaper imports.  
+### **2. Trump Pushes Fed for Rate Cuts, Criticizes Powell**  
+- **Event**: Former President Trump publicly pressures the Federal Reserve to cut interest rates and criticizes Chair Powell’s leadership.  
+- **Impact**: Raises concerns about political interference in central bank independence, potentially undermining market confidence in monetary policy.  
+- **Stock Market Implication**: Short-term volatility if investors fear erratic policy shifts; long-term depends on Fed’s adherence to data-driven decisions.  
 
-5. **Event**: El Salvador’s President Bukele orders arrests of bus company executives for defying a free-transport order, citing "sabotage."  
-   **Impact**: Such interventionist policies risk destabilizing private sector confidence and could deter foreign investment in emerging markets.  
-   **Impact on Stock**: Latin American markets may see heightened political risk premiums, affecting regional equities and bonds.  
+---
 
-6. **Event**: U.S. payrolls grew by 177,000 in April, defying tariff concerns, while wage growth slowed to 3.8% YoY.  
-   **Impact**: Resilient labor markets suggest underlying economic strength, but slowing wage growth may ease inflation fears.  
-   **Impact on Stock**: Cyclical stocks (consumer discretionary, industrials) could rally on sustained demand optimism.  
+### **3. U.S. Considers Regional Tariffs as Trade Deadlines Loom**  
+- **Event**: The U.S. may impose regional tariffs amid looming trade deadlines, signaling a tougher stance in trade negotiations.  
+- **Impact**: Could disrupt global supply chains, increase costs for businesses, and fuel inflation if tariffs are broad-based.  
+- **Stock Market Implication**: Negative for sectors reliant on imports (e.g., retail, manufacturing), but potential gains for domestic producers shielded by tariffs.  
 
-7. **Event**: Eurozone inflation holds at 2.2% in April, with core inflation rising to 2.7%, complicating the ECB’s rate-cut path.  
-   **Impact**: Sticky inflation may delay further ECB easing, tightening financial conditions in Europe.  
-   **Impact on Stock**: European banking stocks may rise on higher rate expectations, while export-driven firms could suffer from a stronger euro.  
+---
 
-### Summary:  
-The macroeconomic landscape is dominated by **trade policy uncertainty** (tariffs, U.S.-EU tensions), **central bank divergence** (Fed/ECB caution vs. political pressure), and **geopolitical disruptions** (Ukraine aid, China deflation). Markets face mixed signals—strong labor data vs. inflation risks and policy volatility—likely sustaining equity market choppiness.  
+### **4. Consumer Sentiment Hits Record Low Amid Tariff-Driven Inflation Fears**  
+- **Event**: Consumer sentiment slides to near-record lows as inflation expectations rise following tariff announcements.  
+- **Impact**: Weak consumer confidence could dampen spending, slowing economic growth. Higher inflation expectations may delay Fed rate cuts.  
+- **Stock Market Implication**: Bearish for consumer discretionary stocks; defensive sectors (utilities, staples) may outperform.  
 
-Let me know if you'd like deeper analysis on any specific trend.
+---
+
+### **5. Trump Warns Walmart Against Price Hikes Due to Tariffs**  
+- **Event**: Trump warns Walmart not to raise prices despite his tariff policies, urging the company to absorb costs.  
+- **Impact**: Highlights tension between trade policy and corporate profitability; could squeeze retail margins if enforced.  
+- **Stock Market Implication**: Negative for Walmart and similar retailers facing margin pressures; broader market wary of policy unpredictability.  
+
+---
+
+### **6. JPMorgan CEO Jamie Dimon Warns of Potential U.S. Recession**  
+- **Event**: Jamie Dimon states a U.S. recession remains "on the table," citing economic uncertainties.  
+- **Impact**: Reinforces caution among businesses and investors, potentially delaying capital expenditures.  
+- **Stock Market Implication**: Risk-off sentiment could weigh on equities, especially cyclical sectors.  
+
+---
+
+### **7. Annual Inflation Dips to 2.3% in April, Lowest Since 2021**  
+- **Event**: April CPI shows inflation cooling to 2.3%, below expectations.  
+- **Impact**: Supports Fed’s case for eventual rate cuts if the trend continues, easing pressure on households.  
+- **Stock Market Implication**: Bullish for equities and bonds as lower inflation reduces rate hike risks.  
+
+---
+
+### **Summary of Key Themes**:  
+- **Trade Policy Uncertainty**: Tariffs and geopolitical tensions dominate, with mixed implications for inflation and growth.  
+- **Fed Policy in Focus**: Staff cuts and political pressure add volatility to monetary policy expectations.  
+- **Consumer Weakness**: Low sentiment and student loan repayments may constrain spending.  
+
+Let me know if you’d like deeper analysis on any specific trend.
 
 ================================================================================
 
 📅 TOP 10 IMPORTANT ECONOMIC DATA RELEASES 📅
 
-📆 May 06, 2025
+📆 May 19, 2025
+  • 02:00:00 | CN: Retail Sales YoY (Apr) (🔴 High Impact)
+    [Previous: 5.9, Estimate: 5.5, Actual: None]
+  • 02:00:00 | CN: Unemployment Rate (Apr) (🔴 High Impact)
+    [Previous: 5.2, Estimate: 5.2, Actual: None]
+  • 02:00:00 | CN: Industrial Production YoY (Apr) (🔴 High Impact)
+    [Previous: 7.7, Estimate: 5.5, Actual: None]
+  • 09:00:00 | EU: CPI (Apr) (🔴 High Impact)
+    [Previous: 128.04, Estimate: 128.76, Actual: None]
+
+📆 May 20, 2025
+  • 04:30:00 | AU: RBA Interest Rate Decision (🔴 High Impact)
+    [Previous: 4.1, Estimate: 3.85, Actual: None]
   • 04:30:00 | AU: Interest Rate Decision (May) (🔴 High Impact)
-    [Previous: 4.1, Estimate: None, Actual: None]
-  • 05:45:00 | CH: Unemployment Rate (Apr) (🔴 High Impact)
-    [Previous: 2.9, Estimate: 2.9, Actual: 2.8]
-  • 07:00:00 | ES: Employment Change (Apr) (🔴 High Impact)
-    [Previous: -13.3, Estimate: 6.5, Actual: -67.4]
-  • 07:15:00 | ES: HCOB Services PMI (Apr) (🔴 High Impact)
-    [Previous: 54.7, Estimate: 53.9, Actual: 53.4]
-  • 07:45:00 | IT: HCOB Services PMI (Apr) (🔴 High Impact)
-    [Previous: 52, Estimate: 51.4, Actual: 52.9]
-  • 07:50:00 | FR: HCOB Services PMI (Apr) (🔴 High Impact)
-    [Previous: 47.9, Estimate: 46.8, Actual: 47.3]
-  • 07:55:00 | DE: HCOB Services PMI (Apr) (🔴 High Impact)
-    [Previous: 50.9, Estimate: 48.8, Actual: 49]
-  • 08:00:00 | EU: HCOB Services PMI (Apr) (🔴 High Impact)
-    [Previous: 51, Estimate: 49.7, Actual: 50.1]
-  • 08:30:00 | UK: S&P Global Services PMI (Apr) (🔴 High Impact)
-    [Previous: 52.5, Estimate: 48.9, Actual: 49]
-  • 12:30:00 | CA: Balance of Trade (Mar) (🔴 High Impact)
-    [Previous: -1.41, Estimate: -1.6, Actual: -0.51]
+    [Previous: 4.1, Estimate: 3.85, Actual: None]
+  • 12:30:00 | CA: CPI (Apr) (🔴 High Impact)
+    [Previous: 2.9, Estimate: 2.9, Actual: None]
+  • 12:30:00 | CA: Inflation Rate YoY (Apr) (🔴 High Impact)
+    [Previous: 2.3, Estimate: 1.6, Actual: None]
+  • 23:50:00 | JP: Balance of Trade (Apr) (🔴 High Impact)
+    [Previous: 544.1, Estimate: 227.1, Actual: None]
+
+📆 May 21, 2025
+  • 06:00:00 | UK: Inflation Rate YoY (Apr) (🔴 High Impact)
+    [Previous: 2.6, Estimate: 3.3, Actual: None]
 

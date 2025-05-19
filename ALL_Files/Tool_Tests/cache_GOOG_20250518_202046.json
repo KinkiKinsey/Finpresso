@@ -1,0 +1,96 @@
+{
+  "get_peer_valuation_comparison": {
+    "error": "Unable to coerce to Series, length must be 0: given 1"
+  },
+  "get_stock_dcf_valuation": {
+    "symbol": "GOOG",
+    "date": "2025-05-18",
+    "dcf": 255.51693321337856,
+    "Stock Price": 166.19
+  },
+  "analyze_earnings_vs_estimates": {
+    "data": [
+      {
+        "date": "2025-04-24",
+        "symbol": "GOOG",
+        "actualEarningResult": 2.81,
+        "estimatedEarning": 2.02,
+        "surprise_pct": 39.10891089108911
+      },
+      {
+        "date": "2025-02-04",
+        "symbol": "GOOG",
+        "actualEarningResult": 2.15,
+        "estimatedEarning": 2.12,
+        "surprise_pct": 1.415094339622632
+      },
+      {
+        "date": "2024-10-29",
+        "symbol": "GOOG",
+        "actualEarningResult": 2.12,
+        "estimatedEarning": 1.85,
+        "surprise_pct": 14.594594594594595
+      },
+      {
+        "date": "2024-07-23",
+        "symbol": "GOOG",
+        "actualEarningResult": 1.89,
+        "estimatedEarning": 1.84,
+        "surprise_pct": 2.7173913043478164
+      }
+    ],
+    "summary": {
+      "total_quarters": 4,
+      "beats": 4,
+      "misses": 0,
+      "beat_rate": 1.0,
+      "average_surprise_pct": 14.458997782413539,
+      "surprise_trend": 36.391519586741296
+    }
+  },
+  "get_earnings_surprises": {
+    "__dataframe__": true,
+    "data": [
+      {
+        "date": "2025-04-24",
+        "symbol": "GOOG",
+        "actualEarningResult": 2.81,
+        "estimatedEarning": 2.02
+      },
+      {
+        "date": "2025-02-04",
+        "symbol": "GOOG",
+        "actualEarningResult": 2.15,
+        "estimatedEarning": 2.12
+      },
+      {
+        "date": "2024-10-29",
+        "symbol": "GOOG",
+        "actualEarningResult": 2.12,
+        "estimatedEarning": 1.85
+      },
+      {
+        "date": "2024-07-23",
+        "symbol": "GOOG",
+        "actualEarningResult": 1.89,
+        "estimatedEarning": 1.84
+      }
+    ]
+  },
+  "get_stock_metrics": {
+    "key_metrics": {
+      "EPS": "$8.96",
+      "ROIC": "27.72%",
+      "Debt_to_Equity": "0.09",
+      "Revenue_Growth": "13.87% YoY",
+      "Free_Cash_Flow": "$72.76B",
+      "Beta": "1.01",
+      "Current_Price": "$167.43",
+      "Market_Cap": "$2023.44B",
+      "PE_Ratio": "18.69",
+      "PB_Ratio": "5.89"
+    },
+    "ticker": "GOOG",
+    "last_updated": "2025-05-18 20:20:46"
+  }
+}
