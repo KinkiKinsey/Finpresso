@@ -1,103 +1,54 @@
 {
-  "Ticker": "TSLA",
-  "Macro": {
-    "summary": "The U.S. economy is in an early expansion phase with high inflation, showing signs of slowing but robust growth. Inflation remains sticky despite recent dips, while the labor market stays tight. The Fed is cutting rates to prevent a hard landing, but trade tensions and consumer strain pose risks.",
-    "key_indicators": {
-      "GDP_growth_description": "Real GDP growth has moderated from 5.6% (Q2 2024) to 3.5% (Q1 2025), indicating cooling but still strong expansion.",
-      "Inflation_rate_description": "PCE inflation dropped sharply to 1.8% (Q1 2025), but CPI (320.8 in April 2025) and PPI (148.4 in March 2025) reflect lingering price pressures.",
-      "Unemployment_rate_description": "Unemployment remains low (4.0%-4.2%) but edges up slightly, signaling softening demand.",
-      "Interest_rate_description": "Fed Funds Rate fell from 5.33% (June 2024) to 4.33% (March 2025), reflecting rate cuts to support growth.",
-      "VIX_level_description": "Moderate Greed (VIX z-score: -0.24), indicating subdued fear but elevated risk appetite."
+    "Ticker": "TSLA",
+    "Macro": {
+        "summary": "The U.S. economy is in an early expansion phase with high inflation, showing signs of slowing but robust growth. Inflation remains sticky despite recent dips, while the labor market stays tight. The Fed is cutting rates to prevent a hard landing, but trade tensions and consumer strain pose risks.",
+        "key_indicators": {
+            "GDP_growth_description": "Real GDP growth has moderated from 5.6% (Q2 2024) to 3.5% (Q1 2025), indicating cooling but still strong expansion.",
+            "Inflation_rate_description": "PCE inflation dropped sharply to 1.8% (Q1 2025), but CPI (320.8 in April 2025) and PPI (148.4 in March 2025) reflect lingering price pressures.",
+            "Unemployment_rate_description": "Unemployment remains low (4.0%-4.2%) but edges up slightly, signaling softening demand.",
+            "Interest_rate_description": "Fed Funds Rate fell from 5.33% (June 2024) to 4.33% (March 2025), reflecting rate cuts to support growth.",
+            "VIX_level_description": "Moderate Greed (VIX z-score: -0.24), indicating subdued fear but elevated risk appetite."
+        },
+        "sentiment": "NEUTRAL",
+        "trend": "STABLE",
+        "influencers": [
+            "Jerome Powell (Fed Chair): Staff cuts and rate decisions signal cautious policy adjustments.",
+            "Donald Trump: Political pressure on the Fed and trade policies add uncertainty.",
+            "Jamie Dimon (JPMorgan CEO): Recession warnings amplify market caution."
+        ],
+        "favorable_sectors": [
+            "Defensive sectors (utilities, staples): Benefit from weak consumer sentiment.",
+            "Housing: High investment efficiency despite affordability concerns.",
+            "Gold: Surge reflects hedging demand amid inflation volatility."
+        ],
+        "non_favorable_sectors": [
+            "Consumer discretionary: Low savings and weak sentiment dampen spending.",
+            "Retail: Margin pressures from tariffs and political scrutiny.",
+            "Manufacturing: Trade tensions and rising import costs squeeze profits."
+        ],
+        "macro_catalysts": [
+            "U.S. regional tariff decisions (trade policy impact).",
+            "Fed rate cut timing and political interference risks.",
+            "Upcoming global data (EU CPI, AU RBA decision, UK inflation)."
+        ],
+        "macro_event_recap": [
+            "Fed announces 10% staff reduction (operational streamlining).",
+            "Trump pressures Fed for rate cuts, undermining policy independence.",
+            "U.S. considers regional tariffs, threatening supply chains.",
+            "Consumer sentiment hits record low due to inflation fears.",
+            "April CPI cools to 2.3%, easing recession concerns."
+        ],
+        "next_inference_hint": "The most significant macro factor for TSLA will be the Fed's rate cuts (tailwind), as lower borrowing costs could stimulate consumer demand for big-ticket items like EVs and reduce Tesla's financing expenses, though sticky inflation may partially offset this benefit. Trade policy tensions (headwind) pose a risk if new tariffs disrupt supply chains or raise input costs, particularly with upcoming U.S. regional tariff decisions. A sharper-than-expected drop in global inflation or accelerated Fed easing could amplify the tailwind, while escalating trade wars or a resurgence in inflation could reverse the positive momentum."
     },
-    "sentiment": "NEUTRAL",
-    "trend": "STABLE",
-    "influencers": [
-      "Jerome Powell (Fed Chair): Staff cuts and rate decisions signal cautious policy adjustments.",
-      "Donald Trump: Political pressure on the Fed and trade policies add uncertainty.",
-      "Jamie Dimon (JPMorgan CEO): Recession warnings amplify market caution."
-    ],
-    "favorable_sectors": [
-      "Defensive sectors (utilities, staples): Benefit from weak consumer sentiment.",
-      "Housing: High investment efficiency despite affordability concerns.",
-      "Gold: Surge reflects hedging demand amid inflation volatility."
-    ],
-    "non_favorable_sectors": [
-      "Consumer discretionary: Low savings and weak sentiment dampen spending.",
-      "Retail: Margin pressures from tariffs and political scrutiny.",
-      "Manufacturing: Trade tensions and rising import costs squeeze profits."
-    ],
-    "macro_catalysts": [
-      "U.S. regional tariff decisions (trade policy impact).",
-      "Fed rate cut timing and political interference risks.",
-      "Upcoming global data (EU CPI, AU RBA decision, UK inflation)."
-    ],
-    "macro_event_recap": [
-      "Fed announces 10% staff reduction (operational streamlining).",
-      "Trump pressures Fed for rate cuts, undermining policy independence.",
-      "U.S. considers regional tariffs, threatening supply chains.",
-      "Consumer sentiment hits record low due to inflation fears.",
-      "April CPI cools to 2.3%, easing recession concerns."
-    ],
-    "next_inference_hint": "The most significant macro factor for TSLA is the Fed's rate-cutting cycle, which should lower borrowing costs and support consumer demand for big-ticket items like EVs, creating a mild tailwind. However, sticky inflation and potential trade tensions (especially tariff decisions) could pressure margins or disrupt supply chains, offsetting some benefits. A key catalyst is the upcoming U.S. tariff decisions\u2014if they escalate trade conflicts, TSLA's cost structure and export competitiveness could face headwinds, reversing the positive rate-cut impact."
-  },
-  "Micro": {
-    "reasoning": "Analysis of TSLA based on macro and micro news:\n- GDP growth: Real GDP growth has moderated from 5.6% (Q2 2024) to 3.5% (Q1 2025), indicating cooling but still strong expansion.; interest rates: Fed Funds Rate fell from 5.33% (June 2024) to 4.33% (March 2025), reflecting rate cuts to support growth.\n- Macro sentiment: NEUTRAL; market trend: STABLE",
-    "tools_used": [
-      "get_stock_dcf_valuation",
-      "get_peer_valuation_comparison",
-      "get_stock_beta"
-    ],
-    "tool_results": {
-      "get_stock_dcf_valuation": {
-        "name": "get_stock_dcf_valuation",
-        "result": "PART 1: FACTUAL REPORT\n- No data available for TSLA DCF valuation.\n\nPART 2: ANALYSIS\n- The lack of DCF valuation data prevents any meaningful analysis of TSLA's intrinsic value based on this tool."
-      },
-      "get_peer_valuation_comparison": {
-        "name": "get_peer_valuation_comparison",
-        "result": "PART 1: FACTUAL REPORT\nTSLA METRICS:\n- TSLA price = $342.09\n- TSLA market_cap_B = $1101.86\n- TSLA forward_pe = 105.58\n- TSLA forward_pe_rank = 1.000000\n- TSLA price_to_book_rank = 0.9375\n\nPEER METRICS:\n- TM price = $185.32, forward_pe = 11.74, price_to_book_rank = 0.1250\n- BYDDY price = $111.24, forward_pe = 35.43, price_to_book_rank = 0.7500\n- RACE price = $497.63, forward_pe = 52.22, price_to_book_rank = 1.0000\n- VLKPF price = $112.39, forward_pe = NaN, price_to_book_rank = 0.2500\n\nPART 2: ANALYSIS\n- TSLA's valuation multiples (especially forward P/E of 105.6) are significantly higher than peers like TM (11.7) and BYDDY (35.4), reflecting either premium growth expectations or overvaluation. Its price-to-book rank (0.9375) is second only to RACE (1.0), indicating strong market confidence in its asset value."
-      },
-      "get_stock_beta": {
-        "name": "get_stock_beta",
-        "result": "PART 1: FACTUAL REPORT\n- Beta = 2.434\n\nPART 2: ANALYSIS\n- TSLA's beta of 2.43 indicates extreme volatility, with the stock likely to move ~143% more than the broader market. This aligns with its growth-stock profile and sensitivity to macroeconomic/regulatory shifts."
-      }
+    "Micro": {
+        "Three_Key_Takeaways": [
+            "1. Tesla's stock experienced a drop after four consecutive weeks of gains, influenced by a broader market decline following Moody's U.S. credit downgrade.",
+            "2. Tesla is expanding beyond its EV business, with significant growth in its Megapack energy storage business, indicating diversification efforts.",
+            "3. Potential future rivalry with Lyft in the ride-share and autonomous vehicle space, as Tesla's technology could compete directly with traditional ride-share models."
+        ],
+        "Micro_Expectation": "The market sentiment for Tesla is mixed, with recent stock performance showing volatility due to macroeconomic factors like trade negotiations and credit downgrades. While there is optimism around Tesla's diversification into energy and potential in autonomous vehicles, concerns remain about declining vehicle deliveries and competition in key markets like China and Europe.",
+        "Next_Inference_Hint_Micro_News": "The most important open question is how Tesla's diversification into energy storage and potential expansion into ride-sharing/autonomous vehicles will offset the declining sales in its core EV business. Analysts should investigate the growth trajectory and profitability of the Megapack business and any strategic moves in the autonomous vehicle space."
     },
-    "rationale": [
-      "Beta analysis is critical to understand TSLA's risk profile amid shifting monetary policy and economic growth. Growth stocks typically exhibit higher betas, which may amplify volatility in the current environment.",
-      "DCF valuation directly incorporates the Fed's rate cuts (lower WACC) but must account for potential GDP growth moderation affecting cash flow projections. This tool provides a fundamental anchor for valuation.",
-      "Peer valuation comparison contextualizes TSLA's premium/discount relative to competitors, revealing whether macroeconomic pressures are priced uniformly or disproportionately across the sector."
-    ],
-    "micro_to_price_next_inference": "TSLA's valuation metrics (forward P/E 105x, EV/EBITDA 88x) are extreme vs. peers (Toyota P/E 12x, BYD EV/EBITDA 1.9x), with profit margins (6.4%) also lagging. NEUTRAL/WAIT despite macro tailwinds, as micro fundamentals don't justify current premium. This is a REVERSAL trade as stretched valuations suggest downside risk despite momentum."
-  },
-  "Price": {
-    "risk_reward_summary": "Combined Risk/Reward Analysis for TSLA:\n==================================================\nLong Position: R/R = 2.22, Expected Profit = 56.34, Expected Loss = -125.14\nShort Position: R/R = 0.45, Expected Profit = 125.14, Expected Loss = -56.34\n\nRecommended Position: SHORT\n",
-    "sma_crossovers_summary": "\n=== TSLA 50/200 SMA Crossover Analysis ===\nAnalysis Period: 1y\nLookforward Window: 30 days\n\nBullish Crosses: 1\nAverage Max Return: 9.7%\nBest Return: 9.7%\nMedian Return: 9.7%\n\nNo bearish crosses found in this period\n",
-    "ema_crossovers_summary": "\n=== TSLA 9/21 EMA Crossover Analysis ===\nAnalysis Period: 1y\nLookforward Window: 30 days\n\nBullish Crosses: 6\nAverage Max Return: 25.6%\nBest Return: 44.6%\nMedian Return: 25.4%\n\nBearish Crosses: 6\nAverage Max Return: 13.3%\nBest Return: 44.2%\nMedian Return: 7.5%\n",
-    "vw_macd_summary": "\ud83d\udcca TSLA VOLUME-WEIGHTED MACD ANALYSIS (1y)\n==================================================\n\n\ud83d\udd39 Current VW-MACD: 5.8181\n\ud83d\udd39 Current Signal: 4.9564\n\ud83d\udd39 5-Day Price Trend: \u2191 8.02\n\n\ud83d\udfe2 BULLISH SIGNAL: VW-MACD above Signal line\n\n\ud83d\udcaa MOMENTUM ANALYSIS:\n\ud83d\udfe1 WEAK MOMENTUM: Current divergence \u2264 average\n\n\ud83d\udcc8 RECENT PERFORMANCE: 19/20 days above signal line",
-    "graph_paths": {
-      "risk_reward": "/Users/wangmingxuan/Finpresso/ALL_Files/Graph/TSLA_Graph/TSLA_risk_reward_20250519_140051.png",
-      "sma_crossovers": "/Users/wangmingxuan/Finpresso/ALL_Files/Graph/TSLA_Graph/TSLA_sma_crossovers_20250519_140051.png",
-      "ema_crossovers": "/Users/wangmingxuan/Finpresso/ALL_Files/Graph/TSLA_Graph/TSLA_ema_crossovers_20250519_140051.png",
-      "vw_macd": "/Users/wangmingxuan/Finpresso/ALL_Files/Graph/TSLA_Graph/TSLA_vw_macd_20250519_140051.png"
-    }
-  },
-  "Strategy": {
-    "recommended_action": "WAIT",
-    "strategy_type": "REVERSION",
-    "rationale": "From a macro perspective: The U.S. economy is in an early expansion phase with high inflation, showing signs of slowing but ro...\nPrice analysis indicates:\n- Risk/Reward favors SHORT position\n- Moving Averages signal BEARISH\n- MACD shows BULLISH momentum\nUpcoming catalysts to watch:\n  1. U.S. regional tariff decisions (trade policy impact)....\n  2. Fed rate cut timing and political interference risks....\n  3. Upcoming global data (EU CPI, AU RBA decision, UK inflation)....",
-    "risk_level": "LOW",
-    "time_horizon": "MEDIUM-TERM",
-    "expected_reward": "56.34% POTENTIAL UPSIDE",
-    "exit_triggers": [
-      "Price returning to mean level",
-      "Oversold/overbought indicator normalization",
-      "New support/resistance levels established",
-      "Market reaction confirmation after U.S. regional tariff decisions (trade policy impact)."
-    ],
-    "entry_signals": [
-      "Price reaching extreme oversold/overbought levels",
-      "Divergence between price and momentum indicators",
-      "Price testing historical support/resistance levels"
-    ]
-  },
-  "Investment_Mindmap": "INVESTMENT THESIS FOR TSLA: Our analysis indicates a WAIT recommendation based on a REVERSION strategy. \n\nMACROECONOMIC ENVIRONMENT: The U.S. economy is in an early expansion phase with high inflation, showing signs of slowing but robust growth. Inflation remains sticky despite recent dips, while the labor market stays tight. The Fed is cutting rates to prevent a hard landing, but trade tensions and consumer strain pose risks. This environment particularly favors the Defensive sectors (utilities, staples): Benefit from weak consumer sentiment., Housing: High investment efficiency despite affordability concerns., Gold: Surge reflects hedging demand amid inflation volatility. sectors. A key upcoming catalyst to monitor is U.S. regional tariff decisions (trade policy impact).. Looking forward, The most significant macro factor for TSLA is the Fed's rate-cutting cycle, which should lower borrowing costs and support consumer demand for big-ticket items like EVs, creating a mild tailwind. However, sticky inflation and potential trade tensions (especially tariff decisions) could pressure margins or disrupt supply chains, offsetting some benefits. A key catalyst is the upcoming U.S. tariff decisions\u2014if they escalate trade conflicts, TSLA's cost structure and export competitiveness could face headwinds, reversing the positive rate-cut impact. \n\nCOMPANY ANALYSIS (TSLA): Based on these fundamentals, TSLA's valuation metrics (forward P/E 105x, EV/EBITDA 88x) are extreme vs. peers (Toyota P/E 12x, BYD EV/EBITDA 1.9x), with profit margins (6.4%) also lagging. NEUTRAL/WAIT despite macro tailwinds, as micro fundamentals don't justify current premium. This is a REVERSAL trade as stretched valuations suggest downside risk despite momentum. \n\nPRICE ANALYSIS: Combined Risk/Reward Analysis for TSLA:\n==================================================\nLong Position: R/R = 2. Moving averages analysis indicates SMA analysis: \n=== TSLA 50/200 SMA Crossover Analysis ===\nAnalysis Period: 1y\nLookforward Window: 30 days\n\nBullish Crosses: 1\nAverage Max Return: 9 and EMA analysis: \n=== TSLA 9/21 EMA Crossover Analysis ===\nAnalysis Period: 1y\nLookforward Window: 30 days\n\nBullish Crosses: 6\nAverage Max Return: 25. MACD analysis shows \ud83d\udcca TSLA VOLUME-WEIGHTED MACD ANALYSIS (1y)\n==================================================\n\n\ud83d\udd39 Current VW-MACD: 5. \n\nINTEGRATED INVESTMENT STRATEGY: We recommend a WAIT strategy with low risk over a medium-term time horizon. The rationale is: From a macro perspective: The U.S. economy is in an early expansion phase with high inflation, showing signs of slowing but ro...\nPrice analysis indicates:\n- Risk/Reward favors SHORT position\n- Moving Averages signal BEARISH\n- MACD shows BULLISH momentum\nUpcoming catalysts to watch:\n  1. U.S. regional tariff decisions (trade policy impact)....\n  2. Fed rate cut timing and political interference risks....\n  3. Upcoming global data (EU CPI, AU RBA decision, UK inflation).... For optimal entry, look for Price reaching extreme oversold/overbought levels. Consider exiting when Price returning to mean level. This strategy targets 56.34% POTENTIAL UPSIDE \n\nCONCLUSION: In the current economic environment, TSLA's  and bullish technical indicators support our WAIT recommendation. Key catalyst to monitor: U.S. regional tariff decisions (trade policy impact).."
+    "Price": {},
+    "Strategy": {}
 }
