@@ -14,6 +14,8 @@ import feedparser
 import requests
 from bs4 import BeautifulSoup
 import time
+import asyncio
+import aiohttp
 
 from datetime import datetime
 import pandas as pd
@@ -33,6 +35,10 @@ import inspect
 import sys
 from datetime import timedelta
 
+
+RSS_CONCURRENCY = 4
+PAGE_CONCURRENCY = 8
+
 def deepseek_api_call(prompt, base_url="https://api.deepseek.com", model="deepseek-chat"):
 
     client = OpenAI(api_key='sk-43e9043c7ab8480393d34367f2ae997e', base_url=base_url)
@@ -48,26 +54,74 @@ def deepseek_api_call(prompt, base_url="https://api.deepseek.com", model="deepse
 
     return response.choices[0].message.content
     
-def extract_news_content(url):
-    """Extracts full news content using BeautifulSoup."""
-    try:
-        response = requests.get(url, headers={'User-Agent': 'Mozilla/5.0'}, timeout=10)
-        soup = BeautifulSoup(response.text, "lxml")
 
-        # Extract main article content (different websites have different structures)
-        paragraphs = soup.find_all('p')
-        content = "\n".join([para.get_text() for para in paragraphs])
+async def extract_news_content_async(session: aiohttp.ClientSession, url: str, sem: asyncio.Semaphore) -> str:
+    """异步抓取网页并在线程池里用 BeautifulSoup 解析正文。"""
+    async with sem:
+        try:
+            async with session.get(url, headers={'User-Agent': 'Mozilla/5.0'}, timeout=10) as resp:
+                html = await resp.text()
+            loop = asyncio.get_running_loop()
+            # 在后台线程里解析 HTML，以免阻塞事件循环
+            content = await loop.run_in_executor(
+                None,
+                lambda: "\n".join(
+                    p.get_text() for p in BeautifulSoup(html, "lxml").find_all("p")
+                )
+            )
+            return content.strip() or "⚠ Unable to extract article content."
+        except Exception as e:
+            return f"⚠ Extraction failed: {e}"
 
-        return content.strip() if content else "⚠ Unable to extract article content."
+def extract_news_content(url: str) -> str:
+    """
+    同步接口包装。内部启动一次性事件循环来跑 extract_news_content_async。
+    使用时直接调用这个同步函数即可。
+    """
+    sem = asyncio.Semaphore(PAGE_CONCURRENCY)
+    async def runner():
+        async with aiohttp.ClientSession() as session:
+            return await extract_news_content_async(session, url, sem)
+    return asyncio.run(runner())
 
-    except Exception as e:
-        return f"⚠ Extraction failed: {str(e)}"
 
+async def fetch_rss(session, name, url):
+    """异步拉取 RSS 并返回 (name, feedparser.FeedParserDict)"""
+    async with session.get(url, timeout=10) as resp:
+        text = await resp.text()
+    # feedparser.parse 对文本解析，占用 CPU，可放到线程池
+    loop = asyncio.get_running_loop()
+    parsed = await loop.run_in_executor(None, feedparser.parse, text)
+    return name, parsed
+
+async def fetch_article(session, entry, sem):
+    """异步抓正文 + 在线程池里做 BeautifulSoup 解析"""
+    async with sem:  # 限制并发量
+        async with session.get(entry.link, timeout=10) as resp:
+            html = await resp.text()
+        loop = asyncio.get_running_loop()
+        content = await loop.run_in_executor(
+            None,
+            lambda: "\n".join(p.get_text() for p in BeautifulSoup(html, "lxml").find_all("p"))
+        )
+        if not content.strip():
+            content = "⚠ Unable to extract article content."
+        return {
+            "title": entry.title,
+            "link": entry.link,
+            "published": getattr(entry, "published", ""),
+            "content": content.strip()
+        }
 
 def fetch_news(download=True):
-    """Fetch economic news and either save to a file or return as a cache object."""\
+    """
+    同步接口：调用底层的异步实现。
+    download=True 则把结果写到 full_economic_news.txt，
+    否则返回 news_cache dict。
+    """
+    return asyncio.run(fetch_news_async(download))
 
-    # RSS Feeds for Economic & Political News
+async def fetch_news_async(download=True):
     ECONOMY_RSS_FEEDS = {
         "Yahoo Finance - Economy": "https://www.yahoo.com/news/rss/economy",
         "Google News - Tariffs": "https://news.google.com/rss/search?q=tariffs+trade&hl=en-US&gl=US&ceid=US:en",
@@ -77,58 +131,57 @@ def fetch_news(download=True):
         "WSJ Economy": "https://feeds.a.dj.com/rss/RSSMarketsMain.xml",
         "Reuters - Business & Economy": "https://www.reutersagency.com/feed/?best-topics=business-economy&post_type=best"
     }
-
-    # Output file
     OUTPUT_FILE = "full_economic_news.txt"
-
-    # Initialize cache object
     news_cache = {}
     counter = 0
 
+    # 如果要 download，则后面统一写文件
+    results_for_file = []
 
+    semaphore_rss = asyncio.Semaphore(RSS_CONCURRENCY)
+    semaphore_page = asyncio.Semaphore(PAGE_CONCURRENCY)
+
+    async with aiohttp.ClientSession(headers={'User-Agent': 'Mozilla/5.0'}) as session:
+        # 1) 并发拉 RSS
+        rss_tasks = [
+            asyncio.create_task(fetch_rss(session, name, url))
+            for name, url in ECONOMY_RSS_FEEDS.items()
+        ]
+        for rss_task in asyncio.as_completed(rss_tasks):
+            source_name, feed = await rss_task
+            entries = feed.entries[:5]
+            articles = []
+
+            # 2) 并发拉正文
+            page_tasks = [
+                asyncio.create_task(fetch_article(session, entry, semaphore_page))
+                for entry in entries
+            ]
+            for idx, page_task in enumerate(asyncio.as_completed(page_tasks), start=1):
+                article = await page_task
+                counter += 1
+                articles.append(article)
+                if download:
+                    results_for_file.append((source_name, idx, article))
+                else:
+                    # 存到 cache
+                    news_cache.setdefault(source_name, []).append(article)
+
+    # 3) 写文件（如果需要）
     if download:
-        file = open(OUTPUT_FILE, "w", encoding="utf-8")
-        file.write("📊 Full Economic & Political News Articles 📊\n\n")
-
-    for source_name, rss_url in ECONOMY_RSS_FEEDS.items():
-        if download:
-            file.write(f"🔹 {source_name} 🔹\n\n")
-
-        feed = feedparser.parse(rss_url)
-        source_articles = []
-
-        for idx, entry in enumerate(feed.entries[:5], start=1):  # Get top 5 articles per source
-            counter += 1
-            print(f"Reading {counter} more News about Macroeconomic ...")
-            full_content = extract_news_content(entry.link)
-
-            # Store in cache
-            article_data = {
-                "title": entry.title,
-                "link": entry.link,
-                "published": entry.published,
-                "content": full_content
-            }
-            source_articles.append(article_data)
-
-            if download:
-                file.write(f"{idx}. {entry.title}\n")
-                file.write(f"   Link: {entry.link}\n")
-                file.write(f"   Published: {entry.published}\n\n")
-                file.write(f"{full_content}\n\n")
-
-            # Sleep to avoid being blocked
-            time.sleep(2)
-
-        # Store articles under source name
-        news_cache[source_name] = source_articles
-
-    if download:
-        file.close()
+        with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
+            f.write("📊 Full Economic & Political News Articles 📊\n\n")
+            for source_name in ECONOMY_RSS_FEEDS:
+                f.write(f"🔹 {source_name} 🔹\n\n")
+                for src, idx, art in filter(lambda x: x[0]==source_name, results_for_file):
+                    f.write(f"{idx}. {art['title']}\n")
+                    f.write(f"   Link: {art['link']}\n")
+                    f.write(f"   Published: {art['published']}\n\n")
+                    f.write(f"{art['content']}\n\n")
         print(f"✅ Full news articles saved to {OUTPUT_FILE}")
-        return None  # No need to return cache when downloading
+        return None
 
-    return news_cache  # Return the cache object when not downloading
+    return news_cache
 
 def fetch_economic_calendar():
     """Fetch economic calendar data for the next month from FMP API"""

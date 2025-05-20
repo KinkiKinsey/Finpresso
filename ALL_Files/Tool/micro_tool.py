@@ -4,6 +4,7 @@
 import yfinance as yf
 import pandas as pd
 import requests
+_session = requests.Session()
 import os
 import sys
 import numpy as np
@@ -22,7 +23,6 @@ from functools import lru_cache
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
     # --- HTTP 会话复用，避免每次新建连接 ---
-_session = requests.Session()
 @lru_cache(maxsize=None)
 def _get_stock_data(ticker: str) -> Dict[str, Any]:
     """

@@ -5,6 +5,7 @@ from datetime import datetime
 from LLM_API_CALL import deepseek_api_call
 import tempfile
 import shutil
+from concurrent.futures import ThreadPoolExecutor, as_completed
 
 RATING_JSON_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "Rating_Json")
 
@@ -12,35 +13,28 @@ def fetch_fmp_news(ticker, limit=10):
     """
     Fetch the most recent news articles for a ticker using the FMP API.
     """
-    api_key = "9dfbbfa29d93f4793f246e8fb5ca5e74"
-    # Try stock news endpoint first
-    url = f"https://financialmodelingprep.com/stable/news/stock?symbols={ticker}&limit={limit}&apikey={api_key}"
-    print(f"[DEBUG] Fetching URL: {url}")
-    response = requests.get(url)
-    print(f"[DEBUG] Status code: {response.status_code}")
-    print(f"[DEBUG] Response text: {response.text[:500]}")  # Print first 500 chars
-    if response.status_code == 200:
-        try:
-            articles = response.json()
-            if articles:
-                return articles[:limit]
-        except Exception as e:
-            print(f"[ERROR] Failed to parse stock news JSON: {e}")
-    # If no stock news, try crypto news endpoint
-    url = f"https://financialmodelingprep.com/stable/news/crypto?symbols={ticker}&limit={limit}&apikey={api_key}"
-    print(f"[DEBUG] Fetching URL: {url}")
-    response = requests.get(url)
-    print(f"[DEBUG] Status code: {response.status_code}")
-    print(f"[DEBUG] Response text: {response.text[:500]}")
-    if response.status_code == 200:
-        try:
-            articles = response.json()
-            if articles:
-                return articles[:limit]
-        except Exception as e:
-            print(f"[ERROR] Failed to parse crypto news JSON: {e}")
-    # If still nothing, return empty list
+    api_key = "…"
+    urls = [
+        f"https://financialmodelingprep.com/stable/news/stock?symbols={ticker}&limit={limit}&apikey={api_key}",
+        f"https://financialmodelingprep.com/stable/news/crypto?symbols={ticker}&limit={limit}&apikey={api_key}"
+    ]
+
+    # 用线程池同时发出两个请求，哪个先返回有效就用哪个
+    with ThreadPoolExecutor(max_workers=2) as ex:
+        future_to_url = {ex.submit(requests.get, url): url for url in urls}
+        for future in as_completed(future_to_url):
+            url = future_to_url[future]
+            resp = future.result()
+            if resp.status_code == 200:
+                try:
+                    articles = resp.json()
+                    if articles:
+                        print(f"[DEBUG] Got articles from {url}")
+                        return articles[:limit]
+                except:
+                    pass
     return []
+
 
 def summarize_news_with_llm(ticker, articles):
     """

@@ -1,21 +1,29 @@
-#!/usr/bin/env python
-# coding: utf-8
-
 import os
 import json
 import time
+import orjson
+import asyncio
 from datetime import datetime
 import pandas as pd
 import glob
-import re, orjson
+import re
+_TOOL_REGEX  = re.compile(
+    r'(get_stock_metrics|get_stock_beta|get_stock_dcf_valuation|'
+    r'get_stock_detailed_dcf|get_company_profile|get_stock_peers|'
+    r'get_peer_valuation_comparison|get_peer_beta_comparison|'
+    r'get_earnings_calendar|get_earnings_surprises|'
+    r'analyze_earnings_vs_estimates)'
+)
+_JSON_OBJ_RE = re.compile(r"\{.*\}", re.DOTALL)
 import sys
 import numpy as np
 import subprocess
 import importlib.util
 from tqdm import tqdm
-from functools import wraps, lru_cache
+from functools import wraps
 from typing import List, Dict, Any, Optional, Tuple
 from concurrent.futures import ThreadPoolExecutor, as_completed
+from functools import lru_cache
 
 def tqdm_timer(func):
     @wraps(func)
@@ -129,6 +137,15 @@ except ImportError:
         return "LLM API not available"
     Open_api_key = None
     deepseek_api = None
+
+async def deepseek_api_call_async(prompt: str) -> str:
+    # 在后台线程调原来的同步接口
+    return await asyncio.to_thread(deepseek_api_call, prompt)
+
+
+@lru_cache(maxsize=256)
+def _cached_deepseek_api_call(prompt: str) -> str:
+    return deepseek_api_call(prompt)
 
 # Import MicroTools
 try:
@@ -358,140 +375,85 @@ class MicroAnalystAgent:
             "micro_hint": micro_hint
         }
     
-    @tqdm_timer
-    def determine_micro_tools(self, rating_data: Dict, verbose: bool = True) -> Dict:
+    async def determine_micro_tools(self, rating_data: Dict, verbose: bool = True) -> Dict:
         """
-        Determine which micro tools to use based on the rating data
-        
-        Args:
-            rating_data (Dict): Rating data containing macro and micro information
-            verbose (bool): Whether to print detailed logs
-            
-        Returns:
-            Dict containing selected tools and rationale
+        异步版：根据 rating_data 选取 micro-tools
         """
-        # Precompile regex
-        TOOL_REGEX = re.compile(r'(get_stock_metrics|get_stock_beta|get_stock_dcf_valuation|'
-                                r'get_stock_detailed_dcf|get_company_profile|get_stock_peers|'
-                                r'get_peer_valuation_comparison|get_peer_beta_comparison|'
-                                r'get_earnings_calendar|get_earnings_surprises|'
-                                r'analyze_earnings_vs_estimates)')
-
-        # Cached version of your LLM API call
-        @lru_cache(maxsize=128)
-        def cached_deepseek_api_call(prompt: str) -> str:
-            return deepseek_api_call(prompt)
-
-        # Utility to extract JSON from raw LLM response
-        def extract_json_string(raw: str) -> str:
-            match = re.search(r"\{.*\}", raw, re.DOTALL)
-            return match.group(0).strip() if match else raw.strip()
-        
+        # —— 保留原校验
         ticker = rating_data.get("Ticker", "")
-        macro_data = rating_data.get("Macro", {})
-        micro_data = rating_data.get("Micro", {})
-        
         if not ticker:
             raise ValueError("No ticker found in rating data")
-        
-        if verbose:
-            print(f"\n🤔 THINKING PROCESS: Analyzing news to separate fact from expectations")
-            print(f"  - Reading macro news context for {ticker}")
-            print(f"  - Identifying key facts in micro news")
-            print(f"  - Comparing market expectations to actual developments")
-            print(f"  - Determining tools needed to verify claims and expectations")
-        
-        # Use orjson for faster serialization
-        macro_str = orjson.dumps(macro_data).decode()[:1000]
-        micro_str = orjson.dumps(micro_data).decode()[:1000]
-        # Build a prompt for the LLM to determine which tools to use
+
+        # —— 用 orjson 只序列化最少必要字段（避免 dump 整个大 dict）
+        macro_summary = {
+            "headlines": rating_data.get("Macro", {}).get("headlines", [])[:3],
+            "key_indicators": rating_data.get("Macro", {}).get("key_indicators", {})
+        }
+        micro_summary = {
+            "snippets": rating_data.get("Micro", {}).get("snippets", [])[:3],
+            "next_hint": rating_data.get("Micro", {}).get("Next_Inference_Hint_Micro_News", "")
+        }
+        macro_str = orjson.dumps(macro_summary).decode()
+        micro_str = orjson.dumps(micro_summary).decode()
+
+        # —— 构建 prompt（可按需微调文案）
         prompt = f"""
-        Based on the following macro and micro news for {ticker}, determine which micro analysis tools would be most useful to separate facts from market expectations and identify potential investment opportunities.
+Based on the following macro and micro summary for {ticker},
+1) pick 3-5 appropriate analysis tools (from the list below) and explain each;
+2) format as JSON with keys: selected_tools, facts_to_verify, expectations_to_test, rationale, reasoning_process.
 
-        MACRO DATA:
-        {macro_str}
-        
-        MICRO DATA:
-        {micro_str}
-        
-        Available micro tools and their purposes:
-        - get_stock_metrics: verify company performance
-        - get_stock_beta: check market sensitivity
-        - get_stock_dcf_valuation: test valuation assumptions
-        - get_stock_detailed_dcf: full DCF to verify views
-        - get_company_profile: understand actual business model
-        - get_stock_peers: find true industry peers
-        - get_peer_valuation_comparison: compare valuation to peers
-        - get_peer_beta_comparison: compare volatility with peers
-        - get_earnings_calendar: confirm upcoming events
-        - get_earnings_surprises: check if firm beats/misses estimates
-        - analyze_earnings_vs_estimates: compare actual vs analyst estimates
+MACRO SUMMARY:
+{macro_str}
 
-        TASK:
-        1. Identify which facts in the news need verification 
-        2. Determine which market expectations need to be tested against data
-        3. Select 3-5 most relevant tools that would help separate fact from fiction for {ticker}
-        4. Explain why each tool would help uncover investment truths
-        
-        Format your response as a JSON object with these keys:
-        - "selected_tools": array of tool names
-        - "facts_to_verify": array of factual claims from the news that need verification
-        - "expectations_to_test": array of market expectations that should be tested with data
-        - "rationale": object with tool names as keys and rationales as values
-        - "reasoning_process": string explaining your step-by-step thought process
-        """
-        
-        if verbose:
-            print(f"\n📝 PROMPT: Sending prompt to LLM to determine appropriate tools")
-        
-        try:
-            llm_response = cached_deepseek_api_call(prompt)
+MICRO SUMMARY:
+{micro_str}
 
-            if verbose:
-                print(f"\n🔄 RESPONSE: Received tool selection from LLM")
-                print(f"RAW LLM RESPONSE:\n{llm_response[:1000]}...")  # Limit length in logs
+Available tools:
+- get_stock_metrics: verify performance
+- get_stock_beta: check sensitivity
+- get_stock_dcf_valuation: test valuation
+- get_stock_detailed_dcf: full DCF scenarios
+- get_company_profile: examine business model
+- get_stock_peers: identify industry peers
+- get_peer_valuation_comparison: valuation vs peers
+- get_peer_beta_comparison: volatility vs peers
+- get_earnings_calendar: upcoming events
+- get_earnings_surprises: historical surprises
+- analyze_earnings_vs_estimates: expectations vs actual
+"""
 
-            json_str = extract_json_string(llm_response)
+        # —— 异步调用缓存的 API：避免在事件循环里直接做网络阻塞
+        raw = await asyncio.to_thread(_cached_deepseek_api_call, prompt)
 
-            tool_selection = orjson.loads(json_str)
+        # —— 尝试提取 JSON
+        match = _JSON_OBJ_RE.search(raw or "")
+        if match:
+            try:
+                return orjson.loads(match.group(0))
+            except orjson.JSONDecodeError:
+                # 如果 JSON 不合法，继续走 fallback
+                pass
 
-            if verbose and "reasoning_process" in tool_selection:
-                print(f"\n🧠 REASONING PROCESS:")
-                for line in tool_selection["reasoning_process"].split("\n"):
-                    print(f"  {line}")
-
-            return tool_selection
-
-        except Exception as e:
-            if verbose:
-                print(f"\n⚠️ WARNING: Failed to parse LLM response as JSON: {str(e)}")
-                print(f"Falling back to regex extraction of tool names")
-
-            tools = TOOL_REGEX.findall(llm_response or "")
-            if not tools:
-                if verbose:
-                    print(f"\n⚠️ No tools found in LLM response, using default fallback")
-
-                return {
-                    "selected_tools": ["get_stock_metrics", "get_company_profile", "get_earnings_surprises"],
-                    "facts_to_verify": ["Company performance claims", "Business model descriptions", "Historical earnings performance"],
-                    "expectations_to_test": ["Growth projections", "Market's earnings expectations", "Valuation assumptions"],
-                    "rationale": {
-                        "get_stock_metrics": "Verify factual claims about financial performance",
-                        "get_company_profile": "Understand actual business model beyond market narrative",
-                        "get_earnings_surprises": "Test market's earnings expectations against reality"
-                    },
-                    "reasoning_process": "Default reasoning process based on standard fact vs. expectations framework."
-                }
-
+        # —— fallback：用预编译正则抽工具名
+        tools = _TOOL_REGEX.findall(raw or "")
+        if not tools:
+            # 再次 fallback 回默认
             return {
-                "selected_tools": tools,
-                "facts_to_verify": ["Extracted from news context but not explicitly identified"],
-                "expectations_to_test": ["Extracted from news context but not explicitly identified"],
-                "rationale": {tool: "Automatically selected based on context" for tool in tools},
-                "reasoning_process": "Tools were automatically extracted from the LLM response, which couldn't be parsed as JSON."
+                "selected_tools": ["get_stock_metrics","get_company_profile","get_earnings_surprises"],
+                "facts_to_verify": [],
+                "expectations_to_test": [],
+                "rationale": {},
+                "reasoning_process": "Fallback: no tools extracted."
             }
-    
+
+        # —— 最终返回
+        return {
+            "selected_tools": tools,
+            "facts_to_verify": ["Extracted via regex fallback"],
+            "expectations_to_test": ["Extracted via regex fallback"],
+            "rationale": {t: "Auto-selected" for t in tools},
+            "reasoning_process": "Regex-based fallback."
+        }
     @tqdm_timer
     def execute_micro_tools(self, ticker: str, selected_tools: List[str], verbose: bool = True) -> Dict:
         """
@@ -519,11 +481,11 @@ class MicroAnalystAgent:
             "get_stock_dcf_valuation": MicroTools.get_dcf_valuation,
             "get_stock_detailed_dcf": MicroTools.get_detailed_dcf,
             "get_company_profile": MicroTools.get_company_profile,
-            "get_stock_peers": MicroTools.get_peers, #how to share results across?
+            "get_stock_peers": MicroTools.get_peers,
             "get_peer_valuation_comparison": MicroTools.get_peer_valuation_comparison,
             "get_peer_beta_comparison": MicroTools.get_peer_beta_comparison,
             "get_earnings_calendar": MicroTools.get_companies_earnings_calendar,
-            "get_earnings_surprises": MicroTools.get_earnings_surprises, #how to share results across?
+            "get_earnings_surprises": MicroTools.get_earnings_surprises,
             "analyze_earnings_vs_estimates": MicroTools.analyze_earnings_estimates_vs_actual
         }
         
@@ -605,326 +567,410 @@ class MicroAnalystAgent:
             return ""
     
     @tqdm_timer
-    def process_tool_results_with_llm(self, ticker: str, tool_results: Dict[str, Any], verbose: bool = True) -> Dict[str, Any]:
+    async def process_tool_results_with_llm_async(
+        self,
+        ticker: str,
+        tool_results: Dict[str, Any],
+        verbose: bool = True,
+        max_concurrency: int = 16
+    ) -> Dict[str, Any]:
         """
-        Process tool results with LLM to convert them to readable comments (multithreaded version)
-        
-        Args:
-            ticker (str): Stock ticker
-            tool_results (Dict): Raw results from executing micro tools
-            verbose (bool): Whether to print detailed logs
-            
-        Returns:
-            Dict: Processed results with LLM-generated comments
+        Async version: process tool results with LLM in parallel coroutines.
         """
         if verbose:
-            print("\n🧠 Processing tool results with LLM...")
+            print("\n🧠 Processing tool results with LLM asynchronously...")
 
-        llm_processed_results: Dict[str, Any] = {}
+        sem = asyncio.Semaphore(min(len(tool_results), max_concurrency))
 
-        def _process_tool(tool_name: str, result: Any) -> Tuple[str, Dict[str, str]]:
-            if verbose:
-                print(f"  Processing {tool_name}...")
-            
-            # Convert result to string representation for LLM input
+        async def _proc(tool_name: str, result: Any) -> Tuple[str, Dict[str, str]]:
+            async with sem:
+                if verbose:
+                    print(f"  Processing {tool_name}…")
+                result_str = str(result)
+                if len(result_str) > 8000:
+                    result_str = result_str[:8000] + "... [truncated]"
+
+                is_peer_tool = any(
+                    x in tool_name.lower()
+                    for x in ["peer", "comparison", "competitors", "compare"]
+                )
+                if is_peer_tool:
+                    prompt = f"""
+You are a financial data reporter. Analyze the following peer comparison data from the {tool_name} tool for ticker {ticker}.
+
+DATA:
+{result_str}
+
+Your response MUST be structured in exactly two parts:
+
+PART 1: FACTUAL REPORT
+First, extract and list the key metrics for {ticker} AND its peers in simple format:
+1. List {ticker}'s metrics first (at least 3-5 key values)
+2. EXPLICITLY list the top 3-5 peers by name with their corresponding metrics
+3. Use a "metric = value" format for all data points
+
+PART 2: ANALYSIS
+Only after listing the factual values, provide a brief interpretation (2-3 sentences) comparing {ticker} to its peers.
+
+Remember to STRICTLY separate the factual report (PART 1) from your analysis (PART 2).
+"""
+                else:
+                    prompt = f"""
+You are a financial data reporter. Analyze the following data from the {tool_name} tool for ticker {ticker}.
+
+DATA:
+{result_str}
+
+Your response MUST be structured in exactly two parts:
+
+PART 1: FACTUAL REPORT
+First, extract and list the key metrics and values directly from the data in simple "metric = value" format.
+Report just the raw values without interpretation. List at least 3-5 key metrics with their exact values.
+
+PART 2: ANALYSIS
+Only after listing the factual values, provide a brief interpretation (2-3 sentences) explaining what these values suggest about the company.
+
+Remember to STRICTLY separate the factual report (PART 1) from your analysis (PART 2).
+"""
+
+                try:
+                    # 使用异步调用封装的 deepseek_api_call_async
+                    resp = await deepseek_api_call_async(prompt)
+                    return tool_name, {"name": tool_name, "result": resp.strip()}
+                except Exception as e:
+                    err = str(e)
+                    if verbose:
+                        print(f"  ❌ Error processing {tool_name}: {err}")
+                    return tool_name, {"name": tool_name, "result": f"Error: {err}"}
+
+        tasks = [_proc(name, res) for name, res in tool_results.items()]
+        completed = await asyncio.gather(*tasks)
+        return {name: processed for name, processed in completed}
+
+    def process_tool_results_with_llm(self, ticker: str, tool_results: Dict[str, Any], verbose: bool = True) -> Dict[str, Any]:
+        
+        if verbose:
+            print("\n🧠 Processing tool results with LLM (batch mode)…")
+
+        # 1) Prepare each tool's raw data as text
+        entries = []
+        for tool_name, result in tool_results.items():
             result_str = str(result)
-            if len(result_str) > 8000:  # Limit input size for LLM
+            if len(result_str) > 8000:
                 result_str = result_str[:8000] + "... [truncated]"
+            entries.append(f"### TOOL: {tool_name}\nDATA:\n{result_str}")
 
-            # Check if this is a peer comparison tool
-            is_peer_tool = any(x in tool_name.lower() for x in ["peer", "comparison", "competitors", "compare"])
+        batch_data = "\n\n".join(entries)
 
-            # Create a more structured prompt for LLM based on the tool type
-            if is_peer_tool:
-                prompt = f"""
-                    You are a financial data reporter. Analyze the following peer comparison data from the {tool_name} tool for ticker {ticker}.
-                    
-                    DATA:
-                    {result_str}
-                    
-                    Your response MUST be structured in exactly two parts:
-                    
-                    PART 1: FACTUAL REPORT
-                    First, extract and list the key metrics for {ticker} AND its peers in simple format:
-                    1. List {ticker}'s metrics first (at least 3-5 key values)
-                    2. EXPLICITLY list the top 3-5 peers by name with their corresponding metrics
-                    3. Use a "metric = value" format for all data points
-                    
-                    For example:
-                    {ticker} METRICS:
-                    - {ticker} EPS = $X.XX
-                    - {ticker} Revenue Growth = X.X%
-                    - {ticker} Beta = X.XX
-                    
-                    PEER METRICS:
-                    - Peer1 EPS = $X.XX, Beta = X.XX
-                    - Peer2 EPS = $X.XX, Beta = X.XX
-                    ...and so on for other peers
-                    
-                    PART 2: ANALYSIS
-                    Only after listing the factual values, provide a brief interpretation (2-3 sentences) comparing {ticker} to its peers.
-                    
-                    Remember to STRICTLY separate the factual report (PART 1) from your analysis (PART 2) and ensure you report BOTH {ticker} AND its peers' data.
-                    """
+        # 2) Original per-tool prompt templates
+        peer_template = f"""
+    You are a financial data reporter. Analyze the following peer comparison data from the {{tool_name}} tool for ticker {ticker}.
+
+    DATA:
+    {{result_str}}
+
+    Your response MUST be structured in exactly two parts:
+
+    PART 1: FACTUAL REPORT
+    First, extract and list the key metrics for {ticker} AND its peers in simple format:
+    1. List {ticker}'s metrics first (at least 3-5 key values)
+    2. EXPLICITLY list the top 3-5 peers by name with their corresponding metrics
+    3. Use a "metric = value" format for all data points
+
+    For example:
+    {ticker} METRICS:
+    - {ticker} EPS = $X.XX
+    - {ticker} Revenue Growth = X.X%
+    - {ticker} Beta = X.XX
+
+    PEER METRICS:
+    - Peer1 EPS = $X.XX, Beta = X.XX
+    - Peer2 EPS = $X.XX, Beta = X.XX
+    ...and so on for other peers
+
+    PART 2: ANALYSIS
+    Only after listing the factual values, provide a brief interpretation (2-3 sentences) comparing {ticker} to its peers.
+
+    Remember to STRICTLY separate the factual report (PART 1) from your analysis (PART 2).
+    """
+
+        non_peer_template = f"""
+    You are a financial data reporter. Analyze the following data from the {{tool_name}} tool for ticker {ticker}.
+
+    DATA:
+    {{result_str}}
+
+    Your response MUST be structured in exactly two parts:
+
+    PART 1: FACTUAL REPORT
+    First, extract and list the key metrics and values directly from the data in simple "metric = value" format.
+    Report just the raw values without interpretation. List at least 3-5 key metrics with their exact values.
+    Example format:
+    - EPS = $X.XX
+    - Revenue Growth = X.X%
+    - Beta = X.XX
+    - Current Price = $XXX.XX
+
+    PART 2: ANALYSIS
+    Only after listing the factual values, provide a brief interpretation (2-3 sentences) explaining what these values 
+    suggest about the company.
+
+    Remember to STRICTLY separate the factual report (PART 1) from your analysis (PART 2).
+    """
+
+        # 3) Build the batch prompt
+        prompt = f"""
+    I will provide you multiple tool datasets for ticker {ticker}.  For each tool, apply these exact instructions:
+
+    - If the tool name contains any of ["peer","comparison","competitors","compare"], use this template:
+
+    {peer_template}
+
+    - Otherwise, use this template:
+
+    {non_peer_template}
+
+    Here are all the tool datasets:
+
+    {batch_data}
+
+    Finally, return **only** a single JSON object that maps each tool name to its combined reply string (including both PART 1 and PART 2).  
+    Example output format:
+
+    {{
+    "get_stock_metrics": "PART 1: ...\\nPART 2: ...",
+    "get_peer_valuation_comparison": "PART 1: ...\\nPART 2: ..."
+    }}
+    """
+
+        if verbose:
+            print("📝 Sending batch prompt to LLM…")
+
+        # 4) Single LLM call
+        raw = deepseek_api_call(prompt).strip()
+        if verbose:
+            print("✅ Received batch LLM response")
+
+        # 5) Extract JSON from LLM output
+        try:
+            batch_result = json.loads(raw)
+        except Exception:
+            m = re.search(r"\{[\s\S]*\}", raw)
+            if m:
+                batch_result = json.loads(m.group(0))
             else:
-                prompt = f"""
-                    You are a financial data reporter. Analyze the following data from the {tool_name} tool for ticker {ticker}.
-                    
-                    DATA:
-                    {result_str}
-                    
-                    Your response MUST be structured in exactly two parts:
-                    
-                    PART 1: FACTUAL REPORT
-                    First, extract and list the key metrics and values directly from the data in simple "metric = value" format.
-                    Report just the raw values without interpretation. List at least 3-5 key metrics with their exact values.
-                    Example format:
-                    - EPS = $X.XX
-                    - Revenue Growth = X.X%
-                    - Beta = X.XX
-                    - Current Price = $XXX.XX
-                    
-                    PART 2: ANALYSIS
-                    Only after listing the factual values, provide a brief interpretation (2-3 sentences) explaining what these values 
-                    suggest about the company.
-                    
-                    Remember to STRICTLY separate the factual report (PART 1) from your analysis (PART 2).
-                    """
+                # 全部失败时，返回空结构
+                batch_result = {}
 
-            try:
-                # Call the LLM API
-                llm_response = deepseek_api_call(prompt).strip()
-                
-                if verbose:
-                    print(f"  ✓ Generated factual report and analysis for {tool_name}")
-                
-                return tool_name, {"name": tool_name, "result": llm_response}
-            except Exception as e:
-                error_msg = str(e)
-                if verbose:
-                    print(f"  ❌ Error processing {tool_name} with LLM: {error_msg}")
-                return tool_name, {"name": tool_name, "result": f"Error processing with LLM: {error_msg}"}
+        # 6) Repackage to original interface
+        processed: Dict[str, Any] = {}
+        for tool_name in tool_results:
+            text = batch_result.get(tool_name, "")
+            processed[tool_name] = {"name": tool_name, "result": text}
 
-        # Use a thread pool to process all tools in parallel
-        with ThreadPoolExecutor(max_workers=min(len(tool_results), 8)) as executor:
-            futures = {
-                executor.submit(_process_tool, tool_name, result): tool_name
-                for tool_name, result in tool_results.items()
-            }
-            for future in as_completed(futures):
-                tool_name, processed = future.result()
-                llm_processed_results[tool_name] = processed
-
-        return llm_processed_results
-
+        return processed
     
+    def _format_single_result(self, tool_name: str, result: Any) -> Dict[str, Any]:
+        """
+        Helper to format one tool's raw result into a summary/details dict.
+        """
+        # DataFrame
+        if isinstance(result, pd.DataFrame):
+            if result.empty:
+                return {"summary": "Empty DataFrame", "sample": []}
+            sample = result.head(3).to_dict(orient="records")
+            cols = ", ".join(result.columns)
+            return {"summary": f"DataFrame with {len(result)} rows, columns: {cols}", "sample": sample}
+
+        # Dict
+        if isinstance(result, dict):
+            if "error" in result:
+                return {"summary": f"Error: {result['error']}", "details": {}}
+            if "key_metrics" in result:
+                return {"summary": "Key financial metrics retrieved", "details": result["key_metrics"]}
+
+            summary_parts, details = [], {}
+            for k, v in result.items():
+                if isinstance(v, pd.DataFrame):
+                    summary_parts.append(f"{k}: DataFrame({len(v)} rows)")
+                    if not v.empty:
+                        details[k] = v.head(3).to_dict(orient="records")
+                elif isinstance(v, (str, int, float, bool)):
+                    summary_parts.append(f"{k}: {v}")
+                    details[k] = v
+                elif isinstance(v, dict):
+                    summary_parts.append(f"{k}: Dict({len(v)} items)")
+                    details[k] = v
+
+            summary = ", ".join(summary_parts[:5])
+            if len(summary_parts) > 5:
+                summary += f" and {len(summary_parts)-5} more..."
+            return {"summary": summary, "details": details}
+
+        # Scalar or other
+        return {"summary": str(result), "details": {}}
+
     @tqdm_timer
     def analyze_results(self, ticker: str, macro_data: Dict, micro_data: Dict, tool_results: Dict, verbose: bool = True) -> Dict:
-        """
-        Analyze tool results to discover facts and separate them from market expectations
-        
-        Args:
-            ticker (str): Stock ticker being analyzed
-            macro_data (Dict): Macro data from rating JSON
-            micro_data (Dict): Micro data from rating JSON
-            tool_results (Dict): Results from executing micro tools
-            verbose (bool): Whether to print detailed logs
-            
-        Returns:
-            Dict containing verified facts, unverified claims, and market expectation analysis
-        """
         if verbose:
             print("\n🧠 FACT DISCOVERY PROCESS:")
-            print(f"  1. Separating factual information from market expectations/narratives")
-            print(f"  2. Verifying factual claims in the news against data from micro tools")
-            print(f"  3. Testing market expectations against actual company metrics")
-            print(f"  4. Identifying misalignments between facts and market perception")
-            print(f"  5. Highlighting overlooked facts in current market narratives")
-        
-        # Convert tool results to readable string format
-        readable_results = {}
-        for tool_name, result in tool_results.items():
-            if isinstance(result, pd.DataFrame):
-                # For DataFrames, include a sample of the actual data
-                if not result.empty:
-                    sample_data = result.head(3).to_dict(orient='records')
-                    cols = ", ".join(result.columns)
-                    readable_results[tool_name] = {
-                        "summary": f"DataFrame with {result.shape[0]} rows and {result.shape[1]} columns. Columns: {cols}",
-                        "sample": sample_data
-                    }
-                else:
-                    readable_results[tool_name] = {"summary": "Empty DataFrame", "sample": []}
-            elif isinstance(result, dict):
-                if "error" in result:
-                    readable_results[tool_name] = {"summary": f"Error: {result['error']}", "details": {}}
-                elif "key_metrics" in result:
-                    # This is likely from get_stock_metrics
-                    readable_results[tool_name] = {
-                        "summary": "Key financial metrics retrieved",
-                        "details": result["key_metrics"]
-                    }
-                else:
-                    # For other dictionaries, provide detailed contents
-                    summary_items = []
-                    details = {}
-                    
-                    for k, v in result.items():
-                        if isinstance(v, pd.DataFrame):
-                            summary_items.append(f"{k}: DataFrame with {v.shape[0]} rows")
-                            if not v.empty:
-                                details[k] = v.head(3).to_dict(orient='records')
-                        elif isinstance(v, (str, int, float, bool)):
-                            summary_items.append(f"{k}: {v}")
-                            details[k] = v
-                        elif isinstance(v, dict):
-                            summary_items.append(f"{k}: Dictionary with {len(v)} items")
-                            details[k] = v
-                    
-                    readable_results[tool_name] = {
-                        "summary": ", ".join(summary_items[:5]) + (f" and {len(summary_items) - 5} more..." if len(summary_items) > 5 else ""),
-                        "details": details
-                    }
-            elif isinstance(result, (str, int, float)):
-                readable_results[tool_name] = {"summary": str(result), "details": {}}
-            else:
-                readable_results[tool_name] = {"summary": f"Result of type {type(result).__name__}", "details": {}}
-        
-        # Generate reasoning text based on macro and micro data
-        reasoning = f"""
-        Analysis of {ticker} based on macro and micro news:
-        
-        Based on macro indicators like {macro_data.get('key_indicators', {}).get('GDP_growth_description', 'economic growth')} and 
-        {macro_data.get('key_indicators', {}).get('Interest_rate_description', 'interest rates')}, combined with 
-        company-specific news like earnings reports and market movements, I have selected these tools to verify facts and test
-        market expectations for {ticker}.
-        
-        The overall macro sentiment is: {macro_data.get('sentiment', 'Not available')}
-        The current market trend is: {macro_data.get('trend', 'Not available')}
-        
-        These tools will help verify factual claims about {ticker}'s performance metrics, recent earnings results,
-        valuation compared to peers, and company fundamentals.
-        """
-        
-        # Return a simplified analysis result with only the three requested elements
-        analysis_results = {
-            "reasoning": reasoning.strip(),
+
+        async def _async_runner():
+            sem = asyncio.Semaphore(min(len(tool_results), 8))
+            async def _fmt(name, result):
+                async with sem:
+                    return name, await asyncio.to_thread(self._format_single_result, name, result)
+            coros = [_fmt(n, r) for n, r in tool_results.items()]
+            completed = await asyncio.gather(*coros)
+            return {n: res for n, res in completed}
+
+        readable_results = asyncio.run(_async_runner())
+
+        # 后面同方案 A 的 reasoning 逻辑…
+        ki = macro_data.get("key_indicators", {})
+        gdp_desc  = ki.get("GDP_growth_description", "economic growth")
+        ir_desc   = ki.get("Interest_rate_description", "interest rates")
+        sentiment = macro_data.get("sentiment", "Not available")
+        trend     = macro_data.get("trend", "Not available")
+
+        reasoning = (
+            f"Analysis of {ticker} based on macro and micro news:\n"
+            f"- GDP growth: {gdp_desc}; interest rates: {ir_desc}\n"
+            f"- Macro sentiment: {sentiment}; market trend: {trend}"
+        )
+
+        return {
+            "reasoning": reasoning,
             "tools_used": list(tool_results.keys()),
             "tool_results": readable_results
         }
-        
-        return analysis_results
+
     
     @tqdm_timer
-    def generate_price_inference(self, ticker: str, inference_hints: Dict, tool_results: Dict, analysis_results: Dict, verbose: bool = True) -> Dict:
+    async def generate_price_inference_async(
+        self,
+        ticker: str,
+        inference_hints: Dict[str, str],
+        tool_results: Dict[str, Any],
+        analysis_results: Dict[str, Any],
+        verbose: bool = True
+    ) -> Dict[str, str]:
         """
-        Generate price inference based on micro analysis and inference hints
-        
-        Args:
-            ticker (str): Stock ticker being analyzed
-            inference_hints (Dict): Inference hints from macro and micro data
-            tool_results (Dict): Results from executing micro tools
-            analysis_results (Dict): Analysis results from micro analysis
-            verbose (bool): Whether to print detailed logs
-            
-        Returns:
-            Dict containing price inference results
+        Async version: generate price inference in one coroutine.
         """
         if verbose:
-            print("\n💰 GENERATING PRICE INFERENCE:")
-            print(f"  1. Applying inference hints from macro and micro data")
-            print(f"  2. Analyzing fundamental factors based on micro analysis")
-            print(f"  3. Evaluating trading opportunities (reversal, momentum, etc.)")
-            print(f"  4. Formulating direct price action recommendations")
-        
-        # Convert tool results to a single string for LLM consumption
-        tool_results_str = json.dumps(analysis_results.get("tool_results", {}), indent=2, cls=NumpyJSONEncoder)
-        if len(tool_results_str) > 4000:  # Limit size for LLM input
-            tool_results_str = tool_results_str[:4000] + "... [truncated]"
-        
+            print("\n💰 GENERATING PRICE INFERENCE (async)…")
+        # 1) 准备 hints
         macro_hint = inference_hints.get("macro_hint", "")
         micro_hint = inference_hints.get("micro_hint", "")
-        
-        # Build a simpler prompt for price inference
+
+        # 2) 高速序列化 tool_results_str
+        def orjson_default(obj):
+            if isinstance(obj, (np.integer, np.floating)):
+                return obj.item()
+            if isinstance(obj, np.ndarray):
+                return obj.tolist()
+            if pd.isna(obj):
+                return None
+            raise TypeError
+
+        data_bytes = await asyncio.to_thread(
+            orjson.dumps,
+            analysis_results.get("tool_results", {}),
+            default=orjson_default
+        )
+        tool_results_str = data_bytes.decode()
+        if len(tool_results_str) > 4000:
+            tool_results_str = tool_results_str[:4000] + "... [truncated]"
+
+        # 3) 组织 Prompt（保持原样）
         prompt = f"""
         You are a financial analyst translating fundamental micro analysis into clear price action recommendations.
-        
+
         Analyze the following data for {ticker} and provide a DIRECT CONCISE price action inference.
-        
+
         MACRO INFERENCE HINT:
         {macro_hint}
-        
+
         MICRO INFERENCE HINT:
         {micro_hint}
-        
+
         MICRO ANALYSIS RESULTS:
         {tool_results_str}
-        
+
         ---
-        
+
         STRICT INSTRUCTIONS:
         1. Write ONLY 3-4 concise sentences total that:
            - Summarize the key micro insights (1-2 sentences)
            - Clearly state whether to LONG, SHORT, or NEUTRAL/WAIT on {ticker} (1 sentence)
            - Indicate if this is a MOMENTUM trade (following trend) or REVERSAL trade (against trend) (1 sentence)
-        
+
         2. FOCUS ONLY on:
            - Whether the micro fundamentals support going LONG, SHORT, or staying NEUTRAL
            - Whether current price movement should continue (MOMENTUM) or reverse (REVERSAL)
            - Short 1-sentence rationale why
-        
+
         3. DO NOT:
            - Include price targets or stop losses
            - Use JSON formatting or any code blocks
            - Include confidence levels or timeframes in your response
            - Write any introduction or additional explanations
-        
+
         EXAMPLE GOOD RESPONSE:
         "{ticker} shows declining revenue growth (-2.3%) and margins (-150bps) alongside high valuation (P/E 45x) compared to peers (avg 22x). SHORT is recommended given the deteriorating fundamentals. This is a MOMENTUM trade as recent price weakness likely continues with earnings revisions downward."
-        
+
         REMEMBER: Your entire response must be ONLY 3-4 concise sentences total with NO additional text.
         """
-        
+
         if verbose:
-            print(f"\n📝 Sending simplified price inference prompt to LLM")
-        
-        # Call the LLM API
-        try:
-            llm_response = deepseek_api_call(prompt).strip()
-            
-            if verbose:
-                print(f"\n✅ Successfully generated price inference")
-                print(f"  Response: {llm_response[:150]}...")
-            
-            # Extract trade direction and type using regex
-            trade_direction_match = re.search(r'\b(LONG|SHORT|NEUTRAL|WAIT)\b', llm_response, re.IGNORECASE)
-            trade_type_match = re.search(r'\b(MOMENTUM|REVERSAL)\b', llm_response, re.IGNORECASE)
-            
-            trade_direction = trade_direction_match.group(0) if trade_direction_match else "UNDEFINED"
-            trade_type = trade_type_match.group(0) if trade_type_match else "UNDEFINED"
-            
-            # Construct a simple dictionary with the inference
-            return {
-                "inference": llm_response,
-                "trade_direction": trade_direction.upper(),
-                "trade_type": trade_type.upper()
-            }
-            
-        except Exception as e:
-            error_msg = str(e)
-            if verbose:
-                print(f"\n❌ Error generating price inference: {error_msg}")
-            
-            return {
-                "inference": f"Error generating price inference: {error_msg}",
-                "trade_direction": "ERROR",
-                "trade_type": "ERROR"
-            }
+            print("📝 Sending price inference prompt to LLM…")
+
+        # 4) 调用 LLM
+        llm_response = (await deepseek_api_call_async(prompt)).strip()
+        if verbose:
+            print(f"✅ Price inference: {llm_response[:150]}…")
+
+        # 5) 正则提取方向 & 交易类型
+        dir_m = re.search(r'\b(LONG|SHORT|NEUTRAL|WAIT)\b', llm_response, re.IGNORECASE)
+        type_m = re.search(r'\b(MOMENTUM|REVERSAL)\b', llm_response, re.IGNORECASE)
+        trade_direction = dir_m.group(0).upper() if dir_m else "UNDEFINED"
+        trade_type      = type_m.group(0).upper() if type_m else "UNDEFINED"
+
+        return {
+            "inference":       llm_response,
+            "trade_direction": trade_direction,
+            "trade_type":      trade_type
+        }
+
+    def generate_price_inference(
+        self,
+        ticker: str,
+        inference_hints: Dict[str, str],
+        tool_results: Dict[str, Any],
+        analysis_results: Dict[str, Any],
+        verbose: bool = True
+    ) -> Dict[str, str]:
+        """
+        同步接口，内部跑 async 版。
+        """
+        return asyncio.run(
+            self.generate_price_inference_async(
+                ticker, inference_hints, tool_results, analysis_results, verbose
+            )
+        )
     
     @tqdm_timer
-    def update_rating_json(self, rating_path: str, analysis_results: Dict, tool_selection: Dict, tool_results: Dict, price_inference: Dict = None, verbose: bool = True) -> None:
+    def update_rating_json(self,
+                           rating_path: str,
+                           analysis_results: Dict,
+                           tool_selection: Dict,
+                           tool_results: Dict,
+                           price_inference: Dict = None,
+                           verbose: bool = True, llm_processed_results: Optional[Dict[str, Any]] = None) -> None:
         """
-        Update the rating JSON file with micro analysis results only
+        Update the rating JSON file with micro analysis results only, using
+        the async version of process_tool_results_with_llm under the hood.
         
         Args:
             rating_path (str): Path to the rating JSON file
@@ -934,203 +980,134 @@ class MicroAnalystAgent:
             price_inference (Dict, optional): Price inference results
             verbose (bool): Whether to print detailed logs
         """
-        # Load the current rating JSON
-        with open(rating_path, "r") as f:
+        # 1. Load the current rating JSON
+        with open(rating_path, "r", encoding="utf-8") as f:
             rating_data = json.load(f)
         
-        # Get the ticker from the rating data
+        # 2. Extract ticker
         ticker = rating_data.get("Ticker", "")
         
-        # Process tool results with LLM
-        llm_processed_results = self.process_tool_results_with_llm(ticker, tool_results, verbose)
+        # 3. Process tool results asynchronously
+        if llm_processed_results is None:    
+          if verbose:
+                print("\n🧠 Running async LLM processing of tool results...")
+                llm_processed_results = asyncio.run(
+                self.process_tool_results_with_llm_async(ticker, tool_results, verbose)
+            )
         
-        # Preserve existing Micro data
-        existing_micro_data = rating_data.get("Micro", {})
+        # 4. Preserve existing Micro data
+        existing_micro = rating_data.get("Micro", {})
+        rating_data.setdefault("Micro", {})
         
-        # Initialize Micro section if needed
-        if "Micro" not in rating_data:
-            rating_data["Micro"] = {}
+        # 5. Carry over important fields
+        for field in ("Three_Key_Takeaways", "Micro_Expectation", "Next_Inference_Hint_Micro_News"):
+            if field in existing_micro:
+                rating_data["Micro"][field] = existing_micro[field]
         
-        # Preserve important existing Micro fields
-        preserve_fields = [
-            "Three_Key_Takeaways",
-            "Micro_Expectation",
-            "Next_Inference_Hint_Micro_News"
-        ]
-        
-        for field in preserve_fields:
-            if field in existing_micro_data:
-                rating_data["Micro"][field] = existing_micro_data[field]
-        
-        # Update with the enhanced format
+        # 6. Update with new analysis
         rating_data["Micro"].update({
-            "reasoning": analysis_results.get("reasoning", "No reasoning provided"),
-            "tools_used": analysis_results.get("tools_used", []),
-            "tool_results": llm_processed_results,  # Use LLM-processed results
-            "rationale": tool_selection.get("rationale", {})
+            "reasoning":    analysis_results.get("reasoning",       "No reasoning provided"),
+            "tools_used":   analysis_results.get("tools_used",     []),
+            "tool_results": llm_processed_results,
+            "rationale":    tool_selection.get("rationale",        {})
         })
         
-        # Add price inference if available
+        # 7. Add price inference if present
         if price_inference:
             rating_data["Micro"]["micro_to_price_next_inference"] = price_inference.get("inference", "")
-            
             if verbose:
                 print(f"\n💰 Added price inference to Micro section")
                 print(f"  Trade direction: {price_inference.get('trade_direction', 'N/A')}")
-                print(f"  Trade type: {price_inference.get('trade_type', 'N/A')}")
+                print(f"  Trade type:      {price_inference.get('trade_type',      'N/A')}")
         
-        # Save the updated rating JSON
-        with open(rating_path, "w") as f:
+        # 8. Write back to disk
+        with open(rating_path, "w", encoding="utf-8") as f:
             json.dump(rating_data, f, indent=2, cls=NumpyJSONEncoder)
-            
+        
         if verbose:
             print(f"\n✅ Updated the Micro section in rating JSON with enhanced format")
             print(f"📊 Tools used: {', '.join(analysis_results.get('tools_used', []))}")
             print(f"💾 File saved: {rating_path}")
         
-        # Optionally, clean up legacy keys
-        for legacy_key in ["Three_Key_Takeaway_News", "Micro_Expectations"]:
-            if legacy_key in rating_data["Micro"]:
-                del rating_data["Micro"][legacy_key]
+        # 9. Clean up legacy keys if they exist
+        for legacy in ("Three_Key_Takeaway_News", "Micro_Expectations"):
+            if legacy in rating_data["Micro"]:
+                del rating_data["Micro"][legacy]
     
-    @tqdm_timer
-    def run_analysis(self, rating_path: str = None, verbose: bool = True) -> Dict:
-        """
-        Run the fact discovery process based on macro and micro news
-        
-        Args:
-            rating_path (str, optional): Path to a specific rating JSON file.
-                                         If None, the latest rating JSON will be used.
-            verbose (bool): Whether to print detailed analysis steps
-            
-        Returns:
-            Dict containing discovered facts and analysis
-        """
-        # Load the rating JSON
+    async def run_analysis_async(self, rating_path: str = None, verbose: bool = True) -> Dict:
+        # 1. Load JSON (同步很快)
         rating_data = self.load_rating_json(rating_path)
         ticker = rating_data.get("Ticker", "")
 
-        # --- Read both hints ---
-        macro_hint = rating_data["Macro"].get("next_inference_hint", "") if "Macro" in rating_data else ""
-        micro_news_hint = rating_data["Micro"].get("Next_Inference_Hint_Micro_News", "") if "Micro" in rating_data else ""
-        print(f"[DEBUG] Macro Inference Hint: {macro_hint}")
-        print(f"[DEBUG] Micro News Inference Hint: {micro_news_hint}")
+        # 2. Extract hints
+        macro_hint = rating_data.get("Macro", {}).get("next_inference_hint", "")
+        micro_hint = rating_data.get("Micro", {}).get("Next_Inference_Hint_Micro_News", "")
+        if verbose:
+            print(f"[DEBUG] Macro Hint: {macro_hint}")
+            print(f"[DEBUG] Micro Hint: {micro_hint}")
 
-        # Tool selection
-        print("[DEBUG] Calling tool selection...")
-        try:
-            tool_selection = self.determine_micro_tools(rating_data, verbose=verbose)
-            print(f"[DEBUG] Tool selection result: {tool_selection}")
-        except Exception as e:
-            print(f"[ERROR] Tool selection crashed: {e}")
-            tool_selection = {
-                "selected_tools": ["get_stock_metrics", "get_company_profile"],
-                "facts_to_verify": [],
-                "expectations_to_test": [],
-                "rationale": {},
-                "reasoning_process": "Fallback to default tools due to error."
-            }
+        # 3. Tool selection (异步)
+        if verbose: print("[DEBUG] Selecting tools…")
+        tool_selection = await self.determine_micro_tools(rating_data, verbose=verbose)
+        if not tool_selection.get("selected_tools"):
+            raise RuntimeError("Tool selection failed")
 
-        if not tool_selection or not tool_selection.get("selected_tools"):
-            print("[ERROR] Tool selection failed or returned no tools.")
-            return None
+        # 4. Tool execution (同步多线程已并发)
+        if verbose: print("[DEBUG] Executing tools…")
+        tool_results = await asyncio.to_thread(
+            self.execute_micro_tools, ticker, tool_selection["selected_tools"], verbose
+        )
 
-        # Tool execution
-        print("[DEBUG] Executing selected tools...")
-        try:
-            tool_results = self.execute_micro_tools(ticker, tool_selection["selected_tools"], verbose=verbose)
-            print(f"[DEBUG] Tool execution results: {tool_results}")
-        except Exception as e:
-            print(f"[ERROR] Tool execution crashed: {e}")
-            tool_results = {}
+        # 5. Analysis (同步小量计算)
+        if verbose: print("[DEBUG] Analyzing results…")
+        analysis_results = await asyncio.to_thread(
+            self.analyze_results, ticker, rating_data.get("Macro", {}), rating_data.get("Micro", {}), tool_results, verbose
+        )
 
-        if not tool_results:
-            print("[ERROR] Tool execution failed or returned no results.")
-            return None
+        # 6. LLM post‐processing (异步并发)
+        if verbose:
+            print("[DEBUG] Post‐processing with LLM (batch mode)…")
+        # 将同步批处理接口放到后台线程，避免冻结事件循环
+        llm_processed = await asyncio.to_thread(
+        self.process_tool_results_with_llm,
+        ticker,
+        tool_results,
+        verbose
+        )
 
-        # Analysis results
-        print("[DEBUG] Analyzing results...")
-        try:
-            analysis_results = self.analyze_results(
-                ticker,
-                rating_data.get("Macro", {}),
-                rating_data.get("Micro", {}),
-                tool_results,
-                verbose=verbose
-            )
-            print(f"[DEBUG] Analysis results: {analysis_results}")
-        except Exception as e:
-            print(f"[ERROR] Analysis crashed: {e}")
-            analysis_results = {}
+        # 7. Price inference (异步版本，参照前面示例)
+        if verbose: print("[DEBUG] Generating price inference…")
+        price_inf = await self.generate_price_inference_async(
+            ticker, {"macro_hint":macro_hint, "micro_hint":micro_hint}, tool_results, analysis_results, verbose
+        )
 
-        if not analysis_results:
-            print("[ERROR] Analysis failed or returned no results.")
-            return None
+        # 8. JSON 更新（把 orjson/线程写盘包装成异步）
+        if verbose: print("[DEBUG] Updating rating JSON…")
+        await asyncio.to_thread(
+            self.update_rating_json, rating_path, analysis_results, tool_selection, tool_results, price_inf, verbose, llm_processed_results=llm_processed
+        )
 
-        # Price inference (optional)
-        print("[DEBUG] Generating price inference...")
-        try:
-            price_inference = self.generate_price_inference(
-                ticker, {}, tool_results, analysis_results, verbose=verbose
-            )
-            print(f"[DEBUG] Price inference: {price_inference}")
-        except Exception as e:
-            print(f"[ERROR] Price inference crashed: {e}")
-            price_inference = {}
-
-        # Update rating JSON
-        print("[DEBUG] Updating rating JSON...")
-        try:
-            self.update_rating_json(
-                rating_path, analysis_results, tool_selection, tool_results, price_inference, verbose=verbose
-            )
-            print("[DEBUG] Rating JSON updated successfully.")
-        except Exception as e:
-            print(f"[ERROR] Failed to update rating JSON: {e}")
-
-        # Return results
         return {
             "ticker": ticker,
             "analysis_results": analysis_results,
             "tool_selection": tool_selection,
             "tool_results": tool_results,
-            "price_inference": price_inference
+            "price_inference": price_inf
         }
+
+
+    @tqdm_timer
+    def run_analysis(self, *args, **kwargs):
+        return asyncio.run(self.run_analysis_async(*args, **kwargs))
 
 # Example usage
 if __name__ == "__main__":
     try:
         print("🚀 Starting Micro Analyst Agent")
-        print("===============================")
-        
-        # Initialize the agent
-        print("\n🔧 Initializing agent components...")
         agent = MicroAnalystAgent(use_langchain=LANGCHAIN_AVAILABLE)
-        
-        # Run directly without redirecting output to a log file
-        print("\n🔄 Starting analysis process...")
-        print("==================================")
-        
-        # Run the analysis
+        print("🔄 Running full analysis…")
         results = agent.run_analysis(verbose=True)
-        
-        print("\n✅ Analysis completed!")
-        print("==========================")
-        
-        # Summary section for quick reference
-        print("\n📊 ANALYSIS SUMMARY")
-        print(f"Ticker: {results['ticker']}")
-        print(f"Tools used: {', '.join(results['analysis_results'].get('tools_used', []))}")
-        
-        # Show price inference summary
-        if 'price_inference' in results:
-            print("\n💰 PRICE INFERENCE SUMMARY")
-            inference = results['price_inference']
-            print(f"Inference: {inference.get('inference', 'N/A')}")
-            print(f"Trade Direction: {inference.get('trade_direction', 'N/A')}")
-            print(f"Trade Type: {inference.get('trade_type', 'N/A')}")
-        
+        # …打印 summary…
     except Exception as e:
-        print(f"Error running Micro Analyst Agent: {e}")
-        import traceback
-        traceback.print_exc()
+        print(f"Fatal error: {e}")
+        import traceback; traceback.print_exc()
