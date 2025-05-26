@@ -136,7 +136,7 @@ else:
 
 class MicroTools:
     """Collection of micro financial analysis tools for stock analysis"""
-    
+    _session = _session
     @staticmethod
     @tqdm_timer
     def get_key_metrics(ticker):
@@ -1002,7 +1002,7 @@ class MicroTools:
     
     @staticmethod
     @tqdm_timer
-    def get_companies_earnings_calendar(months=6):
+    def get_companies_earnings_calendar(ticker : str = None, months=6):
         """
         Gets the earnings calendar for companies for the specified period.
         

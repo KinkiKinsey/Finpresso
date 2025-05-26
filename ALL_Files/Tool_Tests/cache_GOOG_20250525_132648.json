@@ -1,0 +1,90 @@
+{
+  "get_peer_valuation_comparison": {
+    "error": "Unable to coerce to Series, length must be 0: given 1"
+  },
+  "get_company_profile": {
+    "symbol": "GOOG",
+    "price": 169.59,
+    "beta": 1.01,
+    "volAvg": 26008109,
+    "mktCap": 2050667216338,
+    "lastDiv": 0.8,
+    "range": "142.66-208.7",
+    "changes": -2.39,
+    "companyName": "Alphabet Inc.",
+    "currency": "USD",
+    "cik": "0001652044",
+    "isin": "US02079K1079",
+    "cusip": "02079K107",
+    "exchange": "NASDAQ Global Select",
+    "exchangeShortName": "NASDAQ",
+    "industry": "Internet Content & Information",
+    "website": "https://abc.xyz",
+    "description": "Alphabet Inc. offers various products and platforms in the United States, Europe, the Middle East, Africa, the Asia-Pacific, Canada, and Latin America. It operates through Google Services, Google Cloud, and Other Bets segments. The Google Services segment provides products and services, including ads, Android, Chrome, devices, Gmail, Google Drive, Google Maps, Google Photos, Google Play, Search, and YouTube. It is also involved in the sale of apps and in-app purchases and digital content in the Google Play and YouTube; and devices, as well as in the provision of YouTube consumer subscription services. The Google Cloud segment offers infrastructure, cybersecurity, databases, analytics, AI, and other services; Google Workspace that include cloud-based communication and collaboration tools for enterprises, such as Gmail, Docs, Drive, Calendar, and Meet; and other services for enterprise customers. The Other Bets segment sells healthcare-related and internet services. The company was incorporated in 1998 and is headquartered in Mountain View, California.",
+    "ceo": "Mr. Sundar  Pichai",
+    "sector": "Communication Services",
+    "country": "US",
+    "fullTimeEmployees": "185719",
+    "phone": "650 253 0000",
+    "address": "1600 Amphitheatre Parkway",
+    "city": "Mountain View",
+    "state": "CA",
+    "zip": "94043",
+    "dcfDiff": -85.88492,
+    "dcf": 254.35491631706324,
+    "image": "https://images.financialmodelingprep.com/symbol/GOOG.png",
+    "ipoDate": "2004-08-19",
+    "defaultImage": false,
+    "isEtf": false,
+    "isActivelyTrading": true,
+    "isAdr": false,
+    "isFund": false
+  },
+  "get_stock_dcf_valuation": {
+    "symbol": "GOOG",
+    "date": "2025-05-25",
+    "dcf": 254.35491631706324,
+    "Stock Price": 168.47
+  },
+  "analyze_earnings_vs_estimates": {
+    "data": [
+      {
+        "date": "2025-04-24",
+        "symbol": "GOOG",
+        "actualEarningResult": 2.81,
+        "estimatedEarning": 2.02,
+        "surprise_pct": 39.10891089108911
+      },
+      {
+        "date": "2025-02-04",
+        "symbol": "GOOG",
+        "actualEarningResult": 2.15,
+        "estimatedEarning": 2.12,
+        "surprise_pct": 1.415094339622632
+      },
+      {
+        "date": "2024-10-29",
+        "symbol": "GOOG",
+        "actualEarningResult": 2.12,
+        "estimatedEarning": 1.85,
+        "surprise_pct": 14.594594594594595
+      },
+      {
+        "date": "2024-07-23",
+        "symbol": "GOOG",
+        "actualEarningResult": 1.89,
+        "estimatedEarning": 1.84,
+        "surprise_pct": 2.7173913043478164
+      }
+    ],
+    "summary": {
+      "total_quarters": 4,
+      "beats": 4,
+      "misses": 0,
+      "beat_rate": 1.0,
+      "average_surprise_pct": 14.458997782413539,
+      "surprise_trend": 36.391519586741296
+    }
+  },
+  "get_stock_beta": 1.01
+}

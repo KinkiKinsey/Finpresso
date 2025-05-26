@@ -1,90 +1,64 @@
-Here’s the macroeconomic analysis based on the available news:
+Here is the macroeconomic analysis based on the provided news:
 
----
+1. **Trump Clears Nippon Merger with U.S. Steel (CNBC Economy)**  
+   - **Event**: President Trump approved the merger of U.S. Steel and Nippon Steel, reversing Biden’s earlier block on national security grounds. The deal is expected to create 70,000 jobs and add $14B to the U.S. economy.  
+   - **Impact**: The merger could strengthen U.S. steel production capacity and supply chains, potentially reducing reliance on imports. However, it may also face scrutiny over foreign influence.  
+   - **Stock Market Impact**: U.S. Steel shares surged 20% on the news, reflecting investor optimism about the deal’s economic benefits.  
 
-### **1. Federal Reserve Announces Staff Reduction**  
-- **Event**: Federal Reserve plans to reduce staff by 10% over the coming years, as per a memo from Chair Jerome Powell.  
-- **Impact**: Could signal operational streamlining or cost-cutting, potentially affecting the Fed’s capacity for economic analysis and policy implementation.  
-- **Stock Market Implication**: Neutral to slightly negative if investors perceive reduced Fed effectiveness, but unlikely to cause major market shifts.  
+2. **Trump Restarts Student Loan Collections (CNBC Economy)**  
+   - **Event**: The Trump administration resumed collections on defaulted student loans, which could reduce disposable income for affected borrowers.  
+   - **Impact**: This may strain low-income consumers, potentially dampening consumer spending and slowing economic growth. JPMorgan estimates a $3.1B–$8.5B monthly reduction in disposable income.  
+   - **Stock Market Impact**: Consumer discretionary stocks could face pressure as spending weakens, particularly in sectors reliant on lower-income households.  
 
----
+3. **Consumer Sentiment Drops Amid Tariff Concerns (CNBC Economy)**  
+   - **Event**: The University of Michigan’s consumer sentiment index fell to 50.8 (near record lows), with inflation expectations rising to 7.3% due to tariff fears.  
+   - **Impact**: Higher inflation expectations could delay Fed rate cuts and weigh on economic confidence. Tariffs remain a key uncertainty for households and businesses.  
+   - **Stock Market Impact**: Equity markets may react negatively to weaker sentiment, though the 90-day tariff pause could provide temporary relief.  
 
-### **2. Trump Pushes Fed for Rate Cuts, Criticizes Powell**  
-- **Event**: Former President Trump publicly pressures the Federal Reserve to cut interest rates and criticizes Chair Powell’s leadership.  
-- **Impact**: Raises concerns about political interference in central bank independence, potentially undermining market confidence in monetary policy.  
-- **Stock Market Implication**: Short-term volatility if investors fear erratic policy shifts; long-term depends on Fed’s adherence to data-driven decisions.  
+4. **EU Calls for U.S. Trade Deal Based on ‘Respect’ After Trump’s Tariff Threats (Google News - Tariffs)**  
+   - **Event**: The EU responded to Trump’s threats of tariffs on European goods, urging a trade deal grounded in mutual respect.  
+   - **Impact**: Escalating trade tensions could disrupt transatlantic supply chains and increase costs for businesses and consumers.  
+   - **Stock Market Impact**: Trade-sensitive sectors (e.g., autos, agriculture) may face volatility amid uncertainty.  
 
----
+5. **Federal Reserve Governor Warns U.S. Deficit ‘Not Sustainable’ (Google News - Federal Reserve)**  
+   - **Event**: A Fed official highlighted concerns over the U.S. fiscal deficit, noting weakening demand for Treasury bonds.  
+   - **Impact**: Persistent deficits could lead to higher long-term interest rates, crowding out private investment and straining economic stability.  
+   - **Stock Market Impact**: Bond markets may see heightened volatility, while equities could face pressure from rising borrowing costs.  
 
-### **3. U.S. Considers Regional Tariffs as Trade Deadlines Loom**  
-- **Event**: The U.S. may impose regional tariffs amid looming trade deadlines, signaling a tougher stance in trade negotiations.  
-- **Impact**: Could disrupt global supply chains, increase costs for businesses, and fuel inflation if tariffs are broad-based.  
-- **Stock Market Implication**: Negative for sectors reliant on imports (e.g., retail, manufacturing), but potential gains for domestic producers shielded by tariffs.  
+6. **Japan’s Core Inflation Hits 2-Year High (Google News - Inflation)**  
+   - **Event**: Japan’s core inflation rose to a multi-year high, raising expectations of a Bank of Japan rate hike.  
+   - **Impact**: Higher rates in Japan could strengthen the yen, affecting global trade dynamics and capital flows.  
+   - **Stock Market Impact**: Japanese equities may face headwinds, while global markets could see shifts in currency-driven investment.  
 
----
-
-### **4. Consumer Sentiment Hits Record Low Amid Tariff-Driven Inflation Fears**  
-- **Event**: Consumer sentiment slides to near-record lows as inflation expectations rise following tariff announcements.  
-- **Impact**: Weak consumer confidence could dampen spending, slowing economic growth. Higher inflation expectations may delay Fed rate cuts.  
-- **Stock Market Implication**: Bearish for consumer discretionary stocks; defensive sectors (utilities, staples) may outperform.  
-
----
-
-### **5. Trump Warns Walmart Against Price Hikes Due to Tariffs**  
-- **Event**: Trump warns Walmart not to raise prices despite his tariff policies, urging the company to absorb costs.  
-- **Impact**: Highlights tension between trade policy and corporate profitability; could squeeze retail margins if enforced.  
-- **Stock Market Implication**: Negative for Walmart and similar retailers facing margin pressures; broader market wary of policy unpredictability.  
-
----
-
-### **6. JPMorgan CEO Jamie Dimon Warns of Potential U.S. Recession**  
-- **Event**: Jamie Dimon states a U.S. recession remains "on the table," citing economic uncertainties.  
-- **Impact**: Reinforces caution among businesses and investors, potentially delaying capital expenditures.  
-- **Stock Market Implication**: Risk-off sentiment could weigh on equities, especially cyclical sectors.  
-
----
-
-### **7. Annual Inflation Dips to 2.3% in April, Lowest Since 2021**  
-- **Event**: April CPI shows inflation cooling to 2.3%, below expectations.  
-- **Impact**: Supports Fed’s case for eventual rate cuts if the trend continues, easing pressure on households.  
-- **Stock Market Implication**: Bullish for equities and bonds as lower inflation reduces rate hike risks.  
-
----
-
-### **Summary of Key Themes**:  
-- **Trade Policy Uncertainty**: Tariffs and geopolitical tensions dominate, with mixed implications for inflation and growth.  
-- **Fed Policy in Focus**: Staff cuts and political pressure add volatility to monetary policy expectations.  
-- **Consumer Weakness**: Low sentiment and student loan repayments may constrain spending.  
-
-Let me know if you’d like deeper analysis on any specific trend.
+### Summary:  
+The key themes are **trade policy uncertainty** (tariffs, mergers), **fiscal and monetary policy risks** (deficits, student loans), and **inflation concerns**. These factors could weigh on consumer spending, Fed policy, and market stability in the near term.
 
 ================================================================================
 
 📅 TOP 10 IMPORTANT ECONOMIC DATA RELEASES 📅
 
-📆 May 19, 2025
-  • 02:00:00 | CN: Retail Sales YoY (Apr) (🔴 High Impact)
-    [Previous: 5.9, Estimate: 5.5, Actual: None]
-  • 02:00:00 | CN: Unemployment Rate (Apr) (🔴 High Impact)
-    [Previous: 5.2, Estimate: 5.2, Actual: None]
-  • 02:00:00 | CN: Industrial Production YoY (Apr) (🔴 High Impact)
-    [Previous: 7.7, Estimate: 5.5, Actual: None]
-  • 09:00:00 | EU: CPI (Apr) (🔴 High Impact)
-    [Previous: 128.04, Estimate: 128.76, Actual: None]
+📆 May 25, 2025
+  • 18:40:00 | US: Fed Chair Powell Speech (🔴 High Impact)
 
-📆 May 20, 2025
-  • 04:30:00 | AU: RBA Interest Rate Decision (🔴 High Impact)
-    [Previous: 4.1, Estimate: 3.85, Actual: None]
-  • 04:30:00 | AU: Interest Rate Decision (May) (🔴 High Impact)
-    [Previous: 4.1, Estimate: 3.85, Actual: None]
-  • 12:30:00 | CA: CPI (Apr) (🔴 High Impact)
-    [Previous: 2.9, Estimate: 2.9, Actual: None]
-  • 12:30:00 | CA: Inflation Rate YoY (Apr) (🔴 High Impact)
-    [Previous: 2.3, Estimate: 1.6, Actual: None]
-  • 23:50:00 | JP: Balance of Trade (Apr) (🔴 High Impact)
-    [Previous: 544.1, Estimate: 227.1, Actual: None]
+📆 May 27, 2025
+  • 06:00:00 | DE: Consumer Confidence (Jun) (🔴 High Impact)
+    [Previous: -20.6, Estimate: -19.7, Actual: None]
+  • 06:45:00 | FR: Inflation Rate YoY (May) (🔴 High Impact)
+    [Previous: 0.8, Estimate: 1, Actual: None]
+  • 08:00:00 | AT: Bank Austria Manufacturing PMI (May) (🔴 High Impact)
+    [Previous: 46.6, Estimate: 48.5, Actual: None]
+  • 12:30:00 | US: Durable Goods Orders ex Defense MoM (Apr) (🔴 High Impact)
+    [Previous: 8.9, Estimate: -8.1, Actual: None]
+  • 12:30:00 | US: Durable Goods Orders MoM (Apr) (🔴 High Impact)
+    [Previous: 7.5, Estimate: -8, Actual: None]
+  • 12:30:00 | US: Durable Goods Orders Ex Transp MoM (Apr) (🔴 High Impact)
+    [Previous: -0.4, Estimate: -0.2, Actual: None]
 
-📆 May 21, 2025
-  • 06:00:00 | UK: Inflation Rate YoY (Apr) (🔴 High Impact)
-    [Previous: 2.6, Estimate: 3.3, Actual: None]
+📆 May 28, 2025
+  • 01:30:00 | AU: Monthly CPI Indicator (Apr) (🔴 High Impact)
+    [Previous: 2.4, Estimate: 2.3, Actual: None]
+  • 07:55:00 | DE: Employment Change (May) (🔴 High Impact)
+    [Previous: 4, Estimate: 10, Actual: None]
+  • 07:55:00 | DE: Unemployment Rate (May) (🔴 High Impact)
+    [Previous: 6.3, Estimate: 6.3, Actual: None]
 

@@ -51,7 +51,7 @@ class Colors:
     UNDERLINE = '\033[4m'
 
 from job_registry import jobs               # ★新增：全局 dict
-STEP_TOTAL = {"macro": 8, "micro": 17, "price": 8, "strategy": 4}
+STEP_TOTAL = {"macro": 9, "micro": 17, "price": 8, "strategy": 4}
 _step_done: dict[str, int] = {}
 _current_job: str | None = None
 ANSI_RE = re.compile(r"\x1B\[[0-9;]*m") 
@@ -129,15 +129,26 @@ def stream_thinking(message, duration=3, dots=3):
             time.sleep(0.3)
 
 def _incr(panel: str, job_id: str | None):
+    # 如果调用时没传 job_id，则回退到全局 _current_job
+    if job_id is None:
+        job_id = _current_job
+
+    # 1. 本地计数一定要更新
+    _step_done[panel] = _step_done.get(panel, 0) + 1
+    pct = int(100 * _step_done[panel] / STEP_TOTAL[panel])
+
+    # 2. 只有在 job_id 有效且已注册时，才写回前端进度
     if job_id and job_id in jobs:
-        _step_done[panel] = _step_done.get(panel, 0) + 1
-        pct = int(100 * _step_done[panel] / STEP_TOTAL[panel])
         jobs[job_id].panel_progress[panel] = pct
 
 def _finish(panel: str, job_id: str | None):
+    # 同样先回退到全局 _current_job（如果未传入）
+    if job_id is None:
+        job_id = _current_job
+
+    # 标记此面板进度为 100%
     if job_id and job_id in jobs:
         jobs[job_id].panel_progress[panel] = 100
-
 def validate_ticker(ticker):
     """Validate if the provided ticker exists on Yahoo Finance"""
     stream_message(f"Validating ticker: {ticker}", Colors.CYAN)
@@ -325,8 +336,10 @@ def run_macro_analyst(rating_json_path, job_id: str | None = None):
                     
             stream_message("\n🔮 Next Inference Hint:", Colors.YELLOW)
             stream_message(f"  {next_inference}", Colors.YELLOW)
-            
+            _incr("macro", job_id)            
             stream_message("\n✅ Macro analysis complete!", Colors.GREEN)
+            if job_id and job_id in jobs:
+                jobs[job_id].panel_data["macro"] = macro_data
             _finish("macro", job_id)
             return True
             
@@ -479,6 +492,10 @@ def run_micro_analyst(rating_json_path, job_id: str | None = None):
         if result:
             stream_message("\n✅ Micro analysis complete!", Colors.GREEN)
             _incr("micro", job_id)
+            if job_id and job_id in jobs:
+                with open(rating_json_path, 'r') as _f:
+                    _d = json.load(_f)
+                    jobs[job_id].panel_data["micro"] = _d.get("Micro", {})
             _finish("micro", job_id) 
             return True
         else:
@@ -609,6 +626,10 @@ def run_price_analyst(rating_json_path, job_id: str | None = None):
                 stream_message(f"Note: Could not extract strategy insights: {str(e)}", Colors.YELLOW)
             
             stream_message("\n✅ Price analysis and strategy complete!", Colors.GREEN)
+            if job_id and job_id in jobs:
+                with open(rating_json_path, 'r') as _f:
+                    _d = json.load(_f)
+                    jobs[job_id].panel_data["price"] = _d.get("Price", {})
             _finish("price", job_id)
             return True
             
@@ -684,8 +705,8 @@ def run_investment_integration_agent(rating_json_path, job_id: str | None = None
         from Investment_Integration_Agent import InvestmentIntegrationAgent
         
         stream_message("\n🧠 Running Investment Integration Agent...", Colors.CYAN)
-        stream_thinking("Integrating all analyses", 3)
         _incr("strategy", job_id) 
+        stream_thinking("Integrating all analyses", 3)
         
         # Create Graph directory if it doesn't exist (needed for Price_Agent)
         ticker = None
@@ -696,9 +717,9 @@ def run_investment_integration_agent(rating_json_path, job_id: str | None = None
                 if ticker:
                     # Create ticker-specific graph directory
                     ensure_ticker_graph_directory(ticker)
-                _incr("strategy", job_id) 
         except Exception as e:
             stream_message(f"Warning: Error ensuring Graph directory: {str(e)}", Colors.YELLOW)
+        _incr("strategy", job_id) 
         
         # Initialize the Investment Integration Agent
         try:
@@ -731,6 +752,10 @@ def run_investment_integration_agent(rating_json_path, job_id: str | None = None
                             stream_message(section, Colors.CYAN)
                     
                     stream_message("\n" + "*" * 60, Colors.BLUE)
+                if job_id and job_id in jobs:
+                    with open(rating_json_path, 'r') as _f:
+                       _d = json.load(_f)
+                    jobs[job_id].panel_data["strategy"] = _d.get("Strategy", {})
                 _incr("strategy", job_id)
                 _finish("strategy", job_id) 
                 return True
@@ -876,51 +901,58 @@ def main():
         stream_thread.join(timeout=1.0)    
 
 def run_analysis(ticker: str, job_id: str | None = None) -> dict:
+    """
+    Run the complete analysis pipeline for a given ticker.
+    Ensures that each phase runs even if a previous one fails,
+    so that the strategy (integration) phase always executes.
+    """
     global _current_job
     _current_job = job_id
-    for k in STEP_TOTAL:
-        _step_done[k] = 0
-    """Run the complete analysis pipeline for a given ticker"""
+    # Reset step counters for each panel
+    for panel in STEP_TOTAL:
+        _step_done[panel] = 0
+
     try:
-        # Create rating JSON
+        # Phase 0: initialize rating JSON
         rating_json_path = create_rating_json(ticker)
         if not rating_json_path:
-            return None
-            
-        # Run macro analysis
+            stream_message("❌ Unable to create rating JSON. Aborting analysis.", Colors.RED)
+            return {}
+
+        # Phase 1: Macro analysis
         if not run_macro_analyst(rating_json_path, job_id):
-            return None
-            
-        # Run micro news analysis
+            stream_message("⚠️ Macro analysis failed. Continuing to next phase.", Colors.YELLOW)
+
+        # Phase 2: Micro news analysis
         if not run_micro_news(rating_json_path, job_id):
-            return None
-            
-        # Run micro analysis
+            stream_message("⚠️ Micro news analysis failed. Continuing to next phase.", Colors.YELLOW)
+
+        # Phase 3: Micro fundamentals analysis
         if not run_micro_analyst(rating_json_path, job_id):
-            return None
-            
-        # Run price analysis
+            stream_message("⚠️ Micro analysis failed. Continuing to next phase.", Colors.YELLOW)
+
+        # Phase 4: Price analysis & strategy
         if not run_price_analyst(rating_json_path, job_id):
-            return None
-            
-        # Run investment integration
-        if not run_investment_integration_agent(rating_json_path, job_id):
-            return None
-            
-        # Display final results
+            stream_message("⚠️ Price analysis failed. Continuing to integration phase.", Colors.YELLOW)
+
+        # Phase 5: Investment integration (strategy)
+        run_investment_integration_agent(rating_json_path, job_id)
+
+        # Final: display summary (does not affect progress bars)
         display_final_results(rating_json_path, ticker)
-        
-        # Return the final rating data
+
+        # Return the final JSON data
         try:
             with open(rating_json_path, 'r') as f:
                 return json.load(f)
         except Exception as e:
             print(f"Error reading final rating JSON: {e}")
-            return None
-            
+            return {}
+
     except Exception as e:
         print(f"Error in analysis pipeline: {e}")
-        return None
+        return {}
+
 
 if __name__ == "__main__":
     main() 

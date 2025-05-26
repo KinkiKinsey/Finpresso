@@ -1,0 +1,1039 @@
+{
+  "Ticker": "NVDA",
+  "Macro": {
+    "summary": "The U.S. economy is experiencing strong but slowing growth, with persistent inflationary pressures and a tight labor market. GDP growth has moderated from 5.6% to 3.5%, while inflation shows volatility with PCE dropping sharply to 1.8% but CPI and PPI indicating sticky price pressures. The Fed has cut rates to 4.33% to prevent a hard landing, and the yield curve has turned positive, signaling reduced recession risks. However, stagnant real wages, declining savings, and deteriorating trade conditions pose challenges.",
+    "key_indicators": {
+      "GDP_growth_description": "Moderating from 5.6% (Q2 2024) to 3.5% (Q1 2025), indicating cooling but robust expansion.",
+      "Inflation_rate_description": "PCE dropped sharply to 1.8% (Q1 2025), but CPI (320.8 in April 2025) and PPI (148.4 in March 2025) reflect sticky inflation.",
+      "Unemployment_rate_description": "Low at 4.0%-4.2%, but edging up slightly, hinting at softening demand.",
+      "Interest_rate_description": "Fed Funds Rate cut from 5.33% (June 2024) to 4.33% (March 2025) to support growth.",
+      "VIX_level_description": "Moderate Greed (-1\u03c3), indicating reduced fear and stable market sentiment."
+    },
+    "sentiment": "NEUTRAL",
+    "trend": "STABLE",
+    "influencers": [
+      "Fed Chair Jerome Powell (protected from removal, ensuring policy stability)",
+      "Trump (student loan reforms, steel merger approval, tariff threats)",
+      "Bank of Japan (potential tightening due to rising inflation)"
+    ],
+    "favorable_sectors": [
+      "Steel and manufacturing (boost from U.S. Steel-Nippon merger)",
+      "Housing (strong investment efficiency despite affordability strains)",
+      "Gold (surge due to inflation hedging)"
+    ],
+    "non_favorable_sectors": [
+      "Tech (tariff threats on Apple and EU products)",
+      "Education (volatility from student loan reforms)",
+      "Consumer goods (inflation and tariff risks)"
+    ],
+    "macro_catalysts": [
+      "Fed's response to deficit warnings and inflation trends",
+      "Potential BoJ monetary policy tightening",
+      "Outcome of Trump's proposed tariffs on EU and Apple"
+    ],
+    "macro_event_recap": [
+      "June 2024: GDP growth peaks at 5.6%",
+      "Q3-Q4 2024: Inflation rises (PCE 4.0%), Fed cuts rates",
+      "March 2025: PPI peaks at 148.4, Fed Funds Rate at 4.33%",
+      "April 2025: CPI at 320.8, unemployment at 4.2%",
+      "May 2025: Trump approves U.S. Steel-Nippon merger, threatens tariffs on EU and Apple"
+    ],
+    "next_inference_hint": "The most significant macro factor for NVDA will be the Fed's rate cuts (to 4.33%) and moderating inflation, which should sustain investor appetite for growth stocks like NVIDIA, creating a mild tailwind. However, sticky CPI/PPI and potential trade disruptions (e.g., Trump tariffs) could weigh on semiconductor supply chains, offsetting some gains. A key catalyst is the BoJ's potential tightening, which may strengthen the yen and pressure tech exports, though NVDA's AI dominance likely insulates it near-term. Expect stable performance with upside tied to softer inflation data."
+  },
+  "Micro": {
+    "Three_Key_Takeaways": "1. Nvidia's fiscal Q1 earnings report on May 28 is highly anticipated, with Wall Street maintaining a bullish stance.\n2. The company faces challenges from Chinese competition and international trade disputes, despite benefiting significantly from the AI boom.\n3. Nvidia is launching a cheaper Blackwell AI chip for China, potentially mitigating some trade-related risks.",
+    "Micro_Expectation": "Market sentiment around Nvidia is cautiously optimistic ahead of its earnings report, with high expectations for its performance in the AI sector. However, concerns about competition and trade disputes are tempering some of the enthusiasm.",
+    "Next_Inference_Hint_Micro_News": "The next critical step is to analyze Nvidia's Q1 earnings report on May 28, focusing on revenue growth, margins, and guidance to assess whether the company can meet or exceed the high market expectations. Additionally, monitoring the reception and impact of the cheaper Blackwell AI chip in China could provide insights into Nvidia's ability to navigate trade challenges.",
+    "reasoning": "Analysis of NVDA based on macro and micro news:\n- GDP growth: Moderating from 5.6% (Q2 2024) to 3.5% (Q1 2025), indicating cooling but robust expansion.; interest rates: Fed Funds Rate cut from 5.33% (June 2024) to 4.33% (March 2025) to support growth.\n- Macro sentiment: NEUTRAL; market trend: STABLE",
+    "tools_used": [
+      "get_earnings_calendar",
+      "analyze_earnings_vs_estimates",
+      "get_peer_valuation_comparison",
+      "get_stock_beta",
+      "get_stock_metrics"
+    ],
+    "tool_results": {
+      "get_earnings_calendar": {
+        "name": "get_earnings_calendar",
+        "result": "PART 1: FACTUAL REPORT\n- No specific key metrics or values provided in the data.\n\nPART 2: ANALYSIS\nThe data provided does not contain specific metrics or values for analysis. It appears to be a list of functions rather than actual financial data."
+      },
+      "analyze_earnings_vs_estimates": {
+        "name": "analyze_earnings_vs_estimates",
+        "result": "PART 1: FACTUAL REPORT\n- Date: 2025-02-26, Actual Earning Result = 0.89, Estimated Earning = 0.848, Surprise % = 4.95%\n- Date: 2024-11-20, Actual Earning Result = 0.81, Estimated Earning = 0.75, Surprise % = 8.00%\n- Date: 2024-08-28, Actual Earning Result = 0.68, Estimated Earning = 0.64, Surprise % = 6.25%\n- Date: 2024-05-22, Actual Earning Result = 0.61, Estimated Earning = 0.56, Surprise % = 8.93%\n- Summary: Total Quarters = 4, Beats = 4, Misses = 0, Beat Rate = 100%, Average Surprise % = 7.03%, Surprise Trend = -3.98%\n\nPART 2: ANALYSIS\nNVDA has consistently beaten earnings estimates over the last four quarters, with an average surprise of 7.03%. However, the surprise trend shows a slight decline, indicating that while NVDA continues to outperform expectations, the magnitude of the beats is decreasing."
+      },
+      "get_peer_valuation_comparison": {
+        "name": "get_peer_valuation_comparison",
+        "result": "PART 1: FACTUAL REPORT\nNVDA METRICS:\n- NVDA Price = $131.29\n- NVDA Market Cap = $3201.85B\n- NVDA Forward PE Rank = 0.866667\n- NVDA Price to Book Rank = 1.0000\n- NVDA EV to EBITDA Rank = 0.8750\n\nPEER METRICS:\n- AVGO Price = $228.72, Market Cap = $1075.43B, Forward PE Rank = 0.933333, Price to Book Rank = 0.4375, EV to EBITDA Rank = 0.1875\n- TSM Price = $191.98, Market Cap = $995.71B, Forward PE Rank = 0.600000, Price to Book Rank = 0.2500, EV to EBITDA Rank = 0.1250\n- ASML Price = $732.49, Market Cap = $292.61B, Forward PE Rank = 0.733333, Price to Book Rank = 0.8750, EV to EBITDA Rank = 0.6875\n- AMD Price = $110.31, Market Cap = $178.86B, Forward PE Rank = 0.533333, Price to Book Rank = 0.3750, EV to EBITDA Rank = 0.7500\n- TXN Price = $176.30, Market Cap = $160.16B, Forward PE Rank = 0.800000, Price to Book Rank = 0.7500, EV to EBITDA Rank = 0.6250\n\nPART 2: ANALYSIS\nNVDA leads in market capitalization and ranks highly in forward PE, price to book, and EV to EBITDA compared to its peers. AVGO and TSM are notable competitors with significant market caps and varying valuation ranks, but NVDA's dominance in key valuation metrics highlights its strong market position."
+      },
+      "get_stock_beta": {
+        "name": "get_stock_beta",
+        "result": "PART 1: FACTUAL REPORT\n- Beta = 2.114\n\nPART 2: ANALYSIS\nA beta of 2.114 indicates that NVDA is highly volatile compared to the market, suggesting it is more sensitive to market movements and carries higher risk but also potential for higher returns."
+      },
+      "get_stock_metrics": {
+        "name": "get_stock_metrics",
+        "result": "PART 1: FACTUAL REPORT\n- EPS = $2.94\n- ROIC = 77.90%\n- Debt to Equity = 0.14\n- Revenue Growth = 114.20% YoY\n- Free Cash Flow = $60.85B\n- Beta = 2.11\n- Current Price = $131.29\n- Market Cap = $3201.85B\n- PE Ratio = 44.66\n- PB Ratio = 40.51\n\nPART 2: ANALYSIS\nNVDA demonstrates strong financial health with high revenue growth, robust free cash flow, and impressive ROIC. The high beta indicates volatility, while the elevated PE and PB ratios suggest the stock is trading at premium valuations, likely due to its growth prospects."
+      }
+    },
+    "rationale": [
+      "get_stock_metrics: To verify Nvidia's current performance metrics such as P/E ratio, revenue growth, and margins.",
+      "get_earnings_calendar: To confirm the date of the Q1 earnings report and any other upcoming events that could impact the stock.",
+      "analyze_earnings_vs_estimates: To compare historical earnings surprises and assess the likelihood of Nvidia meeting or exceeding current estimates.",
+      "get_peer_valuation_comparison: To evaluate whether Nvidia's valuation is in line with or better than its industry peers, given the high expectations.",
+      "get_stock_beta: To understand Nvidia's sensitivity to broader market movements, especially in a moderating GDP growth environment."
+    ],
+    "micro_to_price_next_inference": "NVDA has consistently beaten earnings (100% beat rate, avg +7% surprise) with strong revenue growth (114% YoY) and high profitability (ROIC 77.9%), but valuations are elevated (P/E 44.7x, P/B 40.5x). LONG is recommended given robust fundamentals and AI tailwinds, though monitor trade risks. This is a MOMENTUM trade as macro tailwinds and earnings strength likely sustain upward price action."
+  },
+  "Price": {
+    "risk_reward_summary": "Combined Risk/Reward Analysis for NVDA:\n==================================================\nLong Position: R/R = 4.14, Expected Profit = 7.93, Expected Loss = -32.82\nShort Position: R/R = 0.24, Expected Profit = 32.82, Expected Loss = -7.93\n\nRecommended Position: SHORT\n",
+    "sma_crossovers_summary": "\n=== NVDA 50/200 SMA Crossover Analysis ===\nAnalysis Period: 1y\nLookforward Window: 30 days\n\nBullish Crosses: 1\nAverage Max Return: 5.3%\nBest Return: 5.3%\nMedian Return: 5.3%\n\nBearish Crosses: 1\nAverage Max Return: 20.4%\nBest Return: 20.4%\nMedian Return: 20.4%\n",
+    "ema_crossovers_summary": "\n=== NVDA 9/21 EMA Crossover Analysis ===\nAnalysis Period: 1y\nLookforward Window: 30 days\n\nBullish Crosses: 7\nAverage Max Return: 7.1%\nBest Return: 19.0%\nMedian Return: 3.4%\n\nBearish Crosses: 7\nAverage Max Return: 11.6%\nBest Return: 28.2%\nMedian Return: 9.7%\n",
+    "vw_macd_summary": "\ud83d\udcca NVDA VOLUME-WEIGHTED MACD ANALYSIS (1y)\n==================================================\n\n\ud83d\udd39 Current VW-MACD: 0.8221\n\ud83d\udd39 Current Signal: 0.8070\n\ud83d\udd39 5-Day Price Trend: \u2193 4.28\n\n\ud83d\udfe2 BULLISH SIGNAL: VW-MACD above Signal line\n\n\ud83d\udcaa MOMENTUM ANALYSIS:\n\ud83d\udfe1 WEAK MOMENTUM: Current divergence \u2264 average\n\n\ud83d\udcc8 RECENT PERFORMANCE: 18/20 days above signal line",
+    "graph_paths": {
+      "risk_reward": "/Users/wangmingxuan/Finpresso/ALL_Files/Graph/NVDA_Graph/NVDA_risk_reward_20250524_163104.png",
+      "sma_crossovers": "/Users/wangmingxuan/Finpresso/ALL_Files/Graph/NVDA_Graph/NVDA_sma_crossovers_20250524_163104.png",
+      "ema_crossovers": "/Users/wangmingxuan/Finpresso/ALL_Files/Graph/NVDA_Graph/NVDA_ema_crossovers_20250524_163104.png",
+      "vw_macd": "/Users/wangmingxuan/Finpresso/ALL_Files/Graph/NVDA_Graph/NVDA_vw_macd_20250524_163104.png"
+    }
+  },
+  "Strategy": {
+    "recommended_action": "BUY",
+    "strategy_type": "REVERSION",
+    "rationale": "From a macro perspective: The U.S. economy is experiencing strong but slowing growth, with persistent inflationary pressures a...\nPrice analysis indicates:\n- Risk/Reward favors SHORT position\n- Moving Averages signal BEARISH\n- MACD shows BULLISH momentum\nUpcoming catalysts to watch:\n  1. Fed's response to deficit warnings and inflation trends...\n  2. Potential BoJ monetary policy tightening...\n  3. Outcome of Trump's proposed tariffs on EU and Apple...\nMicro analysis suggests a LONG bias for this stock",
+    "risk_level": "MODERATE",
+    "time_horizon": "MEDIUM-TERM",
+    "expected_reward": "7.93% POTENTIAL UPSIDE",
+    "exit_triggers": [
+      "Price returning to mean level",
+      "Oversold/overbought indicator normalization",
+      "New support/resistance levels established",
+      "Market reaction confirmation after Fed's response to deficit warnings and inflation trends"
+    ],
+    "entry_signals": [
+      "Price reaching extreme oversold/overbought levels",
+      "Divergence between price and momentum indicators",
+      "Price testing historical support/resistance levels"
+    ]
+  },
+  "Investment_Mindmap": "INVESTMENT THESIS FOR NVDA: Our analysis indicates a BUY recommendation based on a REVERSION strategy. \n\nMACROECONOMIC ENVIRONMENT: The U.S. economy is experiencing strong but slowing growth, with persistent inflationary pressures and a tight labor market. GDP growth has moderated from 5.6% to 3.5%, while inflation shows volatility with PCE dropping sharply to 1.8% but CPI and PPI indicating sticky price pressures. The Fed has cut rates to 4.33% to prevent a hard landing, and the yield curve has turned positive, signaling reduced recession risks. However, stagnant real wages, declining savings, and deteriorating trade conditions pose challenges. This environment particularly favors the Steel and manufacturing (boost from U.S. Steel-Nippon merger), Housing (strong investment efficiency despite affordability strains), Gold (surge due to inflation hedging) sectors. A key upcoming catalyst to monitor is Fed's response to deficit warnings and inflation trends. Looking forward, The most significant macro factor for NVDA will be the Fed's rate cuts (to 4.33%) and moderating inflation, which should sustain investor appetite for growth stocks like NVIDIA, creating a mild tailwind. However, sticky CPI/PPI and potential trade disruptions (e.g., Trump tariffs) could weigh on semiconductor supply chains, offsetting some gains. A key catalyst is the BoJ's potential tightening, which may strengthen the yen and pressure tech exports, though NVDA's AI dominance likely insulates it near-term. Expect stable performance with upside tied to softer inflation data. \n\nCOMPANY ANALYSIS (NVDA): Based on these fundamentals, NVDA has consistently beaten earnings (100% beat rate, avg +7% surprise) with strong revenue growth (114% YoY) and high profitability (ROIC 77.9%), but valuations are elevated (P/E 44.7x, P/B 40.5x). LONG is recommended given robust fundamentals and AI tailwinds, though monitor trade risks. This is a MOMENTUM trade as macro tailwinds and earnings strength likely sustain upward price action. \n\nPRICE ANALYSIS: Combined Risk/Reward Analysis for NVDA:\n==================================================\nLong Position: R/R = 4. Moving averages analysis indicates SMA analysis: \n=== NVDA 50/200 SMA Crossover Analysis ===\nAnalysis Period: 1y\nLookforward Window: 30 days\n\nBullish Crosses: 1\nAverage Max Return: 5 and EMA analysis: \n=== NVDA 9/21 EMA Crossover Analysis ===\nAnalysis Period: 1y\nLookforward Window: 30 days\n\nBullish Crosses: 7\nAverage Max Return: 7. MACD analysis shows \ud83d\udcca NVDA VOLUME-WEIGHTED MACD ANALYSIS (1y)\n==================================================\n\n\ud83d\udd39 Current VW-MACD: 0. \n\nINTEGRATED INVESTMENT STRATEGY: We recommend a BUY strategy with moderate risk over a medium-term time horizon. The rationale is: From a macro perspective: The U.S. economy is experiencing strong but slowing growth, with persistent inflationary pressures a...\nPrice analysis indicates:\n- Risk/Reward favors SHORT position\n- Moving Averages signal BEARISH\n- MACD shows BULLISH momentum\nUpcoming catalysts to watch:\n  1. Fed's response to deficit warnings and inflation trends...\n  2. Potential BoJ monetary policy tightening...\n  3. Outcome of Trump's proposed tariffs on EU and Apple...\nMicro analysis suggests a LONG bias for this stock For optimal entry, look for Price reaching extreme oversold/overbought levels. Consider exiting when Price returning to mean level. This strategy targets 7.93% POTENTIAL UPSIDE \n\nCONCLUSION: In the current economic environment, NVDA's  and bullish technical indicators support our BUY recommendation. Key catalyst to monitor: Fed's response to deficit warnings and inflation trends.",
+  "Investment_Mindmap_json": {
+    "nodes": [
+      {
+        "id": "1",
+        "label": "INVESTMENT THESIS FOR NVDA",
+        "group": "Conclusion"
+      },
+      {
+        "id": "2",
+        "label": "BUY recommendation",
+        "group": "Conclusion"
+      },
+      {
+        "id": "3",
+        "label": "REVERSION strategy",
+        "group": "Strategy"
+      },
+      {
+        "id": "4",
+        "label": "MACROECONOMIC ENVIRONMENT",
+        "group": "Macro"
+      },
+      {
+        "id": "5",
+        "label": "U.S. economy strong but slowing growth",
+        "group": "Macro"
+      },
+      {
+        "id": "6",
+        "label": "persistent inflationary pressures",
+        "group": "Macro"
+      },
+      {
+        "id": "7",
+        "label": "tight labor market",
+        "group": "Macro"
+      },
+      {
+        "id": "8",
+        "label": "GDP growth moderated to 3.5%",
+        "group": "Macro"
+      },
+      {
+        "id": "9",
+        "label": "inflation volatility",
+        "group": "Macro"
+      },
+      {
+        "id": "10",
+        "label": "PCE dropped to 1.8%",
+        "group": "Macro"
+      },
+      {
+        "id": "11",
+        "label": "CPI and PPI sticky price pressures",
+        "group": "Macro"
+      },
+      {
+        "id": "12",
+        "label": "Fed cut rates to 4.33%",
+        "group": "Macro"
+      },
+      {
+        "id": "13",
+        "label": "yield curve positive",
+        "group": "Macro"
+      },
+      {
+        "id": "14",
+        "label": "reduced recession risks",
+        "group": "Macro"
+      },
+      {
+        "id": "15",
+        "label": "stagnant real wages",
+        "group": "Macro"
+      },
+      {
+        "id": "16",
+        "label": "declining savings",
+        "group": "Macro"
+      },
+      {
+        "id": "17",
+        "label": "deteriorating trade conditions",
+        "group": "Macro"
+      },
+      {
+        "id": "18",
+        "label": "favors Steel and manufacturing",
+        "group": "Macro"
+      },
+      {
+        "id": "19",
+        "label": "U.S. Steel-Nippon merger",
+        "group": "Macro"
+      },
+      {
+        "id": "20",
+        "label": "Housing strong investment efficiency",
+        "group": "Macro"
+      },
+      {
+        "id": "21",
+        "label": "Gold surge due to inflation hedging",
+        "group": "Macro"
+      },
+      {
+        "id": "22",
+        "label": "key catalyst: Fed's response to deficit warnings",
+        "group": "Catalyst"
+      },
+      {
+        "id": "23",
+        "label": "key catalyst: inflation trends",
+        "group": "Catalyst"
+      },
+      {
+        "id": "24",
+        "label": "Fed's rate cuts to 4.33%",
+        "group": "Macro"
+      },
+      {
+        "id": "25",
+        "label": "moderating inflation",
+        "group": "Macro"
+      },
+      {
+        "id": "26",
+        "label": "sustain investor appetite for growth stocks",
+        "group": "Macro"
+      },
+      {
+        "id": "27",
+        "label": "mild tailwind for NVDA",
+        "group": "Macro"
+      },
+      {
+        "id": "28",
+        "label": "sticky CPI/PPI",
+        "group": "Macro"
+      },
+      {
+        "id": "29",
+        "label": "potential trade disruptions",
+        "group": "Macro"
+      },
+      {
+        "id": "30",
+        "label": "Trump tariffs",
+        "group": "Macro"
+      },
+      {
+        "id": "31",
+        "label": "semiconductor supply chains",
+        "group": "Macro"
+      },
+      {
+        "id": "32",
+        "label": "key catalyst: BoJ's potential tightening",
+        "group": "Catalyst"
+      },
+      {
+        "id": "33",
+        "label": "strengthen yen",
+        "group": "Macro"
+      },
+      {
+        "id": "34",
+        "label": "pressure tech exports",
+        "group": "Macro"
+      },
+      {
+        "id": "35",
+        "label": "NVDA's AI dominance insulates near-term",
+        "group": "Company"
+      },
+      {
+        "id": "36",
+        "label": "expect stable performance",
+        "group": "Conclusion"
+      },
+      {
+        "id": "37",
+        "label": "upside tied to softer inflation data",
+        "group": "Conclusion"
+      },
+      {
+        "id": "38",
+        "label": "COMPANY ANALYSIS (NVDA)",
+        "group": "Company"
+      },
+      {
+        "id": "39",
+        "label": "consistently beaten earnings",
+        "group": "Company"
+      },
+      {
+        "id": "40",
+        "label": "100% beat rate",
+        "group": "Company"
+      },
+      {
+        "id": "41",
+        "label": "avg +7% surprise",
+        "group": "Company"
+      },
+      {
+        "id": "42",
+        "label": "strong revenue growth (114% YoY)",
+        "group": "Company"
+      },
+      {
+        "id": "43",
+        "label": "high profitability (ROIC 77.9%)",
+        "group": "Company"
+      },
+      {
+        "id": "44",
+        "label": "elevated valuations",
+        "group": "Price"
+      },
+      {
+        "id": "45",
+        "label": "P/E 44.7x",
+        "group": "Price"
+      },
+      {
+        "id": "46",
+        "label": "P/B 40.5x",
+        "group": "Price"
+      },
+      {
+        "id": "47",
+        "label": "LONG recommended",
+        "group": "Strategy"
+      },
+      {
+        "id": "48",
+        "label": "robust fundamentals",
+        "group": "Company"
+      },
+      {
+        "id": "49",
+        "label": "AI tailwinds",
+        "group": "Company"
+      },
+      {
+        "id": "50",
+        "label": "monitor trade risks",
+        "group": "Strategy"
+      },
+      {
+        "id": "51",
+        "label": "MOMENTUM trade",
+        "group": "Strategy"
+      },
+      {
+        "id": "52",
+        "label": "macro tailwinds",
+        "group": "Macro"
+      },
+      {
+        "id": "53",
+        "label": "earnings strength",
+        "group": "Company"
+      },
+      {
+        "id": "54",
+        "label": "sustain upward price action",
+        "group": "Price"
+      },
+      {
+        "id": "55",
+        "label": "PRICE ANALYSIS",
+        "group": "Price"
+      },
+      {
+        "id": "56",
+        "label": "Long Position: R/R = 4",
+        "group": "Price"
+      },
+      {
+        "id": "57",
+        "label": "Moving averages analysis",
+        "group": "Price"
+      },
+      {
+        "id": "58",
+        "label": "SMA analysis",
+        "group": "Price"
+      },
+      {
+        "id": "59",
+        "label": "50/200 SMA Crossover",
+        "group": "Price"
+      },
+      {
+        "id": "60",
+        "label": "Bullish Crosses: 1",
+        "group": "Price"
+      },
+      {
+        "id": "61",
+        "label": "Average Max Return: 5",
+        "group": "Price"
+      },
+      {
+        "id": "62",
+        "label": "EMA analysis",
+        "group": "Price"
+      },
+      {
+        "id": "63",
+        "label": "9/21 EMA Crossover",
+        "group": "Price"
+      },
+      {
+        "id": "64",
+        "label": "Bullish Crosses: 7",
+        "group": "Price"
+      },
+      {
+        "id": "65",
+        "label": "Average Max Return: 7",
+        "group": "Price"
+      },
+      {
+        "id": "66",
+        "label": "MACD analysis",
+        "group": "Price"
+      },
+      {
+        "id": "67",
+        "label": "BULLISH momentum",
+        "group": "Price"
+      },
+      {
+        "id": "68",
+        "label": "INTEGRATED INVESTMENT STRATEGY",
+        "group": "Strategy"
+      },
+      {
+        "id": "69",
+        "label": "BUY strategy",
+        "group": "Strategy"
+      },
+      {
+        "id": "70",
+        "label": "moderate risk",
+        "group": "Strategy"
+      },
+      {
+        "id": "71",
+        "label": "medium-term time horizon",
+        "group": "Strategy"
+      },
+      {
+        "id": "72",
+        "label": "Risk/Reward favors SHORT position",
+        "group": "Price"
+      },
+      {
+        "id": "73",
+        "label": "Moving Averages signal BEARISH",
+        "group": "Price"
+      },
+      {
+        "id": "74",
+        "label": "Upcoming catalysts",
+        "group": "Catalyst"
+      },
+      {
+        "id": "75",
+        "label": "Potential BoJ monetary policy tightening",
+        "group": "Catalyst"
+      },
+      {
+        "id": "76",
+        "label": "Outcome of Trump's proposed tariffs",
+        "group": "Catalyst"
+      },
+      {
+        "id": "77",
+        "label": "LONG bias",
+        "group": "Strategy"
+      },
+      {
+        "id": "78",
+        "label": "7.93% POTENTIAL UPSIDE",
+        "group": "Price"
+      },
+      {
+        "id": "79",
+        "label": "CONCLUSION",
+        "group": "Conclusion"
+      },
+      {
+        "id": "80",
+        "label": "bullish technical indicators",
+        "group": "Price"
+      }
+    ],
+    "edges": [
+      {
+        "source": "1",
+        "target": "2",
+        "relation": "supports"
+      },
+      {
+        "source": "1",
+        "target": "3",
+        "relation": "supports"
+      },
+      {
+        "source": "2",
+        "target": "4",
+        "relation": "drives"
+      },
+      {
+        "source": "2",
+        "target": "38",
+        "relation": "drives"
+      },
+      {
+        "source": "2",
+        "target": "55",
+        "relation": "drives"
+      },
+      {
+        "source": "2",
+        "target": "68",
+        "relation": "drives"
+      },
+      {
+        "source": "2",
+        "target": "79",
+        "relation": "drives"
+      },
+      {
+        "source": "3",
+        "target": "47",
+        "relation": "supports"
+      },
+      {
+        "source": "3",
+        "target": "51",
+        "relation": "supports"
+      },
+      {
+        "source": "4",
+        "target": "5",
+        "relation": "supports"
+      },
+      {
+        "source": "4",
+        "target": "6",
+        "relation": "supports"
+      },
+      {
+        "source": "4",
+        "target": "7",
+        "relation": "supports"
+      },
+      {
+        "source": "5",
+        "target": "8",
+        "relation": "supports"
+      },
+      {
+        "source": "5",
+        "target": "9",
+        "relation": "supports"
+      },
+      {
+        "source": "6",
+        "target": "10",
+        "relation": "supports"
+      },
+      {
+        "source": "6",
+        "target": "11",
+        "relation": "supports"
+      },
+      {
+        "source": "7",
+        "target": "15",
+        "relation": "supports"
+      },
+      {
+        "source": "7",
+        "target": "16",
+        "relation": "supports"
+      },
+      {
+        "source": "8",
+        "target": "12",
+        "relation": "drives"
+      },
+      {
+        "source": "9",
+        "target": "10",
+        "relation": "contradicts"
+      },
+      {
+        "source": "9",
+        "target": "11",
+        "relation": "supports"
+      },
+      {
+        "source": "10",
+        "target": "25",
+        "relation": "drives"
+      },
+      {
+        "source": "11",
+        "target": "28",
+        "relation": "supports"
+      },
+      {
+        "source": "12",
+        "target": "13",
+        "relation": "drives"
+      },
+      {
+        "source": "12",
+        "target": "24",
+        "relation": "supports"
+      },
+      {
+        "source": "13",
+        "target": "14",
+        "relation": "supports"
+      },
+      {
+        "source": "14",
+        "target": "27",
+        "relation": "supports"
+      },
+      {
+        "source": "15",
+        "target": "17",
+        "relation": "drives"
+      },
+      {
+        "source": "16",
+        "target": "17",
+        "relation": "drives"
+      },
+      {
+        "source": "17",
+        "target": "29",
+        "relation": "supports"
+      },
+      {
+        "source": "18",
+        "target": "19",
+        "relation": "supports"
+      },
+      {
+        "source": "20",
+        "target": "21",
+        "relation": "supports"
+      },
+      {
+        "source": "22",
+        "target": "23",
+        "relation": "monitors"
+      },
+      {
+        "source": "24",
+        "target": "25",
+        "relation": "supports"
+      },
+      {
+        "source": "24",
+        "target": "26",
+        "relation": "drives"
+      },
+      {
+        "source": "25",
+        "target": "27",
+        "relation": "supports"
+      },
+      {
+        "source": "26",
+        "target": "27",
+        "relation": "supports"
+      },
+      {
+        "source": "27",
+        "target": "35",
+        "relation": "supports"
+      },
+      {
+        "source": "28",
+        "target": "29",
+        "relation": "drives"
+      },
+      {
+        "source": "29",
+        "target": "30",
+        "relation": "supports"
+      },
+      {
+        "source": "29",
+        "target": "31",
+        "relation": "supports"
+      },
+      {
+        "source": "30",
+        "target": "76",
+        "relation": "supports"
+      },
+      {
+        "source": "31",
+        "target": "50",
+        "relation": "monitors"
+      },
+      {
+        "source": "32",
+        "target": "33",
+        "relation": "drives"
+      },
+      {
+        "source": "33",
+        "target": "34",
+        "relation": "drives"
+      },
+      {
+        "source": "34",
+        "target": "35",
+        "relation": "contradicts"
+      },
+      {
+        "source": "35",
+        "target": "36",
+        "relation": "supports"
+      },
+      {
+        "source": "36",
+        "target": "37",
+        "relation": "supports"
+      },
+      {
+        "source": "38",
+        "target": "39",
+        "relation": "supports"
+      },
+      {
+        "source": "38",
+        "target": "42",
+        "relation": "supports"
+      },
+      {
+        "source": "38",
+        "target": "43",
+        "relation": "supports"
+      },
+      {
+        "source": "38",
+        "target": "44",
+        "relation": "supports"
+      },
+      {
+        "source": "39",
+        "target": "40",
+        "relation": "supports"
+      },
+      {
+        "source": "39",
+        "target": "41",
+        "relation": "supports"
+      },
+      {
+        "source": "40",
+        "target": "53",
+        "relation": "supports"
+      },
+      {
+        "source": "42",
+        "target": "48",
+        "relation": "supports"
+      },
+      {
+        "source": "43",
+        "target": "48",
+        "relation": "supports"
+      },
+      {
+        "source": "44",
+        "target": "45",
+        "relation": "supports"
+      },
+      {
+        "source": "44",
+        "target": "46",
+        "relation": "supports"
+      },
+      {
+        "source": "47",
+        "target": "48",
+        "relation": "supports"
+      },
+      {
+        "source": "47",
+        "target": "49",
+        "relation": "supports"
+      },
+      {
+        "source": "47",
+        "target": "50",
+        "relation": "monitors"
+      },
+      {
+        "source": "48",
+        "target": "53",
+        "relation": "supports"
+      },
+      {
+        "source": "49",
+        "target": "35",
+        "relation": "supports"
+      },
+      {
+        "source": "51",
+        "target": "52",
+        "relation": "supports"
+      },
+      {
+        "source": "51",
+        "target": "53",
+        "relation": "supports"
+      },
+      {
+        "source": "51",
+        "target": "54",
+        "relation": "drives"
+      },
+      {
+        "source": "52",
+        "target": "27",
+        "relation": "supports"
+      },
+      {
+        "source": "53",
+        "target": "54",
+        "relation": "drives"
+      },
+      {
+        "source": "55",
+        "target": "56",
+        "relation": "supports"
+      },
+      {
+        "source": "55",
+        "target": "57",
+        "relation": "supports"
+      },
+      {
+        "source": "55",
+        "target": "66",
+        "relation": "supports"
+      },
+      {
+        "source": "56",
+        "target": "72",
+        "relation": "contradicts"
+      },
+      {
+        "source": "57",
+        "target": "58",
+        "relation": "supports"
+      },
+      {
+        "source": "57",
+        "target": "62",
+        "relation": "supports"
+      },
+      {
+        "source": "57",
+        "target": "73",
+        "relation": "supports"
+      },
+      {
+        "source": "58",
+        "target": "59",
+        "relation": "supports"
+      },
+      {
+        "source": "59",
+        "target": "60",
+        "relation": "supports"
+      },
+      {
+        "source": "59",
+        "target": "61",
+        "relation": "supports"
+      },
+      {
+        "source": "60",
+        "target": "67",
+        "relation": "supports"
+      },
+      {
+        "source": "62",
+        "target": "63",
+        "relation": "supports"
+      },
+      {
+        "source": "63",
+        "target": "64",
+        "relation": "supports"
+      },
+      {
+        "source": "63",
+        "target": "65",
+        "relation": "supports"
+      },
+      {
+        "source": "64",
+        "target": "67",
+        "relation": "supports"
+      },
+      {
+        "source": "66",
+        "target": "67",
+        "relation": "supports"
+      },
+      {
+        "source": "68",
+        "target": "69",
+        "relation": "supports"
+      },
+      {
+        "source": "68",
+        "target": "70",
+        "relation": "supports"
+      },
+      {
+        "source": "68",
+        "target": "71",
+        "relation": "supports"
+      },
+      {
+        "source": "69",
+        "target": "77",
+        "relation": "supports"
+      },
+      {
+        "source": "69",
+        "target": "78",
+        "relation": "supports"
+      },
+      {
+        "source": "72",
+        "target": "69",
+        "relation": "contradicts"
+      },
+      {
+        "source": "73",
+        "target": "69",
+        "relation": "contradicts"
+      },
+      {
+        "source": "74",
+        "target": "22",
+        "relation": "monitors"
+      },
+      {
+        "source": "74",
+        "target": "32",
+        "relation": "monitors"
+      },
+      {
+        "source": "74",
+        "target": "75",
+        "relation": "monitors"
+      },
+      {
+        "source": "74",
+        "target": "76",
+        "relation": "monitors"
+      },
+      {
+        "source": "75",
+        "target": "32",
+        "relation": "supports"
+      },
+      {
+        "source": "76",
+        "target": "30",
+        "relation": "supports"
+      },
+      {
+        "source": "77",
+        "target": "47",
+        "relation": "supports"
+      },
+      {
+        "source": "78",
+        "target": "2",
+        "relation": "supports"
+      },
+      {
+        "source": "79",
+        "target": "2",
+        "relation": "supports"
+      },
+      {
+        "source": "79",
+        "target": "80",
+        "relation": "supports"
+      },
+      {
+        "source": "80",
+        "target": "67",
+        "relation": "supports"
+      }
+    ]
+  }
+}

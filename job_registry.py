@@ -10,5 +10,9 @@ class JobStatus(BaseModel):
     )
 
     log: list[str] = Field(default_factory=list)
+    # 新增：存储各阶段的中间输出（跑完后填入）
+    panel_data: Dict[str, dict] = Field(
+        default_factory=lambda: {"macro": {}, "micro": {}, "price": {}, "strategy": {}}
+   )
 
 jobs: Dict[str, JobStatus] = {}

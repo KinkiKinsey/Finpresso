@@ -1,0 +1,287 @@
+{
+  "analyze_earnings_vs_estimates": {
+    "data": [
+      {
+        "date": "2025-02-26",
+        "symbol": "NVDA",
+        "actualEarningResult": 0.89,
+        "estimatedEarning": 0.848,
+        "surprise_pct": 4.95283018867925
+      },
+      {
+        "date": "2024-11-20",
+        "symbol": "NVDA",
+        "actualEarningResult": 0.81,
+        "estimatedEarning": 0.75,
+        "surprise_pct": 8.000000000000007
+      },
+      {
+        "date": "2024-08-28",
+        "symbol": "NVDA",
+        "actualEarningResult": 0.68,
+        "estimatedEarning": 0.64,
+        "surprise_pct": 6.250000000000005
+      },
+      {
+        "date": "2024-05-22",
+        "symbol": "NVDA",
+        "actualEarningResult": 0.61,
+        "estimatedEarning": 0.56,
+        "surprise_pct": 8.928571428571416
+      }
+    ],
+    "summary": {
+      "total_quarters": 4,
+      "beats": 4,
+      "misses": 0,
+      "beat_rate": 1.0,
+      "average_surprise_pct": 7.03285040431267,
+      "surprise_trend": -3.9757412398921668
+    }
+  },
+  "get_peer_valuation_comparison": {
+    "__dataframe__": true,
+    "data": [
+      {
+        "ticker": "NVDA",
+        "price": 131.8,
+        "market_cap_B": 3214.285733888,
+        "forward_pe": 31.990294,
+        "price_to_book": 40.666462,
+        "ev_to_ebitda": 38.959,
+        "profit_margins": 0.55848,
+        "sector": "Technology",
+        "industry": "Semiconductors",
+        "forward_pe_rank": 0.8666666666666667,
+        "price_to_book_rank": 1.0,
+        "ev_to_ebitda_rank": 0.8666666666666667
+      },
+      {
+        "ticker": "AVGO",
+        "price": 229.73,
+        "market_cap_B": 1080.178966528,
+        "forward_pe": 37.233387,
+        "price_to_book": 3.879198,
+        "ev_to_ebitda": 4.32,
+        "profit_margins": 0.18473,
+        "sector": "Technology",
+        "industry": "Semiconductors",
+        "forward_pe_rank": 0.9333333333333333,
+        "price_to_book_rank": 0.5,
+        "ev_to_ebitda_rank": 0.2
+      },
+      {
+        "ticker": "TSM",
+        "price": 191.76,
+        "market_cap_B": 994.567061504,
+        "forward_pe": 23.732674,
+        "price_to_book": 1.0895392,
+        "ev_to_ebitda": 1.596,
+        "profit_margins": 0.41687,
+        "sector": "Technology",
+        "industry": "Semiconductors",
+        "forward_pe_rank": 0.6,
+        "price_to_book_rank": 0.25,
+        "ev_to_ebitda_rank": 0.13333333333333333
+      },
+      {
+        "ticker": "ASML",
+        "price": 737.17,
+        "market_cap_B": 289.85524224,
+        "forward_pe": 27.609362,
+        "price_to_book": 16.524399,
+        "ev_to_ebitda": 25.663,
+        "profit_margins": 0.28335,
+        "sector": "Technology",
+        "industry": "Semiconductor Equipment & Materials",
+        "forward_pe_rank": 0.7333333333333333,
+        "price_to_book_rank": 0.875,
+        "ev_to_ebitda_rank": 0.6666666666666666
+      },
+      {
+        "ticker": "AMD",
+        "price": 112.06,
+        "market_cap_B": 181.694087168,
+        "forward_pe": 21.97255,
+        "price_to_book": 3.1286817,
+        "ev_to_ebitda": 30.872,
+        "profit_margins": 0.080249995,
+        "sector": "Technology",
+        "industry": "Semiconductors",
+        "forward_pe_rank": 0.4666666666666667,
+        "price_to_book_rank": 0.375,
+        "ev_to_ebitda_rank": 0.7333333333333333
+      },
+      {
+        "ticker": "TXN",
+        "price": 185.42,
+        "market_cap_B": 168.448884736,
+        "forward_pe": 31.534012,
+        "price_to_book": 10.273714,
+        "ev_to_ebitda": 25.258,
+        "profit_margins": 0.30363,
+        "sector": "Technology",
+        "industry": "Semiconductors",
+        "forward_pe_rank": 0.8,
+        "price_to_book_rank": 0.75,
+        "ev_to_ebitda_rank": 0.6
+      },
+      {
+        "ticker": "QCOM",
+        "price": 151.31,
+        "market_cap_B": 166.138380288,
+        "forward_pe": 12.372036,
+        "price_to_book": 6.0026975,
+        "ev_to_ebitda": 12.709,
+        "profit_margins": 0.2611,
+        "sector": "Technology",
+        "industry": "Semiconductors",
+        "forward_pe_rank": 0.2,
+        "price_to_book_rank": 0.625,
+        "ev_to_ebitda_rank": 0.3333333333333333
+      },
+      {
+        "ticker": "ARM",
+        "price": 130.45,
+        "market_cap_B": 137.885646848,
+        "forward_pe": 63.32524,
+        "price_to_book": 20.162287,
+        "ev_to_ebitda": 134.152,
+        "profit_margins": 0.19765,
+        "sector": "Technology",
+        "industry": "Semiconductors",
+        "forward_pe_rank": 1.0,
+        "price_to_book_rank": 0.9375,
+        "ev_to_ebitda_rank": 1.0
+      },
+      {
+        "ticker": "AMAT",
+        "price": 162.23,
+        "market_cap_B": 131.802300416,
+        "forward_pe": 16.742002,
+        "price_to_book": 6.9216657,
+        "ev_to_ebitda": 15.276,
+        "profit_margins": 0.24059,
+        "sector": "Technology",
+        "industry": "Semiconductor Equipment & Materials",
+        "forward_pe_rank": 0.26666666666666666,
+        "price_to_book_rank": 0.6875,
+        "ev_to_ebitda_rank": 0.4
+      },
+      {
+        "ticker": "MU",
+        "price": 95.84,
+        "market_cap_B": 107.107909632,
+        "forward_pe": 7.4467754,
+        "price_to_book": 2.2032182,
+        "ev_to_ebitda": 8.256,
+        "profit_margins": 0.14916,
+        "sector": "Technology",
+        "industry": "Semiconductors",
+        "forward_pe_rank": 0.13333333333333333,
+        "price_to_book_rank": 0.3125,
+        "ev_to_ebitda_rank": 0.26666666666666666
+      },
+      {
+        "ticker": "LRCX",
+        "price": 82.79,
+        "market_cap_B": 105.898344448,
+        "forward_pe": 19.38876,
+        "price_to_book": 11.168218,
+        "ev_to_ebitda": 18.855,
+        "profit_margins": 0.27185,
+        "sector": "Technology",
+        "industry": "Semiconductor Equipment & Materials",
+        "forward_pe_rank": 0.3333333333333333,
+        "price_to_book_rank": 0.8125,
+        "ev_to_ebitda_rank": 0.5333333333333333
+      },
+      {
+        "ticker": "INTC",
+        "price": 20.69,
+        "market_cap_B": 90.249781248,
+        "forward_pe": 21.329897,
+        "price_to_book": 0.9047182,
+        "ev_to_ebitda": 15.84,
+        "profit_margins": -0.36189,
+        "sector": "Technology",
+        "industry": "Semiconductors",
+        "forward_pe_rank": 0.4,
+        "price_to_book_rank": 0.125,
+        "ev_to_ebitda_rank": 0.4666666666666667
+      },
+      {
+        "ticker": "MRVL",
+        "price": 60.11,
+        "market_cap_B": 51.924881408,
+        "forward_pe": 24.044,
+        "price_to_book": 3.876814,
+        "ev_to_ebitda": 41.969,
+        "profit_margins": -0.15345,
+        "sector": "Technology",
+        "industry": "Semiconductors",
+        "forward_pe_rank": 0.6666666666666666,
+        "price_to_book_rank": 0.4375,
+        "ev_to_ebitda_rank": 0.9333333333333333
+      },
+      {
+        "ticker": "MCHP",
+        "price": 59.25,
+        "market_cap_B": 31.865776128,
+        "forward_pe": 22.788462,
+        "price_to_book": 4.505018,
+        "ev_to_ebitda": 32.674,
+        "profit_margins": -0.00011,
+        "sector": "Technology",
+        "industry": "Semiconductors",
+        "forward_pe_rank": 0.5333333333333333,
+        "price_to_book_rank": 0.5625,
+        "ev_to_ebitda_rank": 0.8
+      },
+      {
+        "ticker": "WOLF",
+        "price": 1.28,
+        "market_cap_B": 0.19920256,
+        "forward_pe": -0.58181816,
+        "price_to_book": 0.93635696,
+        "ev_to_ebitda": -18.442,
+        "profit_margins": -1.4643401,
+        "sector": "Technology",
+        "industry": "Semiconductors",
+        "forward_pe_rank": 0.06666666666666667,
+        "price_to_book_rank": 0.1875,
+        "ev_to_ebitda_rank": 0.06666666666666667
+      },
+      {
+        "ticker": "CYBL",
+        "price": 0.0044,
+        "market_cap_B": 0.026370784,
+        "forward_pe": NaN,
+        "price_to_book": -1.4666667,
+        "ev_to_ebitda": NaN,
+        "profit_margins": 0.0,
+        "sector": "Industrials",
+        "industry": "Aerospace & Defense",
+        "forward_pe_rank": NaN,
+        "price_to_book_rank": 0.0625,
+        "ev_to_ebitda_rank": NaN
+      }
+    ]
+  },
+  "get_stock_metrics": {
+    "key_metrics": {
+      "EPS": "$2.94",
+      "ROIC": "77.90%",
+      "Debt_to_Equity": "0.14",
+      "Revenue_Growth": "114.20% YoY",
+      "Free_Cash_Flow": "$60.85B",
+      "Beta": "2.11",
+      "Current_Price": "$131.80",
+      "Market_Cap": "$3214.29B",
+      "PE_Ratio": "44.83",
+      "PB_Ratio": "40.67"
+    },
+    "ticker": "NVDA",
+    "last_updated": "2025-05-21 13:25:36"
+  }
+}

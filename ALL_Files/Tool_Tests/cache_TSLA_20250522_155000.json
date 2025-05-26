@@ -1,0 +1,576 @@
+{
+  "get_stock_peers": [
+    "F",
+    "LCID",
+    "TM",
+    "NIO",
+    "RIVN",
+    "STLA",
+    "GM",
+    "RACE",
+    "BYDDY",
+    "XPEV",
+    "MULN",
+    "VLKPF",
+    "BAMXF",
+    "MBGAF",
+    "GOEV"
+  ],
+  "get_earnings_calendar": {
+    "error": "unsupported type for timedelta days component: str"
+  },
+  "get_stock_dcf_valuation": {
+    "symbol": "TSLA",
+    "date": "2025-05-22",
+    "dcf": 50.11954785985806,
+    "Stock Price": 344.435
+  },
+  "get_company_profile": {
+    "symbol": "TSLA",
+    "price": 341.04,
+    "beta": 2.434,
+    "volAvg": 125723508,
+    "mktCap": 1096961980800,
+    "lastDiv": 0,
+    "range": "167.41-488.54",
+    "changes": 6.42,
+    "companyName": "Tesla, Inc.",
+    "currency": "USD",
+    "cik": "0001318605",
+    "isin": "US88160R1014",
+    "cusip": "88160R101",
+    "exchange": "NASDAQ Global Select",
+    "exchangeShortName": "NASDAQ",
+    "industry": "Auto - Manufacturers",
+    "website": "https://www.tesla.com",
+    "description": "Tesla, Inc. designs, develops, manufactures, leases, and sells electric vehicles, and energy generation and storage systems in the United States, China, and internationally. It operates in two segments, Automotive, and Energy Generation and Storage. The Automotive segment offers electric vehicles, as well as sells automotive regulatory credits; and non-warranty after-sales vehicle, used vehicles, retail merchandise, and vehicle insurance services. This segment also provides sedans and sport utility vehicles through direct and used vehicle sales, a network of Tesla Superchargers, and in-app upgrades; purchase financing and leasing services; services for electric vehicles through its company-owned service locations and Tesla mobile service technicians; and vehicle limited warranties and extended service plans. The Energy Generation and Storage segment engages in the design, manufacture, installation, sale, and leasing of solar energy generation and energy storage products, and related services to residential, commercial, and industrial customers and utilities through its website, stores, and galleries, as well as through a network of channel partners; and provision of service and repairs to its energy product customers, including under warranty, as well as various financing options to its solar customers. The company was formerly known as Tesla Motors, Inc. and changed its name to Tesla, Inc. in February 2017. Tesla, Inc. was incorporated in 2003 and is headquartered in Austin, Texas.",
+    "ceo": "Mr. Elon R. Musk",
+    "sector": "Consumer Cyclical",
+    "country": "US",
+    "fullTimeEmployees": "125665",
+    "phone": "512 516 8177",
+    "address": "1 Tesla Road",
+    "city": "Austin",
+    "state": "TX",
+    "zip": "78725",
+    "dcfDiff": 294.31545,
+    "dcf": 50.11954785985806,
+    "image": "https://images.financialmodelingprep.com/symbol/TSLA.png",
+    "ipoDate": "2010-06-29",
+    "defaultImage": false,
+    "isEtf": false,
+    "isActivelyTrading": true,
+    "isAdr": false,
+    "isFund": false
+  },
+  "analyze_earnings_vs_estimates": {
+    "data": [
+      {
+        "date": "2025-04-22",
+        "symbol": "TSLA",
+        "actualEarningResult": 0.27,
+        "estimatedEarning": 0.4097,
+        "surprise_pct": -34.098120576031235
+      },
+      {
+        "date": "2025-01-29",
+        "symbol": "TSLA",
+        "actualEarningResult": 0.73,
+        "estimatedEarning": 0.774,
+        "surprise_pct": -5.684754521963829
+      },
+      {
+        "date": "2024-10-23",
+        "symbol": "TSLA",
+        "actualEarningResult": 0.72,
+        "estimatedEarning": 0.58,
+        "surprise_pct": 24.13793103448276
+      },
+      {
+        "date": "2024-07-23",
+        "symbol": "TSLA",
+        "actualEarningResult": 0.52,
+        "estimatedEarning": 0.62,
+        "surprise_pct": -16.129032258064512
+      }
+    ],
+    "summary": {
+      "total_quarters": 4,
+      "beats": 1,
+      "misses": 3,
+      "beat_rate": 0.25,
+      "average_surprise_pct": -7.9434940803942045,
+      "surprise_trend": -17.969088317966722
+    }
+  },
+  "get_earnings_surprises": {
+    "__dataframe__": true,
+    "data": [
+      {
+        "date": "2025-04-22",
+        "symbol": "TSLA",
+        "actualEarningResult": 0.27,
+        "estimatedEarning": 0.4097
+      },
+      {
+        "date": "2025-01-29",
+        "symbol": "TSLA",
+        "actualEarningResult": 0.73,
+        "estimatedEarning": 0.774
+      },
+      {
+        "date": "2024-10-23",
+        "symbol": "TSLA",
+        "actualEarningResult": 0.72,
+        "estimatedEarning": 0.58
+      },
+      {
+        "date": "2024-07-23",
+        "symbol": "TSLA",
+        "actualEarningResult": 0.52,
+        "estimatedEarning": 0.62
+      }
+    ]
+  },
+  "get_stock_detailed_dcf": {
+    "status": "success",
+    "current_price": 341.04,
+    "intrinsic_value": NaN,
+    "margin_of_safety_pct": NaN,
+    "projected_fcf": [
+      NaN,
+      NaN,
+      NaN,
+      NaN,
+      NaN
+    ],
+    "terminal_value": NaN,
+    "total_present_value": NaN,
+    "shares_outstanding": 3216520000.0,
+    "assumptions": {
+      "discount_rate": 0.1,
+      "growth_rate": NaN,
+      "terminal_growth_rate": 0.03,
+      "projection_years": 5
+    }
+  },
+  "get_stock_metrics": {
+    "key_metrics": {
+      "EPS": "$1.74",
+      "ROIC": "7.65%",
+      "Debt_to_Equity": "0.19",
+      "Revenue_Growth": "0.95% YoY",
+      "Free_Cash_Flow": "$3.58B",
+      "Beta": "2.43",
+      "Current_Price": "$341.04",
+      "Market_Cap": "$1098.48B",
+      "PE_Ratio": "196.00",
+      "PB_Ratio": "14.71"
+    },
+    "ticker": "TSLA",
+    "last_updated": "2025-05-22 15:49:58"
+  },
+  "get_peer_valuation_comparison": {
+    "__dataframe__": true,
+    "data": [
+      {
+        "ticker": "TSLA",
+        "price": 341.04,
+        "market_cap_B": 1098.476224512,
+        "forward_pe": 105.25926,
+        "price_to_book": 14.710145,
+        "ev_to_ebitda": 84.039,
+        "profit_margins": 0.063829996,
+        "sector": "Consumer Cyclical",
+        "industry": "Auto Manufacturers",
+        "forward_pe_rank": 1.0,
+        "price_to_book_rank": 0.9375,
+        "ev_to_ebitda_rank": 1.0
+      },
+      {
+        "ticker": "TM",
+        "price": 182.82,
+        "market_cap_B": 238.26382848,
+        "forward_pe": 11.585552,
+        "price_to_book": 0.06640548,
+        "ev_to_ebitda": 4.139,
+        "profit_margins": 0.0992,
+        "sector": "Consumer Cyclical",
+        "industry": "Auto Manufacturers",
+        "forward_pe_rank": 0.8,
+        "price_to_book_rank": 0.125,
+        "ev_to_ebitda_rank": 0.5625
+      },
+      {
+        "ticker": "BYDDY",
+        "price": 117.26,
+        "market_cap_B": 171.301617664,
+        "forward_pe": 37.34395,
+        "price_to_book": 1.5757153,
+        "ev_to_ebitda": 2.126,
+        "profit_margins": 0.05452,
+        "sector": "Consumer Cyclical",
+        "industry": "Auto Manufacturers",
+        "forward_pe_rank": 0.8666666666666667,
+        "price_to_book_rank": 0.75,
+        "ev_to_ebitda_rank": 0.4375
+      },
+      {
+        "ticker": "RACE",
+        "price": 491.3,
+        "market_cap_B": 87.867039744,
+        "forward_pe": 51.55299,
+        "price_to_book": 24.526983,
+        "ev_to_ebitda": 39.25,
+        "profit_margins": 0.22986999,
+        "sector": "Consumer Cyclical",
+        "industry": "Auto Manufacturers",
+        "forward_pe_rank": 0.9333333333333333,
+        "price_to_book_rank": 1.0,
+        "ev_to_ebitda_rank": 0.9375
+      },
+      {
+        "ticker": "MBGAF",
+        "price": 59.28,
+        "market_cap_B": 57.2724224,
+        "forward_pe": 5.6296296,
+        "price_to_book": 0.60526234,
+        "ev_to_ebitda": 9.289,
+        "profit_margins": 0.062340003,
+        "sector": "Consumer Cyclical",
+        "industry": "Auto Manufacturers",
+        "forward_pe_rank": 0.6,
+        "price_to_book_rank": 0.4375,
+        "ev_to_ebitda_rank": 0.8125
+      },
+      {
+        "ticker": "VLKPF",
+        "price": 107.81,
+        "market_cap_B": 56.209330176,
+        "forward_pe": NaN,
+        "price_to_book": 0.31469196,
+        "ev_to_ebitda": 9.198,
+        "profit_margins": 0.03041,
+        "sector": "Consumer Cyclical",
+        "industry": "Auto Manufacturers",
+        "forward_pe_rank": NaN,
+        "price_to_book_rank": 0.25,
+        "ev_to_ebitda_rank": 0.6875
+      },
+      {
+        "ticker": "BAMXF",
+        "price": 87.55,
+        "market_cap_B": 55.160705024,
+        "forward_pe": 5.8601074,
+        "price_to_book": 0.59013855,
+        "ev_to_ebitda": 9.26,
+        "profit_margins": 0.047280002,
+        "sector": "Consumer Cyclical",
+        "industry": "Auto Manufacturers",
+        "forward_pe_rank": 0.6666666666666666,
+        "price_to_book_rank": 0.375,
+        "ev_to_ebitda_rank": 0.75
+      },
+      {
+        "ticker": "GM",
+        "price": 49.28,
+        "market_cap_B": 47.37951744,
+        "forward_pe": 4.6622515,
+        "price_to_book": 0.739518,
+        "ev_to_ebitda": 8.916,
+        "profit_margins": 0.030840002,
+        "sector": "Consumer Cyclical",
+        "industry": "Auto Manufacturers",
+        "forward_pe_rank": 0.5333333333333333,
+        "price_to_book_rank": 0.5625,
+        "ev_to_ebitda_rank": 0.625
+      },
+      {
+        "ticker": "F",
+        "price": 10.44,
+        "market_cap_B": 41.515180032,
+        "forward_pe": 5.965714,
+        "price_to_book": 0.93006676,
+        "ev_to_ebitda": 17.026,
+        "profit_margins": 0.02744,
+        "sector": "Consumer Cyclical",
+        "industry": "Auto Manufacturers",
+        "forward_pe_rank": 0.7333333333333333,
+        "price_to_book_rank": 0.625,
+        "ev_to_ebitda_rank": 0.875
+      },
+      {
+        "ticker": "STLA",
+        "price": 10.35,
+        "market_cap_B": 30.3305728,
+        "forward_pe": 3.4731545,
+        "price_to_book": 0.36495063,
+        "ev_to_ebitda": 3.06,
+        "profit_margins": 0.03489,
+        "sector": "Consumer Cyclical",
+        "industry": "Auto Manufacturers",
+        "forward_pe_rank": 0.4666666666666667,
+        "price_to_book_rank": 0.3125,
+        "ev_to_ebitda_rank": 0.5
+      },
+      {
+        "ticker": "RIVN",
+        "price": 15.91,
+        "market_cap_B": 18.239541248,
+        "forward_pe": -5.806569,
+        "price_to_book": 2.9305582,
+        "ev_to_ebitda": -5.649,
+        "profit_margins": -0.76828,
+        "sector": "Consumer Cyclical",
+        "industry": "Auto Manufacturers",
+        "forward_pe_rank": 0.13333333333333333,
+        "price_to_book_rank": 0.875,
+        "ev_to_ebitda_rank": 0.125
+      },
+      {
+        "ticker": "XPEV",
+        "price": 20.5,
+        "market_cap_B": 17.352634368,
+        "forward_pe": -45.555557,
+        "price_to_book": 0.63404673,
+        "ev_to_ebitda": -7.236,
+        "profit_margins": -0.10147,
+        "sector": "Consumer Cyclical",
+        "industry": "Auto Manufacturers",
+        "forward_pe_rank": 0.06666666666666667,
+        "price_to_book_rank": 0.5,
+        "ev_to_ebitda_rank": 0.0625
+      },
+      {
+        "ticker": "NIO",
+        "price": 3.88,
+        "market_cap_B": 8.68778496,
+        "forward_pe": -4.564706,
+        "price_to_book": 1.359972,
+        "ev_to_ebitda": -1.022,
+        "profit_margins": -0.3447,
+        "sector": "Consumer Cyclical",
+        "industry": "Auto Manufacturers",
+        "forward_pe_rank": 0.2,
+        "price_to_book_rank": 0.6875,
+        "ev_to_ebitda_rank": 0.25
+      },
+      {
+        "ticker": "LCID",
+        "price": 2.66,
+        "market_cap_B": 8.113691648,
+        "forward_pe": -3.0227275,
+        "price_to_book": 2.5478928,
+        "ev_to_ebitda": -3.435,
+        "profit_margins": -2.75732,
+        "sector": "Consumer Cyclical",
+        "industry": "Auto Manufacturers",
+        "forward_pe_rank": 0.26666666666666666,
+        "price_to_book_rank": 0.8125,
+        "ev_to_ebitda_rank": 0.1875
+      },
+      {
+        "ticker": "GOEV",
+        "price": 0.37,
+        "market_cap_B": 0.00535982,
+        "forward_pe": -0.16299559,
+        "price_to_book": 0.15132925,
+        "ev_to_ebitda": -0.649,
+        "profit_margins": 0.0,
+        "sector": "Consumer Cyclical",
+        "industry": "Auto Manufacturers",
+        "forward_pe_rank": 0.3333333333333333,
+        "price_to_book_rank": 0.1875,
+        "ev_to_ebitda_rank": 0.3125
+      },
+      {
+        "ticker": "MULN",
+        "price": 0.166,
+        "market_cap_B": 8.7994e-05,
+        "forward_pe": 0.22133332,
+        "price_to_book": -0.000443472,
+        "ev_to_ebitda": -0.14,
+        "profit_margins": 0.0,
+        "sector": "Consumer Cyclical",
+        "industry": "Auto Manufacturers",
+        "forward_pe_rank": 0.4,
+        "price_to_book_rank": 0.0625,
+        "ev_to_ebitda_rank": 0.375
+      }
+    ]
+  },
+  "get_stock_beta": 2.434,
+  "get_peer_beta_comparison": {
+    "__dataframe__": true,
+    "data": [
+      {
+        "ticker": "TM",
+        "beta": 0.248,
+        "price": 182.82,
+        "market_cap": 238263828480,
+        "sector": "Consumer Cyclical",
+        "industry": "Auto Manufacturers",
+        "52w_high": 219.53,
+        "52w_low": 155.0,
+        "52w_volatility": 0.3529701345585822,
+        "market_cap_B": 238.26382848
+      },
+      {
+        "ticker": "BYDDY",
+        "beta": 0.37,
+        "price": 117.26,
+        "market_cap": 171301617664,
+        "sector": "Consumer Cyclical",
+        "industry": "Auto Manufacturers",
+        "52w_high": 120.3,
+        "52w_low": 52.41,
+        "52w_volatility": 0.5789698106771277,
+        "market_cap_B": 171.301617664
+      },
+      {
+        "ticker": "RACE",
+        "beta": 0.687,
+        "price": 491.3,
+        "market_cap": 87867039744,
+        "sector": "Consumer Cyclical",
+        "industry": "Auto Manufacturers",
+        "52w_high": 509.13,
+        "52w_low": 391.54,
+        "52w_volatility": 0.23934459596987578,
+        "market_cap_B": 87.867039744
+      },
+      {
+        "ticker": "LCID",
+        "beta": 0.885,
+        "price": 2.66,
+        "market_cap": 8113691648,
+        "sector": "Consumer Cyclical",
+        "industry": "Auto Manufacturers",
+        "52w_high": 4.43,
+        "52w_low": 1.93,
+        "52w_volatility": 0.9398496240601504,
+        "market_cap_B": 8.113691648
+      },
+      {
+        "ticker": "BAMXF",
+        "beta": 0.939,
+        "price": 87.55,
+        "market_cap": 55160705024,
+        "sector": "Consumer Cyclical",
+        "industry": "Auto Manufacturers",
+        "52w_high": 102.05,
+        "52w_low": 68.23,
+        "52w_volatility": 0.38629354654483145,
+        "market_cap_B": 55.160705024
+      },
+      {
+        "ticker": "MBGAF",
+        "beta": 0.946,
+        "price": 59.28,
+        "market_cap": 57272422400,
+        "sector": "Consumer Cyclical",
+        "industry": "Auto Manufacturers",
+        "52w_high": 72.54,
+        "52w_low": 51.0,
+        "52w_volatility": 0.3633603238866398,
+        "market_cap_B": 57.2724224
+      },
+      {
+        "ticker": "VLKPF",
+        "beta": 1.07,
+        "price": 107.81,
+        "market_cap": 56209330176,
+        "sector": "Consumer Cyclical",
+        "industry": "Auto Manufacturers",
+        "52w_high": 134.47,
+        "52w_low": 82.37,
+        "52w_volatility": 0.4832575827845283,
+        "market_cap_B": 56.209330176
+      },
+      {
+        "ticker": "STLA",
+        "beta": 1.121,
+        "price": 10.35,
+        "market_cap": 30330572800,
+        "sector": "Consumer Cyclical",
+        "industry": "Auto Manufacturers",
+        "52w_high": 22.61,
+        "52w_low": 8.39,
+        "52w_volatility": 1.3739130434782607,
+        "market_cap_B": 30.3305728
+      },
+      {
+        "ticker": "GM",
+        "beta": 1.363,
+        "price": 49.28,
+        "market_cap": 47379517440,
+        "sector": "Consumer Cyclical",
+        "industry": "Auto Manufacturers",
+        "52w_high": 61.24,
+        "52w_low": 38.96,
+        "52w_volatility": 0.45211038961038963,
+        "market_cap_B": 47.37951744
+      },
+      {
+        "ticker": "MULN",
+        "beta": 1.424,
+        "price": 0.166,
+        "market_cap": 87994,
+        "sector": "Consumer Cyclical",
+        "industry": "Auto Manufacturers",
+        "52w_high": 2868000.0,
+        "52w_low": 0.15,
+        "52w_volatility": 17277107.53012048,
+        "market_cap_B": 8.7994e-05
+      },
+      {
+        "ticker": "F",
+        "beta": 1.547,
+        "price": 10.44,
+        "market_cap": 41515180032,
+        "sector": "Consumer Cyclical",
+        "industry": "Auto Manufacturers",
+        "52w_high": 14.85,
+        "52w_low": 8.44,
+        "52w_volatility": 0.613984674329502,
+        "market_cap_B": 41.515180032
+      },
+      {
+        "ticker": "NIO",
+        "beta": 1.733,
+        "price": 3.88,
+        "market_cap": 8687784960,
+        "sector": "Consumer Cyclical",
+        "industry": "Auto Manufacturers",
+        "52w_high": 7.71,
+        "52w_low": 3.02,
+        "52w_volatility": 1.208762886597938,
+        "market_cap_B": 8.68778496
+      },
+      {
+        "ticker": "RIVN",
+        "beta": 1.869,
+        "price": 15.91,
+        "market_cap": 18239541248,
+        "sector": "Consumer Cyclical",
+        "industry": "Auto Manufacturers",
+        "52w_high": 18.855,
+        "52w_low": 9.5,
+        "52w_volatility": 0.587994971715902,
+        "market_cap_B": 18.239541248
+      },
+      {
+        "ticker": "TSLA",
+        "beta": 2.434,
+        "price": 341.04,
+        "market_cap": 1098476224512,
+        "sector": "Consumer Cyclical",
+        "industry": "Auto Manufacturers",
+        "52w_high": 488.54,
+        "52w_low": 167.41,
+        "52w_volatility": 0.9416197513488154,
+        "market_cap_B": 1098.476224512
+      }
+    ]
+  }
+}

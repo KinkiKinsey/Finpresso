@@ -3,6 +3,7 @@ import json
 import sys
 from datetime import datetime
 from typing import Dict, List, Any, Optional, Union
+from LLM_API_CALL import deepseek_api_call
 
 class InvestmentIntegrationAgent:
     """
@@ -354,6 +355,13 @@ class InvestmentIntegrationAgent:
         
         # Generate the investment mindmap
         investment_mindmap = self.generate_investment_mindmap()
+        try:
+        # 👈 NEW – produce the compact JSON graph
+            mindmap_json = self.Preprocess_Investment_Mindmap(investment_mindmap)
+        except Exception as e:
+            print(f"❌ Pre-processing failed, keeping only the raw string: {e}")
+            mindmap_json = None    
+
         
         # Print debug info
         print(f"\nUpdating rating JSON at: {self.rating_json_path}")
@@ -362,6 +370,8 @@ class InvestmentIntegrationAgent:
         
         # Update the rating data
         self.rating_data["Investment_Mindmap"] = investment_mindmap
+        if mindmap_json is not None:
+            self.rating_data["Investment_Mindmap_json"] = mindmap_json
         
         # Track success state
         update_success = False
@@ -436,6 +446,7 @@ class InvestmentIntegrationAgent:
             # Update rating JSON
             print("Updating rating JSON file...")
             self.update_rating_json()
+            
             
             return investment_mindmap
         
@@ -532,6 +543,57 @@ class InvestmentIntegrationAgent:
         except Exception as e:
             print(f"Error in force_update_investment_mindmap: {str(e)}")
             return False
+        
+    def Preprocess_Investment_Mindmap(self, narrative: str) -> dict:
+        prompt = f"""
+You are a mind-map **JSON extractor** specialized in capturing the full multi-headed analytical structure of an investment thesis, and your output will be consumed by a visualization that highlights causal and thematic branches.
+
+Transform the following investment-analysis text into a JSON object that matches
+this TypeScript interface (do not output the interface itself):
+
+interface MindmapData {{
+  nodes: {{ id: string; label: string; parent?: string;
+            group?: "Macro" | "Company" | "Price" | "Strategy" | "Catalyst" | "Conclusion";
+            extra?: any; }}[];
+  edges: {{ source: string; target: string;
+            relation: "supports" | "contradicts" | "drives" | "monitors" | "hedges"; }}[];
+}}
+
+Your goal is to expose every distinct branch of reasoning as separate root-to-leaf threads, preserving any cross-links between them.
+
+**Additional guidelines for edge classification:**
+- **drives**: use for causal links where the source is presented as a driver or cause of the target (e.g. “rate cuts drive EV demand”).
+- **supports**: use when the source serves as evidence or justification reinforcing the target thesis (e.g. “high beta supports sensitivity to macro shifts”).
+- **monitors**: use for metrics, indicators or upcoming events to track (“monitor CPI inflation”).
+- **contradicts**: use when the source expresses a counterargument or headwind to the target (“persistent inflation contradicts consumer spending recovery”).
+- **hedges**: use for risk-management or offsetting factors (“gold hedges inflation risk”).
+
+Also:
+- Identify the **central thesis** as the single top-level root node.
+- Classify each concept into its appropriate `group`.
+- Ensure **logical flow**: parents represent antecedent concepts; children are direct consequences, evidence or mitigants.
+- Assign concise unique `id` values in encounter order (`"n1"`, `"n2"`, …).
+- Only create an edge when a clear logical relationship exists in the text.
+
+**Output rules obey exactly**
+1. Return **one single-line JSON string** and nothing else.
+2. No Markdown, no back-ticks, no comments.
+3. The JSON must parse with `JSON.parse`.
+4. ≤ 80 nodes, ≤ 300 edges.
+5. If you cannot comply, reply only: `ERROR_PARSING_INPUT`.
+
+=== BEGIN TEXT ===
+{narrative}
+=== END TEXT ===
+"""
+
+        raw = deepseek_api_call(prompt).strip()
+        if raw == "ERROR_PARSING_INPUT":
+            raise ValueError("DeepSeek could not parse the investment narrative.")
+        return json.loads(raw)
+
+        
+
 
 
 if __name__ == "__main__":

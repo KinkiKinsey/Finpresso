@@ -1,0 +1,663 @@
+{
+  "Ticker": "AMZN",
+  "Macro": {
+    "summary": "The U.S. economy shows signs of cooling with moderating GDP growth, persistent inflationary pressures, and tightening financial conditions. While the labor market remains robust, consumer strain is evident with falling savings and high living costs. The Fed faces a delicate balance between easing policy to avoid a hard landing and preventing inflation resurgence. Trade policy uncertainty, fiscal risks, and inflation concerns dominate the macroeconomic landscape.",
+    "key_indicators": {
+      "GDP_growth_description": "Real GDP growth slowed from 5.0% (early 2024) to 3.5% (mid-2025), indicating economic resilience but moderating expansion.",
+      "Inflation_rate_description": "PCE inflation dropped sharply to 1.8%, while CPI inflation continues climbing (314.54 to 320.795), reflecting sticky core inflation.",
+      "Unemployment_rate_description": "Unemployment remains low (4.0%\u20134.2%), but recent upticks hint at softening demand.",
+      "Interest_rate_description": "The Fed cut rates aggressively (5.33% to 4.33%), yet long-term yields (10Y at 4.28%) remain elevated, tightening credit.",
+      "VIX_level_description": "VIX sentiment is neutral, with a z-score of 0.34, indicating balanced fear and greed levels."
+    },
+    "sentiment": "NEUTRAL",
+    "trend": "STABLE",
+    "influencers": [
+      "President Trump: Approved U.S. Steel and Nippon Steel merger, impacting supply chains and job creation.",
+      "Fed Chair Powell: Upcoming speech could provide clues on future monetary policy.",
+      "Fed Governor: Warned about unsustainable U.S. deficit, affecting bond markets and long-term rates."
+    ],
+    "favorable_sectors": [
+      "Steel and Manufacturing: Benefiting from the U.S. Steel and Nippon Steel merger.",
+      "Gold: Surge in prices due to inflation hedging and risk aversion."
+    ],
+    "non_favorable_sectors": [
+      "Consumer Discretionary: Strain from resumed student loan collections and falling savings.",
+      "Housing: Cooling sales and worsening affordability due to higher rates."
+    ],
+    "macro_catalysts": [
+      "Fed Chair Powell Speech (May 25, 2025): High impact on monetary policy expectations.",
+      "Durable Goods Orders (May 27, 2025): Key indicator of business investment trends.",
+      "German Employment Data (May 28, 2025): Insight into European labor market health."
+    ],
+    "macro_event_recap": [
+      "Trump approved U.S. Steel and Nippon Steel merger, boosting steel sector optimism.",
+      "Student loan collections resumed, potentially reducing disposable income and consumer spending.",
+      "Consumer sentiment dropped amid tariff concerns, raising inflation expectations.",
+      "EU called for respectful trade deal after Trump's tariff threats, adding trade policy uncertainty.",
+      "Fed Governor warned about unsustainable U.S. deficit, highlighting fiscal risks.",
+      "Japan's core inflation hit a 2-year high, prompting expectations of BoJ rate hikes."
+    ],
+    "next_inference_hint": "The most significant macro factor for AMZN will be the Fed's aggressive rate cuts (tailwind), which may ease financial conditions and support consumer spending, benefiting its e-commerce and cloud segments. However, sticky core CPI inflation and elevated long-term yields (headwind) could pressure margins and discretionary spending. The Fed Chair Powell speech on May 25, 2025, could shift this outlook if it signals a pause in easing, reigniting growth concerns."
+  },
+  "Micro": {
+    "Three_Key_Takeaways": [
+      "1. Amazon's Zoox robotaxi unit issued its second software recall in a month following a crash in San Francisco, highlighting ongoing challenges in its autonomous vehicle division.",
+      "2. Nextech3D.ai migrated its Map Dynamics platform to AWS, signaling a strategic partnership that could enhance Amazon's cloud computing dominance and AI-driven services.",
+      "3. Amazon faces a lawsuit over alleged sale of contaminated rice, adding to regulatory and reputational risks amid its expansive e-commerce operations."
+    ],
+    "Micro_Expectation": "Market sentiment for Amazon appears mixed. Positive expectations stem from its strong position in cloud computing (AWS) and AI, as highlighted by strategic partnerships like Nextech3D.ai. However, concerns persist around its Zoox robotaxi unit's operational setbacks and legal challenges, such as the contaminated rice lawsuit. Overall, investors seem cautiously optimistic, focusing on long-term growth in tech and cloud sectors while monitoring regulatory and operational risks.",
+    "Next_Inference_Hint_Micro_News": "The most pressing open question is how Amazon will address the dual challenges of scaling its high-growth segments (AWS, AI) while mitigating risks in its autonomous vehicle division (Zoox) and e-commerce regulatory liabilities. The next analyst step should investigate: 1) AWS's revenue growth and client adoption post-Nextech3D.ai migration, 2) Zoox's software recall impact on regulatory approvals and public trust, and 3) potential financial/legal repercussions of the contaminated rice lawsuit.",
+    "reasoning": "Analysis of AMZN based on macro and micro news:\n- GDP growth: Real GDP growth slowed from 5.0% (early 2024) to 3.5% (mid-2025), indicating economic resilience but moderating expansion.; interest rates: The Fed cut rates aggressively (5.33% to 4.33%), yet long-term yields (10Y at 4.28%) remain elevated, tightening credit.\n- Macro sentiment: NEUTRAL; market trend: STABLE",
+    "tools_used": [
+      "get_stock_dcf_valuation",
+      "analyze_earnings_vs_estimates",
+      "get_company_profile",
+      "get_peer_valuation_comparison",
+      "get_stock_beta"
+    ],
+    "tool_results": {
+      "get_stock_dcf_valuation": {
+        "name": "get_stock_dcf_valuation",
+        "result": "PART 1: FACTUAL REPORT\n- DCF = $29.92\n- Stock Price = $200.99\n\nPART 2: ANALYSIS\nThe DCF valuation of $29.92 is significantly lower than the current stock price of $200.99, suggesting that the stock may be overvalued based on this model."
+      },
+      "analyze_earnings_vs_estimates": {
+        "name": "analyze_earnings_vs_estimates",
+        "result": "PART 1: FACTUAL REPORT\n- Actual Earning Result (2025-05-01) = $1.59\n- Estimated Earning (2025-05-01) = $1.37\n- Surprise Percentage (2025-05-01) = 16.06%\n- Actual Earning Result (2025-02-06) = $1.86\n- Estimated Earning (2025-02-06) = $1.49\n- Surprise Percentage (2025-02-06) = 24.83%\n\nPART 2: ANALYSIS\nAMZN has consistently beaten earnings estimates over the past four quarters, with an average surprise percentage of 22.16%. This indicates strong performance and the ability to exceed market expectations."
+      },
+      "get_company_profile": {
+        "name": "get_company_profile",
+        "result": "PART 1: FACTUAL REPORT\n- Price = $200.99\n- Beta = 1.308\n- Market Cap = $2,133,790,236,000\n- Industry = Specialty Retail\n- Sector = Consumer Cyclical\n\nPART 2: ANALYSIS\nAMZN is a major player in the Specialty Retail industry with a high market cap and a beta of 1.308, indicating higher volatility compared to the market. Its diverse operations and large workforce underscore its significant role in the consumer cyclical sector."
+      },
+      "get_peer_valuation_comparison": {
+        "name": "get_peer_valuation_comparison",
+        "result": "PART 1: FACTUAL REPORT\nAMZN METRICS:\n- AMZN Price = $200.99\n- AMZN Market Cap = $2133.79B\n- AMZN Forward PE Rank = 0.6250\n- AMZN Price to Book Rank = 0.6875\n- AMZN EV to EBITDA Rank = 0.6250\n\nPEER METRICS:\n- BABA Price = $120.73, Market Cap = $289.63B, Forward PE Rank = 0.4375\n- PDD Price = $119.24, Market Cap = $169.28B, Forward PE Rank = 0.3750\n- MELI Price = $2507.83, Market Cap = $127.14B, Forward PE Rank = 0.7500\n\nPART 2: ANALYSIS\nAMZN has a higher market cap compared to peers like BABA and PDD, but its valuation ranks are mid-range, indicating it is neither the most nor least expensive stock in its peer group. MELI, despite a smaller market cap, has higher valuation ranks, suggesting it may be more expensive relative to its fundamentals."
+      },
+      "get_stock_beta": {
+        "name": "get_stock_beta",
+        "result": "PART 1: FACTUAL REPORT\n- Beta = 1.308\n\nPART 2: ANALYSIS\nA beta of 1.308 indicates that AMZN is more volatile than the overall market, which could mean higher risk but also potential for higher returns in favorable market conditions."
+      }
+    },
+    "rationale": "The selected tools provide a 360\u00b0 view of Amazon's: 1) intrinsic valuation (DCF), 2) relative market positioning (peer comparison), 3) operational risks (company profile), 4) macro sensitivity (beta), and 5) execution track record (earnings analysis). This covers both the micro concerns (AWS/Zoox/legal) and macro dependencies (rates/inflation).",
+    "micro_to_price_next_inference": "AMZN's DCF valuation ($29.92) is significantly below its current price ($200.99), suggesting overvaluation, but it consistently beats earnings (100% beat rate, avg +22% surprise) with strong AWS and consumer spending tailwinds. LONG is recommended as macro tailwinds and earnings momentum outweigh valuation concerns. This is a MOMENTUM trade given the stock's upward trend and positive earnings surprises."
+  },
+  "Price": {
+    "risk_reward_summary": "Combined Risk/Reward Analysis for AMZN:\n==================================================\nLong Position: R/R = 1.18, Expected Profit = 19.21, Expected Loss = -22.63\nShort Position: R/R = 0.85, Expected Profit = 22.63, Expected Loss = -19.21\n\nRecommended Position: SHORT\n",
+    "sma_crossovers_summary": "\n=== AMZN 50/200 SMA Crossover Analysis ===\nAnalysis Period: 1y\nLookforward Window: 30 days\n\nBullish Crosses: 1\nAverage Max Return: 6.1%\nBest Return: 6.1%\nMedian Return: 6.1%\n\nNo bearish crosses found in this period\n",
+    "ema_crossovers_summary": "\n=== AMZN 9/21 EMA Crossover Analysis ===\nAnalysis Period: 1y\nLookforward Window: 30 days\n\nBullish Crosses: 4\nAverage Max Return: 8.3%\nBest Return: 9.8%\nMedian Return: 8.1%\n\nBearish Crosses: 4\nAverage Max Return: 7.7%\nBest Return: 16.1%\nMedian Return: 7.3%\n",
+    "vw_macd_summary": "\ud83d\udcca AMZN VOLUME-WEIGHTED MACD ANALYSIS (1y)\n==================================================\n\n\ud83d\udd39 Current VW-MACD: 0.6261\n\ud83d\udd39 Current Signal: 0.7569\n\ud83d\udd39 5-Day Price Trend: \u2193 5.17\n\n\ud83d\udd34 BEARISH SIGNAL: VW-MACD below Signal line\n\n\ud83d\udcaa MOMENTUM ANALYSIS:\n\ud83d\udfe1 WEAK MOMENTUM: Current divergence \u2264 average\n\n\ud83d\udcc8 RECENT PERFORMANCE: 18/20 days above signal line",
+    "graph_paths": {
+      "risk_reward": "/Users/wangmingxuan/Finpresso/ALL_Files/Graph/AMZN_Graph/AMZN_risk_reward_20250525_191658.png",
+      "sma_crossovers": "/Users/wangmingxuan/Finpresso/ALL_Files/Graph/AMZN_Graph/AMZN_sma_crossovers_20250525_191658.png",
+      "ema_crossovers": "/Users/wangmingxuan/Finpresso/ALL_Files/Graph/AMZN_Graph/AMZN_ema_crossovers_20250525_191658.png",
+      "vw_macd": "/Users/wangmingxuan/Finpresso/ALL_Files/Graph/AMZN_Graph/AMZN_vw_macd_20250525_191658.png"
+    }
+  },
+  "Strategy": {
+    "recommended_action": "SELL",
+    "strategy_type": "REVERSION",
+    "rationale": "From a macro perspective: The U.S. economy shows signs of cooling with moderating GDP growth, persistent inflationary pressure...\nPrice analysis indicates:\n- Risk/Reward favors SHORT position\n- Moving Averages signal BEARISH\n- MACD shows BEARISH momentum\nUpcoming catalysts to watch:\n  1. Fed Chair Powell Speech (May 25, 2025): High impact on monetary policy expectations....\n  2. Durable Goods Orders (May 27, 2025): Key indicator of business investment trends....\n  3. German Employment Data (May 28, 2025): Insight into European labor market health....\nMicro analysis suggests a LONG bias for this stock",
+    "risk_level": "MODERATE",
+    "time_horizon": "MEDIUM-TERM",
+    "expected_reward": "19.21% POTENTIAL UPSIDE",
+    "exit_triggers": [
+      "Price returning to mean level",
+      "Oversold/overbought indicator normalization",
+      "New support/resistance levels established",
+      "Market reaction confirmation after Fed Chair Powell Speech (May 25, 2025): High impact on monetary policy expectations."
+    ],
+    "entry_signals": [
+      "Price reaching extreme oversold/overbought levels",
+      "Divergence between price and momentum indicators",
+      "Price testing historical support/resistance levels"
+    ]
+  },
+  "Investment_Mindmap": "INVESTMENT THESIS FOR AMZN: Our analysis indicates a SELL recommendation based on a REVERSION strategy. \n\nMACROECONOMIC ENVIRONMENT: The U.S. economy shows signs of cooling with moderating GDP growth, persistent inflationary pressures, and tightening financial conditions. While the labor market remains robust, consumer strain is evident with falling savings and high living costs. The Fed faces a delicate balance between easing policy to avoid a hard landing and preventing inflation resurgence. Trade policy uncertainty, fiscal risks, and inflation concerns dominate the macroeconomic landscape. This environment particularly favors the Steel and Manufacturing: Benefiting from the U.S. Steel and Nippon Steel merger., Gold: Surge in prices due to inflation hedging and risk aversion. sectors. A key upcoming catalyst to monitor is Fed Chair Powell Speech (May 25, 2025): High impact on monetary policy expectations.. Looking forward, The most significant macro factor for AMZN will be the Fed's aggressive rate cuts (tailwind), which may ease financial conditions and support consumer spending, benefiting its e-commerce and cloud segments. However, sticky core CPI inflation and elevated long-term yields (headwind) could pressure margins and discretionary spending. The Fed Chair Powell speech on May 25, 2025, could shift this outlook if it signals a pause in easing, reigniting growth concerns. \n\nCOMPANY ANALYSIS (AMZN): Based on these fundamentals, AMZN's DCF valuation ($29.92) is significantly below its current price ($200.99), suggesting overvaluation, but it consistently beats earnings (100% beat rate, avg +22% surprise) with strong AWS and consumer spending tailwinds. LONG is recommended as macro tailwinds and earnings momentum outweigh valuation concerns. This is a MOMENTUM trade given the stock's upward trend and positive earnings surprises. \n\nPRICE ANALYSIS: Combined Risk/Reward Analysis for AMZN:\n==================================================\nLong Position: R/R = 1. Moving averages analysis indicates SMA analysis: \n=== AMZN 50/200 SMA Crossover Analysis ===\nAnalysis Period: 1y\nLookforward Window: 30 days\n\nBullish Crosses: 1\nAverage Max Return: 6 and EMA analysis: \n=== AMZN 9/21 EMA Crossover Analysis ===\nAnalysis Period: 1y\nLookforward Window: 30 days\n\nBullish Crosses: 4\nAverage Max Return: 8. MACD analysis shows \ud83d\udcca AMZN VOLUME-WEIGHTED MACD ANALYSIS (1y)\n==================================================\n\n\ud83d\udd39 Current VW-MACD: 0. \n\nINTEGRATED INVESTMENT STRATEGY: We recommend a SELL strategy with moderate risk over a medium-term time horizon. The rationale is: From a macro perspective: The U.S. economy shows signs of cooling with moderating GDP growth, persistent inflationary pressure...\nPrice analysis indicates:\n- Risk/Reward favors SHORT position\n- Moving Averages signal BEARISH\n- MACD shows BEARISH momentum\nUpcoming catalysts to watch:\n  1. Fed Chair Powell Speech (May 25, 2025): High impact on monetary policy expectations....\n  2. Durable Goods Orders (May 27, 2025): Key indicator of business investment trends....\n  3. German Employment Data (May 28, 2025): Insight into European labor market health....\nMicro analysis suggests a LONG bias for this stock For optimal entry, look for Price reaching extreme oversold/overbought levels. Consider exiting when Price returning to mean level. This strategy targets 19.21% POTENTIAL UPSIDE \n\nCONCLUSION: In the current economic environment, AMZN's  and bearish technical indicators support our SELL recommendation. Key catalyst to monitor: Fed Chair Powell Speech (May 25, 2025): High impact on monetary policy expectations..",
+  "Investment_Mindmap_json": {
+    "nodes": [
+      {
+        "id": "n1",
+        "label": "SELL recommendation based on a REVERSION strategy",
+        "group": "Conclusion"
+      },
+      {
+        "id": "n2",
+        "label": "U.S. economy shows signs of cooling",
+        "group": "Macro"
+      },
+      {
+        "id": "n3",
+        "label": "moderating GDP growth",
+        "group": "Macro",
+        "parent": "n2"
+      },
+      {
+        "id": "n4",
+        "label": "persistent inflationary pressures",
+        "group": "Macro",
+        "parent": "n2"
+      },
+      {
+        "id": "n5",
+        "label": "tightening financial conditions",
+        "group": "Macro",
+        "parent": "n2"
+      },
+      {
+        "id": "n6",
+        "label": "labor market remains robust",
+        "group": "Macro",
+        "parent": "n2"
+      },
+      {
+        "id": "n7",
+        "label": "consumer strain",
+        "group": "Macro",
+        "parent": "n2"
+      },
+      {
+        "id": "n8",
+        "label": "falling savings",
+        "group": "Macro",
+        "parent": "n7"
+      },
+      {
+        "id": "n9",
+        "label": "high living costs",
+        "group": "Macro",
+        "parent": "n7"
+      },
+      {
+        "id": "n10",
+        "label": "Fed faces a delicate balance",
+        "group": "Macro",
+        "parent": "n2"
+      },
+      {
+        "id": "n11",
+        "label": "Trade policy uncertainty",
+        "group": "Macro",
+        "parent": "n2"
+      },
+      {
+        "id": "n12",
+        "label": "fiscal risks",
+        "group": "Macro",
+        "parent": "n2"
+      },
+      {
+        "id": "n13",
+        "label": "inflation concerns",
+        "group": "Macro",
+        "parent": "n2"
+      },
+      {
+        "id": "n14",
+        "label": "Steel and Manufacturing: Benefiting from merger",
+        "group": "Macro",
+        "parent": "n2"
+      },
+      {
+        "id": "n15",
+        "label": "Gold: Surge in prices due to inflation hedging",
+        "group": "Macro",
+        "parent": "n2"
+      },
+      {
+        "id": "n16",
+        "label": "Fed Chair Powell Speech (May 25, 2025)",
+        "group": "Catalyst",
+        "parent": "n2"
+      },
+      {
+        "id": "n17",
+        "label": "Fed's aggressive rate cuts (tailwind)",
+        "group": "Macro",
+        "parent": "n2"
+      },
+      {
+        "id": "n18",
+        "label": "ease financial conditions",
+        "group": "Macro",
+        "parent": "n17"
+      },
+      {
+        "id": "n19",
+        "label": "support consumer spending",
+        "group": "Macro",
+        "parent": "n17"
+      },
+      {
+        "id": "n20",
+        "label": "sticky core CPI inflation (headwind)",
+        "group": "Macro",
+        "parent": "n2"
+      },
+      {
+        "id": "n21",
+        "label": "elevated long-term yields (headwind)",
+        "group": "Macro",
+        "parent": "n2"
+      },
+      {
+        "id": "n22",
+        "label": "pressure margins",
+        "group": "Macro",
+        "parent": "n20"
+      },
+      {
+        "id": "n23",
+        "label": "pressure discretionary spending",
+        "group": "Macro",
+        "parent": "n20"
+      },
+      {
+        "id": "n24",
+        "label": "AMZN's DCF valuation ($29.92)",
+        "group": "Company",
+        "parent": "n1"
+      },
+      {
+        "id": "n25",
+        "label": "current price ($200.99)",
+        "group": "Price",
+        "parent": "n24"
+      },
+      {
+        "id": "n26",
+        "label": "overvaluation",
+        "group": "Company",
+        "parent": "n24"
+      },
+      {
+        "id": "n27",
+        "label": "consistently beats earnings",
+        "group": "Company",
+        "parent": "n1"
+      },
+      {
+        "id": "n28",
+        "label": "100% beat rate, avg +22% surprise",
+        "group": "Company",
+        "parent": "n27"
+      },
+      {
+        "id": "n29",
+        "label": "strong AWS",
+        "group": "Company",
+        "parent": "n27"
+      },
+      {
+        "id": "n30",
+        "label": "consumer spending tailwinds",
+        "group": "Company",
+        "parent": "n27"
+      },
+      {
+        "id": "n31",
+        "label": "LONG recommended",
+        "group": "Strategy",
+        "parent": "n1"
+      },
+      {
+        "id": "n32",
+        "label": "macro tailwinds",
+        "group": "Macro",
+        "parent": "n31"
+      },
+      {
+        "id": "n33",
+        "label": "earnings momentum",
+        "group": "Company",
+        "parent": "n31"
+      },
+      {
+        "id": "n34",
+        "label": "outweigh valuation concerns",
+        "group": "Company",
+        "parent": "n31"
+      },
+      {
+        "id": "n35",
+        "label": "MOMENTUM trade",
+        "group": "Strategy",
+        "parent": "n31"
+      },
+      {
+        "id": "n36",
+        "label": "stock's upward trend",
+        "group": "Price",
+        "parent": "n35"
+      },
+      {
+        "id": "n37",
+        "label": "positive earnings surprises",
+        "group": "Company",
+        "parent": "n35"
+      },
+      {
+        "id": "n38",
+        "label": "Risk/Reward Analysis for AMZN",
+        "group": "Price",
+        "parent": "n1"
+      },
+      {
+        "id": "n39",
+        "label": "Long Position: R/R = 1",
+        "group": "Price",
+        "parent": "n38"
+      },
+      {
+        "id": "n40",
+        "label": "Moving averages analysis",
+        "group": "Price",
+        "parent": "n38"
+      },
+      {
+        "id": "n41",
+        "label": "SMA analysis",
+        "group": "Price",
+        "parent": "n40"
+      },
+      {
+        "id": "n42",
+        "label": "EMA analysis",
+        "group": "Price",
+        "parent": "n40"
+      },
+      {
+        "id": "n43",
+        "label": "MACD analysis",
+        "group": "Price",
+        "parent": "n38"
+      },
+      {
+        "id": "n44",
+        "label": "SELL strategy with moderate risk",
+        "group": "Strategy",
+        "parent": "n1"
+      },
+      {
+        "id": "n45",
+        "label": "medium-term time horizon",
+        "group": "Strategy",
+        "parent": "n44"
+      },
+      {
+        "id": "n46",
+        "label": "Risk/Reward favors SHORT position",
+        "group": "Price",
+        "parent": "n44"
+      },
+      {
+        "id": "n47",
+        "label": "Moving Averages signal BEARISH",
+        "group": "Price",
+        "parent": "n44"
+      },
+      {
+        "id": "n48",
+        "label": "MACD shows BEARISH momentum",
+        "group": "Price",
+        "parent": "n44"
+      },
+      {
+        "id": "n49",
+        "label": "Durable Goods Orders (May 27, 2025)",
+        "group": "Catalyst",
+        "parent": "n44"
+      },
+      {
+        "id": "n50",
+        "label": "German Employment Data (May 28, 2025)",
+        "group": "Catalyst",
+        "parent": "n44"
+      },
+      {
+        "id": "n51",
+        "label": "LONG bias for this stock",
+        "group": "Strategy",
+        "parent": "n1"
+      },
+      {
+        "id": "n52",
+        "label": "Price reaching extreme oversold/overbought levels",
+        "group": "Price",
+        "parent": "n51"
+      },
+      {
+        "id": "n53",
+        "label": "exiting when Price returning to mean level",
+        "group": "Price",
+        "parent": "n51"
+      },
+      {
+        "id": "n54",
+        "label": "targets 19.21% POTENTIAL UPSIDE",
+        "group": "Price",
+        "parent": "n51"
+      }
+    ],
+    "edges": [
+      {
+        "source": "n2",
+        "target": "n1",
+        "relation": "supports"
+      },
+      {
+        "source": "n17",
+        "target": "n1",
+        "relation": "drives"
+      },
+      {
+        "source": "n20",
+        "target": "n1",
+        "relation": "contradicts"
+      },
+      {
+        "source": "n21",
+        "target": "n1",
+        "relation": "contradicts"
+      },
+      {
+        "source": "n24",
+        "target": "n1",
+        "relation": "supports"
+      },
+      {
+        "source": "n27",
+        "target": "n1",
+        "relation": "contradicts"
+      },
+      {
+        "source": "n31",
+        "target": "n1",
+        "relation": "contradicts"
+      },
+      {
+        "source": "n38",
+        "target": "n1",
+        "relation": "supports"
+      },
+      {
+        "source": "n44",
+        "target": "n1",
+        "relation": "supports"
+      },
+      {
+        "source": "n51",
+        "target": "n1",
+        "relation": "contradicts"
+      },
+      {
+        "source": "n16",
+        "target": "n2",
+        "relation": "monitors"
+      },
+      {
+        "source": "n17",
+        "target": "n18",
+        "relation": "drives"
+      },
+      {
+        "source": "n17",
+        "target": "n19",
+        "relation": "drives"
+      },
+      {
+        "source": "n18",
+        "target": "n19",
+        "relation": "drives"
+      },
+      {
+        "source": "n20",
+        "target": "n22",
+        "relation": "drives"
+      },
+      {
+        "source": "n20",
+        "target": "n23",
+        "relation": "drives"
+      },
+      {
+        "source": "n21",
+        "target": "n22",
+        "relation": "drives"
+      },
+      {
+        "source": "n21",
+        "target": "n23",
+        "relation": "drives"
+      },
+      {
+        "source": "n24",
+        "target": "n26",
+        "relation": "supports"
+      },
+      {
+        "source": "n25",
+        "target": "n26",
+        "relation": "supports"
+      },
+      {
+        "source": "n27",
+        "target": "n31",
+        "relation": "supports"
+      },
+      {
+        "source": "n28",
+        "target": "n27",
+        "relation": "supports"
+      },
+      {
+        "source": "n29",
+        "target": "n27",
+        "relation": "supports"
+      },
+      {
+        "source": "n30",
+        "target": "n27",
+        "relation": "supports"
+      },
+      {
+        "source": "n32",
+        "target": "n31",
+        "relation": "supports"
+      },
+      {
+        "source": "n33",
+        "target": "n31",
+        "relation": "supports"
+      },
+      {
+        "source": "n34",
+        "target": "n31",
+        "relation": "supports"
+      },
+      {
+        "source": "n35",
+        "target": "n31",
+        "relation": "supports"
+      },
+      {
+        "source": "n36",
+        "target": "n35",
+        "relation": "supports"
+      },
+      {
+        "source": "n37",
+        "target": "n35",
+        "relation": "supports"
+      },
+      {
+        "source": "n39",
+        "target": "n38",
+        "relation": "supports"
+      },
+      {
+        "source": "n40",
+        "target": "n38",
+        "relation": "supports"
+      },
+      {
+        "source": "n41",
+        "target": "n40",
+        "relation": "supports"
+      },
+      {
+        "source": "n42",
+        "target": "n40",
+        "relation": "supports"
+      },
+      {
+        "source": "n43",
+        "target": "n38",
+        "relation": "supports"
+      },
+      {
+        "source": "n45",
+        "target": "n44",
+        "relation": "supports"
+      },
+      {
+        "source": "n46",
+        "target": "n44",
+        "relation": "supports"
+      },
+      {
+        "source": "n47",
+        "target": "n44",
+        "relation": "supports"
+      },
+      {
+        "source": "n48",
+        "target": "n44",
+        "relation": "supports"
+      },
+      {
+        "source": "n49",
+        "target": "n44",
+        "relation": "monitors"
+      },
+      {
+        "source": "n50",
+        "target": "n44",
+        "relation": "monitors"
+      },
+      {
+        "source": "n52",
+        "target": "n51",
+        "relation": "monitors"
+      },
+      {
+        "source": "n53",
+        "target": "n51",
+        "relation": "monitors"
+      },
+      {
+        "source": "n54",
+        "target": "n51",
+        "relation": "supports"
+      }
+    ]
+  }
+}

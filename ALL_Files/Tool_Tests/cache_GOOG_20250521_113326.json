@@ -1,0 +1,27 @@
+{
+  "get_stock_dcf_valuation": {},
+  "get_company_profile": {},
+  "analyze_earnings_vs_estimates": {
+    "status": "error",
+    "message": "No earnings data available"
+  },
+  "get_peer_valuation_comparison": {
+    "error": "Unable to coerce to Series, length must be 0: given 1"
+  },
+  "get_stock_metrics": {
+    "key_metrics": {
+      "EPS": "$8.96",
+      "ROIC": "27.72%",
+      "Debt_to_Equity": "0.09",
+      "Revenue_Growth": "13.87% YoY",
+      "Free_Cash_Flow": "$72.76B",
+      "Beta": "1.01",
+      "Current_Price": "$171.06",
+      "Market_Cap": "$2066.51B",
+      "PE_Ratio": "19.09",
+      "PB_Ratio": "6.02"
+    },
+    "ticker": "GOOG",
+    "last_updated": "2025-05-21 11:33:26"
+  }
+}

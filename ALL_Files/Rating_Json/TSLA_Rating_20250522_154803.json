@@ -1,0 +1,1065 @@
+{
+  "Ticker": "TSLA",
+  "Macro": {
+    "summary": "The U.S. economy shows signs of cooling with moderating GDP growth, persistent inflationary pressures, and tightening financial conditions. While the labor market remains robust, consumer strain is evident with falling savings and high living costs. The Fed faces a delicate balance between easing policy to avoid a hard landing and preventing inflation resurgence. Trade policy uncertainty, fiscal risks, and inflation concerns dominate the macroeconomic landscape.",
+    "key_indicators": {
+      "GDP_growth_description": "Real GDP growth slowed from 5.0% (early 2024) to 3.5% (mid-2025), indicating economic resilience but moderating expansion.",
+      "Inflation_rate_description": "PCE inflation dropped sharply to 1.8%, while CPI inflation continues climbing (314.54 to 320.795), reflecting sticky core inflation.",
+      "Unemployment_rate_description": "Unemployment remains low (4.0%\u20134.2%), but recent upticks hint at softening demand.",
+      "Interest_rate_description": "The Fed cut rates aggressively (5.33% to 4.33%), yet long-term yields (10Y at 4.28%) remain elevated, tightening credit.",
+      "VIX_level_description": "VIX sentiment is neutral, with a z-score of 0.34, indicating balanced fear and greed levels."
+    },
+    "sentiment": "NEUTRAL",
+    "trend": "STABLE",
+    "influencers": [
+      "President Trump: Approved U.S. Steel and Nippon Steel merger, impacting supply chains and job creation.",
+      "Fed Chair Powell: Upcoming speech could provide clues on future monetary policy.",
+      "Fed Governor: Warned about unsustainable U.S. deficit, affecting bond markets and long-term rates."
+    ],
+    "favorable_sectors": [
+      "Steel and Manufacturing: Benefiting from the U.S. Steel and Nippon Steel merger.",
+      "Gold: Surge in prices due to inflation hedging and risk aversion."
+    ],
+    "non_favorable_sectors": [
+      "Consumer Discretionary: Strain from resumed student loan collections and falling savings.",
+      "Housing: Cooling sales and worsening affordability due to higher rates."
+    ],
+    "macro_catalysts": [
+      "Fed Chair Powell Speech (May 25, 2025): High impact on monetary policy expectations.",
+      "Durable Goods Orders (May 27, 2025): Key indicator of business investment trends.",
+      "German Employment Data (May 28, 2025): Insight into European labor market health."
+    ],
+    "macro_event_recap": [
+      "Trump approved U.S. Steel and Nippon Steel merger, boosting steel sector optimism.",
+      "Student loan collections resumed, potentially reducing disposable income and consumer spending.",
+      "Consumer sentiment dropped amid tariff concerns, raising inflation expectations.",
+      "EU called for respectful trade deal after Trump's tariff threats, adding trade policy uncertainty.",
+      "Fed Governor warned about unsustainable U.S. deficit, highlighting fiscal risks.",
+      "Japan's core inflation hit a 2-year high, prompting expectations of BoJ rate hikes."
+    ],
+    "next_inference_hint": "The most significant macro factor for TSLA will be the Fed's aggressive rate cuts (5.33% to 4.33%), which should act as a tailwind by easing financing costs for consumers and boosting demand for big-ticket items like EVs, despite elevated long-term yields tightening credit. However, persistent CPI inflation (rising to 320.795) could weigh on consumer spending, offsetting some benefits. The Fed Chair Powell's speech (May 25, 2025) could shift this outlook if it signals a pause in rate cuts or renewed hawkishness, which would pressure TSLA's growth narrative."
+  },
+  "Micro": {
+    "Three_Key_Takeaways": "1. Tesla is facing increased competition in the EV market, notably from BYD, which has overtaken Tesla in electric car sales.\n2. Tesla is aggressively pursuing advancements in autonomous driving and robotaxis, with plans to pilot a robotaxi program in Austin this June.\n3. CEO Elon Musk's leadership and political involvement are seen as both a potential risk and a driver for Tesla, with mixed reactions from investors regarding his commitment to the company.",
+    "Micro_Expectation": "The market sentiment for Tesla is mixed. On one hand, there is optimism around Tesla's technological innovations like full self-driving (FSD) and robotaxis, which could drive future growth. On the other hand, concerns about declining market share, brand damage from Musk's political activities, and competitive pressures are weighing on investor confidence. The stock has declined 15% year to date, reflecting these uncertainties.",
+    "Next_Inference_Hint_Micro_News": "The most important open question is whether Tesla's pivot to autonomous driving and robotaxis can offset its current challenges in the EV market. Analysts should investigate the progress and potential scalability of the robotaxi pilot program in Austin, as well as any updates on FSD technology. Additionally, monitoring BYD's competitive moves and Tesla's demand recovery in key markets like China, Europe, and the U.S. will be crucial.",
+    "reasoning": "Analysis of TSLA based on macro and micro news:\n- GDP growth: Real GDP growth slowed from 5.0% (early 2024) to 3.5% (mid-2025), indicating economic resilience but moderating expansion.; interest rates: The Fed cut rates aggressively (5.33% to 4.33%), yet long-term yields (10Y at 4.28%) remain elevated, tightening credit.\n- Macro sentiment: NEUTRAL; market trend: STABLE",
+    "tools_used": [
+      "get_company_profile",
+      "get_peer_valuation_comparison",
+      "get_stock_detailed_dcf"
+    ],
+    "tool_results": {
+      "get_company_profile": {
+        "name": "get_company_profile",
+        "result": "PART 1: FACTUAL REPORT\n- Price = $339.34\n- Beta = 2.434\n- Market Cap = $1,091,493,896,800\n- Volume Avg = 125,270,674\n- EPS = $0.00 (lastDiv)\n\nPART 2: ANALYSIS\nTesla's high beta indicates significant volatility compared to the market. The absence of dividends suggests reinvestment in growth, supported by its massive market cap and high trading volume, reflecting strong investor interest."
+      },
+      "get_peer_valuation_comparison": {
+        "name": "get_peer_valuation_comparison",
+        "result": "PART 1: FACTUAL REPORT\nTSLA METRICS:\n- TSLA Price = $339.34\n- TSLA Market Cap = $1093.00B\n- TSLA Forward PE = 104.73\n\nPEER METRICS:\n- TM Price = $182.30, Forward PE = 11.55\n- BYDDY Price = $118.27, Forward PE = 37.67\n- RACE Price = $476.22, Forward PE = 49.97\n- MBGAF Price = $57.56, Forward PE = 5.47\n- VLKPF Price = $106.50, Forward PE = NaN\n\nPART 2: ANALYSIS\nTesla's forward PE is significantly higher than peers like Toyota (TM) and Mercedes (MBGAF), indicating premium valuation expectations. Ferrari (RACE) and BYD (BYDDY) also trade at high multiples but remain below TSLA, highlighting its outlier status in growth pricing."
+      },
+      "get_stock_detailed_dcf": {
+        "name": "get_stock_detailed_dcf",
+        "result": "PART 1: FACTUAL REPORT\n- Current Price = $339.34\n- Intrinsic Value = NaN\n- Margin of Safety = NaN\n- Shares Outstanding = 3,216,520,000\n\nPART 2: ANALYSIS\nThe DCF model lacks key inputs (growth rate, projected FCF), making intrinsic value uncalculable. This suggests either data limitations or high uncertainty in Tesla's cash flow projections."
+      }
+    },
+    "rationale": [
+      "get_stock_detailed_dcf: To understand the valuation of Tesla under different scenarios, especially given the pivot to autonomous driving and robotaxis.",
+      "get_peer_valuation_comparison: To compare Tesla's valuation with peers like BYD, assessing competitive positioning.",
+      "get_company_profile: To examine Tesla's business model and its adaptability to new technologies and market conditions."
+    ],
+    "micro_to_price_next_inference": "TSLA's high beta (2.43) and aggressive valuation (forward P/E 104x, price/book 14.6x) suggest extreme sensitivity to macro shifts, while robotaxi/FSD progress remains unproven. Fed rate cuts may boost EV demand, but CPI inflation and BYD competition could limit upside. NEUTRAL/WAIT due to mixed micro-macro signals and lack of margin safety. This is a MOMENTUM trade as current volatility reflects unresolved fundamental questions."
+  },
+  "Price": {
+    "risk_reward_summary": "Combined Risk/Reward Analysis for TSLA:\n==================================================\nLong Position: R/R = 2.24, Expected Profit = 54.84, Expected Loss = -122.92\nShort Position: R/R = 0.45, Expected Profit = 122.92, Expected Loss = -54.84\n\nRecommended Position: SHORT\n",
+    "sma_crossovers_summary": "\n=== TSLA 50/200 SMA Crossover Analysis ===\nAnalysis Period: 1y\nLookforward Window: 30 days\n\nBullish Crosses: 1\nAverage Max Return: 19.7%\nBest Return: 19.7%\nMedian Return: 19.7%\n\nNo bearish crosses found in this period\n",
+    "ema_crossovers_summary": "\n=== TSLA 9/21 EMA Crossover Analysis ===\nAnalysis Period: 1y\nLookforward Window: 30 days\n\nBullish Crosses: 5\nAverage Max Return: 23.5%\nBest Return: 44.6%\nMedian Return: 18.7%\n\nBearish Crosses: 5\nAverage Max Return: 15.6%\nBest Return: 44.2%\nMedian Return: 11.6%\n",
+    "vw_macd_summary": "\ud83d\udcca TSLA VOLUME-WEIGHTED MACD ANALYSIS (1y)\n==================================================\n\n\ud83d\udd39 Current VW-MACD: 5.1684\n\ud83d\udd39 Current Signal: 6.2361\n\ud83d\udd39 5-Day Price Trend: \u2193 2.75\n\n\ud83d\udd34 BEARISH SIGNAL: VW-MACD below Signal line\n\n\ud83d\udcaa MOMENTUM ANALYSIS:\n\ud83d\udfe1 WEAK MOMENTUM: Current divergence \u2264 average\n\n\ud83d\udcc8 RECENT PERFORMANCE: 19/20 days above signal line",
+    "graph_paths": {
+      "risk_reward": "/Users/wangmingxuan/Finpresso/ALL_Files/Graph/TSLA_Graph/TSLA_risk_reward_20250525_092218.png",
+      "sma_crossovers": "/Users/wangmingxuan/Finpresso/ALL_Files/Graph/TSLA_Graph/TSLA_sma_crossovers_20250525_092218.png",
+      "ema_crossovers": "/Users/wangmingxuan/Finpresso/ALL_Files/Graph/TSLA_Graph/TSLA_ema_crossovers_20250525_092218.png",
+      "vw_macd": "/Users/wangmingxuan/Finpresso/ALL_Files/Graph/TSLA_Graph/TSLA_vw_macd_20250525_092218.png"
+    }
+  },
+  "Strategy": {
+    "recommended_action": "SELL",
+    "strategy_type": "REVERSION",
+    "rationale": "From a macro perspective: The U.S. economy shows signs of cooling with moderating GDP growth, persistent inflationary pressure...\nPrice analysis indicates:\n- Risk/Reward favors SHORT position\n- Moving Averages signal BEARISH\n- MACD shows BEARISH momentum\nUpcoming catalysts to watch:\n  1. Fed Chair Powell Speech (May 25, 2025): High impact on monetary policy expectations....\n  2. Durable Goods Orders (May 27, 2025): Key indicator of business investment trends....\n  3. German Employment Data (May 28, 2025): Insight into European labor market health....",
+    "risk_level": "MODERATE",
+    "time_horizon": "MEDIUM-TERM",
+    "expected_reward": "54.84% POTENTIAL UPSIDE",
+    "exit_triggers": [
+      "Price returning to mean level",
+      "Oversold/overbought indicator normalization",
+      "New support/resistance levels established",
+      "Market reaction confirmation after Fed Chair Powell Speech (May 25, 2025): High impact on monetary policy expectations."
+    ],
+    "entry_signals": [
+      "Price reaching extreme oversold/overbought levels",
+      "Divergence between price and momentum indicators",
+      "Price testing historical support/resistance levels"
+    ]
+  },
+  "Investment_Mindmap": "INVESTMENT THESIS FOR TSLA: Our analysis indicates a SELL recommendation based on a REVERSION strategy. \n\nMACROECONOMIC ENVIRONMENT: The U.S. economy shows signs of cooling with moderating GDP growth, persistent inflationary pressures, and tightening financial conditions. While the labor market remains robust, consumer strain is evident with falling savings and high living costs. The Fed faces a delicate balance between easing policy to avoid a hard landing and preventing inflation resurgence. Trade policy uncertainty, fiscal risks, and inflation concerns dominate the macroeconomic landscape. This environment particularly favors the Steel and Manufacturing: Benefiting from the U.S. Steel and Nippon Steel merger., Gold: Surge in prices due to inflation hedging and risk aversion. sectors. A key upcoming catalyst to monitor is Fed Chair Powell Speech (May 25, 2025): High impact on monetary policy expectations.. Looking forward, The most significant macro factor for TSLA will be the Fed's aggressive rate cuts (5.33% to 4.33%), which should act as a tailwind by easing financing costs for consumers and boosting demand for big-ticket items like EVs, despite elevated long-term yields tightening credit. However, persistent CPI inflation (rising to 320.795) could weigh on consumer spending, offsetting some benefits. The Fed Chair Powell's speech (May 25, 2025) could shift this outlook if it signals a pause in rate cuts or renewed hawkishness, which would pressure TSLA's growth narrative. \n\nCOMPANY ANALYSIS (TSLA): Based on these fundamentals, TSLA's high beta (2.43) and aggressive valuation (forward P/E 104x, price/book 14.6x) suggest extreme sensitivity to macro shifts, while robotaxi/FSD progress remains unproven. Fed rate cuts may boost EV demand, but CPI inflation and BYD competition could limit upside. NEUTRAL/WAIT due to mixed micro-macro signals and lack of margin safety. This is a MOMENTUM trade as current volatility reflects unresolved fundamental questions. \n\nPRICE ANALYSIS: Combined Risk/Reward Analysis for TSLA:\n==================================================\nLong Position: R/R = 2. Moving averages analysis indicates SMA analysis: \n=== TSLA 50/200 SMA Crossover Analysis ===\nAnalysis Period: 1y\nLookforward Window: 30 days\n\nBullish Crosses: 1\nAverage Max Return: 19 and EMA analysis: \n=== TSLA 9/21 EMA Crossover Analysis ===\nAnalysis Period: 1y\nLookforward Window: 30 days\n\nBullish Crosses: 5\nAverage Max Return: 23. MACD analysis shows \ud83d\udcca TSLA VOLUME-WEIGHTED MACD ANALYSIS (1y)\n==================================================\n\n\ud83d\udd39 Current VW-MACD: 5. \n\nINTEGRATED INVESTMENT STRATEGY: We recommend a SELL strategy with moderate risk over a medium-term time horizon. The rationale is: From a macro perspective: The U.S. economy shows signs of cooling with moderating GDP growth, persistent inflationary pressure...\nPrice analysis indicates:\n- Risk/Reward favors SHORT position\n- Moving Averages signal BEARISH\n- MACD shows BEARISH momentum\nUpcoming catalysts to watch:\n  1. Fed Chair Powell Speech (May 25, 2025): High impact on monetary policy expectations....\n  2. Durable Goods Orders (May 27, 2025): Key indicator of business investment trends....\n  3. German Employment Data (May 28, 2025): Insight into European labor market health.... For optimal entry, look for Price reaching extreme oversold/overbought levels. Consider exiting when Price returning to mean level. This strategy targets 54.84% POTENTIAL UPSIDE \n\nCONCLUSION: In the current economic environment, TSLA's  and bearish technical indicators support our SELL recommendation. Key catalyst to monitor: Fed Chair Powell Speech (May 25, 2025): High impact on monetary policy expectations..",
+  "Investment_Mindmap_json": {
+    "nodes": [
+      {
+        "id": "1",
+        "label": "INVESTMENT THESIS FOR TSLA",
+        "group": "Conclusion"
+      },
+      {
+        "id": "2",
+        "label": "SELL recommendation",
+        "parent": "1",
+        "group": "Conclusion"
+      },
+      {
+        "id": "3",
+        "label": "REVERSION strategy",
+        "parent": "1",
+        "group": "Strategy"
+      },
+      {
+        "id": "4",
+        "label": "MACROECONOMIC ENVIRONMENT",
+        "group": "Macro"
+      },
+      {
+        "id": "5",
+        "label": "U.S. economy cooling",
+        "parent": "4",
+        "group": "Macro"
+      },
+      {
+        "id": "6",
+        "label": "moderating GDP growth",
+        "parent": "5",
+        "group": "Macro"
+      },
+      {
+        "id": "7",
+        "label": "persistent inflationary pressures",
+        "parent": "5",
+        "group": "Macro"
+      },
+      {
+        "id": "8",
+        "label": "tightening financial conditions",
+        "parent": "5",
+        "group": "Macro"
+      },
+      {
+        "id": "9",
+        "label": "robust labor market",
+        "parent": "4",
+        "group": "Macro"
+      },
+      {
+        "id": "10",
+        "label": "consumer strain",
+        "parent": "4",
+        "group": "Macro"
+      },
+      {
+        "id": "11",
+        "label": "falling savings",
+        "parent": "10",
+        "group": "Macro"
+      },
+      {
+        "id": "12",
+        "label": "high living costs",
+        "parent": "10",
+        "group": "Macro"
+      },
+      {
+        "id": "13",
+        "label": "Fed balance",
+        "parent": "4",
+        "group": "Macro"
+      },
+      {
+        "id": "14",
+        "label": "trade policy uncertainty",
+        "parent": "4",
+        "group": "Macro"
+      },
+      {
+        "id": "15",
+        "label": "fiscal risks",
+        "parent": "4",
+        "group": "Macro"
+      },
+      {
+        "id": "16",
+        "label": "inflation concerns",
+        "parent": "4",
+        "group": "Macro"
+      },
+      {
+        "id": "17",
+        "label": "Steel and Manufacturing",
+        "parent": "4",
+        "group": "Macro"
+      },
+      {
+        "id": "18",
+        "label": "U.S. Steel and Nippon Steel merger",
+        "parent": "17",
+        "group": "Macro"
+      },
+      {
+        "id": "19",
+        "label": "Gold",
+        "parent": "4",
+        "group": "Macro"
+      },
+      {
+        "id": "20",
+        "label": "inflation hedging",
+        "parent": "19",
+        "group": "Macro"
+      },
+      {
+        "id": "21",
+        "label": "risk aversion",
+        "parent": "19",
+        "group": "Macro"
+      },
+      {
+        "id": "22",
+        "label": "Fed Chair Powell Speech (May 25, 2025)",
+        "parent": "4",
+        "group": "Catalyst"
+      },
+      {
+        "id": "23",
+        "label": "Fed's aggressive rate cuts",
+        "parent": "4",
+        "group": "Macro"
+      },
+      {
+        "id": "24",
+        "label": "5.33% to 4.33%",
+        "parent": "23",
+        "group": "Macro"
+      },
+      {
+        "id": "25",
+        "label": "easing financing costs",
+        "parent": "23",
+        "group": "Macro"
+      },
+      {
+        "id": "26",
+        "label": "boost demand for EVs",
+        "parent": "23",
+        "group": "Macro"
+      },
+      {
+        "id": "27",
+        "label": "elevated long-term yields",
+        "parent": "4",
+        "group": "Macro"
+      },
+      {
+        "id": "28",
+        "label": "persistent CPI inflation",
+        "parent": "4",
+        "group": "Macro"
+      },
+      {
+        "id": "29",
+        "label": "320.795",
+        "parent": "28",
+        "group": "Macro"
+      },
+      {
+        "id": "30",
+        "label": "weigh on consumer spending",
+        "parent": "28",
+        "group": "Macro"
+      },
+      {
+        "id": "31",
+        "label": "COMPANY ANALYSIS (TSLA)",
+        "group": "Company"
+      },
+      {
+        "id": "32",
+        "label": "high beta (2.43)",
+        "parent": "31",
+        "group": "Company"
+      },
+      {
+        "id": "33",
+        "label": "aggressive valuation",
+        "parent": "31",
+        "group": "Company"
+      },
+      {
+        "id": "34",
+        "label": "forward P/E 104x",
+        "parent": "33",
+        "group": "Company"
+      },
+      {
+        "id": "35",
+        "label": "price/book 14.6x",
+        "parent": "33",
+        "group": "Company"
+      },
+      {
+        "id": "36",
+        "label": "sensitivity to macro shifts",
+        "parent": "31",
+        "group": "Company"
+      },
+      {
+        "id": "37",
+        "label": "robotaxi/FSD progress unproven",
+        "parent": "31",
+        "group": "Company"
+      },
+      {
+        "id": "38",
+        "label": "Fed rate cuts may boost EV demand",
+        "parent": "31",
+        "group": "Company"
+      },
+      {
+        "id": "39",
+        "label": "CPI inflation and BYD competition",
+        "parent": "31",
+        "group": "Company"
+      },
+      {
+        "id": "40",
+        "label": "NEUTRAL/WAIT",
+        "parent": "31",
+        "group": "Company"
+      },
+      {
+        "id": "41",
+        "label": "mixed micro-macro signals",
+        "parent": "40",
+        "group": "Company"
+      },
+      {
+        "id": "42",
+        "label": "lack of margin safety",
+        "parent": "40",
+        "group": "Company"
+      },
+      {
+        "id": "43",
+        "label": "MOMENTUM trade",
+        "parent": "31",
+        "group": "Strategy"
+      },
+      {
+        "id": "44",
+        "label": "current volatility",
+        "parent": "43",
+        "group": "Strategy"
+      },
+      {
+        "id": "45",
+        "label": "PRICE ANALYSIS",
+        "group": "Price"
+      },
+      {
+        "id": "46",
+        "label": "Risk/Reward Analysis",
+        "parent": "45",
+        "group": "Price"
+      },
+      {
+        "id": "47",
+        "label": "Long Position: R/R = 2",
+        "parent": "46",
+        "group": "Price"
+      },
+      {
+        "id": "48",
+        "label": "Moving averages analysis",
+        "parent": "45",
+        "group": "Price"
+      },
+      {
+        "id": "49",
+        "label": "SMA analysis",
+        "parent": "48",
+        "group": "Price"
+      },
+      {
+        "id": "50",
+        "label": "TSLA 50/200 SMA Crossover Analysis",
+        "parent": "49",
+        "group": "Price"
+      },
+      {
+        "id": "51",
+        "label": "Bullish Crosses: 1",
+        "parent": "50",
+        "group": "Price"
+      },
+      {
+        "id": "52",
+        "label": "Average Max Return: 19",
+        "parent": "50",
+        "group": "Price"
+      },
+      {
+        "id": "53",
+        "label": "EMA analysis",
+        "parent": "48",
+        "group": "Price"
+      },
+      {
+        "id": "54",
+        "label": "TSLA 9/21 EMA Crossover Analysis",
+        "parent": "53",
+        "group": "Price"
+      },
+      {
+        "id": "55",
+        "label": "Bullish Crosses: 5",
+        "parent": "54",
+        "group": "Price"
+      },
+      {
+        "id": "56",
+        "label": "Average Max Return: 23",
+        "parent": "54",
+        "group": "Price"
+      },
+      {
+        "id": "57",
+        "label": "MACD analysis",
+        "parent": "45",
+        "group": "Price"
+      },
+      {
+        "id": "58",
+        "label": "TSLA VOLUME-WEIGHTED MACD ANALYSIS",
+        "parent": "57",
+        "group": "Price"
+      },
+      {
+        "id": "59",
+        "label": "Current VW-MACD: 5",
+        "parent": "58",
+        "group": "Price"
+      },
+      {
+        "id": "60",
+        "label": "INTEGRATED INVESTMENT STRATEGY",
+        "group": "Strategy"
+      },
+      {
+        "id": "61",
+        "label": "SELL strategy",
+        "parent": "60",
+        "group": "Strategy"
+      },
+      {
+        "id": "62",
+        "label": "moderate risk",
+        "parent": "61",
+        "group": "Strategy"
+      },
+      {
+        "id": "63",
+        "label": "medium-term time horizon",
+        "parent": "61",
+        "group": "Strategy"
+      },
+      {
+        "id": "64",
+        "label": "Risk/Reward favors SHORT position",
+        "parent": "60",
+        "group": "Strategy"
+      },
+      {
+        "id": "65",
+        "label": "Moving Averages signal BEARISH",
+        "parent": "60",
+        "group": "Strategy"
+      },
+      {
+        "id": "66",
+        "label": "MACD shows BEARISH momentum",
+        "parent": "60",
+        "group": "Strategy"
+      },
+      {
+        "id": "67",
+        "label": "Upcoming catalysts",
+        "parent": "60",
+        "group": "Catalyst"
+      },
+      {
+        "id": "68",
+        "label": "Fed Chair Powell Speech (May 25, 2025)",
+        "parent": "67",
+        "group": "Catalyst"
+      },
+      {
+        "id": "69",
+        "label": "Durable Goods Orders (May 27, 2025)",
+        "parent": "67",
+        "group": "Catalyst"
+      },
+      {
+        "id": "70",
+        "label": "German Employment Data (May 28, 2025)",
+        "parent": "67",
+        "group": "Catalyst"
+      },
+      {
+        "id": "71",
+        "label": "optimal entry",
+        "parent": "60",
+        "group": "Strategy"
+      },
+      {
+        "id": "72",
+        "label": "Price reaching extreme oversold/overbought levels",
+        "parent": "71",
+        "group": "Strategy"
+      },
+      {
+        "id": "73",
+        "label": "exiting",
+        "parent": "60",
+        "group": "Strategy"
+      },
+      {
+        "id": "74",
+        "label": "Price returning to mean level",
+        "parent": "73",
+        "group": "Strategy"
+      },
+      {
+        "id": "75",
+        "label": "targets 54.84% POTENTIAL UPSIDE",
+        "parent": "60",
+        "group": "Strategy"
+      },
+      {
+        "id": "76",
+        "label": "CONCLUSION",
+        "group": "Conclusion"
+      },
+      {
+        "id": "77",
+        "label": "current economic environment",
+        "parent": "76",
+        "group": "Conclusion"
+      },
+      {
+        "id": "78",
+        "label": "bearish technical indicators",
+        "parent": "76",
+        "group": "Conclusion"
+      },
+      {
+        "id": "79",
+        "label": "SELL recommendation",
+        "parent": "76",
+        "group": "Conclusion"
+      },
+      {
+        "id": "80",
+        "label": "Key catalyst to monitor",
+        "parent": "76",
+        "group": "Catalyst"
+      }
+    ],
+    "edges": [
+      {
+        "source": "2",
+        "target": "3",
+        "relation": "supports"
+      },
+      {
+        "source": "5",
+        "target": "6",
+        "relation": "supports"
+      },
+      {
+        "source": "5",
+        "target": "7",
+        "relation": "supports"
+      },
+      {
+        "source": "5",
+        "target": "8",
+        "relation": "supports"
+      },
+      {
+        "source": "10",
+        "target": "11",
+        "relation": "supports"
+      },
+      {
+        "source": "10",
+        "target": "12",
+        "relation": "supports"
+      },
+      {
+        "source": "17",
+        "target": "18",
+        "relation": "supports"
+      },
+      {
+        "source": "19",
+        "target": "20",
+        "relation": "supports"
+      },
+      {
+        "source": "19",
+        "target": "21",
+        "relation": "supports"
+      },
+      {
+        "source": "23",
+        "target": "24",
+        "relation": "supports"
+      },
+      {
+        "source": "23",
+        "target": "25",
+        "relation": "supports"
+      },
+      {
+        "source": "23",
+        "target": "26",
+        "relation": "supports"
+      },
+      {
+        "source": "28",
+        "target": "29",
+        "relation": "supports"
+      },
+      {
+        "source": "28",
+        "target": "30",
+        "relation": "supports"
+      },
+      {
+        "source": "33",
+        "target": "34",
+        "relation": "supports"
+      },
+      {
+        "source": "33",
+        "target": "35",
+        "relation": "supports"
+      },
+      {
+        "source": "40",
+        "target": "41",
+        "relation": "supports"
+      },
+      {
+        "source": "40",
+        "target": "42",
+        "relation": "supports"
+      },
+      {
+        "source": "43",
+        "target": "44",
+        "relation": "supports"
+      },
+      {
+        "source": "49",
+        "target": "50",
+        "relation": "supports"
+      },
+      {
+        "source": "50",
+        "target": "51",
+        "relation": "supports"
+      },
+      {
+        "source": "50",
+        "target": "52",
+        "relation": "supports"
+      },
+      {
+        "source": "53",
+        "target": "54",
+        "relation": "supports"
+      },
+      {
+        "source": "54",
+        "target": "55",
+        "relation": "supports"
+      },
+      {
+        "source": "54",
+        "target": "56",
+        "relation": "supports"
+      },
+      {
+        "source": "57",
+        "target": "58",
+        "relation": "supports"
+      },
+      {
+        "source": "58",
+        "target": "59",
+        "relation": "supports"
+      },
+      {
+        "source": "61",
+        "target": "62",
+        "relation": "supports"
+      },
+      {
+        "source": "61",
+        "target": "63",
+        "relation": "supports"
+      },
+      {
+        "source": "67",
+        "target": "68",
+        "relation": "supports"
+      },
+      {
+        "source": "67",
+        "target": "69",
+        "relation": "supports"
+      },
+      {
+        "source": "67",
+        "target": "70",
+        "relation": "supports"
+      },
+      {
+        "source": "71",
+        "target": "72",
+        "relation": "supports"
+      },
+      {
+        "source": "73",
+        "target": "74",
+        "relation": "supports"
+      },
+      {
+        "source": "76",
+        "target": "77",
+        "relation": "supports"
+      },
+      {
+        "source": "76",
+        "target": "78",
+        "relation": "supports"
+      },
+      {
+        "source": "76",
+        "target": "79",
+        "relation": "supports"
+      },
+      {
+        "source": "76",
+        "target": "80",
+        "relation": "supports"
+      },
+      {
+        "source": "1",
+        "target": "4",
+        "relation": "monitors"
+      },
+      {
+        "source": "1",
+        "target": "31",
+        "relation": "monitors"
+      },
+      {
+        "source": "1",
+        "target": "45",
+        "relation": "monitors"
+      },
+      {
+        "source": "1",
+        "target": "60",
+        "relation": "monitors"
+      },
+      {
+        "source": "1",
+        "target": "76",
+        "relation": "monitors"
+      },
+      {
+        "source": "4",
+        "target": "22",
+        "relation": "monitors"
+      },
+      {
+        "source": "4",
+        "target": "23",
+        "relation": "monitors"
+      },
+      {
+        "source": "4",
+        "target": "27",
+        "relation": "monitors"
+      },
+      {
+        "source": "4",
+        "target": "28",
+        "relation": "monitors"
+      },
+      {
+        "source": "31",
+        "target": "32",
+        "relation": "monitors"
+      },
+      {
+        "source": "31",
+        "target": "33",
+        "relation": "monitors"
+      },
+      {
+        "source": "31",
+        "target": "36",
+        "relation": "monitors"
+      },
+      {
+        "source": "31",
+        "target": "37",
+        "relation": "monitors"
+      },
+      {
+        "source": "31",
+        "target": "38",
+        "relation": "monitors"
+      },
+      {
+        "source": "31",
+        "target": "39",
+        "relation": "monitors"
+      },
+      {
+        "source": "31",
+        "target": "40",
+        "relation": "monitors"
+      },
+      {
+        "source": "31",
+        "target": "43",
+        "relation": "monitors"
+      },
+      {
+        "source": "45",
+        "target": "46",
+        "relation": "monitors"
+      },
+      {
+        "source": "45",
+        "target": "48",
+        "relation": "monitors"
+      },
+      {
+        "source": "45",
+        "target": "57",
+        "relation": "monitors"
+      },
+      {
+        "source": "60",
+        "target": "64",
+        "relation": "monitors"
+      },
+      {
+        "source": "60",
+        "target": "65",
+        "relation": "monitors"
+      },
+      {
+        "source": "60",
+        "target": "66",
+        "relation": "monitors"
+      },
+      {
+        "source": "60",
+        "target": "67",
+        "relation": "monitors"
+      },
+      {
+        "source": "60",
+        "target": "71",
+        "relation": "monitors"
+      },
+      {
+        "source": "60",
+        "target": "73",
+        "relation": "monitors"
+      },
+      {
+        "source": "60",
+        "target": "75",
+        "relation": "monitors"
+      },
+      {
+        "source": "76",
+        "target": "1",
+        "relation": "monitors"
+      },
+      {
+        "source": "76",
+        "target": "4",
+        "relation": "monitors"
+      },
+      {
+        "source": "76",
+        "target": "31",
+        "relation": "monitors"
+      },
+      {
+        "source": "76",
+        "target": "45",
+        "relation": "monitors"
+      },
+      {
+        "source": "76",
+        "target": "60",
+        "relation": "monitors"
+      },
+      {
+        "source": "2",
+        "target": "79",
+        "relation": "supports"
+      },
+      {
+        "source": "3",
+        "target": "61",
+        "relation": "supports"
+      },
+      {
+        "source": "22",
+        "target": "68",
+        "relation": "supports"
+      },
+      {
+        "source": "26",
+        "target": "38",
+        "relation": "supports"
+      },
+      {
+        "source": "30",
+        "target": "39",
+        "relation": "supports"
+      },
+      {
+        "source": "36",
+        "target": "44",
+        "relation": "supports"
+      },
+      {
+        "source": "44",
+        "target": "43",
+        "relation": "supports"
+      },
+      {
+        "source": "47",
+        "target": "46",
+        "relation": "supports"
+      },
+      {
+        "source": "51",
+        "target": "50",
+        "relation": "supports"
+      },
+      {
+        "source": "52",
+        "target": "50",
+        "relation": "supports"
+      },
+      {
+        "source": "55",
+        "target": "54",
+        "relation": "supports"
+      },
+      {
+        "source": "56",
+        "target": "54",
+        "relation": "supports"
+      },
+      {
+        "source": "59",
+        "target": "58",
+        "relation": "supports"
+      },
+      {
+        "source": "64",
+        "target": "61",
+        "relation": "supports"
+      },
+      {
+        "source": "65",
+        "target": "61",
+        "relation": "supports"
+      },
+      {
+        "source": "66",
+        "target": "61",
+        "relation": "supports"
+      },
+      {
+        "source": "68",
+        "target": "67",
+        "relation": "supports"
+      },
+      {
+        "source": "69",
+        "target": "67",
+        "relation": "supports"
+      },
+      {
+        "source": "70",
+        "target": "67",
+        "relation": "supports"
+      },
+      {
+        "source": "72",
+        "target": "71",
+        "relation": "supports"
+      },
+      {
+        "source": "74",
+        "target": "73",
+        "relation": "supports"
+      },
+      {
+        "source": "75",
+        "target": "61",
+        "relation": "supports"
+      },
+      {
+        "source": "77",
+        "target": "76",
+        "relation": "supports"
+      },
+      {
+        "source": "78",
+        "target": "76",
+        "relation": "supports"
+      },
+      {
+        "source": "79",
+        "target": "76",
+        "relation": "supports"
+      },
+      {
+        "source": "80",
+        "target": "76",
+        "relation": "supports"
+      }
+    ]
+  }
+}
