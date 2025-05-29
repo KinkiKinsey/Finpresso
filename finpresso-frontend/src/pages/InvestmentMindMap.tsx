@@ -411,7 +411,7 @@ const InvestmentMindMapPage: React.FC = () => {
         <Button
           variant="contained"
           startIcon={<SchemaIcon />}
-          onClick={() => navigate(`/detail/${job_id}/macro`)}
+          onClick={() => navigate(`/analysis/detail/${job_id}/macro`)}
           sx={{
             py: 0.5,
             px: 2.5,

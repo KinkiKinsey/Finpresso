@@ -9,13 +9,19 @@ import {
   Stack,
   Typography,
   Chip,
-  Box
+  Box,
+  LinearProgress,
 } from '@mui/material';
-import { keyframes } from '@mui/material/styles';
+import { keyframes, styled } from '@mui/material/styles';
+import { motion, AnimatePresence } from 'framer-motion';
 import GaugeChart from 'react-gauge-chart';
 import TrendingUpIcon from '@mui/icons-material/TrendingUp';
 import TrendingDownIcon from '@mui/icons-material/TrendingDown';
 import FlagIcon from '@mui/icons-material/Flag';
+import AutoGraphIcon from '@mui/icons-material/AutoGraph';
+import SecurityIcon from '@mui/icons-material/Security';
+import TargetIcon from '@mui/icons-material/GpsFixed';
+import SignalCellularAltIcon from '@mui/icons-material/SignalCellularAlt';
 
 export interface FancyData {
   steps: { label: string; note?: string }[];
@@ -51,155 +57,479 @@ export function toFancy(data: any): FancyData {
   };
 }
 
-// Dark AI-tech styling constants
-const PANEL_BG = 'rgba(18,18,18,0.9)';
-const STEP_BG = 'rgba(30,30,30,0.85)';
+// Enhanced dark theme
+const PANEL_BG = 'rgba(18,18,18,0.95)';
+const STEP_BG = 'rgba(30,30,30,0.9)';
 const TEXT_PRIMARY = '#E0E0E0';
 const TEXT_SECONDARY = '#90A4AE';
-const ACCENT_GRAD = 'linear-gradient(135deg, #0ff, #06f, #a3f)';
+const ACCENT_CYAN = '#00ffff';
+const ACCENT_PURPLE = '#a855f7';
+const ACCENT_GREEN = '#10b981';
+const ACCENT_YELLOW = '#eab308';
+const ACCENT_RED = '#ef4444';
+const ACCENT_GRADIENT = 'linear-gradient(135deg, #00ffff, #a855f7)';
+
 const CHIP_COLORS: Record<FancyData['conviction'], string> = {
-  low: '#eab308',
-  med: '#6366f1',
-  high: '#10b981',
+  low: ACCENT_YELLOW,
+  med: ACCENT_PURPLE,
+  high: ACCENT_GREEN,
 };
 
-// Glow animation for active elements
+// Animations
 const glow = keyframes`
-  from { box-shadow: 0 0 0 rgba(15,255,255,0); }
-  to { box-shadow: 0 0 12px 4px rgba(15,255,255,0.6); }
+  0% { box-shadow: 0 0 5px rgba(0,255,255,0.5); }
+  50% { box-shadow: 0 0 25px rgba(0,255,255,0.8), 0 0 35px rgba(168,85,247,0.6); }
+  100% { box-shadow: 0 0 5px rgba(0,255,255,0.5); }
 `;
+
+const pulse = keyframes`
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.05); opacity: 0.9; }
+`;
+
+const rotate = keyframes`
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+`;
+
+const shimmer = keyframes`
+  0% { background-position: -1000px 0; }
+  100% { background-position: 1000px 0; }
+`;
+
+// Styled components
+const StyledPaper = styled(Paper)({
+  background: PANEL_BG,
+  backdropFilter: 'blur(20px)',
+  border: '1px solid rgba(0,255,255,0.2)',
+  position: 'relative',
+  overflow: 'hidden',
+  '&::before': {
+    content: '""',
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    height: 3,
+    background: ACCENT_GRADIENT,
+    animation: `${shimmer} 3s linear infinite`,
+  },
+});
+
+const StyledStepper = styled(Stepper)({
+  background: STEP_BG,
+  borderRadius: 16,
+  padding: '20px',
+  border: '1px solid rgba(0,255,255,0.1)',
+  position: 'relative',
+  '& .MuiStepConnector-line': {
+    borderColor: ACCENT_PURPLE,
+    borderWidth: 2,
+  },
+  '& .MuiStepConnector-root.Mui-completed .MuiStepConnector-line': {
+    borderColor: ACCENT_CYAN,
+  },
+});
+
+const MetricCard = styled(Box)({
+  background: 'rgba(30,30,30,0.9)',
+  borderRadius: 16,
+  padding: 24,
+  border: '1px solid rgba(0,255,255,0.2)',
+  position: 'relative',
+  overflow: 'hidden',
+  transition: 'all 0.3s ease',
+  '&:hover': {
+    transform: 'translateY(-5px)',
+    borderColor: ACCENT_CYAN,
+    animation: `${glow} 2s ease-in-out infinite`,
+  },
+});
+
+const ConvictionChip = styled(Chip)<{ conviction: string }>(({ conviction }) => ({
+  fontWeight: 700,
+  fontSize: '1rem',
+  padding: '24px 32px',
+  background: `linear-gradient(135deg, ${CHIP_COLORS[conviction as keyof typeof CHIP_COLORS]}, ${CHIP_COLORS[conviction as keyof typeof CHIP_COLORS]}dd)`,
+  color: '#000',
+  border: 'none',
+  position: 'relative',
+  overflow: 'hidden',
+  animation: `${pulse} 2s ease-in-out infinite`,
+  '&::before': {
+    content: '""',
+    position: 'absolute',
+    top: '-2px',
+    left: '-2px',
+    right: '-2px',
+    bottom: '-2px',
+    background: ACCENT_GRADIENT,
+    borderRadius: 'inherit',
+    opacity: conviction === 'high' ? 1 : 0.5,
+    zIndex: -1,
+    animation: `${rotate} 3s linear infinite`,
+  },
+}));
 
 interface FancyStrategyPanelProps {
   data: FancyData;
+  rawData?: any;
 }
 
-const FancyStrategyPanel: React.FC<FancyStrategyPanelProps> = ({ data }) => (
-  <Paper
-    elevation={8}
-    sx={{
-      width: '100%',
-      maxWidth: 1200,
-      mx: 'auto',
-      p: { xs: 3, md: 5 },
-      borderRadius: 4,
-      bgcolor: PANEL_BG,
-      border: '1px solid #333',
-    }}
-  >
-    {/* Stepper */}
-    <Stepper alternativeLabel sx={{ mb: 4, bgcolor: STEP_BG, borderRadius: 2 }}>
-      {data.steps.map(({ label, note }, idx) => (
-        <Step key={idx} completed={idx < data.steps.length - 1}>
-          <Tooltip title={note || ''} arrow placement="top">
-            <StepLabel
-              StepIconComponent={() => (
-                <Box
-                  sx={{
-                    width: 16,
-                    height: 16,
-                    borderRadius: '50%',
-                    bgcolor:
-                      idx === 0
-                        ? '#06b6d4'
-                        : idx === data.steps.length - 1
-                        ? '#ef4444'
-                        : '#6366f1',
-                    boxShadow: '0 0 6px rgba(255,255,255,0.2)',
-                  }}
-                />
-              )}
-            >
-              <Typography variant="body2" sx={{ color: TEXT_PRIMARY, fontWeight: 600 }}>
-                {label}
-              </Typography>
-            </StepLabel>
-          </Tooltip>
-        </Step>
-      ))}
-    </Stepper>
+const FancyStrategyPanel: React.FC<FancyStrategyPanelProps> = ({ data, rawData }) => {
+  const getStepIcon = (index: number) => {
+    const icons = [
+      <AutoGraphIcon sx={{ color: ACCENT_CYAN }} />,
+      <SecurityIcon sx={{ color: ACCENT_PURPLE }} />,
+      <TargetIcon sx={{ color: ACCENT_RED }} />,
+    ];
+    return icons[index] || null;
+  };
 
-    <Divider sx={{ borderColor: '#444', my: 3 }} />
-
-    {/* Gauges and stats */}
-    <Stack direction={{ xs: 'column', md: 'row' }} spacing={4} justifyContent="space-between">
-      {/* Risk Level Gauge */}
-      <Stack spacing={1} alignItems="center" sx={{ flex: 1 }}>
-        <Typography variant="subtitle2" sx={{ color: TEXT_SECONDARY }}>Risk Level</Typography>
-        <Box sx={{ width: '100%', bgcolor: STEP_BG, p: 2, borderRadius: 2 }}>
-          <GaugeChart
-            id="risk-gauge"
-            nrOfLevels={5}
-            colors={['#ef4444', '#f97316', '#eab308', '#84cc16', '#10b981']}
-            percent={data.riskScore}
-            arcPadding={0.04}
-            animate={false}
-          />
-        </Box>
-      </Stack>
-
-      {/* Risk/Reward Ratio */}
-      <Stack spacing={1} alignItems="center" sx={{ flex: 1 }}>
-        <Typography variant="subtitle2" sx={{ color: TEXT_SECONDARY }}>Risk / Reward</Typography>
-        <Box
-          sx={{
-            width: '100%',
-            textAlign: 'center',
-            bgcolor: STEP_BG,
-            p: 2,
-            borderRadius: 2,
+  return (
+    <StyledPaper
+      elevation={0}
+      sx={{
+        width: '100%',
+        maxWidth: 1200,
+        mx: 'auto',
+        p: { xs: 3, md: 5 },
+        borderRadius: 4,
+      }}
+    >
+      {/* Header */}
+      <Box sx={{ mb: 4, display: 'flex', alignItems: 'center', gap: 2 }}>
+        <motion.div
+          animate={{ 
+            rotate: [0, 360],
+            scale: [1, 1.1, 1],
+          }}
+          transition={{ 
+            duration: 4,
+            repeat: Infinity,
+            ease: 'easeInOut',
           }}
         >
-          <Typography
-            sx={{
-              fontSize: 32,
-              fontFamily: 'Roboto Mono, monospace',
-              fontWeight: 700,
-              color: data.rrRatio >= 2 ? '#10b981' : '#eab308',
-            }}
-          >
-            {data.rrRatio.toFixed(2)}
-          </Typography>
-        </Box>
-      </Stack>
+          <AutoGraphIcon sx={{ fontSize: 36, color: ACCENT_PURPLE }} />
+        </motion.div>
+        <Typography variant="h4" sx={{ 
+          fontWeight: 700, 
+          background: ACCENT_GRADIENT,
+          backgroundClip: 'text',
+          WebkitBackgroundClip: 'text',
+          WebkitTextFillColor: 'transparent',
+        }}>
+          Investment Strategy
+        </Typography>
+      </Box>
 
-      {/* Targets */}
-      <Stack spacing={1} alignItems="center" sx={{ flex: 1 }}>
-        <Typography variant="subtitle2" sx={{ color: TEXT_SECONDARY }}>Targets</Typography>
-        <Chip
-          icon={<TrendingUpIcon />}
-          label={`TP ${data.pnlTarget}%`}
+      {/* Investment Mindmap */}
+      {rawData?.investment_mindmap && (
+        <Box
           sx={{
-            fontWeight: 600,
-            bgcolor: '#10b981',
-            color: '#000',
-            animation: `${glow} .6s infinite alternate`,
+            mb: 4,
+            p: 3,
+            background: 'linear-gradient(135deg, rgba(0,255,255,0.05), rgba(168,85,247,0.05))',
+            border: '1px solid rgba(0,255,255,0.2)',
+            borderRadius: 3,
+            position: 'relative',
           }}
-        />
-        <Chip
-          icon={<TrendingDownIcon />}
-          label={`SL ${data.stopLoss}%`}
-          sx={{ fontWeight: 600, bgcolor: '#ef4444', color: '#000' }}
-        />
+        >
+          <Typography variant="h6" sx={{ color: ACCENT_CYAN, mb: 2, fontWeight: 600 }}>
+            🧠 Strategic Overview
+          </Typography>
+          <Typography sx={{ color: TEXT_PRIMARY, whiteSpace: 'pre-wrap', lineHeight: 1.8 }}>
+            {rawData.investment_mindmap}
+          </Typography>
+          <LinearProgress
+            sx={{
+              position: 'absolute',
+              bottom: 0,
+              left: 0,
+              right: 0,
+              height: 2,
+              backgroundColor: 'transparent',
+              '& .MuiLinearProgress-bar': {
+                background: ACCENT_GRADIENT,
+              },
+            }}
+            variant="indeterminate"
+          />
+        </Box>
+      )}
+
+      {/* Strategy Steps */}
+      <StyledStepper alternativeLabel sx={{ mb: 5 }}>
+        {data.steps.map(({ label, note }, idx) => (
+          <Step key={idx} completed={idx < data.steps.length - 1}>
+            <Tooltip title={note || ''} arrow placement="top">
+              <StepLabel
+                StepIconComponent={() => (
+                  <motion.div
+                    initial={{ scale: 0 }}
+                    animate={{ scale: 1 }}
+                    transition={{ delay: idx * 0.2 }}
+                  >
+                    <Box
+                      sx={{
+                        width: 48,
+                        height: 48,
+                        borderRadius: '50%',
+                        background: idx === 0 ? 'rgba(0,255,255,0.2)' 
+                                  : idx === data.steps.length - 1 ? 'rgba(239,68,68,0.2)'
+                                  : 'rgba(168,85,247,0.2)',
+                        border: '2px solid',
+                        borderColor: idx === 0 ? ACCENT_CYAN 
+                                   : idx === data.steps.length - 1 ? ACCENT_RED
+                                   : ACCENT_PURPLE,
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        animation: `${pulse} 2s ease-in-out infinite`,
+                        animationDelay: `${idx * 0.3}s`,
+                      }}
+                    >
+                      {getStepIcon(idx)}
+                    </Box>
+                  </motion.div>
+                )}
+              >
+                <Typography variant="body1" sx={{ color: TEXT_PRIMARY, fontWeight: 600, mt: 1 }}>
+                  {label}
+                </Typography>
+                {note && (
+                  <Typography variant="caption" sx={{ color: TEXT_SECONDARY, display: 'block' }}>
+                    {note}
+                  </Typography>
+                )}
+              </StepLabel>
+            </Tooltip>
+          </Step>
+        ))}
+      </StyledStepper>
+
+      <Divider sx={{ borderColor: 'rgba(255,255,255,0.1)', my: 4 }} />
+
+      {/* Metrics Grid */}
+      <Stack direction={{ xs: 'column', md: 'row' }} spacing={3} justifyContent="space-between">
+        {/* Risk Level */}
+        <MetricCard sx={{ flex: 1 }}>
+          <Stack spacing={2} alignItems="center">
+            <Typography variant="subtitle1" sx={{ color: TEXT_SECONDARY, fontWeight: 600 }}>
+              Risk Assessment
+            </Typography>
+            <Box sx={{ width: '100%', maxWidth: 200 }}>
+              <AnimatePresence>
+                <motion.div
+                  initial={{ scale: 0.8, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  transition={{ duration: 0.5 }}
+                >
+                  <GaugeChart
+                    id="risk-gauge"
+                    nrOfLevels={30}
+                    colors={['#10b981', '#eab308', '#ef4444']}
+                    percent={data.riskScore}
+                    arcPadding={0.02}
+                    animate={true}
+                    animDelay={500}
+                    textColor={TEXT_PRIMARY}
+                    needleColor="#90A4AE"
+                    needleBaseColor="#90A4AE"
+                  />
+                </motion.div>
+              </AnimatePresence>
+            </Box>
+            <Chip
+              label={data.riskScore <= 0.33 ? 'LOW RISK' : data.riskScore <= 0.66 ? 'MEDIUM RISK' : 'HIGH RISK'}
+              sx={{
+                background: data.riskScore <= 0.33 ? 'rgba(16,185,129,0.2)' 
+                          : data.riskScore <= 0.66 ? 'rgba(234,179,8,0.2)' 
+                          : 'rgba(239,68,68,0.2)',
+                color: data.riskScore <= 0.33 ? ACCENT_GREEN 
+                     : data.riskScore <= 0.66 ? ACCENT_YELLOW 
+                     : ACCENT_RED,
+                border: '1px solid',
+                borderColor: 'currentColor',
+                fontWeight: 600,
+              }}
+            />
+          </Stack>
+        </MetricCard>
+
+        {/* Risk/Reward */}
+        <MetricCard sx={{ flex: 1 }}>
+          <Stack spacing={2} alignItems="center">
+            <Typography variant="subtitle1" sx={{ color: TEXT_SECONDARY, fontWeight: 600 }}>
+              Risk / Reward Ratio
+            </Typography>
+            <Box
+              sx={{
+                width: 120,
+                height: 120,
+                borderRadius: '50%',
+                background: 'rgba(0,255,255,0.1)',
+                border: '3px solid',
+                borderColor: data.rrRatio >= 2 ? ACCENT_GREEN : ACCENT_YELLOW,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                position: 'relative',
+                animation: `${glow} 3s ease-in-out infinite`,
+              }}
+            >
+              <Typography
+                sx={{
+                  fontSize: 36,
+                  fontFamily: 'monospace',
+                  fontWeight: 700,
+                  color: data.rrRatio >= 2 ? ACCENT_GREEN : ACCENT_YELLOW,
+                }}
+              >
+                {data.rrRatio.toFixed(2)}
+              </Typography>
+              <Box
+                sx={{
+                  position: 'absolute',
+                  top: -10,
+                  right: -10,
+                  width: 30,
+                  height: 30,
+                  borderRadius: '50%',
+                  background: data.rrRatio >= 2 ? ACCENT_GREEN : ACCENT_YELLOW,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}
+              >
+                <SignalCellularAltIcon sx={{ color: '#000', fontSize: 16 }} />
+              </Box>
+            </Box>
+            <Typography variant="caption" sx={{ color: TEXT_SECONDARY }}>
+              {data.rrRatio >= 2 ? 'Favorable' : 'Moderate'} Risk/Reward
+            </Typography>
+          </Stack>
+        </MetricCard>
+
+        {/* Targets */}
+        <MetricCard sx={{ flex: 1 }}>
+          <Stack spacing={2} alignItems="center">
+            <Typography variant="subtitle1" sx={{ color: TEXT_SECONDARY, fontWeight: 600 }}>
+              Price Targets
+            </Typography>
+            <Stack spacing={2} sx={{ width: '100%' }}>
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                transition={{ type: 'spring', stiffness: 300 }}
+              >
+                <Box
+                  sx={{
+                    p: 2,
+                    background: 'rgba(16,185,129,0.1)',
+                    border: '1px solid',
+                    borderColor: ACCENT_GREEN,
+                    borderRadius: 2,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                  }}
+                >
+                  <Stack direction="row" alignItems="center" spacing={1}>
+                    <TrendingUpIcon sx={{ color: ACCENT_GREEN }} />
+                    <Typography sx={{ color: TEXT_PRIMARY, fontWeight: 600 }}>
+                      Take Profit
+                    </Typography>
+                  </Stack>
+                  <Typography sx={{ color: ACCENT_GREEN, fontWeight: 700, fontSize: '1.2rem' }}>
+                    +{data.pnlTarget}%
+                  </Typography>
+                </Box>
+              </motion.div>
+              
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                transition={{ type: 'spring', stiffness: 300 }}
+              >
+                <Box
+                  sx={{
+                    p: 2,
+                    background: 'rgba(239,68,68,0.1)',
+                    border: '1px solid',
+                    borderColor: ACCENT_RED,
+                    borderRadius: 2,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                  }}
+                >
+                  <Stack direction="row" alignItems="center" spacing={1}>
+                    <TrendingDownIcon sx={{ color: ACCENT_RED }} />
+                    <Typography sx={{ color: TEXT_PRIMARY, fontWeight: 600 }}>
+                      Stop Loss
+                    </Typography>
+                  </Stack>
+                  <Typography sx={{ color: ACCENT_RED, fontWeight: 700, fontSize: '1.2rem' }}>
+                    -{data.stopLoss}%
+                  </Typography>
+                </Box>
+              </motion.div>
+            </Stack>
+          </Stack>
+        </MetricCard>
       </Stack>
-    </Stack>
 
-    <Divider sx={{ borderColor: '#444', my: 3 }} />
+      <Divider sx={{ borderColor: 'rgba(255,255,255,0.1)', my: 4 }} />
 
-    {/* Conviction badge */}
-    <Stack direction="row" justifyContent="center">
-      <Chip
-        icon={<FlagIcon />}
-        label={`Conviction: ${data.conviction.toUpperCase()}`}
-        sx={{
-          fontWeight: 700,
-          bgcolor: CHIP_COLORS[data.conviction],
-          color: '#000',
-          px: 3,
-          py: 1,
-          animation: `${glow} 1s infinite alternate`,
-        }}
-      />
-    </Stack>
-  </Paper>
-);
+      {/* Conviction Level */}
+      <Stack direction="row" justifyContent="center">
+        <motion.div
+          initial={{ scale: 0, rotate: -180 }}
+          animate={{ scale: 1, rotate: 0 }}
+          transition={{ 
+            type: 'spring',
+            stiffness: 260,
+            damping: 20,
+            delay: 0.5,
+          }}
+        >
+          <ConvictionChip
+            icon={<FlagIcon />}
+            label={`${data.conviction.toUpperCase()} CONVICTION`}
+            conviction={data.conviction}
+          />
+        </motion.div>
+      </Stack>
+
+      {/* Strategy Type & Recommendation */}
+      {rawData && (
+        <Stack spacing={2} sx={{ mt: 4, textAlign: 'center' }}>
+          {rawData.strategy_type && (
+            <Typography variant="h6" sx={{ color: TEXT_PRIMARY }}>
+              Strategy: <span style={{ color: ACCENT_CYAN }}>{rawData.strategy_type}</span>
+            </Typography>
+          )}
+          {rawData.recommended_action && (
+            <Chip
+              label={`Action: ${rawData.recommended_action}`}
+              sx={{
+                background: rawData.recommended_action === 'BUY' ? 'rgba(16,185,129,0.2)'
+                          : rawData.recommended_action === 'SELL' ? 'rgba(239,68,68,0.2)'
+                          : 'rgba(234,179,8,0.2)',
+                color: rawData.recommended_action === 'BUY' ? ACCENT_GREEN
+                     : rawData.recommended_action === 'SELL' ? ACCENT_RED
+                     : ACCENT_YELLOW,
+                border: '1px solid currentColor',
+                fontWeight: 700,
+                fontSize: '1rem',
+                py: 3,
+                px: 4,
+              }}
+            />
+          )}
+        </Stack>
+      )}
+    </StyledPaper>
+  );
+};
+
 export default FancyStrategyPanel;

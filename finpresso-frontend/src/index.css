@@ -140,7 +140,6 @@ button:focus-visible {
     --border: 217 33% 17%;
     --input: 217 33% 14%;
     --background: 222 47% 11%;
-    /* 还有别的就一起放 */
   }
   * {
     @apply border-border;
