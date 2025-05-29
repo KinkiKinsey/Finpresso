@@ -1,0 +1,287 @@
+{
+  "get_stock_metrics": {
+    "key_metrics": {
+      "EPS": "$12.92",
+      "ROIC": "22.78%",
+      "Debt_to_Equity": "0.55",
+      "Revenue_Growth": "15.67% YoY",
+      "Free_Cash_Flow": "$74.07B",
+      "Beta": "0.98",
+      "Current_Price": "$450.18",
+      "Market_Cap": "$3345.98B",
+      "PE_Ratio": "34.84",
+      "PB_Ratio": "10.40"
+    },
+    "ticker": "MSFT",
+    "last_updated": "2025-05-27 08:06:45"
+  },
+  "analyze_earnings_vs_estimates": {
+    "data": [
+      {
+        "date": "2025-04-30",
+        "symbol": "MSFT",
+        "actualEarningResult": 3.46,
+        "estimatedEarning": 3.22,
+        "surprise_pct": 7.453416149068315
+      },
+      {
+        "date": "2025-01-29",
+        "symbol": "MSFT",
+        "actualEarningResult": 3.23,
+        "estimatedEarning": 3.15,
+        "surprise_pct": 2.539682539682542
+      },
+      {
+        "date": "2024-10-30",
+        "symbol": "MSFT",
+        "actualEarningResult": 3.3,
+        "estimatedEarning": 3.1,
+        "surprise_pct": 6.451612903225798
+      },
+      {
+        "date": "2024-07-30",
+        "symbol": "MSFT",
+        "actualEarningResult": 2.95,
+        "estimatedEarning": 2.93,
+        "surprise_pct": 0.6825938566552906
+      }
+    ],
+    "summary": {
+      "total_quarters": 4,
+      "beats": 4,
+      "misses": 0,
+      "beat_rate": 1.0,
+      "average_surprise_pct": 4.281826362157987,
+      "surprise_trend": 6.770822292413024
+    }
+  },
+  "get_peer_valuation_comparison": {
+    "__dataframe__": true,
+    "data": [
+      {
+        "ticker": "MSFT",
+        "price": 457.2799,
+        "market_cap_B": 3398.751223808,
+        "forward_pe": 30.587286,
+        "price_to_book": 10.560737,
+        "ev_to_ebitda": 22.6,
+        "profit_margins": 0.35789,
+        "sector": "Technology",
+        "industry": "Software - Infrastructure",
+        "forward_pe_rank": 0.4,
+        "price_to_book_rank": 0.3125,
+        "ev_to_ebitda_rank": 0.3333333333333333
+      },
+      {
+        "ticker": "ORCL",
+        "price": 161.3801,
+        "market_cap_B": 452.54688768,
+        "forward_pe": 22.53912,
+        "price_to_book": 27.036371,
+        "ev_to_ebitda": 23.096,
+        "profit_margins": 0.21799,
+        "sector": "Technology",
+        "industry": "Software - Infrastructure",
+        "forward_pe_rank": 0.2,
+        "price_to_book_rank": 0.6875,
+        "ev_to_ebitda_rank": 0.4
+      },
+      {
+        "ticker": "PLTR",
+        "price": 125.7103,
+        "market_cap_B": 296.664956928,
+        "forward_pe": 267.46872,
+        "price_to_book": 54.680424,
+        "ev_to_ebitda": 656.748,
+        "profit_margins": 0.18320999,
+        "sector": "Technology",
+        "industry": "Software - Infrastructure",
+        "forward_pe_rank": 1.0,
+        "price_to_book_rank": 0.9375,
+        "ev_to_ebitda_rank": 0.9333333333333333
+      },
+      {
+        "ticker": "ADBE",
+        "price": 413.25,
+        "market_cap_B": 176.127148032,
+        "forward_pe": 20.10949,
+        "price_to_book": 13.727867,
+        "ev_to_ebitda": 19.952,
+        "profit_margins": 0.30635,
+        "sector": "Technology",
+        "industry": "Software - Application",
+        "forward_pe_rank": 0.13333333333333333,
+        "price_to_book_rank": 0.375,
+        "ev_to_ebitda_rank": 0.26666666666666666
+      },
+      {
+        "ticker": "PANW",
+        "price": 187.82,
+        "market_cap_B": 125.238378496,
+        "forward_pe": 26.086113,
+        "price_to_book": 17.297846,
+        "ev_to_ebitda": 97.609,
+        "profit_margins": 0.13948,
+        "sector": "Technology",
+        "industry": "Software - Infrastructure",
+        "forward_pe_rank": 0.26666666666666666,
+        "price_to_book_rank": 0.5,
+        "ev_to_ebitda_rank": 0.8666666666666667
+      },
+      {
+        "ticker": "CRWD",
+        "price": 472.775,
+        "market_cap_B": 117.755961344,
+        "forward_pe": 110.72014,
+        "price_to_book": 35.732372,
+        "ev_to_ebitda": 1077.888,
+        "profit_margins": -0.00487,
+        "sector": "Technology",
+        "industry": "Software - Infrastructure",
+        "forward_pe_rank": 0.8,
+        "price_to_book_rank": 0.75,
+        "ev_to_ebitda_rank": 1.0
+      },
+      {
+        "ticker": "FTNT",
+        "price": 105.635,
+        "market_cap_B": 80.854720512,
+        "forward_pe": 43.83195,
+        "price_to_book": 41.393024,
+        "ev_to_ebitda": 36.6,
+        "profit_margins": 0.30597,
+        "sector": "Technology",
+        "industry": "Software - Infrastructure",
+        "forward_pe_rank": 0.6,
+        "price_to_book_rank": 0.875,
+        "ev_to_ebitda_rank": 0.6666666666666666
+      },
+      {
+        "ticker": "SNPS",
+        "price": 508.46,
+        "market_cap_B": 78.618083328,
+        "forward_pe": 34.19368,
+        "price_to_book": 8.449126,
+        "ev_to_ebitda": 51.197,
+        "profit_margins": 0.3475,
+        "sector": "Technology",
+        "industry": "Software - Infrastructure",
+        "forward_pe_rank": 0.5333333333333333,
+        "price_to_book_rank": 0.25,
+        "ev_to_ebitda_rank": 0.8
+      },
+      {
+        "ticker": "ADYYF",
+        "price": 1850.0,
+        "market_cap_B": 58.835181568,
+        "forward_pe": NaN,
+        "price_to_book": 13.765188,
+        "ev_to_ebitda": 48.214,
+        "profit_margins": 0.45916998,
+        "sector": "Technology",
+        "industry": "Software - Infrastructure",
+        "forward_pe_rank": NaN,
+        "price_to_book_rank": 0.4375,
+        "ev_to_ebitda_rank": 0.7333333333333333
+      },
+      {
+        "ticker": "HOOD",
+        "price": 66.11,
+        "market_cap_B": 58.333319168,
+        "forward_pe": 90.55123,
+        "price_to_book": 7.352063,
+        "ev_to_ebitda": NaN,
+        "profit_margins": 0.48773,
+        "sector": "Financial Services",
+        "industry": "Capital Markets",
+        "forward_pe_rank": 0.7333333333333333,
+        "price_to_book_rank": 0.1875,
+        "ev_to_ebitda_rank": NaN
+      },
+      {
+        "ticker": "NET",
+        "price": 160.71,
+        "market_cap_B": 55.703691264,
+        "forward_pe": 186.8721,
+        "price_to_book": 39.054684,
+        "ev_to_ebitda": -2214.407,
+        "profit_margins": -0.04616,
+        "sector": "Technology",
+        "industry": "Software - Infrastructure",
+        "forward_pe_rank": 0.9333333333333333,
+        "price_to_book_rank": 0.8125,
+        "ev_to_ebitda_rank": 0.06666666666666667
+      },
+      {
+        "ticker": "ZS",
+        "price": 256.675,
+        "market_cap_B": 39.714033664,
+        "forward_pe": 72.09972,
+        "price_to_book": 24.7088,
+        "ev_to_ebitda": -646.783,
+        "profit_margins": -0.00641,
+        "sector": "Technology",
+        "industry": "Software - Infrastructure",
+        "forward_pe_rank": 0.6666666666666666,
+        "price_to_book_rank": 0.625,
+        "ev_to_ebitda_rank": 0.13333333333333333
+      },
+      {
+        "ticker": "XYZ",
+        "price": 61.81,
+        "market_cap_B": 38.014324736,
+        "forward_pe": 15.57488,
+        "price_to_book": 1.7759963,
+        "ev_to_ebitda": 24.467,
+        "profit_margins": 0.10925,
+        "sector": "Technology",
+        "industry": "Software - Infrastructure",
+        "forward_pe_rank": 0.06666666666666667,
+        "price_to_book_rank": 0.125,
+        "ev_to_ebitda_rank": 0.4666666666666667
+      },
+      {
+        "ticker": "IOT",
+        "price": 46.27,
+        "market_cap_B": 26.342436864,
+        "forward_pe": 177.96155,
+        "price_to_book": 24.481482,
+        "ev_to_ebitda": -145.807,
+        "profit_margins": -0.12401,
+        "sector": "Technology",
+        "industry": "Software - Infrastructure",
+        "forward_pe_rank": 0.8666666666666667,
+        "price_to_book_rank": 0.5625,
+        "ev_to_ebitda_rank": 0.2
+      },
+      {
+        "ticker": "GDDY",
+        "price": 181.47,
+        "market_cap_B": 25.857298432,
+        "forward_pe": 27.04471,
+        "price_to_book": 129.43652,
+        "ev_to_ebitda": 26.159,
+        "profit_margins": 0.16203,
+        "sector": "Technology",
+        "industry": "Software - Infrastructure",
+        "forward_pe_rank": 0.3333333333333333,
+        "price_to_book_rank": 1.0,
+        "ev_to_ebitda_rank": 0.6
+      },
+      {
+        "ticker": "VRSN",
+        "price": 273.8801,
+        "market_cap_B": 25.71734016,
+        "forward_pe": 31.66244,
+        "price_to_book": -13.035702,
+        "ev_to_ebitda": 24.774,
+        "profit_margins": 0.50203,
+        "sector": "Technology",
+        "industry": "Software - Infrastructure",
+        "forward_pe_rank": 0.4666666666666667,
+        "price_to_book_rank": 0.0625,
+        "ev_to_ebitda_rank": 0.5333333333333333
+      }
+    ]
+  }
+}

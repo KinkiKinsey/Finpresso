@@ -1,0 +1,44 @@
+{
+    "timestamp": "2025-05-26T13:14:30.174691",
+    "data": {
+        "summary": "The U.S. economy shows signs of cooling with slowing GDP growth and persistent inflationary pressures. The Fed has cut rates aggressively, but long-term yields remain elevated, tightening credit conditions. Consumer sentiment is weak, and trade policy uncertainties add to economic headwinds.",
+        "key_indicators": {
+            "GDP_growth_description": "Real GDP growth slowed from 5.0% (early 2024) to 3.5% (mid-2025), indicating moderating expansion.",
+            "Inflation_rate_description": "PCE inflation dropped sharply to 1.8%, while CPI inflation continues climbing, reflecting sticky core inflation.",
+            "Unemployment_rate_description": "Unemployment remains low (4.0%\u20134.2%), but recent upticks hint at softening demand.",
+            "Interest_rate_description": "Fed cut rates from 5.33% to 4.33%, yet long-term yields (10Y at 4.28%) remain elevated.",
+            "VIX_level_description": "VIX sentiment is neutral, with a z-score of 0.34, indicating moderate market uncertainty."
+        },
+        "sentiment": "NEUTRAL",
+        "trend": "STABLE",
+        "influencers": [
+            "Fed Chair Powell defending Fed independence",
+            "President Trump delaying EU tariffs and approving Nippon Steel-U.S. Steel merger",
+            "ECB\u2019s Simkus warning of inflation undershooting target"
+        ],
+        "favorable_sectors": [
+            "Industrial sector (due to U.S. Steel merger)",
+            "Gold (as a hedge against inflation)",
+            "European equities (on reduced trade war fears)"
+        ],
+        "non_favorable_sectors": [
+            "Consumer discretionary (due to student loan collections and weak sentiment)",
+            "Housing (cooling sales and affordability issues)",
+            "Retail (impacted by reduced consumer spending)"
+        ],
+        "macro_catalysts": [
+            "FOMC Minutes release on May 28",
+            "US Durable Goods Orders data on May 27",
+            "EU trade negotiations outcome by July 9"
+        ],
+        "macro_event_recap": [
+            "Trump delayed EU tariffs until July 9, easing trade tensions.",
+            "Fed Chair Powell defended Fed independence amid political criticism.",
+            "Trump approved Nippon Steel-U.S. Steel merger, boosting industrial sector.",
+            "Student loan collections restarted, potentially reducing disposable income.",
+            "Consumer sentiment hit near-record low amid tariff fears.",
+            "ECB warned of inflation undershooting target, suggesting dovish shifts.",
+            "India seeks to avoid U.S. tariffs in ongoing trade talks."
+        ]
+    }
+}
