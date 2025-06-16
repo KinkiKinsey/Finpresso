@@ -76,6 +76,7 @@ export default function ProgressPage() {
     price: 0,
     strategy: 0,
   };
+
   const panelData = data?.panel_data ?? ({} as Record<PanelKey, any>);
 
   return (

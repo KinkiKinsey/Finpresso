@@ -311,6 +311,11 @@ NEWS_REPORT_PATH = os.path.join(MACRO_FILES_DIR, "macro_news_report.txt")
 NEWS_META_PATH = os.path.join(MACRO_FILES_DIR, "macro_news_report.meta")
 MAX_AGE_HOURS = 24
 
+RATING_JSON_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "Rating_Json")
+
+def get_rating_json_path(ticker):
+    return os.path.join(RATING_JSON_DIR, f"{ticker}.json")
+
 def test_file_access(directory):
     """Test if we can create and access files in the given directory"""
     print(f"Testing file access in: {directory}")

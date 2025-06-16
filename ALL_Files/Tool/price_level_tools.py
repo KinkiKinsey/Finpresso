@@ -8,33 +8,19 @@ matplotlib.use('Agg')  # Use non-interactive backend to avoid NSWindow thread is
 import yfinance as yf
 import matplotlib.pyplot as plt
 import pandas as pd
-
 import numpy as np
-
 from scipy.stats import norm
 import scipy.stats as stats
-import numpy as np
-
 from statsmodels.tsa.arima.model import ARIMA
 from statsmodels.tsa.statespace.sarimax import SARIMAX
 import warnings
-
 import itertools
-
 from sklearn.preprocessing import MinMaxScaler
-
 import matplotlib.dates as mdates
 from matplotlib.dates import DateFormatter
-
-
 from ta.trend import macd_diff
-
 from io import BytesIO
 import base64
-
-
-
-
 
 def bayesian_weight_function(stock_ticker, N, alpha=1):
     """
@@ -312,7 +298,39 @@ def calculate_risk_reward(stock_ticker, N=360, share=1, buy_price=None, hypothes
 
     return analysis_string, graph_data
 
-def analyze_both_positions(stock_ticker, price, share, N, hypothesis_stop_gain=None, hypothesis_stop_loss=None, bayesian_weight=True):
+def get_available_history(ticker):
+    """Helper function to determine available price history and appropriate intervals."""
+    try:
+        # Download full history
+        data = yf.download(ticker, period="max")
+        if data.empty:
+            return None, None, None
+        
+        first_date = data.index[0]
+        last_date = data.index[-1]
+        n_days = (last_date - first_date).days
+        n_years = n_days / 365.25
+        
+        # Determine intervals based on available history
+        rr_interval = min(365, n_days) if n_years >= 1 else n_days  # 1 year or full history
+        other_interval = min(730, n_days) if n_years >= 2 else n_days  # 2 years or full history
+        
+        return n_years, rr_interval, other_interval
+    except Exception as e:
+        print(f"Error determining history for {ticker}: {str(e)}")
+        return None, None, None
+
+def analyze_both_positions(stock_ticker, price, share, N=None, hypothesis_stop_gain=None, hypothesis_stop_loss=None, bayesian_weight=True):
+    """Analyze both long and short positions with dynamic interval selection."""
+    # Determine appropriate interval
+    _, rr_interval, _ = get_available_history(stock_ticker)
+    if rr_interval is None:
+        return "Error: Could not determine appropriate interval for analysis.", {}
+    
+    # Use the determined interval
+    N = int(rr_interval)
+    
+    # Rest of the function remains the same
     analysis_string = ""
     graph_data = {}
 
@@ -470,82 +488,31 @@ def analyze_both_positions(stock_ticker, price, share, N, hypothesis_stop_gain=N
 
 
 
-def analyze_sma_crossovers(ticker="AAPL", period="5y", lookforward=90):
-    """
-SMA/EMA Crossover Analysis Toolkit
+def _get_valid_period_string(days):
+    """Helper to convert days to a valid yfinance period string."""
+    if days >= 365:
+        years = int(days // 365)
+        return f"{years}y"
+    elif days >= 30:
+        months = int(days // 30)
+        return f"{months}mo"
+    else:
+        return f"{int(days)}d"
 
-You could dynamically change the lookforward period to see the performance of the strategy.
+def analyze_sma_crossovers(ticker="AAPL", period=None, lookforward=90):
+    """Analyze SMA crossovers with dynamic interval selection."""
+    # Determine appropriate interval
+    n_years, _, _ = get_available_history(ticker)
+    if n_years is None:
+        return "Error: Could not determine appropriate interval for analysis.", {}
 
-A technical analysis package that evaluates moving average crossover strategies with:
-- Performance metrics for golden/death crosses
-- Visual backtesting of signals
-- Forward-looking return analysis
+    # Use 5 years if available, else full history
+    if n_years > 5:
+        period = "5y"
+    else:
+        period = "max"
 
-Contains 3 main functions:
-
-1. analyze_sma_crossovers()
-   - Tracks 50/200 SMA crossovers (golden/death crosses)
-   - Measures subsequent price performance
-   - Optimal for long-term trend following
-
-2. analyze_ema_crossovers() 
-   - Monitors 9/21 EMA crossovers
-   - Captures short-term momentum shifts
-   - Ideal for swing trading strategies
-
-3. print_performance()
-   - Helper to display formatted results
-
-Key Features:
-- Quantifies max returns after crossovers
-- Identifies optimal holding periods
-- Generates annotated visualizations
-- Supports custom lookback/forward windows
-
-Usage Example:
->>> sma_report, sma_graph = analyze_sma_crossovers("AAPL", period="10y")
->>> ema_report, ema_graph = analyze_ema_crossovers("TSLA", lookforward=14)
->>> print_performance("50/200 SMA", bull_returns, bear_returns)
-
-Input Parameters (for both functions):
-- ticker (str): Stock symbol (e.g. "NVDA")
-- period (str): Data timeframe (e.g. "5y", "10y")
-- lookforward (int): Days to analyze after crossover (default: 90/30)
-
-Outputs:
-Tuple[str, dict] containing:
-   - Analysis report (markdown formatted)
-   - Dictionary with base64-encoded plot:
-     * sma_plot for 50/200 SMA
-     * ema_plot for 9/21 EMA
-
-Metrics Calculated:
-1. For Bullish Crosses:
-   - Frequency of occurrences
-   - Average/max/median returns
-   - Best-case performance
-
-2. For Bearish Crosses:  
-   - Same metrics for short opportunities
-   - Measures downside protection
-
-Visualization Includes:
-- Price + moving averages
-- Crossover markers (colored by type)
-- Extreme points (peaks/troughs)
-- Performance annotations
-
-Integration Notes:
-- Returns base64 images for web/chat display
-- Use print_performance() for console output
-- Handles missing data gracefully
-
-Typical Workflow:
-1. Identify crossover events
-2. Measure subsequent price movement
-3. Compare bull/bear performance
-4. Visualize optimal holding periods
-    """
+    # Rest of the function remains the same
     analysis_string = ""
     graph_data = {}
     
@@ -643,8 +610,16 @@ Typical Workflow:
     
     return analysis_string, graph_data
 
-def analyze_ema_crossovers(ticker="AAPL", period="5y", lookforward=30):
-    """Analyze 9/21 EMA crossovers with performance metrics"""
+def analyze_ema_crossovers(ticker="AAPL", period=None, lookforward=30):
+    """Analyze EMA crossovers with dynamic interval selection."""
+    # Determine appropriate interval
+    _, _, other_interval = get_available_history(ticker)
+    if other_interval is None:
+        return "Error: Could not determine appropriate interval for analysis.", {}
+    
+    period = _get_valid_period_string(other_interval)
+    
+    # Rest of the function remains the same
     analysis_string = ""
     graph_data = {}
     
@@ -912,8 +887,16 @@ def generate_analysis_report(vw_macd, signal_line, close_prices, ticker, period)
     
     return "\n".join(report)
 
-def analyze_vw_macd(ticker='TSLA', period='1y'):
-    """Analyze volume-weighted MACD and return results"""
+def analyze_vw_macd(ticker='TSLA', period=None):
+    """Analyze volume-weighted MACD with dynamic interval selection."""
+    # Determine appropriate interval
+    _, _, other_interval = get_available_history(ticker)
+    if other_interval is None:
+        return "Error: Could not determine appropriate interval for analysis.", {}
+    
+    period = _get_valid_period_string(other_interval)
+    
+    # Rest of the function remains the same
     analysis_string = ""
     graph_data = {}
     

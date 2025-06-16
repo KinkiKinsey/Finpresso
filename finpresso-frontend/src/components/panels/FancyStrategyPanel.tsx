@@ -177,6 +177,20 @@ interface FancyStrategyPanelProps {
 }
 
 const FancyStrategyPanel: React.FC<FancyStrategyPanelProps> = ({ data, rawData }) => {
+  const isEmpty = !data || Object.keys(data).length === 0;
+  if (isEmpty) {
+    return (
+      <StyledPaper elevation={0} sx={{ width: '100%', maxWidth: 1200, mx: 'auto', p: { xs: 3, md: 5 }, borderRadius: 4 }}>
+        <Typography variant="h5" sx={{ color: '#ffc300', fontWeight: 700, mb: 2 }}>
+          No investment strategy data available
+        </Typography>
+        <Typography variant="body1" sx={{ color: '#aaa' }}>
+          The backend did not provide investment strategy for this ticker. Please try again later or rerun the analysis.
+        </Typography>
+      </StyledPaper>
+    );
+  }
+
   const getStepIcon = (index: number) => {
     const icons = [
       <AutoGraphIcon sx={{ color: ACCENT_CYAN }} />,
@@ -212,15 +226,20 @@ const FancyStrategyPanel: React.FC<FancyStrategyPanelProps> = ({ data, rawData }
         >
           <AutoGraphIcon sx={{ fontSize: 36, color: ACCENT_PURPLE }} />
         </motion.div>
-        <Typography variant="h4" sx={{ 
-          fontWeight: 700, 
-          background: ACCENT_GRADIENT,
-          backgroundClip: 'text',
-          WebkitBackgroundClip: 'text',
-          WebkitTextFillColor: 'transparent',
-        }}>
-          Investment Strategy
-        </Typography>
+        <Box>
+          <Typography variant="h4" sx={{ 
+            fontWeight: 700, 
+            background: ACCENT_GRADIENT,
+            backgroundClip: 'text',
+            WebkitBackgroundClip: 'text',
+            WebkitTextFillColor: 'transparent',
+          }}>
+            Investment AI
+          </Typography>
+          <Typography variant="subtitle2" sx={{ color: ACCENT_CYAN, fontWeight: 400, mt: 0.5 }}>
+            This AI will show integrated investment thesis
+          </Typography>
+        </Box>
       </Box>
 
       {/* Investment Mindmap */}

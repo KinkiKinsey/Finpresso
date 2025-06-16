@@ -110,6 +110,6 @@ websockets==15.0.1
 wsproto==1.2.0
 xxhash==3.5.0
 yarl==1.20.0
-yfinance==0.2.58
+yfinance==0.2.62
 youtube-transcript-api==1.0.3
 zstandard==0.23.0

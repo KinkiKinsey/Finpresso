@@ -1,0 +1,42 @@
+{
+    "timestamp": "2025-06-08T18:19:03.147884",
+    "data": {
+        "summary": "The U.S. economy is showing signs of cooling with moderating GDP growth and easing inflationary pressures, though core inflation risks persist. The labor market remains resilient but shows slight softening, while monetary policy is easing. Trade imbalances and housing affordability concerns add structural pressures. Market sentiment reflects moderate greed, with investors hedging against uncertainty through gold.",
+        "key_indicators": {
+            "GDP_growth_description": "Real GDP growth has slowed from 5.0% (early 2024) to 3.4% (mid-2025), indicating moderating expansion.",
+            "Inflation_rate_description": "PCE inflation dropped sharply from 4.0% to 1.2%, but monthly CPI continues rising, signaling persistent core inflation risks.",
+            "Unemployment_rate_description": "The unemployment rate remains low (4.0%-4.2%), but slight upticks hint at softening demand.",
+            "Interest_rate_description": "The Fed Funds Rate has declined (5.33% to 4.33%), signaling easing monetary policy.",
+            "VIX_level_description": "Moderate Greed (-1\u03c3) in both long-term and short-term sentiment, indicating investor optimism but with caution."
+        },
+        "sentiment": "NEUTRAL",
+        "trend": "STABLE",
+        "influencers": [
+            "Federal Reserve officials balancing growth support against inflation risks",
+            "U.S. and China trade negotiators amid ongoing tariff tensions",
+            "Corporate leaders announcing layoffs due to AI and cost pressures"
+        ],
+        "favorable_sectors": [
+            "Defensive sectors (utilities, staples) due to inflation hedging",
+            "Gold and precious metals as safe-haven assets",
+            "Housing investment due to constrained supply and higher returns"
+        ],
+        "non_favorable_sectors": [
+            "Cyclical stocks facing pressure from potential rate-cut delays",
+            "Export-dependent sectors due to worsening trade competitiveness",
+            "Labor-intensive industries amid corporate layoffs"
+        ],
+        "macro_catalysts": [
+            "U.S. Core Inflation Rate MoM (May) release on June 11, 2025",
+            "U.S.-China trade talks in London next week",
+            "Potential Fed policy shifts in response to inflation and growth data"
+        ],
+        "macro_event_recap": [
+            "U.S. added 139,000 jobs in May, above expectations, with unemployment at 4.2%.",
+            "Russia\u2019s central bank cut rates by 100 bps to 20%, citing easing inflation.",
+            "Trump announced U.S.-China trade talks in London amid ongoing tariff tensions.",
+            "Fed official warned tariffs may fuel lasting inflation, complicating policy.",
+            "Corporate layoffs ramped up, with companies like Microsoft and Walmart citing AI and cost pressures."
+        ]
+    }
+}

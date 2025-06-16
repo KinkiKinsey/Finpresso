@@ -17,6 +17,8 @@ spec = importlib.util.spec_from_file_location("price_level_tools", price_tools_p
 price_level_tools = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(price_level_tools)
 
+RATING_JSON_DIR = os.path.join(current_dir, "ALL_Files", "Rating_Json")
+
 class PriceAgent:
     def __init__(self, rating_json_path=None, graph_dir=None):
         """Initialize the Price Agent with a rating JSON file path."""
@@ -54,11 +56,44 @@ class PriceAgent:
         except Exception as e:
             print(f"Error loading rating data: {str(e)}")
     
+    def cleanup_graphs(self, graphs_dir):
+        """Safely clean up old graph files for the current ticker in its folder only."""
+        if not self.ticker:
+            print("No ticker available for graph cleanup")
+            return
+        try:
+            if not os.path.exists(graphs_dir):
+                print(f"Graph directory {graphs_dir} does not exist. Creating it.")
+                os.makedirs(graphs_dir, exist_ok=True)
+                return
+            files = [f for f in os.listdir(graphs_dir) if os.path.isfile(os.path.join(graphs_dir, f))]
+            ticker_files = [f for f in files if f.endswith(".png")]
+            if not ticker_files:
+                print(f"No existing graph files found for {self.ticker}")
+                return
+            deleted_count = 0
+            for file in ticker_files:
+                try:
+                    file_path = os.path.join(graphs_dir, file)
+                    os.remove(file_path)
+                    deleted_count += 1
+                except Exception as e:
+                    print(f"Error deleting {file}: {str(e)}")
+            print(f"Cleaned up {deleted_count} old graph files for {self.ticker}")
+        except Exception as e:
+            print(f"Error during graph cleanup: {str(e)}")
+    
     def analyze_price_levels(self):
         """Analyze price levels using various tools based on inferences."""
         if not self.rating_data or not self.ticker:
             print("No rating data or ticker available. Load rating data first.")
             return
+        
+        # Always use ticker-specific folder
+        graphs_dir = self.graph_dir if self.graph_dir else os.path.join("ALL_Files", "Graph", f"{self.ticker}_Graph")
+        os.makedirs(graphs_dir, exist_ok=True)
+        print(f"Cleaning up old graphs for {self.ticker}...")
+        self.cleanup_graphs(graphs_dir)
         
         # Extract current price from tool results if available
         current_price = None
@@ -92,10 +127,6 @@ class PriceAgent:
         
         # Run analysis tools based on inferences
         self.price_analysis = {}
-        
-        # Determine graph directory - use provided dir or default
-        graphs_dir = self.graph_dir if self.graph_dir else "Price_Graphs"
-        os.makedirs(graphs_dir, exist_ok=True)
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
         
         # 1. Risk/Reward Analysis for both positions
@@ -190,6 +221,8 @@ class PriceAgent:
             print("Volume-weighted MACD analysis completed.")
         except Exception as e:
             print(f"Error in volume-weighted MACD analysis: {str(e)}")
+        
+        print("[DEBUG] price_analysis at end of analyze_price_levels:", json.dumps(self.price_analysis, indent=2))
     
     def generate_strategy(self):
         """Generate a trading strategy based on price analysis and inferences."""
@@ -248,8 +281,10 @@ class PriceAgent:
         if "Macro" in self.rating_data and "macro_catalysts" in self.rating_data["Macro"]:
             catalysts = self.rating_data["Macro"]["macro_catalysts"][:3]  # Get top 3 catalysts
         
-        # Generate price-in determination
-        price_in = self.determine_price_in()
+        # Generate price-in determination - only if we have the required data
+        price_in = None
+        if "vw_macd" in self.price_analysis and "Micro" in self.rating_data and "Three_Key_Takeaway_News" in self.rating_data["Micro"]:
+            price_in = self.determine_price_in()
         
         # Combine signals to determine overall strategy
         strategy_type = "MOMENTUM" if is_momentum_strategy else "REVERSION"
@@ -1056,7 +1091,7 @@ class PriceAgent:
         return "UNKNOWN"
     
     def generate_detailed_rationale(self, rr_signal, ma_signal, macd_signal, micro_bias, price_in, catalysts):
-        """Generate a detailed rationale for the strategy based on all analyses."""
+        print("[DEBUG] generate_detailed_rationale called")
         rationale = []
         
         # Macro perspective
@@ -1095,41 +1130,31 @@ class PriceAgent:
         return "\n".join(rationale)
     
     def update_rating_json(self):
-        """Update the original rating JSON with price analysis and strategy."""
-        if not self.rating_data or not self.price_analysis:
-            print("No rating data or price analysis available.")
+        """Update the rating JSON file with the latest price analysis, strategy, and mindmap."""
+        print("[DEBUG] Entering update_rating_json")
+        if not self.rating_json_path:
+            print("No rating_json_path set!")
             return
-        
-        # Update the Price section
-        self.rating_data["Price"] = {
-            "risk_reward_summary": self.price_analysis.get("risk_reward", {}).get("summary", ""),
-            "sma_crossovers_summary": self.price_analysis.get("sma_crossovers", {}).get("summary", ""),
-            "ema_crossovers_summary": self.price_analysis.get("ema_crossovers", {}).get("summary", ""),
-            "vw_macd_summary": self.price_analysis.get("vw_macd", {}).get("summary", ""),
-            "graph_paths": {
-                "risk_reward": self.price_analysis.get("risk_reward", {}).get("graph_path", ""),
-                "sma_crossovers": self.price_analysis.get("sma_crossovers", {}).get("graph_path", ""),
-                "ema_crossovers": self.price_analysis.get("ema_crossovers", {}).get("graph_path", ""),
-                "vw_macd": self.price_analysis.get("vw_macd", {}).get("graph_path", "")
-            }
-        }
-        
-        # Update the Strategy section
-        self.rating_data["Strategy"] = self.strategy
-        
-        # Add Investment Mindmap section
-        self.rating_data["Investment_Mindmap"] = self.investment_mindmap
-        
-        # Save the updated rating JSON to the original file
-        with open(self.rating_json_path, 'w') as f:
-            json.dump(self.rating_data, f, indent=2)
-        print(f"Updated original rating JSON at {self.rating_json_path}")
-        
-        return self.rating_data
+        try:
+            with open(self.rating_json_path, "r") as f:
+                data = json.load(f)
+            data["Price"] = self.price_analysis
+            data["Strategy"] = self.strategy
+            data["Investment_Mindmap"] = self.investment_mindmap
+            data["last_update"] = int(datetime.now().timestamp())
+            with open(self.rating_json_path, "w") as f:
+                json.dump(data, f, indent=2)
+            print(f"[DEBUG] Updated rating JSON: {self.rating_json_path}")
+        except Exception as e:
+            print(f"Error updating rating JSON: {e}")
 
-def find_latest_rating_json():
+def get_rating_json_path(ticker):
+    """Get the path to the rating JSON file for a given ticker."""
+    return os.path.join(RATING_JSON_DIR, f"{ticker}.json")
+
+def find_latest_rating_json(ticker=None):
     """Find the latest rating JSON file in the Rating_Json directory."""
-    json_dir = "Rating_Json"
+    json_dir = RATING_JSON_DIR
     if not os.path.isdir(json_dir):
         print(f"Directory {json_dir} not found.")
         return None
@@ -1164,7 +1189,7 @@ def main():
     # Generate strategy
     agent.generate_strategy()
     
-    # Update the original rating JSON
+    # Update the rating JSON
     agent.update_rating_json()
     
     print(f"Price analysis complete. Results saved to the original file: {latest_rating_json}")

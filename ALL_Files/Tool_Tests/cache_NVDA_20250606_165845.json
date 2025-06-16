@@ -1,0 +1,12 @@
+{
+  "get_stock_dcf_valuation": {
+    "symbol": "NVDA",
+    "date": "2025-06-06",
+    "dcf": 145.4373264061162,
+    "Stock Price": 142.055
+  },
+  "get_peer_valuation_comparison": {
+    "error": "local variable 'valuation_data' referenced before assignment"
+  },
+  "get_stock_beta": 2.122
+}

@@ -158,6 +158,10 @@ except ImportError:
 
 # Define paths
 RATING_JSON_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "Rating_Json")
+
+def get_rating_json_path(ticker):
+    return os.path.join(RATING_JSON_DIR, f"{ticker}.json")
+
 # Remove Debug directory references
 # DEBUG_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "Debug")
 
@@ -302,25 +306,18 @@ class MicroAnalystAgent:
     @tqdm_timer
     def get_latest_rating_json(self) -> Tuple[str, Dict]:
         """
-        Get the latest rating JSON file from the Rating_Json directory
-        
-        Returns:
-            Tuple containing the file path and parsed JSON content
+        Get the latest rating JSON file for the ticker (now always {ticker}.json)
         """
-        # Get all JSON files in the Rating_Json directory
-        json_files = glob.glob(os.path.join(RATING_JSON_DIR, "*.json"))
-        
-        if not json_files:
-            raise FileNotFoundError(f"No JSON files found in {RATING_JSON_DIR}")
-        
-        # Sort by modification time (newest first)
-        latest_file = max(json_files, key=os.path.getmtime)
-        
-        # Read the JSON file
-        with open(latest_file, "r") as f:
+        # Use the new naming convention
+        ticker = getattr(self, 'ticker', None)
+        if not ticker:
+            raise ValueError("No ticker set in MicroAnalystAgent")
+        path = get_rating_json_path(ticker)
+        if not os.path.exists(path):
+            raise FileNotFoundError(f"No JSON file found for {ticker} at {path}")
+        with open(path, "r") as f:
             rating_data = json.load(f)
-        
-        return latest_file, rating_data
+        return path, rating_data
     
     @tqdm_timer
     def load_rating_json(self, file_path: str) -> Dict:
@@ -1011,6 +1008,14 @@ Remember to STRICTLY separate the factual report (PART 1) from your analysis (PA
             "tool_results": llm_processed_results,
             "rationale":    tool_selection.get("rationale",        {})
         })
+
+        # Patch: Always fill Three_Key_Takeaways and Micro_Expectation with fallbacks if missing or empty
+        micro = rating_data["Micro"]
+        if not micro.get("Three_Key_Takeaways"):
+            micro["Three_Key_Takeaways"] = [micro.get("reasoning", "No key takeaways available.")]
+        if not micro.get("Micro_Expectation"):
+            micro["Micro_Expectation"] = micro.get("micro_to_price_next_inference", micro.get("reasoning", "No expectation available."))
+        rating_data["Micro"] = micro
         
         # 7. Add price inference if present
         if price_inference:

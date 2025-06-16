@@ -261,8 +261,11 @@ const Hero: React.FC = () => {
   const navigate = useNavigate();
 
   const mCreate = useMutation<{ job_id: string }, any, string>({
-    mutationFn: (t: string) =>
-      axios.post('/api/v1/analysis', { ticker: t }).then(res => res.data),
+    mutationFn: (t: string) => {
+      // Trim spaces and ensure uppercase before sending to backend
+      const cleanTicker = t.trim().toUpperCase();
+      return axios.post('/api/v1/analysis', { ticker: cleanTicker }).then(res => res.data);
+    },
     onSuccess: (data, t) => navigate(`/analysis/progress/${data.job_id}`, { state: { ticker: t } }),
     onError: (err: any) => {
       const errorMessage = err.response?.data?.detail || 'Failed to analyze ticker. Please try again.';
@@ -272,8 +275,15 @@ const Hero: React.FC = () => {
   });
 
   const handleAnalyze = (tickerSymbol: string) => {
+    // Trim spaces and validate before analysis
+    const cleanTicker = tickerSymbol.trim();
+    if (!cleanTicker) {
+      setError('Please enter a valid ticker symbol');
+      setShowError(true);
+      return;
+    }
     setError('');
-    mCreate.mutate(tickerSymbol);
+    mCreate.mutate(cleanTicker);
   };
 
   return (
@@ -317,12 +327,14 @@ const Hero: React.FC = () => {
               value={ticker}
               error={!!error && showError}
               onChange={e => {
-                setTicker(e.target.value.toUpperCase());
+                // Trim spaces on input change
+                const inputValue = e.target.value.trim();
+                setTicker(inputValue.toUpperCase());
                 setError('');
                 setShowError(false);
               }}
               onKeyPress={(e) => {
-                if (e.key === 'Enter' && ticker) {
+                if (e.key === 'Enter' && ticker.trim()) {
                   handleAnalyze(ticker);
                 }
               }}

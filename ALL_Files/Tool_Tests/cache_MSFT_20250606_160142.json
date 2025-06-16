@@ -1,0 +1,105 @@
+{
+  "get_stock_dcf_valuation": {
+    "symbol": "MSFT",
+    "date": "2025-06-06",
+    "dcf": 345.0225854212722,
+    "Stock Price": 470.11
+  },
+  "get_company_profile": {
+    "symbol": "MSFT",
+    "price": 470.38,
+    "beta": 1.026,
+    "volAvg": 23797984,
+    "mktCap": 3496118165200,
+    "lastDiv": 3.24,
+    "range": "344.79-473.335",
+    "changes": 2.7,
+    "companyName": "Microsoft Corporation",
+    "currency": "USD",
+    "cik": "0000789019",
+    "isin": "US5949181045",
+    "cusip": "594918104",
+    "exchange": "NASDAQ Global Select",
+    "exchangeShortName": "NASDAQ",
+    "industry": "Software - Infrastructure",
+    "website": "https://www.microsoft.com",
+    "description": "Microsoft Corporation develops, licenses, and supports software, services, devices, and solutions worldwide. The company operates in three segments: Productivity and Business Processes, Intelligent Cloud, and More Personal Computing. The Productivity and Business Processes segment offers Office, Exchange, SharePoint, Microsoft Teams, Office 365 Security and Compliance, Microsoft Viva, and Skype for Business; Skype, Outlook.com, OneDrive, and LinkedIn; and Dynamics 365, a set of cloud-based and on-premises business solutions for organizations and enterprise divisions. The Intelligent Cloud segment licenses SQL, Windows Servers, Visual Studio, System Center, and related Client Access Licenses; GitHub that provides a collaboration platform and code hosting service for developers; Nuance provides healthcare and enterprise AI solutions; and Azure, a cloud platform. It also offers enterprise support, Microsoft consulting, and nuance professional services to assist customers in developing, deploying, and managing Microsoft server and desktop solutions; and training and certification on Microsoft products. The More Personal Computing segment provides Windows original equipment manufacturer (OEM) licensing and other non-volume licensing of the Windows operating system; Windows Commercial, such as volume licensing of the Windows operating system, Windows cloud services, and other Windows commercial offerings; patent licensing; and Windows Internet of Things. It also offers Surface, PC accessories, PCs, tablets, gaming and entertainment consoles, and other devices; Gaming, including Xbox hardware, and Xbox content and services; video games and third-party video game royalties; and Search, including Bing and Microsoft advertising. The company sells its products through OEMs, distributors, and resellers; and directly through digital marketplaces, online stores, and retail stores. Microsoft Corporation was founded in 1975 and is headquartered in Redmond, Washington.",
+    "ceo": "Mr. Satya  Nadella",
+    "sector": "Technology",
+    "country": "US",
+    "fullTimeEmployees": "228000",
+    "phone": "425 882 8080",
+    "address": "One Microsoft Way",
+    "city": "Redmond",
+    "state": "WA",
+    "zip": "98052-6399",
+    "dcfDiff": 125.08741,
+    "dcf": 345.0225854212722,
+    "image": "https://images.financialmodelingprep.com/symbol/MSFT.png",
+    "ipoDate": "1986-03-13",
+    "defaultImage": false,
+    "isEtf": false,
+    "isActivelyTrading": true,
+    "isAdr": false,
+    "isFund": false
+  },
+  "analyze_earnings_vs_estimates": {
+    "data": [
+      {
+        "date": "2025-04-30",
+        "symbol": "MSFT",
+        "actualEarningResult": 3.46,
+        "estimatedEarning": 3.22,
+        "surprise_pct": 7.453416149068315
+      },
+      {
+        "date": "2025-01-29",
+        "symbol": "MSFT",
+        "actualEarningResult": 3.23,
+        "estimatedEarning": 3.15,
+        "surprise_pct": 2.539682539682542
+      },
+      {
+        "date": "2024-10-30",
+        "symbol": "MSFT",
+        "actualEarningResult": 3.3,
+        "estimatedEarning": 3.1,
+        "surprise_pct": 6.451612903225798
+      },
+      {
+        "date": "2024-07-30",
+        "symbol": "MSFT",
+        "actualEarningResult": 2.95,
+        "estimatedEarning": 2.93,
+        "surprise_pct": 0.6825938566552906
+      }
+    ],
+    "summary": {
+      "total_quarters": 4,
+      "beats": 4,
+      "misses": 0,
+      "beat_rate": 1.0,
+      "average_surprise_pct": 4.281826362157987,
+      "surprise_trend": 6.770822292413024
+    }
+  },
+  "get_peer_valuation_comparison": {
+    "error": "local variable 'valuation_data' referenced before assignment"
+  },
+  "get_stock_metrics": {
+    "key_metrics": {
+      "EPS": "$12.95",
+      "ROIC": "22.78%",
+      "Debt_to_Equity": "0.55",
+      "Revenue_Growth": "15.67% YoY",
+      "Free_Cash_Flow": "$74.07B",
+      "Beta": "1.03",
+      "Current_Price": "$470.38",
+      "Market_Cap": "$3496.12B",
+      "PE_Ratio": "36.32",
+      "PB_Ratio": "10.86"
+    },
+    "ticker": "MSFT",
+    "last_updated": "2025-06-06 16:01:42"
+  }
+}

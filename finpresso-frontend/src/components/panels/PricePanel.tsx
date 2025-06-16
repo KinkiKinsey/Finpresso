@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Paper,
   Box,
@@ -151,14 +151,40 @@ function parseLines(text?: string): string[] {
     .filter(line => line && !/^=+$/g.test(line));
 }
 
+// Helper function to get the correct relative path for static server
+function getStaticPath(fullPath: string): string {
+  // Extract just the TICKER_Graph/filename.png part
+  const parts = fullPath.split('/');
+  const graphIndex = parts.findIndex(p => p === 'Graph');
+  if (graphIndex !== -1 && graphIndex < parts.length - 1) {
+    return parts.slice(graphIndex + 1).join('/');
+  }
+  return fullPath;
+}
+
 export default function PricePanel({ data }: PricePanelProps) {
   const keys = (Object.keys(nameMap) as ChartKey[]).filter(k => data.graph_paths?.[k]);
   const [selected, setSelected] = useState<ChartKey>(keys[0]);
   const [imageError, setImageError] = useState(false);
 
   const imgUrl = data.graph_paths?.[selected]
-    ? `${GRAPHS_BASE}/${data.graph_paths[selected].split('/').slice(-2).join('/')}`
+    ? `${GRAPHS_BASE}/${getStaticPath(data.graph_paths[selected])}`
     : '';
+
+  // DEBUG LOGGING BLOCK
+  useEffect(() => {
+    console.log('DEBUG: imgUrl for price chart:', imgUrl);
+    console.log('DEBUG: selected chart key:', selected);
+    console.log('DEBUG: data.graph_paths:', data.graph_paths);
+    setTimeout(() => {
+      const img = document.querySelector('img[alt]');
+      if (img) {
+        console.log('DEBUG: <img> src attribute:', img.getAttribute('src'));
+      } else {
+        console.log('DEBUG: <img> element not found');
+      }
+    }, 1000);
+  }, [imgUrl, selected, data.graph_paths]);
 
   const riskLines = parseLines(data.risk_reward_summary);
   const smaLines = parseLines(data.sma_crossovers_summary);
@@ -197,21 +223,21 @@ export default function PricePanel({ data }: PricePanelProps) {
     >
       {/* Header */}
       <Box sx={{ mb: 4, display: 'flex', alignItems: 'center', gap: 2 }}>
-        <motion.div
-          animate={{ rotate: [0, 360] }}
-          transition={{ duration: 20, repeat: Infinity, ease: 'linear' }}
-        >
-          <ShowChartIcon sx={{ fontSize: 32, color: ACCENT_CYAN }} />
-        </motion.div>
-        <Typography variant="h4" sx={{ 
-          fontWeight: 700, 
-          background: ACCENT_GRADIENT,
-          backgroundClip: 'text',
-          WebkitBackgroundClip: 'text',
-          WebkitTextFillColor: 'transparent',
-        }}>
-          Price Analysis
-        </Typography>
+        <ShowChartIcon sx={{ fontSize: 36, color: ACCENT_CYAN }} />
+        <Box>
+          <Typography variant="h4" sx={{
+            fontWeight: 700,
+            background: ACCENT_GRADIENT,
+            backgroundClip: 'text',
+            WebkitBackgroundClip: 'text',
+            WebkitTextFillColor: 'transparent',
+          }}>
+            Price AI
+          </Typography>
+          <Typography variant="subtitle2" sx={{ color: ACCENT_CYAN, fontWeight: 400, mt: 0.5 }}>
+            This AI will show some tech index win-rate on this ticker
+          </Typography>
+        </Box>
       </Box>
 
       {/* Chart Section */}

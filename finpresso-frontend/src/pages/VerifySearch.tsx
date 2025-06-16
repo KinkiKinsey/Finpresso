@@ -192,7 +192,7 @@ const VerifySearch: React.FC = () => {
                 mb: 2,
               }}
             >
-              AI Fact Checker
+              Fintegrate AI
             </Typography>
             <Typography
               variant="h5"

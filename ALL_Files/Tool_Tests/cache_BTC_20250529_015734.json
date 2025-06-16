@@ -1,0 +1,67 @@
+{
+  "get_stock_peers": {
+    "__dataframe__": true,
+    "data": []
+  },
+  "get_peer_valuation_comparison": {
+    "error": "Unable to coerce to Series, length must be 0: given 1"
+  },
+  "get_company_profile": {
+    "symbol": "BTC",
+    "price": 47.41,
+    "beta": 0,
+    "volAvg": 1129145,
+    "mktCap": 3919481748,
+    "lastDiv": 0,
+    "range": "5.25-49.65",
+    "changes": -1.32,
+    "companyName": "Grayscale Bitcoin Mini Trust (BTC)",
+    "currency": "USD",
+    "cik": "0002015034",
+    "isin": "US3899302075",
+    "cusip": "389930207",
+    "exchange": "New York Stock Exchange Arca",
+    "exchangeShortName": "AMEX",
+    "industry": "",
+    "website": null,
+    "description": "While an investment in the shares is not a direct investment in Bitcoin, the shares are designed to provide investors with a cost-effective and convenient way to gain investment exposure to Bitcoin.",
+    "ceo": "",
+    "sector": "",
+    "country": "US",
+    "fullTimeEmployees": null,
+    "phone": "800-617-0004",
+    "address": null,
+    "city": null,
+    "state": "DE",
+    "zip": null,
+    "dcfDiff": null,
+    "dcf": 0,
+    "image": "https://images.financialmodelingprep.com/symbol/BTC.png",
+    "ipoDate": "2024-07-31",
+    "defaultImage": true,
+    "isEtf": true,
+    "isActivelyTrading": true,
+    "isAdr": false,
+    "isFund": false
+  },
+  "analyze_earnings_vs_estimates": {
+    "status": "error",
+    "message": "No earnings data available"
+  },
+  "get_stock_metrics": {
+    "key_metrics": {
+      "EPS": "Data unavailable",
+      "ROIC": "Data unavailable",
+      "Debt_to_Equity": "Data unavailable",
+      "Revenue_Growth": "Data unavailable",
+      "Free_Cash_Flow": "Data unavailable",
+      "Beta": "Data unavailable",
+      "Current_Price": "Data unavailable",
+      "Market_Cap": "Data unavailable",
+      "PE_Ratio": "Data unavailable",
+      "PB_Ratio": "Data unavailable"
+    },
+    "ticker": "BTC",
+    "last_updated": "2025-05-29 01:57:34"
+  }
+}

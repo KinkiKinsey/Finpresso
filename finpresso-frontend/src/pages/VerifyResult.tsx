@@ -61,6 +61,8 @@ const FilterCard = styled(motion.div, {
       ? "rgba(239,68,68,.5)"
       : status === "processing"
       ? "rgba(6,182,212,.5)"
+      : status === "done"
+      ? "rgba(107,114,128,.5)"
       : status === "skipped"
       ? "rgba(107,114,128,.3)"
       : "rgba(255,255,255,.1)"
@@ -99,6 +101,8 @@ const StatusCircle = styled(Box, {
       ? "rgba(239,68,68,.2)"
       : status === "processing"
       ? "rgba(6,182,212,.2)"
+      : status === "done"
+      ? "rgba(107,114,128,.2)"
       : status === "skipped"
       ? "rgba(107,114,128,.2)"
       : "rgba(255,255,255,.1)",
@@ -109,6 +113,8 @@ const StatusCircle = styled(Box, {
       ? "#ef4444"
       : status === "processing"
       ? "#06b6d4"
+      : status === "done"
+      ? "#6b7280"
       : status === "skipped"
       ? "#6b7280"
       : "rgba(255,255,255,.2)"
@@ -123,7 +129,7 @@ const FinalResultCard = styled(Box, {
   borderRadius: 24,
   padding: 32,
   border:
-    decision === "Likely to Happen"
+    decision === "Not Noise for Investment"
       ? "2px solid rgba(16,185,129,.5)"
       : "2px solid rgba(239,68,68,.5)",
   marginTop: 32,
@@ -132,7 +138,7 @@ const FinalResultCard = styled(Box, {
 /* ───────── 数据接口定义 ───────── */
 interface FilterStatus {
   name: string;
-  status: "pending" | "processing" | "passed" | "failed" | "skipped";
+  status: "pending" | "processing" | "passed" | "failed" | "skipped" | "done";
   details: string;
   result?: any;
   icon: React.ReactElement;
@@ -265,11 +271,11 @@ const VerifyResult: React.FC = () => {
   const wsRef = useRef<WebSocket | null>(null);
 
   const [filters, setFilters] = useState<FilterStatus[]>([
-    { name: "Verifier Agent", status: "pending", details: "", icon: <BoltIcon /> },
-    { name: "Video Verifier", status: "pending", details: "", icon: <VideocamIcon /> },
-    { name: "Reason Agent", status: "pending", details: "", icon: <PsychologyIcon /> },
-    { name: "Online Data Agent", status: "pending", details: "", icon: <PublicIcon /> },
-    { name: "Decision Agent", status: "pending", details: "", icon: <GavelIcon /> },
+    { name: "Filter 1: Source Check", status: "pending", details: "", icon: <BoltIcon /> },
+    { name: "Filter 2: Live Stream or Video Check", status: "pending", details: "", icon: <VideocamIcon /> },
+    { name: "Filter 3.a: Inference Point", status: "pending", details: "", icon: <PsychologyIcon /> },
+    { name: "Filter 3.b: Inference Evidence", status: "pending", details: "", icon: <PublicIcon /> },
+    { name: "Filter 3.c: Feasibility Check", status: "pending", details: "", icon: <GavelIcon /> },
   ]);
   
   const [finalResult, setFinalResult] = useState<FinalResult | null>(null);
@@ -280,6 +286,14 @@ const VerifyResult: React.FC = () => {
   /* ---------- WebSocket ---------- */
   useEffect(() => {
     if (!sessionId) return;
+    // Immediately show loading for Filter 1
+    setFilters((prev) =>
+      prev.map((filter) =>
+        filter.name === "Filter 1: Source Check"
+          ? { ...filter, status: "processing", details: "Verifying text source…" }
+          : filter
+      )
+    );
     
     const ws = new WebSocket(`ws://localhost:8000/api/v1/verify/ws/${sessionId}`);
     
@@ -332,15 +346,28 @@ const VerifyResult: React.FC = () => {
 
   const updateFilterStatus = (filterName: string, status: string, details: string, result: any) => {
     setFilters((prev) =>
-      prev.map((filter) =>
-        filter.name === filterName
-          ? { ...filter, status: status as any, details, result }
-          : filter
-      )
+      prev.map((filter) => {
+        if (filter.name === filterName) {
+          if ((filterName === "Filter 3.b: Inference Evidence" || filterName === "Filter 3.a: Inference Point")) {
+            if (status === "processing") {
+              return { ...filter, status: "processing", details, result };
+            } else if (status === "passed" || status === "failed") {
+              return { ...filter, status: "done", details, result };
+            }
+          }
+          return { ...filter, status: status as any, details, result };
+        }
+        return filter;
+      })
     );
   };
 
-  const getStatusIcon = (status: string) => {
+  const getStatusIcon = (status: string, name: string) => {
+    if ((name === "Filter 3.b: Inference Evidence" || name === "Filter 3.a: Inference Point") && 
+        (status === "passed" || status === "failed")) {
+      return <HourglassEmptyIcon sx={{ fontSize: 30, color: "#6b7280" }} />;
+    }
+
     switch (status) {
       case "passed":
         return <CheckCircleIcon sx={{ fontSize: 30, color: "#10b981" }} />;
@@ -348,6 +375,8 @@ const VerifyResult: React.FC = () => {
         return <CancelIcon sx={{ fontSize: 30, color: "#ef4444" }} />;
       case "processing":
         return <CircularProgress size={30} sx={{ color: "#06b6d4" }} />;
+      case "done":
+        return <HourglassEmptyIcon sx={{ fontSize: 30, color: "#6b7280" }} />;
       case "skipped":
         return <SkipNextIcon sx={{ fontSize: 30, color: "#6b7280" }} />;
       default:
@@ -438,8 +467,9 @@ const VerifyResult: React.FC = () => {
                     
                     <Box sx={{ display: "flex", alignItems: "center" }}>
                       <StatusCircle status={filter.status}>
-                        {getStatusIcon(filter.status)}
+                        {getStatusIcon(filter.status, filter.name)}
                       </StatusCircle>
+                      {/* Always show the eye icon for Filter 3.b: Inference Evidence and Filter 3.a: Inference Point except when pending/skipped */}
                       {filter.status !== "pending" && filter.status !== "skipped" && (
                         <IconButton
                           sx={{ ml: 2, color: "rgba(255,255,255,.7)" }}
@@ -466,7 +496,7 @@ const VerifyResult: React.FC = () => {
               >
                 <FinalResultCard decision={finalResult.decision}>
                   <Box sx={{ display: "flex", alignItems: "center", mb: 3 }}>
-                    {finalResult.decision === "Likely to Happen" ? (
+                    {finalResult.decision === "Not Noise for Investment" ? (
                       <CheckCircleIcon sx={{ fontSize: 40, color: "#10b981", mr: 2 }} />
                     ) : (
                       <CancelIcon sx={{ fontSize: 40, color: "#ef4444", mr: 2 }} />
@@ -536,13 +566,18 @@ const VerifyResult: React.FC = () => {
                   Status
                 </Typography>
                 <Chip
-                  label={selectedFilter.status}
+                  label={selectedFilter.name === "Filter 3.b: Inference Evidence" || selectedFilter.name === "Filter 3.a: Inference Point"
+                    ? (selectedFilter.status === "passed" || selectedFilter.status === "failed" ? "Process Done" : selectedFilter.status)
+                    : selectedFilter.status}
                   sx={{
                     background:
-                      selectedFilter.status === "passed"
+                      selectedFilter.status === "passed" && !["Filter 3.b: Inference Evidence", "Filter 3.a: Inference Point"].includes(selectedFilter.name)
                         ? "rgba(16,185,129,.2)"
-                        : selectedFilter.status === "failed"
+                        : selectedFilter.status === "failed" && !["Filter 3.b: Inference Evidence", "Filter 3.a: Inference Point"].includes(selectedFilter.name)
                         ? "rgba(239,68,68,.2)"
+                        : selectedFilter.status === "done" || (["Filter 3.b: Inference Evidence", "Filter 3.a: Inference Point"].includes(selectedFilter.name) && 
+                          (selectedFilter.status === "passed" || selectedFilter.status === "failed"))
+                        ? "rgba(107,114,128,.2)"
                         : "rgba(107,114,128,.2)",
                     color: "#fff",
                     textTransform: "capitalize",
@@ -550,8 +585,8 @@ const VerifyResult: React.FC = () => {
                 />
               </Box>
 
-              {/* Summary */}
-              {selectedFilter.name === "Verifier Agent" ? (
+              {/* Always show details and JSON for Filter 3.b: Inference Evidence and Filter 3.a: Inference Point, like old behavior */}
+              {selectedFilter.name === "Filter 1: Source Check" ? (
                 <VerifierSummary raw={selectedFilter.details} />
               ) : (
                 selectedFilter.details && (
@@ -566,13 +601,12 @@ const VerifyResult: React.FC = () => {
                 )
               )}
 
-              {/* JSON Result using react-json-view */}
+              {/* Always show JSON Result for Filter 3.b: Inference Evidence and Filter 3.a: Inference Point, like old behavior */}
               {selectedFilter.result && (
                 <Box>
                   <Typography variant="subtitle2" sx={{ color: "rgba(255,255,255,.6)", mb: 1 }}>
                     Detailed Result
                   </Typography>
-                  
                   <Box
                     sx={{
                       background: "rgba(0,0,0,.45)",

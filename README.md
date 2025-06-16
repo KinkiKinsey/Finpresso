@@ -67,7 +67,7 @@ Files Input and Output (Strictly Follow this format and Pipeline)
 
 When we run Finpresso_Agent.py 
 
-	1). First, Finpresso_Agent.py input is a ticker,  will create an empty json that have columns as follow  ticker(ex:TSLA).json as follow: Macro {} . Micro {}. Price{}. Strategy {}), this rating json  ticker(ex:TSLA).json is real-timely store in the Rating_Json Folder, for latter use.
+	1). First, Finpresso_Agent.py input is a ticker,  will create an empty json that have columns as follow  ticker(ex:TSLA).json as follow: Macro {} . Micro {}. Price{}. Strategy {}), this json  ticker(ex:TSLA).json is real-timely store in the Rating_Json Folder, for latter use.
 
 2). The Macro_Analyst_Agent.py will run and follow the code workflow to Output is an Macro_Analyst_Json.json in the Macro_Files Folder. If this is update within the assign time (as we define the code already in Macro_Analyst_Agent.py) then it wont run everything again.
 

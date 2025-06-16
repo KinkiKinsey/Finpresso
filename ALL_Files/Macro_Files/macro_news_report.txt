@@ -1,68 +1,32 @@
-Here’s the macroeconomic analysis based on the provided news:
+No significant economic news currently.  
 
----
-
-### 1. **U.S. Court Blocks Trump’s Sweeping Tariffs**  
-   - **Event**: A federal court ruled against several of Trump’s global tariffs, deeming them contrary to law.  
-   - **Impact**: This could ease trade tensions and reduce inflationary pressures from tariffs, particularly on imported goods.  
-   - **Stock Market Implication**: Likely positive for sectors reliant on imports (e.g., retail, manufacturing) as costs may stabilize.  
-
-### 2. **Fed Expresses Concerns Over Tariffs and Inflation**  
-   - **Event**: Fed minutes revealed worries that tariffs could reaggravate inflation, forcing "difficult tradeoffs" for monetary policy.  
-   - **Impact**: Prolonged tariffs may complicate the Fed’s ability to cut rates, keeping borrowing costs higher for longer.  
-   - **Stock Market Implication**: Mixed—markets may fear delayed rate cuts, but clarity on tariff reductions could offset concerns.  
-
-### 3. **U.S. Debt Ceiling and Credit Default Swaps Surge**  
-   - **Event**: Investors are buying credit default swaps (CDS) amid unresolved debt ceiling negotiations, with spreads near 2-year highs.  
-   - **Impact**: Reflects growing fiscal risks; a prolonged standoff could threaten U.S. creditworthiness and economic stability.  
-   - **Stock Market Implication**: Bearish sentiment if uncertainty persists, though historical precedent suggests last-minute resolution.  
-
-### 4. **Consumer Confidence Jumps on Trade Optimism**  
-   - **Event**: May consumer confidence surged to 98.0, driven by optimism around U.S.-China/EU trade talks.  
-   - **Impact**: Stronger consumer sentiment could bolster spending, supporting GDP growth.  
-   - **Stock Market Implication**: Positive for cyclical sectors (e.g., consumer discretionary, industrials).  
-
-### 5. **Trump Approves Nippon-U.S. Steel Merger**  
-   - **Event**: Trump greenlit the merger, citing job creation and economic benefits, reversing Biden’s earlier block.  
-   - **Impact**: Signals a more open stance to foreign investment in strategic sectors, potentially boosting industrial output.  
-   - **Stock Market Implication**: Positive for steel and manufacturing stocks; broader confidence in trade-friendly policies.  
-
-### 6. **Goldman Sachs Downplays Tariff Inflation Risks**  
-   - **Event**: Goldman Sachs argued tariff-induced inflation would be temporary, citing limited pass-through to prices.  
-   - **Impact**: Suggests tariffs may not derail the Fed’s inflation trajectory, leaving room for eventual rate cuts.  
-   - **Stock Market Implication**: Reassuring for equities, particularly rate-sensitive sectors like tech and housing.  
-
----
-
-### Summary:  
-Key themes include **trade policy uncertainty**, **Fed caution on inflation**, and **debt ceiling risks**, with markets reacting to shifts in fiscal and trade dynamics. Resolving tariffs and debt negotiations could dictate near-term economic momentum.  
-
-Let me know if you'd like deeper analysis on any specific area.
+(Note: The provided news sources show empty or no updates on macroeconomic topics like Fed policy, inflation, tariffs, or broader economic indicators.)
 
 ================================================================================
 
 📅 TOP 10 IMPORTANT ECONOMIC DATA RELEASES 📅
 
-📆 May 28, 2025
-  • 07:55:00 | DE: Employment Change (May) (🔴 High Impact)
-    [Previous: 6, Estimate: 10, Actual: 34]
-  • 07:55:00 | DE: Unemployment Rate (May) (🔴 High Impact)
-    [Previous: 6.3, Estimate: 6.3, Actual: 6.3]
-  • 18:00:00 | US: FOMC Minutes (🔴 High Impact)
+📆 June 16, 2025
+  • 02:00:00 | CN: Industrial Production YoY (May) (🔴 High Impact)
+    [Previous: 6.1, Estimate: 5.9, Actual: None]
+  • 02:00:00 | CN: Retail Sales YoY (May) (🔴 High Impact)
+    [Previous: 5.1, Estimate: 5, Actual: None]
+  • 02:00:00 | CN: Unemployment Rate (May) (🔴 High Impact)
+    [Previous: 5.1, Estimate: 5.1, Actual: None]
+  • 12:30:00 | US: NY Empire State Manufacturing Index (Jun) (🔴 High Impact)
+    [Previous: -9.2, Estimate: -5.5, Actual: None]
 
-📆 May 29, 2025
-  • 05:00:00 | JP: Consumer Confidence (May) (🔴 High Impact)
-    [Previous: 31.2, Estimate: 31.8, Actual: None]
-  • 07:00:00 | ES: Retail Sales MoM (Apr) (🔴 High Impact)
-    [Previous: -0.2, Estimate: 0.5, Actual: None]
-  • 07:00:00 | ES: Retail Sales YoY (Apr) (🔴 High Impact)
-    [Previous: 3.6, Estimate: 3.6, Actual: None]
-  • 12:30:00 | US: Jobless Claims 4-Week Average (May/24) (🔴 High Impact)
-    [Previous: 231.5, Estimate: 233, Actual: None]
-  • 12:30:00 | US: Gross Domestic Product QoQ (Q1) (🔴 High Impact)
-    [Previous: 2.4, Estimate: -0.3, Actual: None]
-  • 12:30:00 | US: Continuing Jobless Claims (May/17) (🔴 High Impact)
-    [Previous: 1903, Estimate: 1890, Actual: None]
-  • 12:30:00 | US: GDP Growth Rate QoQ (Q1) (🔴 High Impact)
-    [Previous: 2.4, Estimate: -0.3, Actual: None]
+📆 June 17, 2025
+  • 03:00:00 | JP: BoJ Interest Rate Decision (🔴 High Impact)
+    [Previous: 0.5, Estimate: 0.5, Actual: None]
+  • 09:00:00 | DE: ZEW Economic Sentiment Index (Jun) (🔴 High Impact)
+    [Previous: 25.2, Estimate: 35, Actual: None]
+  • 12:30:00 | US: Retail Sales Ex Autos MoM (May) (🔴 High Impact)
+    [Previous: 0.1, Estimate: 0.3, Actual: None]
+  • 12:30:00 | US: Retail Sales Ex Gas/Autos MoM (May) (🔴 High Impact)
+    [Previous: 0.2, Estimate: 0.2, Actual: None]
+  • 12:30:00 | US: Retail Sales YoY (May) (🔴 High Impact)
+    [Previous: 5.2, Estimate: 4.9, Actual: None]
+  • 12:30:00 | US: Retail Sales MoM (May) (🔴 High Impact)
+    [Previous: 0.1, Estimate: 0.1, Actual: None]
 

@@ -1,0 +1,294 @@
+{
+  "get_stock_dcf_valuation": {
+    "symbol": "AAPL",
+    "date": "2025-06-11",
+    "dcf": 159.16966241281014,
+    "Stock Price": 201.105
+  },
+  "analyze_earnings_vs_estimates": {
+    "data": [
+      {
+        "date": "2025-05-01",
+        "symbol": "AAPL",
+        "actualEarningResult": 1.65,
+        "estimatedEarning": 1.63,
+        "surprise_pct": 1.2269938650306762
+      },
+      {
+        "date": "2025-01-30",
+        "symbol": "AAPL",
+        "actualEarningResult": 2.4,
+        "estimatedEarning": 2.36,
+        "surprise_pct": 1.6949152542372898
+      },
+      {
+        "date": "2024-10-31",
+        "symbol": "AAPL",
+        "actualEarningResult": 1.64,
+        "estimatedEarning": 1.6,
+        "surprise_pct": 2.4999999999999885
+      },
+      {
+        "date": "2024-08-01",
+        "symbol": "AAPL",
+        "actualEarningResult": 1.4,
+        "estimatedEarning": 1.35,
+        "surprise_pct": 3.7037037037036904
+      }
+    ],
+    "summary": {
+      "total_quarters": 4,
+      "beats": 4,
+      "misses": 0,
+      "beat_rate": 1.0,
+      "average_surprise_pct": 2.2814032057429112,
+      "surprise_trend": -2.476709838673014
+    }
+  },
+  "get_stock_beta": null,
+  "get_peer_valuation_comparison": {
+    "__dataframe__": true,
+    "data": [
+      {
+        "ticker": "AAPL",
+        "price": null,
+        "market_cap_B": 2968.938348544,
+        "forward_pe": 23.920576,
+        "price_to_book": 44.45985,
+        "ev_to_ebitda": null,
+        "profit_margins": null,
+        "sector": null,
+        "industry": null,
+        "forward_pe_rank": 1.0,
+        "price_to_book_rank": 1.0,
+        "ev_to_ebitda_rank": NaN
+      },
+      {
+        "ticker": "SSNLF",
+        "price": null,
+        "market_cap_B": 301.846429696,
+        "forward_pe": 9.144121,
+        "price_to_book": 0.0006908732,
+        "ev_to_ebitda": null,
+        "profit_margins": null,
+        "sector": null,
+        "industry": null,
+        "forward_pe_rank": 0.5,
+        "price_to_book_rank": 0.125,
+        "ev_to_ebitda_rank": NaN
+      },
+      {
+        "ticker": "XIACY",
+        "price": null,
+        "market_cap_B": 177.709940736,
+        "forward_pe": NaN,
+        "price_to_book": 3.5782783,
+        "ev_to_ebitda": null,
+        "profit_margins": null,
+        "sector": null,
+        "industry": null,
+        "forward_pe_rank": NaN,
+        "price_to_book_rank": 0.875,
+        "ev_to_ebitda_rank": NaN
+      },
+      {
+        "ticker": "SONY",
+        "price": null,
+        "market_cap_B": 155.957477376,
+        "forward_pe": 21.773108,
+        "price_to_book": 0.019084685,
+        "ev_to_ebitda": null,
+        "profit_margins": null,
+        "sector": null,
+        "industry": null,
+        "forward_pe_rank": 0.9,
+        "price_to_book_rank": 0.3125,
+        "ev_to_ebitda_rank": NaN
+      },
+      {
+        "ticker": "FIS",
+        "price": null,
+        "market_cap_B": 42.588516352,
+        "forward_pe": 14.196147,
+        "price_to_book": 2.830406,
+        "ev_to_ebitda": null,
+        "profit_margins": null,
+        "sector": null,
+        "industry": null,
+        "forward_pe_rank": 0.7,
+        "price_to_book_rank": 0.75,
+        "ev_to_ebitda_rank": NaN
+      },
+      {
+        "ticker": "PCRFF",
+        "price": null,
+        "market_cap_B": 24.945055744,
+        "forward_pe": NaN,
+        "price_to_book": 0.005121466,
+        "ev_to_ebitda": null,
+        "profit_margins": null,
+        "sector": null,
+        "industry": null,
+        "forward_pe_rank": NaN,
+        "price_to_book_rank": 0.1875,
+        "ev_to_ebitda_rank": NaN
+      },
+      {
+        "ticker": "KYOCY",
+        "price": null,
+        "market_cap_B": 16.778211328,
+        "forward_pe": 20.534483,
+        "price_to_book": 0.0052142004,
+        "ev_to_ebitda": null,
+        "profit_margins": null,
+        "sector": null,
+        "industry": null,
+        "forward_pe_rank": 0.8,
+        "price_to_book_rank": 0.25,
+        "ev_to_ebitda_rank": NaN
+      },
+      {
+        "ticker": "LPL",
+        "price": null,
+        "market_cap_B": 3.430000128,
+        "forward_pe": -11.433333,
+        "price_to_book": 0.00027333474,
+        "ev_to_ebitda": null,
+        "profit_margins": null,
+        "sector": null,
+        "industry": null,
+        "forward_pe_rank": 0.2,
+        "price_to_book_rank": 0.0625,
+        "ev_to_ebitda_rank": NaN
+      },
+      {
+        "ticker": "SHCAF",
+        "price": null,
+        "market_cap_B": 3.42505728,
+        "forward_pe": NaN,
+        "price_to_book": 0.02214786,
+        "ev_to_ebitda": null,
+        "profit_margins": null,
+        "sector": null,
+        "industry": null,
+        "forward_pe_rank": NaN,
+        "price_to_book_rank": 0.375,
+        "ev_to_ebitda_rank": NaN
+      },
+      {
+        "ticker": "TCLHF",
+        "price": null,
+        "market_cap_B": 3.25188352,
+        "forward_pe": NaN,
+        "price_to_book": 0.189011,
+        "ev_to_ebitda": null,
+        "profit_margins": null,
+        "sector": null,
+        "industry": null,
+        "forward_pe_rank": NaN,
+        "price_to_book_rank": 0.4375,
+        "ev_to_ebitda_rank": NaN
+      },
+      {
+        "ticker": "SONO",
+        "price": null,
+        "market_cap_B": 1.210476928,
+        "forward_pe": -67.2,
+        "price_to_book": 3.1608655,
+        "ev_to_ebitda": null,
+        "profit_margins": null,
+        "sector": null,
+        "industry": null,
+        "forward_pe_rank": 0.1,
+        "price_to_book_rank": 0.8125,
+        "ev_to_ebitda_rank": NaN
+      },
+      {
+        "ticker": "TBCH",
+        "price": null,
+        "market_cap_B": 0.271372,
+        "forward_pe": NaN,
+        "price_to_book": 2.2121859,
+        "ev_to_ebitda": null,
+        "profit_margins": null,
+        "sector": null,
+        "industry": null,
+        "forward_pe_rank": NaN,
+        "price_to_book_rank": 0.625,
+        "ev_to_ebitda_rank": NaN
+      },
+      {
+        "ticker": "VUZI",
+        "price": null,
+        "market_cap_B": 0.240925984,
+        "forward_pe": -7.52381,
+        "price_to_book": 7.3317866,
+        "ev_to_ebitda": null,
+        "profit_margins": null,
+        "sector": null,
+        "industry": null,
+        "forward_pe_rank": 0.3,
+        "price_to_book_rank": 0.9375,
+        "ev_to_ebitda_rank": NaN
+      },
+      {
+        "ticker": "GPRO",
+        "price": null,
+        "market_cap_B": 0.135539392,
+        "forward_pe": 4.779444,
+        "price_to_book": 1.2325214,
+        "ev_to_ebitda": null,
+        "profit_margins": null,
+        "sector": null,
+        "industry": null,
+        "forward_pe_rank": 0.4,
+        "price_to_book_rank": 0.5625,
+        "ev_to_ebitda_rank": NaN
+      },
+      {
+        "ticker": "UEIC",
+        "price": null,
+        "market_cap_B": 0.094692304,
+        "forward_pe": 10.893939,
+        "price_to_book": 0.629873,
+        "ev_to_ebitda": null,
+        "profit_margins": null,
+        "sector": null,
+        "industry": null,
+        "forward_pe_rank": 0.6,
+        "price_to_book_rank": 0.5,
+        "ev_to_ebitda_rank": NaN
+      },
+      {
+        "ticker": "DBOXF",
+        "price": null,
+        "market_cap_B": 0.043821128,
+        "forward_pe": NaN,
+        "price_to_book": 2.7422535,
+        "ev_to_ebitda": null,
+        "profit_margins": null,
+        "sector": null,
+        "industry": null,
+        "forward_pe_rank": NaN,
+        "price_to_book_rank": 0.6875,
+        "ev_to_ebitda_rank": NaN
+      }
+    ]
+  },
+  "get_stock_metrics": {
+    "key_metrics": {
+      "EPS": "Data unavailable",
+      "ROIC": "49.70%",
+      "Debt_to_Equity": "1.87",
+      "Revenue_Growth": "2.02% YoY",
+      "Free_Cash_Flow": "$108.81B",
+      "Beta": "Data unavailable",
+      "Current_Price": "Data unavailable",
+      "Market_Cap": "$2968.94B",
+      "PE_Ratio": "30.72",
+      "PB_Ratio": "44.46"
+    },
+    "ticker": "AAPL",
+    "last_updated": "2025-06-11 22:11:32"
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "get_peer_valuation_comparison": {
+    "error": "Unable to coerce to Series, length must be 0: given 1"
+  },
+  "get_stock_dcf_valuation": {},
+  "analyze_earnings_vs_estimates": {
+    "status": "error",
+    "message": "No earnings data available"
+  },
+  "get_stock_beta": null,
+  "get_stock_metrics": {
+    "key_metrics": {
+      "EPS": "Data unavailable",
+      "ROIC": "Data unavailable",
+      "Debt_to_Equity": "Data unavailable",
+      "Revenue_Growth": "Data unavailable",
+      "Free_Cash_Flow": "Data unavailable",
+      "Beta": "Data unavailable",
+      "Current_Price": "Data unavailable",
+      "Market_Cap": "$547.92B",
+      "PE_Ratio": "25.81",
+      "PB_Ratio": "1.39"
+    },
+    "ticker": "SPY",
+    "last_updated": "2025-06-15 15:24:06"
+  }
+}

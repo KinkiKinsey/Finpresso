@@ -32,7 +32,10 @@ from datetime import datetime, timedelta
 import inspect
 import sys
 
+RATING_JSON_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "Rating_Json")
 
+def get_rating_json_path(ticker):
+    return os.path.join(RATING_JSON_DIR, f"{ticker}.json")
 
 def deepseek_api_call(prompt, base_url="https://api.deepseek.com", model="deepseek-chat"):
 

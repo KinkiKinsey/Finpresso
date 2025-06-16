@@ -25,10 +25,10 @@ export const meta: Record<
   PanelKey,
   { title: string; color: string; Icon: React.FC<any> }
 > = {
-  macro:    { title: 'Macro Analysis',     color: '#6366f1', Icon: PublicIcon   },
-  micro:    { title: 'Fundamentals',        color: '#06b6d4', Icon: BusinessIcon },
-  price:    { title: 'Technical Analysis',  color: '#10b981', Icon: ShowChartIcon },
-  strategy: { title: 'Investment Strategy', color: '#f59e0b', Icon: InsightsIcon  },
+  macro:    { title: 'Macro AI',     color: '#6366f1', Icon: PublicIcon   }, // This AI will go through Macro Data + News in 1 ~ 2 min
+  micro:    { title: 'Micro AI',     color: '#06b6d4', Icon: BusinessIcon }, // This AI will go through Fundamentals and read 300+ Companies in 1 ~ 2 min
+  price:    { title: 'Price AI',     color: '#10b981', Icon: ShowChartIcon }, // This AI will show some tech index win-rate on this ticker
+  strategy: { title: 'Investment AI',color: '#f59e0b', Icon: InsightsIcon  }, // This AI will show integrated investment thesis
 };
 
 // 自动滚动顶部

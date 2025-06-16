@@ -5,6 +5,11 @@ from datetime import datetime
 from typing import Dict, List, Any, Optional, Union
 from LLM_API_CALL import deepseek_api_call
 
+RATING_JSON_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "Rating_Json")
+
+def get_rating_json_path(ticker):
+    return os.path.join(RATING_JSON_DIR, f"{ticker}.json")
+
 class InvestmentIntegrationAgent:
     """
     This agent integrates Macro, Micro, and Price analyses to create a comprehensive 
@@ -111,16 +116,18 @@ class InvestmentIntegrationAgent:
     def extract_price_insights(self) -> Dict[str, Any]:
         """Extract key insights from Price analysis."""
         price_data = self.rating_data.get("Price", {})
-        
-        # Extract key price analysis components
         price_insights = {
-            "risk_reward": price_data.get("risk_reward_summary", "No risk/reward data available"),
-            "sma_analysis": price_data.get("sma_crossovers_summary", "No SMA analysis available"),
-            "ema_analysis": price_data.get("ema_crossovers_summary", "No EMA analysis available"),
-            "macd_analysis": price_data.get("vw_macd_summary", "No MACD analysis available"),
-            "graph_paths": price_data.get("graph_paths", {})
+            "risk_reward": price_data.get("risk_reward", {}).get("summary", "No risk/reward data available"),
+            "sma_analysis": price_data.get("sma_crossovers", {}).get("summary", "No SMA analysis available"),
+            "ema_analysis": price_data.get("ema_crossovers", {}).get("summary", "No EMA analysis available"),
+            "macd_analysis": price_data.get("vw_macd", {}).get("summary", "No MACD analysis available"),
+            "graph_paths": {
+                "risk_reward": price_data.get("risk_reward", {}).get("graph_path"),
+                "sma_crossovers": price_data.get("sma_crossovers", {}).get("graph_path"),
+                "ema_crossovers": price_data.get("ema_crossovers", {}).get("graph_path"),
+                "vw_macd": price_data.get("vw_macd", {}).get("graph_path"),
+            }
         }
-        
         return price_insights
     
     def extract_strategy_insights(self) -> Dict[str, Any]:
@@ -145,206 +152,121 @@ class InvestmentIntegrationAgent:
         """
         Generate a comprehensive investment mindmap that integrates Macro, Micro, 
         and Price analyses into a cohesive investment thesis as a flowing paragraph.
-        
-        Returns:
-            str: The investment mindmap as a detailed paragraph.
+        Every sentence must include explicit numerical or textual evidence and its JSON source.
         """
         if not self.rating_data:
             return "No rating data available to generate investment mindmap."
         
-        # Extract insights from each analysis component
         macro_insights = self.extract_macro_insights()
         micro_insights = self.extract_micro_insights()
         price_insights = self.extract_price_insights()
         strategy_insights = self.extract_strategy_insights()
-        
-        # Start building the comprehensive investment narrative
         paragraphs = []
         
-        # INTRODUCTION - Short summary of overall thesis
+        # INTRODUCTION
         intro = f"INVESTMENT THESIS FOR {self.ticker}: "
-        
-        # Add strategy type and direction from strategy insights if available
         if strategy_insights['recommended_action'] != "No recommendation available":
             action = strategy_insights['recommended_action']
             strategy_type = strategy_insights['strategy_type']
-            intro += f"Our analysis indicates a {action} recommendation based on a {strategy_type} strategy. "
+            intro += f"Our analysis indicates a {action} recommendation (Strategy.recommended_action) based on a {strategy_type} strategy (Strategy.strategy_type). "
         else:
-            # Fallback to price insights
             if "LONG" in price_insights['risk_reward']:
-                intro += "Our analysis indicates a potential LONG opportunity. "
+                intro += "Our analysis indicates a potential LONG opportunity (Price.risk_reward). "
             elif "SHORT" in price_insights['risk_reward']:
-                intro += "Our analysis indicates a potential SHORT opportunity. "
+                intro += "Our analysis indicates a potential SHORT opportunity (Price.risk_reward). "
             else:
                 intro += "Our analysis indicates a NEUTRAL stance on this security. "
-        
         paragraphs.append(intro)
         
-        # MACRO ENVIRONMENT - Detailed paragraph about macro backdrop
+        # MACRO
         macro_para = "MACROECONOMIC ENVIRONMENT: "
-        
-        # Add economic outlook if available
-        if macro_insights['economic_outlook']:
-            macro_para += f"{macro_insights['economic_outlook']} "
-        elif macro_insights['summary'] != "No macro data available":
-            macro_para += f"{macro_insights['summary']} "
-        else:
-            macro_para += "The current economic environment presents a mixed picture. "
-        
-        # Add interest rates, inflation, GDP growth insights if available
-        if macro_insights['interest_rates']:
-            macro_para += f"Interest rates: {macro_insights['interest_rates']} "
-        
-        if macro_insights['inflation']:
-            macro_para += f"Inflation: {macro_insights['inflation']} "
-        
         if macro_insights['gdp_growth']:
-            macro_para += f"GDP growth: {macro_insights['gdp_growth']} "
-        
-        # Add sector impacts
+            macro_para += f"GDP growth was {macro_insights['gdp_growth']} (Macro.gdp_growth). "
+        if macro_insights['interest_rates']:
+            macro_para += f"Interest rates are {macro_insights['interest_rates']} (Macro.interest_rates). "
+        if macro_insights['inflation']:
+            macro_para += f"Inflation is {macro_insights['inflation']} (Macro.inflation). "
+        if macro_insights['economic_outlook']:
+            macro_para += f"Economic outlook: {macro_insights['economic_outlook']} (Macro.economic_outlook). "
         if macro_insights['favorable_sectors']:
-            sectors = ", ".join(macro_insights['favorable_sectors'][:3])
-            macro_para += f"This environment particularly favors the {sectors} sectors. "
-        
-        # Add macro catalysts if available
+            sectors = ', '.join(macro_insights['favorable_sectors'][:3])
+            macro_para += f"Favored sectors: {sectors} (Macro.favorable_sectors). "
         if macro_insights['macro_catalysts']:
-            catalysts = macro_insights['macro_catalysts'][0]
-            macro_para += f"A key upcoming catalyst to monitor is {catalysts}. "
-        
-        # Add inference hint if available for forward-looking perspective
+            macro_para += f"Key macro catalyst: {macro_insights['macro_catalysts'][0]} (Macro.macro_catalysts). "
         if macro_insights['next_inference_hint']:
-            macro_para += f"Looking forward, {macro_insights['next_inference_hint']} "
-        
+            macro_para += f"Forward-looking: {macro_insights['next_inference_hint']} (Macro.next_inference_hint). "
+        if not any([macro_insights['gdp_growth'], macro_insights['interest_rates'], macro_insights['inflation'], macro_insights['economic_outlook'], macro_insights['favorable_sectors'], macro_insights['macro_catalysts'], macro_insights['next_inference_hint']]):
+            macro_para += "No macro data available. "
         paragraphs.append(macro_para)
         
-        # COMPANY ANALYSIS - Detailed paragraph about the company
+        # MICRO
         company_para = f"COMPANY ANALYSIS ({self.ticker}): "
-        
-        # Add company summary from micro analysis
         if micro_insights['summary']:
-            company_para += f"{micro_insights['summary']} "
-        elif micro_insights['three_key_takeaway']:
-            company_para += f"Key insights: {micro_insights['three_key_takeaway']} "
-        
-        # Add key financial metrics if available
+            company_para += f"{micro_insights['summary']} (Micro.summary). "
+        if micro_insights['three_key_takeaway']:
+            company_para += f"Key insights: {micro_insights['three_key_takeaway']} (Micro.three_key_takeaway). "
         stock_metrics = micro_insights['stock_metrics']
-        metrics_to_include = ['PE_Ratio', 'Revenue_Growth', 'Profit_Margin', 'Current_Price']
-        metrics_included = []
-        
-        for metric in metrics_to_include:
-            if metric in stock_metrics:
-                metrics_included.append(f"{metric}: {stock_metrics[metric]}")
-        
-        if metrics_included:
-            company_para += f"Key metrics include {', '.join(metrics_included)}. "
-        
-        # Add key findings from analysis
+        for metric, value in stock_metrics.items():
+            company_para += f"{metric}: {value} (Micro.stock_metrics.{metric}). "
         if micro_insights['key_findings']:
-            findings = micro_insights['key_findings'][0]
-            company_para += f"Our analysis highlights that {findings} "
-        
-        # Add micro to price inference
+            company_para += f"Key finding: {micro_insights['key_findings'][0]} (Micro.key_findings). "
         if micro_insights['price_inference'] != "No micro price inference available":
-            company_para += f"Based on these fundamentals, {micro_insights['price_inference']} "
-        
+            company_para += f"Price inference: {micro_insights['price_inference']} (Micro.price_inference). "
+        if micro_insights.get('recommendation'):
+            company_para += f"Recommendation: {micro_insights['recommendation']} (Micro.recommendation). "
+        if not any([micro_insights['summary'], micro_insights['three_key_takeaway'], stock_metrics, micro_insights['key_findings'], micro_insights['price_inference'], micro_insights.get('recommendation')]):
+            company_para += "No micro/company data available. "
         paragraphs.append(company_para)
         
-        # PRICE ANALYSIS - Detailed paragraph about price action and technicals
+        # PRICE
         price_para = "PRICE ANALYSIS: "
-        
-        # Add risk/reward analysis
         if price_insights['risk_reward'] != "No risk/reward data available":
-            price_para += f"{price_insights['risk_reward'].split('.')[0] if '.' in price_insights['risk_reward'] else price_insights['risk_reward']}. "
-        
-        # Add moving average insights
-        ma_insights = []
-        
+            price_para += f"Risk/reward: {price_insights['risk_reward']} (Price.risk_reward). "
         if price_insights['sma_analysis'] != "No SMA analysis available":
-            ma_insights.append(f"SMA analysis: {price_insights['sma_analysis'].split('.')[0] if '.' in price_insights['sma_analysis'] else price_insights['sma_analysis']}")
-        
+            price_para += f"SMA: {price_insights['sma_analysis']} (Price.sma_analysis). "
         if price_insights['ema_analysis'] != "No EMA analysis available":
-            ma_insights.append(f"EMA analysis: {price_insights['ema_analysis'].split('.')[0] if '.' in price_insights['ema_analysis'] else price_insights['ema_analysis']}")
-        
-        if ma_insights:
-            price_para += f"Moving averages analysis indicates {' and '.join(ma_insights)}. "
-        
-        # Add MACD analysis
+            price_para += f"EMA: {price_insights['ema_analysis']} (Price.ema_analysis). "
         if price_insights['macd_analysis'] != "No MACD analysis available":
-            price_para += f"MACD analysis shows {price_insights['macd_analysis'].split('.')[0] if '.' in price_insights['macd_analysis'] else price_insights['macd_analysis']}. "
-        
+            price_para += f"MACD: {price_insights['macd_analysis']} (Price.macd_analysis). "
+        if not any([price_insights['risk_reward'], price_insights['sma_analysis'], price_insights['ema_analysis'], price_insights['macd_analysis']]):
+            price_para += "No price/technical data available. "
         paragraphs.append(price_para)
         
-        # INTEGRATED STRATEGY - Detailed paragraph combining all insights into cohesive strategy
-        strategy_para = "INTEGRATED INVESTMENT STRATEGY: "
-        
-        # Start with the recommendation
+        # STRATEGY
+        strategy_para = "STRATEGY: "
         if strategy_insights['recommended_action'] != "No recommendation available":
-            strategy_para += f"We recommend a {strategy_insights['recommended_action']} strategy "
-            
-            # Add risk level and time horizon if available
-            if strategy_insights['risk_level'] != "Unknown":
-                strategy_para += f"with {strategy_insights['risk_level'].lower()} risk "
-            
-            if strategy_insights['time_horizon'] != "Unknown":
-                strategy_para += f"over a {strategy_insights['time_horizon'].lower()} time horizon. "
-            else:
-                strategy_para += ". "
-        else:
-            # Fallback to synthesized recommendation
-            price_signal = "BULLISH" if "LONG" in price_insights['risk_reward'] or "BULLISH" in price_insights['macd_analysis'] else "BEARISH" if "SHORT" in price_insights['risk_reward'] or "BEARISH" in price_insights['macd_analysis'] else "NEUTRAL"
-            strategy_para += f"Based on our analysis, we suggest a {price_signal} approach. "
-        
-        # Add rationale if available
-        if strategy_insights['rationale'] != "No rationale available":
-            strategy_para += f"The rationale is: {strategy_insights['rationale']} "
-        
-        # Add entry signals
+            strategy_para += f"Recommended action: {strategy_insights['recommended_action']} (Strategy.recommended_action). "
+        if strategy_insights['strategy_type']:
+            strategy_para += f"Strategy type: {strategy_insights['strategy_type']} (Strategy.strategy_type). "
         if strategy_insights['entry_signals']:
-            entry = strategy_insights['entry_signals'][0]
-            strategy_para += f"For optimal entry, look for {entry}. "
-        
-        # Add exit triggers
+            strategy_para += f"Entry signal: {strategy_insights['entry_signals'][0]} (Strategy.entry_signals). "
         if strategy_insights['exit_triggers']:
-            exit_trigger = strategy_insights['exit_triggers'][0]
-            strategy_para += f"Consider exiting when {exit_trigger}. "
-        
-        # Add expected reward
+            strategy_para += f"Exit trigger: {strategy_insights['exit_triggers'][0]} (Strategy.exit_triggers). "
         if strategy_insights['expected_reward'] != "Unknown":
-            strategy_para += f"This strategy targets {strategy_insights['expected_reward']} "
-        
+            strategy_para += f"Expected reward: {strategy_insights['expected_reward']} (Strategy.expected_reward). "
+        if not any([strategy_insights['recommended_action'], strategy_insights['strategy_type'], strategy_insights['entry_signals'], strategy_insights['exit_triggers'], strategy_insights['expected_reward']]):
+            strategy_para += "No strategy data available. "
         paragraphs.append(strategy_para)
         
-        # CONCLUSION - Summarize the key points
+        # CONCLUSION
         conclusion = "CONCLUSION: "
-        
-        # Add an integrative summary that connects macro → micro → price
-        conclusion += f"In the current {macro_insights['trend'].lower() if macro_insights['trend'] != 'STABLE' else 'economic'} environment, "
-        conclusion += f"{self.ticker}'s {micro_insights.get('recommendation', 'positioning')} and "
-        
-        # Add technical stance
-        if "LONG" in price_insights['risk_reward'] or "BULLISH" in price_insights['macd_analysis']:
-            conclusion += "bullish technical indicators "
-        elif "SHORT" in price_insights['risk_reward'] or "BEARISH" in price_insights['macd_analysis']:
-            conclusion += "bearish technical indicators "
+        if macro_insights['trend']:
+            conclusion += f"Macro trend: {macro_insights['trend']} (Macro.trend). "
+        if micro_insights.get('recommendation'):
+            conclusion += f"Company recommendation: {micro_insights['recommendation']} (Micro.recommendation). "
+        if 'LONG' in price_insights['risk_reward'] or 'BULLISH' in price_insights['macd_analysis']:
+            conclusion += "Bullish technical indicators (Price.risk_reward/Price.macd_analysis). "
+        elif 'SHORT' in price_insights['risk_reward'] or 'BEARISH' in price_insights['macd_analysis']:
+            conclusion += "Bearish technical indicators (Price.risk_reward/Price.macd_analysis). "
         else:
-            conclusion += "mixed technical indicators "
-        
-        # Final recommendation
+            conclusion += "Mixed technical indicators (Price.risk_reward/Price.macd_analysis). "
         if strategy_insights['recommended_action'] != "No recommendation available":
-            conclusion += f"support our {strategy_insights['recommended_action']} recommendation. "
-        else:
-            conclusion += "suggest cautious positioning. "
-        
-        # Add key catalyst to watch
+            conclusion += f"Final recommendation: {strategy_insights['recommended_action']} (Strategy.recommended_action). "
         if macro_insights['macro_catalysts']:
-            catalyst = macro_insights['macro_catalysts'][0]
-            conclusion += f"Key catalyst to monitor: {catalyst}."
-        
+            conclusion += f"Key catalyst: {macro_insights['macro_catalysts'][0]} (Macro.macro_catalysts). "
         paragraphs.append(conclusion)
         
-        # Join all paragraphs with line breaks to create a flowing narrative
         investment_mindmap = "\n\n".join(paragraphs)
-        
         return investment_mindmap
     
     def update_rating_json(self) -> None:
@@ -407,17 +329,15 @@ class InvestmentIntegrationAgent:
     
     def run(self, rating_json_path: str = None) -> Optional[str]:
         """
-        Run the Investment Integration Agent on a rating JSON file.
-        
-        Args:
-            rating_json_path (str, optional): Path to rating JSON file. If None, uses the path from initialization.
-        
-        Returns:
-            Optional[str]: The generated investment mindmap, or None if an error occurred.
+        Run the integration agent, loading the rating JSON using the new {ticker}.json pattern if a ticker is provided.
         """
+        if rating_json_path is None and self.ticker:
+            rating_json_path = get_rating_json_path(self.ticker)
         if rating_json_path:
             self.load_rating_data(rating_json_path)
-            self.rating_json_path = rating_json_path  # Ensure path is set
+        else:
+            print("No rating JSON path or ticker provided.")
+            return None
         
         if not self.rating_data:
             print("No rating data available.")
@@ -548,6 +468,8 @@ class InvestmentIntegrationAgent:
         prompt = f"""
 You are a mind-map **JSON extractor** specialized in capturing the full multi-headed analytical structure of an investment thesis, and your output will be consumed by a visualization that highlights causal and thematic branches.
 
+VERY IMPORTANT: Every sentence in the input narrative must include explicit numerical or textual evidence and its JSON source (e.g., "GDP growth was 2.5% (Macro.gdp_growth)"). Do not summarize without evidence.
+
 Transform the following investment-analysis text into a JSON object that matches
 this TypeScript interface (do not output the interface itself):
 
@@ -559,28 +481,51 @@ interface MindmapData {{
             relation: "supports" | "contradicts" | "drives" | "monitors" | "hedges"; }}[];
 }}
 
-Your goal is to expose every distinct branch of reasoning as separate root-to-leaf threads, preserving any cross-links between them.
+**Required Structure:**
+- The root node (n1) must have exactly three direct children:
+  1. Macro (group: "Macro")
+  2. Micro (group: "Company")
+  3. Price (group: "Price")
+- All other nodes must be descendants of one of these three branches. Do not add any other direct children to the root.
+
+**Evidence Node Requirements:**
+- Every evidence node must include:
+  1. The event or concept (e.g., "Company Valuation")
+  2. The ground truth: a specific, unbiased fact (numerical or text), e.g., "TSLA DCF is $210, peers GM, F, HMC are $60, $45, $50"
+- Use actual values from the JSON data (not just summaries or generic statements).
+- Explanations must be logical, detailed, and unbiased.
+
+**Output Example:**
+- "Company Valuation" → "TSLA DCF is $210, peers GM, F, HMC are $60, $45, $50"
+- "Macro: US GDP Growth" → "Q1 2024 GDP growth was 2.1% (source: Macro.summary)"
+
+**Branch Organization:**
+- Macro branch should include: economic outlook, interest rates, inflation, GDP growth, sector impacts, geopolitical factors
+- Company branch should include: fundamentals, metrics, news sentiment, earnings, company-specific catalysts
+- Price branch should include: technical analysis, risk/reward, moving averages, momentum indicators
+- Strategy/Conclusion should synthesize insights from all three branches 
 
 **Additional guidelines for edge classification:**
-- **drives**: use for causal links where the source is presented as a driver or cause of the target (e.g. “rate cuts drive EV demand”).
-- **supports**: use when the source serves as evidence or justification reinforcing the target thesis (e.g. “high beta supports sensitivity to macro shifts”).
-- **monitors**: use for metrics, indicators or upcoming events to track (“monitor CPI inflation”).
-- **contradicts**: use when the source expresses a counterargument or headwind to the target (“persistent inflation contradicts consumer spending recovery”).
-- **hedges**: use for risk-management or offsetting factors (“gold hedges inflation risk”).
+- **drives**: use for causal links where the source is presented as a driver or cause of the target (e.g. "rate cuts drive EV demand")
+- **supports**: use when the source serves as evidence or justification reinforcing the target thesis (e.g. "high beta supports sensitivity to macro shifts")
+- **monitors**: use for metrics, indicators or upcoming events to track ("monitor CPI inflation")
+- **contradicts**: use when the source expresses a counterargument or headwind to the target ("persistent inflation contradicts consumer spending recovery")
+- **hedges**: use for risk-management or offsetting factors ("gold hedges inflation risk")
 
 Also:
-- Identify the **central thesis** as the single top-level root node.
-- Classify each concept into its appropriate `group`.
-- Ensure **logical flow**: parents represent antecedent concepts; children are direct consequences, evidence or mitigants.
-- Assign concise unique `id` values in encounter order (`"n1"`, `"n2"`, …).
-- Only create an edge when a clear logical relationship exists in the text.
+- For the main tree, only create edges between a node and its direct children (no edges that skip levels; e.g., do not connect the root directly to grandchildren or deeper descendants).
+- Do not create multiple edges from the root to both a branch and its subnodes—each node should have only one parent in the main tree.
+- Only add cross-links (edges between nodes in different branches) if there is a strong, explicit relationship in the text (e.g., "hedges", "contradicts", etc.), and never for the main tree structure.
+- Ensure **logical flow**: parents represent antecedent concepts; children are direct consequences, evidence or mitigants
+- Assign concise unique `id` values in encounter order (`"n1"`, `"n2"`, …)
+- Only create an edge when a clear logical relationship exists in the text
 
 **Output rules obey exactly**
-1. Return **one single-line JSON string** and nothing else.
-2. No Markdown, no back-ticks, no comments.
-3. The JSON must parse with `JSON.parse`.
-4. ≤ 80 nodes, ≤ 300 edges.
-5. If you cannot comply, reply only: `ERROR_PARSING_INPUT`.
+1. Return **one single-line JSON string** and nothing else
+2. No Markdown, no back-ticks, no comments
+3. The JSON must parse with `JSON.parse`
+4. ≤ 80 nodes, ≤ 300 edges
+5. If you cannot comply, reply only: `ERROR_PARSING_INPUT`
 
 === BEGIN TEXT ===
 {narrative}

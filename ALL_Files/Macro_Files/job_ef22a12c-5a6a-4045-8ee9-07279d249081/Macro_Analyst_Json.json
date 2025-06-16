@@ -1,0 +1,49 @@
+{
+    "timestamp": "2025-06-10T22:54:41.599942",
+    "data": {
+        "summary": "The U.S. economy is showing signs of cooling with slowing GDP growth and mixed inflation signals. While PCE inflation has eased, CPI remains elevated, indicating persistent core inflation risks. The labor market remains tight with low unemployment but shows slight softening. Monetary policy is easing with declining Fed Funds Rates, and financial markets reflect mixed sentiments with a steepening yield curve and rising gold prices. Trade imbalances and housing affordability issues add structural pressures.",
+        "key_indicators": {
+            "GDP_growth_description": "Real GDP growth has slowed from 5.0% (early 2024) to 3.4% (mid-2025), indicating moderating expansion.",
+            "Inflation_rate_description": "PCE inflation dropped sharply from 4.0% to 1.2%, but monthly CPI continues rising (314.54 to 320.795), signaling persistent core inflation risks.",
+            "Unemployment_rate_description": "The unemployment rate remains low (4.0%-4.2%) but shows slight upticks, hinting at softening demand.",
+            "Interest_rate_description": "The Fed Funds Rate has declined (5.33% to 4.33%), signaling easing monetary policy. Treasury yields show a steepening yield curve (10Y-2Y spread widened to +50bps).",
+            "VIX_level_description": "VIX indicates moderate greed (-1\u03c3) in both long-term and short-term sentiment."
+        },
+        "sentiment": "NEUTRAL",
+        "trend": "STABLE",
+        "influencers": [
+            "Federal Reserve (monetary policy decisions)",
+            "US-China trade relations (tariff truce and export restrictions)",
+            "World Bank (global growth forecasts)",
+            "Political figures (GOP fiscal proposal, Warren Buffett's deficit idea)"
+        ],
+        "favorable_sectors": [
+            "Consumer discretionary (easing inflation fears)",
+            "Financials (higher-for-longer rates)",
+            "Defensive sectors (utilities, healthcare amid global growth slowdown)"
+        ],
+        "non_favorable_sectors": [
+            "Cyclical stocks (due to slowing global growth)",
+            "Tech (pressure from prolonged high rates)",
+            "Bonds (fiscal instability risks)"
+        ],
+        "macro_catalysts": [
+            "US Inflation Rate MoM (May) release",
+            "US Core Inflation Rate MoM (May) release",
+            "US CPI (May) release",
+            "US Inflation Rate YoY (May) release",
+            "US Core Inflation Rate YoY (May) release",
+            "US CPI s.a (May) release",
+            "UK Goods Trade Balance (Apr) release"
+        ],
+        "macro_event_recap": [
+            "US-China trade deal eases export restrictions and maintains tariff truce.",
+            "World Bank cuts global growth outlook to 2.3% for 2025 due to trade disruptions.",
+            "Fed expected to hold rates until September amid inflation risks.",
+            "US inflation fears ease as tariff threats recede (NY Fed Survey).",
+            "Bulgaria\u2019s Eurozone entry faces public resistance.",
+            "GOP fiscal proposal could worsen inflation (economists warn).",
+            "Warren Buffett\u2019s deficit proposal gains support (Musk backs idea)."
+        ]
+    }
+}

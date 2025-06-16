@@ -127,6 +127,21 @@ interface MacroPanelProps {
 }
 
 const MacroPanel: React.FC<MacroPanelProps> = ({ data }) => {
+  const isEmpty = !data || Object.keys(data).length === 0 || (!data.summary && !data.sentiment && !data.trend && !data.key_indicators && !data.macro_catalysts && !data.next_inference_hint);
+
+  if (isEmpty) {
+    return (
+      <StyledPaper elevation={0} sx={{ maxWidth: 960, mx: 'auto', p: { xs: 3, md: 5 }, borderRadius: 3 }}>
+        <Typography variant="h5" sx={{ color: '#ffc300', fontWeight: 700, mb: 2 }}>
+          No macro data available
+        </Typography>
+        <Typography variant="body1" sx={{ color: '#aaa' }}>
+          The backend did not provide macro analysis for this ticker. Please try again later or rerun the analysis.
+        </Typography>
+      </StyledPaper>
+    );
+  }
+
   // Determine sentiment icon and color
   const getSentimentIcon = () => {
     const sentiment = data.sentiment?.toLowerCase() || '';
@@ -163,15 +178,20 @@ const MacroPanel: React.FC<MacroPanelProps> = ({ data }) => {
         >
           {getSentimentIcon()}
         </motion.div>
-        <Typography variant="h4" sx={{ 
-          fontWeight: 700, 
-          background: ACCENT_GRADIENT,
-          backgroundClip: 'text',
-          WebkitBackgroundClip: 'text',
-          WebkitTextFillColor: 'transparent',
-        }}>
-          Macro Analysis
-        </Typography>
+        <Box>
+          <Typography variant="h4" sx={{ 
+            fontWeight: 700, 
+            background: ACCENT_GRADIENT,
+            backgroundClip: 'text',
+            WebkitBackgroundClip: 'text',
+            WebkitTextFillColor: 'transparent',
+          }}>
+            Macro AI
+          </Typography>
+          <Typography variant="subtitle2" sx={{ color: ACCENT_CYAN, fontWeight: 400, mt: 0.5 }}>
+            This AI will go through Macro Data + News in 1 ~ 2 min
+          </Typography>
+        </Box>
       </Box>
 
       {/* Summary Alert */}

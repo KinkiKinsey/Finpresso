@@ -110,20 +110,15 @@ def process_ticker(ticker, limit=10):
     """
     Main entry: fetch news, summarize, and update the rating JSON for the ticker.
     """
-    # Find the latest rating JSON for the ticker
-    rating_files = [
-        f for f in os.listdir(RATING_JSON_DIR)
-        if f.startswith(f"{ticker}_Rating_") and f.endswith(".json")
-    ]
-    if not rating_files:
-        print(f"No rating JSON found for {ticker}")
+    # Look for the rating JSON as {ticker}.json
+    rating_json_path = os.path.join(RATING_JSON_DIR, f"{ticker}.json")
+    if not os.path.exists(rating_json_path):
+        print(f"No rating JSON found for {ticker} at {rating_json_path}")
         return {
             "Three_Key_Takeaways": "",
             "Micro_Expectation": "",
             "Next_Inference_Hint_Micro_News": ""
         }
-    latest_file = max(rating_files, key=lambda f: os.path.getmtime(os.path.join(RATING_JSON_DIR, f)))
-    rating_json_path = os.path.join(RATING_JSON_DIR, latest_file)
 
     # Fetch news
     articles = fetch_fmp_news(ticker, limit=limit)

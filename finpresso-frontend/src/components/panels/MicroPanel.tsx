@@ -154,6 +154,24 @@ interface MicroPanelProps {
 
 /* ─── 主组件 ───────────────────────────────────────────── */
 const MicroPanel: React.FC<MicroPanelProps> = ({ data }) => {
+  const isEmpty = !data || Object.keys(data).length === 0 || (
+    !data.Micro_Expectation && !data.Three_Key_Takeaways && !data.Next_Inference_Hint_Micro_News &&
+    (!data.analysis_results || Object.keys(data.analysis_results).length === 0)
+  );
+
+  if (isEmpty) {
+    return (
+      <StyledBox sx={{ maxWidth: 900, mx: 'auto', p: { xs: 3, md: 5 }, borderRadius: 4 }}>
+        <Typography variant="h5" sx={{ color: '#ffc300', fontWeight: 700, mb: 2 }}>
+          No fundamental data available
+        </Typography>
+        <Typography variant="body1" sx={{ color: '#aaa' }}>
+          The backend did not provide company analysis for this ticker. Please try again later or rerun the analysis.
+        </Typography>
+      </StyledBox>
+    );
+  }
+
   /* ── takeaways 解析 ── */
   const raw = data.Three_Key_Takeaways;
   let takeaways: string[] = [];
@@ -178,18 +196,23 @@ const MicroPanel: React.FC<MicroPanelProps> = ({ data }) => {
         >
           <AutoAwesomeIcon sx={{ fontSize: 32, color: ACCENT_PURPLE }} />
         </motion.div>
-        <Typography
-          variant="h4"
-          sx={{
-            fontWeight: 700,
-            background: ACCENT_GRADIENT,
-            backgroundClip: 'text',
-            WebkitBackgroundClip: 'text',
-            WebkitTextFillColor: 'transparent',
-          }}
-        >
-          Company Analysis
-        </Typography>
+        <Box>
+          <Typography
+            variant="h4"
+            sx={{
+              fontWeight: 700,
+              background: ACCENT_GRADIENT,
+              backgroundClip: 'text',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+            }}
+          >
+            Micro AI
+          </Typography>
+          <Typography variant="subtitle2" sx={{ color: ACCENT_CYAN, fontWeight: 400, mt: 0.5 }}>
+            This AI will go through Fundamentals and read 300+ News & Sources in 1 ~ 2 min
+          </Typography>
+        </Box>
       </Box>
 
       {/* ─── Market Expectation ─── */}

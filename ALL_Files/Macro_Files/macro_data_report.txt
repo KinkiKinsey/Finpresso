@@ -1,89 +1,80 @@
 Here is Post Macro Data (Which might be delayed and it represent the postversion of Bubsiness) : 
 
-### **Current U.S. Economic Situation (2024–2025) – Key Trends & Pressures**  
+### **Current U.S. Economic Situation (2024-2025)**  
 
-The U.S. economy remains robust but shows signs of cooling, with persistent inflationary pressures and tightening financial conditions.  
+The U.S. economy is experiencing **strong but slowing GDP growth**, with Q3 2024 at **5.0%** and Q4 2024 moderating to **4.8%**, before a sharper drop to **3.4%** in Q1 2025. However, **future quarters show missing data**, raising uncertainty about further deceleration.  
 
-**Growth & Inflation:**  
-- **Real GDP growth** slowed from **5.0% (early 2024) to 3.5% (mid-2025)**, indicating economic resilience but moderating expansion.  
-- **PCE inflation** (Fed’s preferred gauge) rose from **3.7% to 4.0%** before sharply dropping to **1.8%**, suggesting volatile price trends.  
-- **CPI inflation** continues climbing (from **314.54 to 320.795**), reflecting sticky core inflation despite Fed tightening.  
-- **PPI** (producer costs) rose steadily (**144.869 to 148.374**) before a slight dip, signaling lingering supply-side pressures.  
+**Inflation remains persistent but uneven**. **CPI rose steadily** from 314.54 in July 2024 to 321.47 by May 2025, indicating **ongoing price pressures**. Meanwhile, **PCE inflation (Fed’s preferred gauge) spiked to 4.0% in Q4 2024 before plunging to 1.2% in Q1 2025**, suggesting volatile demand trends. **PPI continues climbing**, peaking at 148.37 in March 2025 before a slight dip, signaling lingering supply-side cost pressures.  
 
-**Labor Market & Wages:**  
-- **Unemployment** remains low (**4.0%–4.2%**), but recent upticks hint at softening demand.  
-- **Hourly earnings grew steadily (35.07 to 36.06)**, sustaining consumer spending but adding to cost pressures.  
-- **Personal savings rate dropped (4.3% to 3.3%)**, suggesting households are depleting buffers amid high living costs.  
+The **labor market remains tight but shows cracks**. The **unemployment rate fluctuates between 4.0% and 4.2%**, near historic lows, but **average hourly earnings keep rising (up to $36.24 by May 2025)**, fueling wage-price concerns. However, the **personal savings rate is volatile (3.5% to 4.9%)**, indicating consumer strain.  
 
-**Housing & Trade:**  
-- **Home prices** peaked (**$419,300**) before easing slightly, while **new home sales declined (707K to 662K)**, reflecting mortgage rate impacts.  
-- **Export/import price growth** stayed volatile, with imports (**149.2 to 152.8**) outpacing exports, worsening trade balances.  
+**Housing shows mixed signals**: Home prices (FHFA Index) rose steadily, but **new home sales declined from 707k to 662k**, suggesting affordability pressures amid high mortgage rates.  
 
-**Financial Markets & Fed Policy:**  
-- The **Fed cut rates aggressively (5.33% to 4.33%)**, yet long-term yields (**10Y at 4.28%**) remain elevated, tightening credit.  
-- The **10Y-2Y yield spread inverted (-25bps) but turned positive (50bps)**, reducing recession fears but signaling uncertainty.  
-- **Gold prices surged ($2,426 to $3,357)**, reflecting risk aversion and inflation hedging.  
+**Monetary policy is in flux**: The **Fed cut rates aggressively**, with the **Fed Funds Rate dropping from 5.33% (July 2024) to 4.33% (by October 2024)** and holding. Treasury yields (10Y at **4.42% in May 2025**) remain elevated, but the **10Y-2Y spread turned positive (50bps in May 2025)**, reducing recession fears.  
 
-**Key Concerns:**  
-1. **Inflation Stickiness:** CPI and import prices remain elevated, complicating Fed policy.  
-2. **Consumer Strain:** Falling savings and high debt servicing could weaken spending.  
-3. **Housing Slowdown:** Higher rates are cooling sales, risking broader economic spillovers.  
-4. **Global Pressures:** Rising import costs and volatile trade dynamics may squeeze margins.  
+**Trade pressures persist**: **Import prices rose faster than exports**, hinting at **external inflation risks**. Meanwhile, **gold surged to $3,395**, reflecting **market uncertainty**.  
 
-The Fed faces a delicate balance—easing policy to avoid a hard landing while preventing inflation resurgence.
+### **Key Concerns:**  
+- **Inflation stickiness** (CPI still rising, PPI elevated)  
+- **Slowing GDP momentum** (Q1 2025 at 3.4%)  
+- **Consumer strain** (low savings, high wages but rising costs)  
+- **Housing affordability** (high prices, declining sales)  
+- **Global trade imbalances** (import inflation)  
+
+The Fed must balance **growth risks vs. inflation**, with markets watching for **further rate cuts or prolonged holds**.
 
 Here is deeper look of Macro Dataset
 
 ### **Dimension of Real Growth Adjusted for Inflation**  
-**Analyst:** Real GDP growth peaked at 4.92% in Aug 2024 but declined sharply to 2.85% by Jan 2025, rebounding slightly to 3.28% by Mar 2025. The economy experienced a significant slowdown in early 2025, indicating weakening momentum.  
+**Analyst:** Real GDP growth shows strong expansion early in the period (4.8%-4.9%) but drops sharply to 2.7%-3.2% in later months, indicating a significant slowdown in economic activity. The absence of recent data suggests uncertainty in current conditions.  
 
 ### **Dimension of Yield Curve Spread**  
-**Analyst:** The yield curve was inverted (-0.25 in Jul 2024) but steepened into positive territory by Oct 2024, reaching 0.50 by Apr 2025. This suggests easing recession fears but rising long-term rate expectations.  
+**Analyst:** The yield curve shifts from inverted (-0.25) to moderately positive (0.5), signaling improving credit conditions and reduced recession risk. Recent stability at 0.5 suggests neutral monetary policy expectations.  
 
 ### **Dimension of Interest Rate Differential**  
-**Analyst:** Rates were deeply negative (-1.18 in Aug 2024) but turned positive (0.52 in Jan 2025), reflecting tightening monetary policy. The differential stabilized around 0.27–0.38 in early 2025.  
+**Analyst:** Rates transition from deeply negative (-1.18) to positive (0.57), reflecting tightening global monetary conditions. Recent data shows sustained positive differentials, indicating relative USD strength.  
 
 ### **Dimension of Real Wage Growth**  
-**Analyst:** Persistent negative real wage growth (-0.89 to -0.886) shows wages lagging inflation. No recovery observed through Apr 2025.  
+**Analyst:** Persistent negative real wage growth (-0.89 to -0.886) confirms ongoing erosion of purchasing power. No recovery is observed in the dataset.  
 
 ### **Dimension of Phillips Curve Value**  
-**Analyst:** Mixed signals—spikes in Jan 2025 (0.00011) but mostly flat/negative. No consistent inflation-unemployment tradeoff.  
+**Analyst:** Volatile near-zero values imply no stable inflation-unemployment tradeoff. Late-month spikes (0.00011) are outliers, not trends.  
 
 ### **Dimension of Real Savings Rate**  
-**Analyst:** Volatile, peaking at 3.91% in Nov 2024 before dropping to 2.36% in Jan 2025. Partial recovery to 3.18% by Mar 2025 suggests fluctuating consumer caution.  
+**Analyst:** Savings peak at 4.12% before declining to 3.05%, then partially recover (3.73%). The drop suggests reduced consumer caution mid-period.  
 
 ### **Dimension of Savings to Investment Ratio**  
-**Analyst:** Stable but low (0.0049–0.0062), indicating weak capital formation relative to savings. No structural improvement.  
+**Analyst:** Fluctuates between 0.0052-0.0066, showing no clear trend. Q3 2025 shows a slight rise (0.0065), indicating marginal capital retention.  
 
 ### **Dimension of Housing Affordability Index**  
-**Analyst:** Steady decline from 11,842 (Jul 2024) to 11,581 (Mar 2025), reflecting worsening affordability despite slowing home price growth.  
+**Analyst:** Steady decline from 11,842 to 11,574 reveals worsening affordability despite slowing house price growth (next dimension).  
 
 ### **Dimension of House Price Growth**  
-**Analyst:** Sharp deceleration from 2.54% (Jul–Sep 2024) to 0.45% (Jan–Jun 2025). Market cooling rapidly.  
+**Analyst:** Growth decelerates sharply from 2.51% to 0.46%, then stabilizes at 0.61%. The market is cooling.  
 
 ### **Dimension of Gold to CPI Ratio**  
-**Analyst:** Consistently rising (2.04 to 2.33), signaling heightened inflation hedging demand.  
+**Analyst:** Consistent rise (2.04 to 2.33) signals growing inflation hedging demand or loss of confidence in fiat stability.  
 
 ### **Dimension of PPI Sensitivity**  
-**Analyst:** Extreme volatility (153.68 in Jul 2024 to 515.72 in Mar 2025), with erratic input cost pressures.  
+**Analyst:** Extreme volatility (153.68 to -29.14, then 515.72) reflects supply chain disruptions or commodity shocks. Recent zero values imply muted producer inflation.  
 
 ### **Dimension of Trade Price Differential**  
-**Analyst:** Widening deficits (-7.4 to -11.0), reflecting deteriorating trade competitiveness.  
+**Analyst:** Widening deficits (-7.4 to -11.0) show deteriorating trade competitiveness, likely due to strong USD or weak exports.  
 
 ### **Dimension of Terms of Trade**  
-**Analyst:** Steady decline from 95.04 to 92.80, eroding export purchasing power.  
+**Analyst:** Steady decline (95.04 to 92.80) confirms worsening trade conditions, aligning with price differential data.  
 
 ### **Dimension of Investment Efficiency on Housing**  
-**Analyst:** Jumped from 132.65 (Jul 2024) to 152.89 (Jan–Jun 2025), likely due to rate-driven capital reallocation.  
+**Analyst:** Uninterrupted rise (132.65 to 152.89) suggests improving ROI in housing despite rate hikes, possibly due to constrained supply.  
 
 ### **Dimension of Consumption to Savings Ratio**  
-**Analyst:** Peaked at 1.21 in Dec 2024 before collapsing to 0.46 in Jan 2025, indicating abrupt consumer retrenchment.  
+**Analyst:** Spikes to 1.14 then crashes to 0.27, indicating erratic consumer behavior—likely a data anomaly or reporting issue.  
 
 ---  
 
 ### **Conclusion**  
-The U.S. economy shows slowing real growth, with GDP decelerating sharply in early 2025. Inflation hedging (gold ratio) persists despite mixed Phillips Curve signals. Housing affordability declines as price growth stalls. Trade deficits widen, and terms of trade deteriorate. Real wages remain negative, and savings-investment dynamics stay weak. Monetary tightening (positive rate differentials) coincides with volatile PPI and yield curve normalization. No sector exhibits robust recovery; conditions are stagnant or worsening.
+The U.S. economy shows early strength in GDP growth (4.8-4.9%) followed by a sharp slowdown (2.7-3.2%). Real wages are declining (-0.89%), and housing affordability is deteriorating despite cooling price growth (0.46-2.51%). Trade deficits are widening (-11.0), and terms of trade are worsening (92.80). The yield curve normalizes (0.5), and gold demand rises (2.33), signaling inflation concerns. Investment efficiency in housing improves (152.89), but PPI volatility (515.72) and erratic consumption data obscure clear trends. No recovery in real wages or trade balances is observed.
 
 Here is business Cycle Base on Current Post Data:Early Expansion High Inflation
 
-Here is the VIX Fear and Greed Level: {'Vix_z_score': np.float64(0.33685377863435706), 'long_term_sentiment': 'Neutral', 'short_term_sentiment': 'Neutral'}
+Here is the VIX Fear and Greed Level: {'Vix_z_score': np.float64(-0.271380679005909), 'long_term_sentiment': 'Moderate Greed (-1σ)', 'short_term_sentiment': 'Moderate Greed (-1σ)'}

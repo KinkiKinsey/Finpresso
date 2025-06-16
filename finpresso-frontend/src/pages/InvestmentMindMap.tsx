@@ -6,6 +6,7 @@ import { useQuery } from "@tanstack/react-query";
 import { Loader2, AlertTriangle, ZoomIn, ZoomOut } from "lucide-react";
 import { Button } from "@mui/material";
 import SchemaIcon from "@mui/icons-material/Schema";
+import axios from '@/utils/axiosConfig';
 
 // ── Types ───────────────────────────────────────────
 export interface MindmapNode {
@@ -373,11 +374,10 @@ const InvestmentMindMapPage: React.FC = () => {
     ["mindmap", job_id],
     async () => {
       if (!job_id) throw new Error("Missing id");
-      const res = await fetch(`/api/v1/analysis/${job_id}/result`);
+      const res = await axios.get(`/api/v1/analysis/${job_id}/result`);
       if (res.status === 404) return null;
-      if (!res.ok) throw new Error(`backend ${res.status}`);
-      const j = await res.json();
-      return (j as any).Investment_Mindmap_json as MindmapData;
+      if (res.status !== 200) throw new Error(`backend ${res.status}`);
+      return res.data.Investment_Mindmap_json as MindmapData;
     },
     { enabled: !!job_id, refetchInterval: (d) => (d ? false : 4000) }
   );

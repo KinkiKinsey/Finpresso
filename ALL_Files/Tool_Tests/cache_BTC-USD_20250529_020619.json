@@ -1,0 +1,14 @@
+{
+  "get_stock_dcf_valuation": {},
+  "analyze_earnings_vs_estimates": {
+    "status": "error",
+    "message": "No earnings data available"
+  },
+  "get_peer_valuation_comparison": {
+    "error": "Unable to coerce to Series, length must be 0: given 1"
+  },
+  "get_peer_beta_comparison": {
+    "error": "Unable to coerce to Series, length must be 0: given 1"
+  },
+  "get_stock_beta": null
+}

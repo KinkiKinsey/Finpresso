@@ -216,6 +216,7 @@ const DetailPage: React.FC = () => {
   const { state } = location as { state?: { ticker?: string } };
   const ticker = state?.ticker;
   const [cur, setCur] = useState<PanelKey>(panel as PanelKey);
+  const [showLoading, setShowLoading] = useState(false);
 
   // sync tab when URL changes
   useEffect(() => {
@@ -236,6 +237,12 @@ const DetailPage: React.FC = () => {
   // Check if strategy panel is ready (for mindmap)
   const isStrategyReady = (panelProgress.strategy ?? 0) >= 100 || jobState === 'finished';
   const isCurrentPanelReady = (panelProgress[cur] ?? 0) >= 100;
+
+  useEffect(() => {
+    setShowLoading(true);
+    const timer = setTimeout(() => setShowLoading(false), 500);
+    return () => clearTimeout(timer);
+  }, [cur]);
 
   const renderPanel = () => {
     switch (cur) {
@@ -327,7 +334,7 @@ const DetailPage: React.FC = () => {
                   disabled={!isStrategyReady}
                   isReady={isStrategyReady}
                 >
-                  Mind Map
+                  Mindmap AI
                 </MindMapButton>
               </span>
             </Tooltip>
@@ -495,8 +502,8 @@ const DetailPage: React.FC = () => {
                 borderRadius: 3,
               }}
             >
-              {/* Loading overlay for incomplete panels */}
-              {!isCurrentPanelReady && (
+              {/* Loading overlay for incomplete panels or simulated loading */}
+              {showLoading || !isCurrentPanelReady ? (
                 <Box
                   sx={{
                     position: 'absolute',
@@ -509,8 +516,7 @@ const DetailPage: React.FC = () => {
                   }}
                 >
                   <LinearProgress
-                    variant="determinate"
-                    value={panelProgress[cur] ?? 0}
+                    variant="indeterminate"
                     sx={{
                       height: 6,
                       borderRadius: 3,
@@ -530,12 +536,11 @@ const DetailPage: React.FC = () => {
                       textAlign: 'center',
                     }}
                   >
-                    Analysis Progress: {panelProgress[cur] ?? 0}%
+                    Loading panel…
                   </Typography>
                 </Box>
-              )}
-              
-              <Box sx={{ opacity: isCurrentPanelReady ? 1 : 0.6, transition: 'opacity 0.3s ease' }}>
+              ) : null}
+              <Box sx={{ opacity: !showLoading && isCurrentPanelReady ? 1 : 0.6, transition: 'opacity 0.3s ease' }}>
                 {renderPanel()}
               </Box>
             </ContentPaper>

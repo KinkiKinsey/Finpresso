@@ -133,7 +133,7 @@ const MainNavigation: React.FC = () => {
   /* 导航配置 */
   const navigationItems = [
     {
-      title: 'Market Analysis',
+      title: 'Stock Analyst System',
       subtitle: 'Deep dive into stocks, sectors, and market trends',
       description: 'Comprehensive financial analysis powered by AI agents',
       icon: <TrendingUpIcon sx={{ fontSize: 40 }} />,
@@ -142,7 +142,7 @@ const MainNavigation: React.FC = () => {
       features: ['Macro Analysis', 'Fundamental Research', 'Technical Indicators', 'Investment Strategy'],
     },
     {
-      title: 'Fact Checker',
+      title: 'Noise Filter System',
       subtitle: 'Verify news and statements with multi-layer AI validation',
       description: 'Real-time fact verification with source authentication',
       icon: <FactCheckIcon sx={{ fontSize: 40 }} />,

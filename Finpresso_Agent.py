@@ -15,6 +15,9 @@ import queue
 import re
 import numpy as np
 import pandas as pd
+from ALL_Files.Price_Agent import PriceAgent
+
+print("[DEBUG] Finpresso_Agent.py loaded")
 
 # Custom JSON encoder to handle DataFrames and numpy types
 class NumpyJSONEncoder(json.JSONEncoder):
@@ -91,10 +94,10 @@ output_queue = queue.Queue()
 streaming_active = False
 
 def ensure_ticker_graph_directory(ticker):
-    """Create a ticker-specific graph directory if it doesn't exist"""
-    os.makedirs(GRAPHS_BASE_DIR, exist_ok=True)
     ticker_graph_dir = os.path.join(GRAPHS_BASE_DIR, f"{ticker}_Graph")
+    print(f"[DEBUG] ensure_ticker_graph_directory called for ticker: {ticker}")
     os.makedirs(ticker_graph_dir, exist_ok=True)
+    print(f"[DEBUG] ensure_ticker_graph_directory returns: {ticker_graph_dir}")
     return ticker_graph_dir
 
 def stream_output():
@@ -190,6 +193,19 @@ def _finish(panel: str, job_id: str | None):
 
 def validate_ticker(ticker):
     """Validate if the provided ticker exists on Yahoo Finance"""
+    # Remove ALL whitespace characters and ensure uppercase
+    ticker = ''.join(ticker.split()).upper()
+    
+    # Additional validation for empty or invalid ticker
+    if not ticker:
+        stream_message("❌ Empty ticker symbol provided", Colors.RED)
+        return False
+        
+    # Validate ticker format (basic check for common invalid characters)
+    if any(c in ticker for c in [' ', '\t', '\n', '\r', ',', ';', '|']):
+        stream_message("❌ Invalid ticker symbol format", Colors.RED)
+        return False
+    
     stream_message(f"Validating ticker: {ticker}", Colors.CYAN)
     stream_thinking("Checking ticker data", 2)
     
@@ -206,37 +222,60 @@ def validate_ticker(ticker):
         stream_message(f"❌ Error validating ticker {ticker}: {str(e)}", Colors.RED)
         return False
 
-def create_rating_json(ticker):
-    """Create the initial Rating JSON file for the given ticker"""
+def get_rating_json_path(ticker):
+    """Return the canonical path for a ticker's rating JSON."""
+    return os.path.join(RATING_JSON_DIR, f"{ticker}.json")
+
+def get_graph_folder_path(ticker):
+    return os.path.join(GRAPHS_BASE_DIR, f"{ticker}_Graph")
+
+def is_recent(filepath, max_age_seconds=7200):
+    if not os.path.exists(filepath):
+        return False
+    mtime = os.path.getmtime(filepath)
+    return (time.time() - mtime) < max_age_seconds
+
+def all_graphs_recent(graph_dir, ticker, max_age_seconds=7200):
+    if not os.path.isdir(graph_dir):
+        return False
+    files = [f for f in os.listdir(graph_dir) if f.startswith(f"{ticker}_") and (f.endswith('.png') or f.endswith('.jpg') or f.endswith('.jpeg'))]
+    if len(files) != 4:
+        return False
+    return all(is_recent(os.path.join(graph_dir, f), max_age_seconds) for f in files)
+
+def create_or_overwrite_rating_json(ticker):
+    print(f"[DEBUG] create_or_overwrite_rating_json called for ticker: {ticker}")
     os.makedirs(RATING_JSON_DIR, exist_ok=True)
-    
-    stream_message("Initializing analysis template...", Colors.CYAN)
-    
-    # Create timestamp for the filename
-    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    output_path = os.path.join(RATING_JSON_DIR, f"{ticker}_Rating_{timestamp}.json")
-    
-    # Create the initial Rating JSON structure
+    output_path = get_rating_json_path(ticker)
     rating_data = {
         "Ticker": ticker,
         "Macro": {},
         "Micro": {},
         "Price": {},
-        "Strategy": {}
+        "Strategy": {},
+        "last_update": int(time.time())
     }
-    
-    stream_thinking("Creating rating template", 2)
-    
-    # Save the Rating JSON file
     with open(output_path, 'w') as f:
         json.dump(rating_data, f, indent=4)
-    
-    stream_message(f"✅ Created new Rating JSON file: {output_path}", Colors.GREEN)
-    
+    print(f"[DEBUG] create_or_overwrite_rating_json wrote: {output_path}")
     return output_path
 
+def is_rating_json_recent(ticker, max_age_seconds=7200):
+    path = get_rating_json_path(ticker)
+    if not os.path.exists(path):
+        return False
+    try:
+        with open(path, 'r') as f:
+            data = json.load(f)
+            last_update = data.get('last_update', 0)
+            if (time.time() - last_update) < max_age_seconds:
+                return True
+    except Exception as e:
+        print(f"[DEBUG] Error reading last_update from {path}: {e}")
+    return False
+
 def run_macro_analyst(rating_json_path, job_id: str | None = None):
-    """Run the Macro Analyst Agent and update the Rating JSON with macro analysis"""
+    print(f"[DEBUG] run_macro_analyst called for: {rating_json_path}")
     stream_message("\n" + "=" * 50, Colors.YELLOW)
     stream_message(f"{Colors.BOLD}{Colors.YELLOW}MACRO ANALYSIS PHASE{Colors.ENDC}")
     stream_message("=" * 50, Colors.YELLOW)
@@ -244,6 +283,10 @@ def run_macro_analyst(rating_json_path, job_id: str | None = None):
     stream_message("🔍 Initializing Macro Analyst Agent...", Colors.CYAN)
     
     try:
+        if job_id:
+            from progress_manager import update_progress
+            update_progress(job_id, "macro", "init")
+        
         sys.path.append(ALL_FILES_DIR)
         from Analyst_Macro_Kick_OFF_Agent import run_macro_kick_off_agent
         
@@ -259,7 +302,19 @@ def run_macro_analyst(rating_json_path, job_id: str | None = None):
             stream_thinking("  Processing", 2)
             stream_message(f"    ✓ {step} complete", Colors.GREEN)
             time.sleep(0.5)
-            _incr("macro", job_id)
+            
+            # Update progress using milestones
+            if job_id:
+                if i < 2:
+                    update_progress(job_id, "macro", "data_loading")
+                elif i < 4:
+                    update_progress(job_id, "macro", "analysis_start")
+                elif i < 6:
+                    update_progress(job_id, "macro", "processing")
+                elif i < 8:
+                    update_progress(job_id, "macro", "inference")
+                else:
+                    update_progress(job_id, "macro", "finalization")
 
         stream_message("\n🧠 Running Macro inference engine...", Colors.CYAN)
         stream_thinking("Generating macro insights", 3)
@@ -336,6 +391,10 @@ def run_macro_analyst(rating_json_path, job_id: str | None = None):
                 with open(rating_json_path, 'w') as f:
                     json.dump(rating_data, f, indent=4, cls=NumpyJSONEncoder)
                 
+            # Update progress to save_complete milestone
+            if job_id:
+                update_progress(job_id, "macro", "save_complete")
+                
             # Display key insights
             stream_message("\n📈 Key Macro Insights:", Colors.BLUE)
             if macro_data.get('summary'):
@@ -354,13 +413,14 @@ def run_macro_analyst(rating_json_path, job_id: str | None = None):
                     
             stream_message("\n🔮 Next Inference Hint:", Colors.YELLOW)
             stream_message(f"  {next_inference}", Colors.YELLOW)
-            _incr("macro", job_id)            
+            
             stream_message("\n✅ Macro analysis complete!", Colors.GREEN)
             
             if job_id and job_id in jobs:
                 jobs[job_id].panel_data["macro"] = macro_data
+                from progress_manager import complete_panel
+                complete_panel(job_id, "macro")  # Mark as 100% complete
             
-            _finish("macro", job_id)
             return True
             
         except Exception as e:
@@ -372,7 +432,7 @@ def run_macro_analyst(rating_json_path, job_id: str | None = None):
         return False
 
 def run_micro_news(rating_json_path, job_id: str | None = None):
-    """Run the Micro News Agent to analyze company news"""
+    print(f"[DEBUG] run_micro_news called for: {rating_json_path}")
     stream_message("\n" + "=" * 50, Colors.CYAN)
     stream_message(f"{Colors.BOLD}{Colors.CYAN}MICRO NEWS ANALYSIS PHASE{Colors.ENDC}")
     stream_message("=" * 50, Colors.CYAN)
@@ -457,7 +517,7 @@ def run_micro_news(rating_json_path, job_id: str | None = None):
         return False
 
 def run_micro_analyst(rating_json_path, job_id: str | None = None):
-    """Run the Micro Analyst Agent"""
+    print(f"[DEBUG] run_micro_analyst called for: {rating_json_path}")
     stream_message("\n" + "=" * 50, Colors.BLUE)
     stream_message(f"{Colors.BOLD}{Colors.BLUE}MICRO ANALYSIS PHASE{Colors.ENDC}")
     stream_message("=" * 50, Colors.BLUE)
@@ -686,7 +746,7 @@ def run_price_analyst(rating_json_path, job_id: str | None = None):
         return False
 
 def run_investment_integration_agent(rating_json_path, job_id: str | None = None):
-    """Run the Investment Integration Agent"""
+    print(f"[DEBUG] run_investment_integration_agent called for: {rating_json_path}")
     stream_message("\n" + "=" * 50, Colors.BLUE)
     stream_message(f"{Colors.BOLD}{Colors.BLUE}INTEGRATION PHASE{Colors.ENDC}")
     stream_message("=" * 50, Colors.BLUE)
@@ -763,7 +823,7 @@ def run_investment_integration_agent(rating_json_path, job_id: str | None = None
         return False
 
 def display_final_results(rating_json_path, ticker):
-    """Display the final analysis results"""
+    print(f"[DEBUG] display_final_results called for: {rating_json_path}")
     try:
         with open(rating_json_path, 'r') as f:
             final_data = json.load(f)
@@ -836,109 +896,132 @@ def display_final_results(rating_json_path, ticker):
     except Exception as e:
         stream_message(f"Error displaying final results: {str(e)}", Colors.RED)
 
-def main():
-    """Main function to run the entire Finpresso Agent workflow"""
-    stream_thread = start_streaming()
-    
-    try:
-        stream_message("\n" + "=" * 60, Colors.BOLD)
-        stream_message(f"{Colors.BOLD}🚀 FINPRESSO AI FINANCIAL ANALYSIS{Colors.ENDC}")
-        stream_message("=" * 60, Colors.BOLD)
-        
-        ticker = input("\nPlease enter a stock ticker symbol (e.g., AAPL): ").strip().upper()
-        
-        if not validate_ticker(ticker):
-            stream_message("Please try again with a valid ticker symbol.", Colors.RED)
-            stop_streaming()
-            return
-        
-        rating_json_path = create_rating_json(ticker)
-        
-        if not run_macro_analyst(rating_json_path):
-            stream_message("Failed to complete Macro analysis. Continuing...", Colors.YELLOW)
-        
-        if not run_micro_news(rating_json_path):
-            stream_message("Failed to complete Micro News analysis. Continuing...", Colors.YELLOW)
-        
-        if not run_micro_analyst(rating_json_path):
-            stream_message("Failed to complete Micro analysis. Continuing...", Colors.YELLOW)
-        
-        if not run_price_analyst(rating_json_path):
-            stream_message("Failed to complete Price analysis.", Colors.RED)
-        
-        if not run_investment_integration_agent(rating_json_path):
-            stream_message("Failed to complete Investment Integration.", Colors.YELLOW)
-        
-        display_final_results(rating_json_path, ticker)
-        
-    except Exception as e:
-        stream_message(f"Error in main execution: {str(e)}", Colors.RED)
-    finally:
-        stop_streaming()
-        stream_thread.join(timeout=1.0)    
-
 def run_analysis(ticker: str, job_id: str | None = None) -> dict:
-    """
-    Run the complete analysis pipeline for a given ticker.
-    Thread-safe version for concurrent execution.
-    """
-    # Set job_id in thread local storage
+    print(f"[DEBUG] run_analysis called for ticker: {ticker}")
     if job_id:
         _thread_local.job_id = job_id
-    
     try:
-        # Phase 0: initialize rating JSON
-        rating_json_path = create_rating_json(ticker)
-        if not rating_json_path:
-            stream_message("❌ Unable to create rating JSON. Aborting analysis.", Colors.RED)
-            return {}
+        rating_json_path = get_rating_json_path(ticker)
+        print(f"[DEBUG] Checking cache for ticker: {ticker}")
+        recent_json = is_rating_json_recent(ticker)
+        print(f"[DEBUG] is_rating_json_recent: {recent_json}")
+        
+        # Initialize progress manager if we have a job_id
+        if job_id:
+            from progress_manager import ProgressManager, init_progress, complete_panel
+            init_progress(job_id)
+        
+        if recent_json:
+            # Load cached JSON
+            with open(rating_json_path, 'r') as f:
+                data = json.load(f)
+            
+            # Set macro and micro to complete immediately since we're using cached data
+            if job_id and job_id in jobs:
+                # Load the cached data into the job's panel data
+                jobs[job_id].panel_data["macro"] = data.get("Macro", {})
+                jobs[job_id].panel_data["micro"] = data.get("Micro", {})
+                # Mark panels as complete
+                complete_panel(job_id, "macro")
+                complete_panel(job_id, "micro")
 
-        # Phase 1: Macro analysis
+            # Only update price analysis and graphs
+            print(f"[DEBUG] Rerunning Price analysis for {ticker} (JSON is recent, only updating Price section)")
+            if not run_price_analyst(rating_json_path, job_id):
+                stream_message("⚠️ Price analysis failed. Continuing to integration phase.", Colors.YELLOW)
+            
+            # After price analysis, update the strategy data and mark as complete
+            if job_id and job_id in jobs:
+                # Reload the JSON to get the updated data
+                with open(rating_json_path, 'r') as f:
+                    updated_data = json.load(f)
+                # Update the job's panel data with the latest data
+                jobs[job_id].panel_data["price"] = updated_data.get("Price", {})
+                jobs[job_id].panel_data["strategy"] = updated_data.get("Strategy", {})
+                complete_panel(job_id, "strategy")
+
+            # Update last_update field
+            data['last_update'] = int(time.time())
+            
+            # Save the updated data
+            with open(rating_json_path, 'w') as f:
+                json.dump(data, f, indent=4)
+            
+            # Return the complete JSON with all sections
+            return data
+        
+        # Otherwise, rerun the full pipeline
+        rating_json_path = create_or_overwrite_rating_json(ticker)
         if not run_macro_analyst(rating_json_path, job_id):
             stream_message("⚠️ Macro analysis failed. Continuing to next phase.", Colors.YELLOW)
-
-        # Phase 2: Micro news analysis
         if not run_micro_news(rating_json_path, job_id):
             stream_message("⚠️ Micro news analysis failed. Continuing to next phase.", Colors.YELLOW)
-
-        # Phase 3: Micro fundamentals analysis
         if not run_micro_analyst(rating_json_path, job_id):
             stream_message("⚠️ Micro analysis failed. Continuing to next phase.", Colors.YELLOW)
-
-        # Phase 4: Price analysis & strategy
         if not run_price_analyst(rating_json_path, job_id):
             stream_message("⚠️ Price analysis failed. Continuing to integration phase.", Colors.YELLOW)
-
-        # Phase 5: Investment integration (strategy)
         run_investment_integration_agent(rating_json_path, job_id)
-
-        # Final: display summary
         display_final_results(rating_json_path, ticker)
-
-        # Return the final JSON data
+        # Update last_update field after pipeline
+        try:
+            with open(rating_json_path, 'r') as f:
+                data = json.load(f)
+            data['last_update'] = int(time.time())
+            with open(rating_json_path, 'w') as f:
+                json.dump(data, f, indent=4)
+        except Exception as e:
+            print(f"[DEBUG] Error updating last_update in {rating_json_path}: {e}")
         try:
             with open(rating_json_path, 'r') as f:
                 return json.load(f)
         except Exception as e:
             print(f"Error reading final rating JSON: {e}")
             return {}
-
     except Exception as e:
         print(f"Error in analysis pipeline: {e}")
         return {}
     finally:
-        # Clean up thread local storage and job context
         if hasattr(_thread_local, 'job_id'):
             del _thread_local.job_id
         if job_id:
             cleanup_context(job_id)
-            # Clean up job-specific macro files
+            from progress_manager import cleanup_progress
+            cleanup_progress(job_id)
             job_macro_dir = os.path.join(ALL_FILES_DIR, 'Macro_Files', f'job_{job_id}')
             if os.path.exists(job_macro_dir):
                 try:
                     shutil.rmtree(job_macro_dir)
                 except:
                     pass
+
+def main():
+    print("[DEBUG] main() called")
+    stream_thread = start_streaming()
+    try:
+        stream_message("\n" + "=" * 60, Colors.BOLD)
+        stream_message(f"{Colors.BOLD}🚀 FINPRESSO AI FINANCIAL ANALYSIS{Colors.ENDC}")
+        stream_message("=" * 60, Colors.BOLD)
+        
+        # Get and clean ticker input
+        ticker = input("\nPlease enter a stock ticker symbol (e.g., AAPL): ").strip()
+        if not ticker:
+            stream_message("❌ No ticker symbol provided", Colors.RED)
+            stop_streaming()
+            return
+            
+        print(f"[DEBUG] main() ticker before validation: {ticker}")
+        if not validate_ticker(ticker):
+            stream_message("Please try again with a valid ticker symbol.", Colors.RED)
+            stop_streaming()
+            return
+            
+        # Use the cache-aware pipeline (preserves all streaming and frontend log functionality)
+        result = run_analysis(ticker)
+    except Exception as e:
+        stream_message(f"Error in main execution: {str(e)}", Colors.RED)
+    finally:
+        stop_streaming()
+        stream_thread.join(timeout=1.0)
 
 if __name__ == "__main__":
     main()

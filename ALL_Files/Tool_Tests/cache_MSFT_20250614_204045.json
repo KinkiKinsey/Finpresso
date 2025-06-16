@@ -1,0 +1,1198 @@
+{
+  "get_stock_dcf_valuation": {
+    "symbol": "MSFT",
+    "date": "2025-06-14",
+    "dcf": 342.70535366134516,
+    "Stock Price": 474.96
+  },
+  "get_company_profile": {
+    "symbol": "MSFT",
+    "price": 474.96,
+    "beta": 1.026,
+    "volAvg": 22994084,
+    "mktCap": 3530159198400,
+    "lastDiv": 3.24,
+    "range": "344.79-480.42",
+    "changes": -3.91,
+    "companyName": "Microsoft Corporation",
+    "currency": "USD",
+    "cik": "0000789019",
+    "isin": "US5949181045",
+    "cusip": "594918104",
+    "exchange": "NASDAQ Global Select",
+    "exchangeShortName": "NASDAQ",
+    "industry": "Software - Infrastructure",
+    "website": "https://www.microsoft.com",
+    "description": "Microsoft Corporation develops, licenses, and supports software, services, devices, and solutions worldwide. The company operates in three segments: Productivity and Business Processes, Intelligent Cloud, and More Personal Computing. The Productivity and Business Processes segment offers Office, Exchange, SharePoint, Microsoft Teams, Office 365 Security and Compliance, Microsoft Viva, and Skype for Business; Skype, Outlook.com, OneDrive, and LinkedIn; and Dynamics 365, a set of cloud-based and on-premises business solutions for organizations and enterprise divisions. The Intelligent Cloud segment licenses SQL, Windows Servers, Visual Studio, System Center, and related Client Access Licenses; GitHub that provides a collaboration platform and code hosting service for developers; Nuance provides healthcare and enterprise AI solutions; and Azure, a cloud platform. It also offers enterprise support, Microsoft consulting, and nuance professional services to assist customers in developing, deploying, and managing Microsoft server and desktop solutions; and training and certification on Microsoft products. The More Personal Computing segment provides Windows original equipment manufacturer (OEM) licensing and other non-volume licensing of the Windows operating system; Windows Commercial, such as volume licensing of the Windows operating system, Windows cloud services, and other Windows commercial offerings; patent licensing; and Windows Internet of Things. It also offers Surface, PC accessories, PCs, tablets, gaming and entertainment consoles, and other devices; Gaming, including Xbox hardware, and Xbox content and services; video games and third-party video game royalties; and Search, including Bing and Microsoft advertising. The company sells its products through OEMs, distributors, and resellers; and directly through digital marketplaces, online stores, and retail stores. Microsoft Corporation was founded in 1975 and is headquartered in Redmond, Washington.",
+    "ceo": "Mr. Satya  Nadella",
+    "sector": "Technology",
+    "country": "US",
+    "fullTimeEmployees": "228000",
+    "phone": "425 882 8080",
+    "address": "One Microsoft Way",
+    "city": "Redmond",
+    "state": "WA",
+    "zip": "98052-6399",
+    "dcfDiff": 132.25465,
+    "dcf": 342.70535366134516,
+    "image": "https://images.financialmodelingprep.com/symbol/MSFT.png",
+    "ipoDate": "1986-03-13",
+    "defaultImage": false,
+    "isEtf": false,
+    "isActivelyTrading": true,
+    "isAdr": false,
+    "isFund": false
+  },
+  "analyze_earnings_vs_estimates": {
+    "data": [
+      {
+        "date": "2025-04-30",
+        "symbol": "MSFT",
+        "actualEarningResult": 3.46,
+        "estimatedEarning": 3.22,
+        "surprise_pct": 7.453416149068315
+      },
+      {
+        "date": "2025-01-29",
+        "symbol": "MSFT",
+        "actualEarningResult": 3.23,
+        "estimatedEarning": 3.15,
+        "surprise_pct": 2.539682539682542
+      },
+      {
+        "date": "2024-10-30",
+        "symbol": "MSFT",
+        "actualEarningResult": 3.3,
+        "estimatedEarning": 3.1,
+        "surprise_pct": 6.451612903225798
+      },
+      {
+        "date": "2024-07-30",
+        "symbol": "MSFT",
+        "actualEarningResult": 2.95,
+        "estimatedEarning": 2.93,
+        "surprise_pct": 0.6825938566552906
+      },
+      {
+        "date": "2024-04-25",
+        "symbol": "MSFT",
+        "actualEarningResult": 2.94,
+        "estimatedEarning": 2.82,
+        "surprise_pct": 4.255319148936175
+      },
+      {
+        "date": "2024-01-30",
+        "symbol": "MSFT",
+        "actualEarningResult": 2.93,
+        "estimatedEarning": 2.78,
+        "surprise_pct": 5.395683453237423
+      },
+      {
+        "date": "2023-10-24",
+        "symbol": "MSFT",
+        "actualEarningResult": 2.99,
+        "estimatedEarning": 2.65,
+        "surprise_pct": 12.830188679245294
+      },
+      {
+        "date": "2023-07-25",
+        "symbol": "MSFT",
+        "actualEarningResult": 2.69,
+        "estimatedEarning": 2.55,
+        "surprise_pct": 5.490196078431378
+      },
+      {
+        "date": "2023-04-25",
+        "symbol": "MSFT",
+        "actualEarningResult": 2.45,
+        "estimatedEarning": 2.23,
+        "surprise_pct": 9.865470852017946
+      },
+      {
+        "date": "2023-01-24",
+        "symbol": "MSFT",
+        "actualEarningResult": 2.32,
+        "estimatedEarning": 2.29,
+        "surprise_pct": 1.3100436681222623
+      },
+      {
+        "date": "2022-10-25",
+        "symbol": "MSFT",
+        "actualEarningResult": 2.35,
+        "estimatedEarning": 2.3,
+        "surprise_pct": 2.1739130434782727
+      },
+      {
+        "date": "2022-07-26",
+        "symbol": "MSFT",
+        "actualEarningResult": 2.23,
+        "estimatedEarning": 2.29,
+        "surprise_pct": -2.6200873362445436
+      },
+      {
+        "date": "2022-04-26",
+        "symbol": "MSFT",
+        "actualEarningResult": 2.22,
+        "estimatedEarning": 2.19,
+        "surprise_pct": 1.3698630136986416
+      },
+      {
+        "date": "2022-01-25",
+        "symbol": "MSFT",
+        "actualEarningResult": 2.48,
+        "estimatedEarning": 2.31,
+        "surprise_pct": 7.359307359307356
+      },
+      {
+        "date": "2021-10-26",
+        "symbol": "MSFT",
+        "actualEarningResult": 2.27,
+        "estimatedEarning": 2.07,
+        "surprise_pct": 9.66183574879228
+      },
+      {
+        "date": "2021-07-27",
+        "symbol": "MSFT",
+        "actualEarningResult": 2.17,
+        "estimatedEarning": 1.92,
+        "surprise_pct": 13.020833333333334
+      },
+      {
+        "date": "2021-04-27",
+        "symbol": "MSFT",
+        "actualEarningResult": 1.95,
+        "estimatedEarning": 1.78,
+        "surprise_pct": 9.550561797752804
+      },
+      {
+        "date": "2021-01-26",
+        "symbol": "MSFT",
+        "actualEarningResult": 2.03,
+        "estimatedEarning": 1.64,
+        "surprise_pct": 23.780487804878046
+      },
+      {
+        "date": "2020-10-27",
+        "symbol": "MSFT",
+        "actualEarningResult": 1.82,
+        "estimatedEarning": 1.54,
+        "surprise_pct": 18.181818181818183
+      },
+      {
+        "date": "2020-07-22",
+        "symbol": "MSFT",
+        "actualEarningResult": 1.46,
+        "estimatedEarning": 1.34,
+        "surprise_pct": 8.955223880597005
+      },
+      {
+        "date": "2020-04-29",
+        "symbol": "MSFT",
+        "actualEarningResult": 1.4,
+        "estimatedEarning": 1.26,
+        "surprise_pct": 11.111111111111104
+      },
+      {
+        "date": "2020-01-29",
+        "symbol": "MSFT",
+        "actualEarningResult": 1.51,
+        "estimatedEarning": 1.32,
+        "surprise_pct": 14.39393939393939
+      },
+      {
+        "date": "2019-10-23",
+        "symbol": "MSFT",
+        "actualEarningResult": 1.38,
+        "estimatedEarning": 1.25,
+        "surprise_pct": 10.399999999999991
+      },
+      {
+        "date": "2019-07-18",
+        "symbol": "MSFT",
+        "actualEarningResult": 1.37,
+        "estimatedEarning": 1.21,
+        "surprise_pct": 13.22314049586778
+      },
+      {
+        "date": "2019-04-24",
+        "symbol": "MSFT",
+        "actualEarningResult": 1.14,
+        "estimatedEarning": 1.0,
+        "surprise_pct": 13.99999999999999
+      },
+      {
+        "date": "2019-01-30",
+        "symbol": "MSFT",
+        "actualEarningResult": 1.1,
+        "estimatedEarning": 1.09,
+        "surprise_pct": 0.9174311926605512
+      },
+      {
+        "date": "2018-10-24",
+        "symbol": "MSFT",
+        "actualEarningResult": 1.14,
+        "estimatedEarning": 0.96,
+        "surprise_pct": 18.749999999999993
+      },
+      {
+        "date": "2018-07-19",
+        "symbol": "MSFT",
+        "actualEarningResult": 1.13,
+        "estimatedEarning": 1.08,
+        "surprise_pct": 4.629629629629613
+      },
+      {
+        "date": "2018-04-26",
+        "symbol": "MSFT",
+        "actualEarningResult": 0.95,
+        "estimatedEarning": 0.85,
+        "surprise_pct": 11.764705882352938
+      },
+      {
+        "date": "2018-01-31",
+        "symbol": "MSFT",
+        "actualEarningResult": 0.96,
+        "estimatedEarning": 0.86,
+        "surprise_pct": 11.627906976744184
+      },
+      {
+        "date": "2017-10-26",
+        "symbol": "MSFT",
+        "actualEarningResult": 0.84,
+        "estimatedEarning": 0.72,
+        "surprise_pct": 16.666666666666664
+      },
+      {
+        "date": "2017-07-20",
+        "symbol": "MSFT",
+        "actualEarningResult": 0.98,
+        "estimatedEarning": 0.71,
+        "surprise_pct": 38.02816901408451
+      },
+      {
+        "date": "2017-04-27",
+        "symbol": "MSFT",
+        "actualEarningResult": 0.73,
+        "estimatedEarning": 0.7,
+        "surprise_pct": 4.28571428571429
+      },
+      {
+        "date": "2017-01-26",
+        "symbol": "MSFT",
+        "actualEarningResult": 0.84,
+        "estimatedEarning": 0.79,
+        "surprise_pct": 6.329113924050624
+      },
+      {
+        "date": "2016-10-20",
+        "symbol": "MSFT",
+        "actualEarningResult": 0.76,
+        "estimatedEarning": 0.68,
+        "surprise_pct": 11.764705882352935
+      },
+      {
+        "date": "2016-07-19",
+        "symbol": "MSFT",
+        "actualEarningResult": 0.69,
+        "estimatedEarning": 0.58,
+        "surprise_pct": 18.96551724137931
+      },
+      {
+        "date": "2016-04-21",
+        "symbol": "MSFT",
+        "actualEarningResult": 0.62,
+        "estimatedEarning": 0.64,
+        "surprise_pct": -3.1250000000000027
+      },
+      {
+        "date": "2016-01-28",
+        "symbol": "MSFT",
+        "actualEarningResult": 0.78,
+        "estimatedEarning": 0.71,
+        "surprise_pct": 9.859154929577475
+      },
+      {
+        "date": "2015-10-22",
+        "symbol": "MSFT",
+        "actualEarningResult": 0.67,
+        "estimatedEarning": 0.59,
+        "surprise_pct": 13.559322033898319
+      },
+      {
+        "date": "2015-07-21",
+        "symbol": "MSFT",
+        "actualEarningResult": 0.62,
+        "estimatedEarning": 0.31,
+        "surprise_pct": 100.0
+      },
+      {
+        "date": "2015-04-23",
+        "symbol": "MSFT",
+        "actualEarningResult": 0.61,
+        "estimatedEarning": 0.51,
+        "surprise_pct": 19.607843137254896
+      },
+      {
+        "date": "2015-01-26",
+        "symbol": "MSFT",
+        "actualEarningResult": 0.75,
+        "estimatedEarning": 0.71,
+        "surprise_pct": 5.633802816901413
+      },
+      {
+        "date": "2014-10-23",
+        "symbol": "MSFT",
+        "actualEarningResult": 0.54,
+        "estimatedEarning": 0.49,
+        "surprise_pct": 10.204081632653072
+      },
+      {
+        "date": "2014-07-22",
+        "symbol": "MSFT",
+        "actualEarningResult": 0.55,
+        "estimatedEarning": 0.6,
+        "surprise_pct": -8.333333333333323
+      },
+      {
+        "date": "2014-04-24",
+        "symbol": "MSFT",
+        "actualEarningResult": 0.68,
+        "estimatedEarning": 0.63,
+        "surprise_pct": 7.936507936507943
+      },
+      {
+        "date": "2014-01-23",
+        "symbol": "MSFT",
+        "actualEarningResult": 0.78,
+        "estimatedEarning": 0.68,
+        "surprise_pct": 14.705882352941172
+      },
+      {
+        "date": "2013-10-24",
+        "symbol": "MSFT",
+        "actualEarningResult": 0.62,
+        "estimatedEarning": 0.54,
+        "surprise_pct": 14.814814814814806
+      },
+      {
+        "date": "2013-07-18",
+        "symbol": "MSFT",
+        "actualEarningResult": 0.66,
+        "estimatedEarning": 0.75,
+        "surprise_pct": -11.999999999999995
+      },
+      {
+        "date": "2013-04-18",
+        "symbol": "MSFT",
+        "actualEarningResult": 0.72,
+        "estimatedEarning": 0.68,
+        "surprise_pct": 5.8823529411764595
+      },
+      {
+        "date": "2013-01-24",
+        "symbol": "MSFT",
+        "actualEarningResult": 0.76,
+        "estimatedEarning": 0.75,
+        "surprise_pct": 1.3333333333333344
+      },
+      {
+        "date": "2012-10-18",
+        "symbol": "MSFT",
+        "actualEarningResult": 0.53,
+        "estimatedEarning": 0.56,
+        "surprise_pct": -5.357142857142862
+      },
+      {
+        "date": "2012-07-19",
+        "symbol": "MSFT",
+        "actualEarningResult": 0.67,
+        "estimatedEarning": 0.62,
+        "surprise_pct": 8.064516129032265
+      },
+      {
+        "date": "2012-04-19",
+        "symbol": "MSFT",
+        "actualEarningResult": 0.6,
+        "estimatedEarning": 0.57,
+        "surprise_pct": 5.263157894736848
+      },
+      {
+        "date": "2012-01-19",
+        "symbol": "MSFT",
+        "actualEarningResult": 0.78,
+        "estimatedEarning": 0.76,
+        "surprise_pct": 2.6315789473684235
+      },
+      {
+        "date": "2011-10-20",
+        "symbol": "MSFT",
+        "actualEarningResult": 0.68,
+        "estimatedEarning": 0.68,
+        "surprise_pct": 0.0
+      },
+      {
+        "date": "2011-07-21",
+        "symbol": "MSFT",
+        "actualEarningResult": 0.69,
+        "estimatedEarning": 0.58,
+        "surprise_pct": 18.96551724137931
+      },
+      {
+        "date": "2011-04-28",
+        "symbol": "MSFT",
+        "actualEarningResult": 0.61,
+        "estimatedEarning": 0.56,
+        "surprise_pct": 8.928571428571416
+      },
+      {
+        "date": "2011-01-27",
+        "symbol": "MSFT",
+        "actualEarningResult": 0.77,
+        "estimatedEarning": 0.68,
+        "surprise_pct": 13.235294117647053
+      },
+      {
+        "date": "2010-10-28",
+        "symbol": "MSFT",
+        "actualEarningResult": 0.62,
+        "estimatedEarning": 0.55,
+        "surprise_pct": 12.727272727272718
+      },
+      {
+        "date": "2010-07-22",
+        "symbol": "MSFT",
+        "actualEarningResult": 0.51,
+        "estimatedEarning": 0.46,
+        "surprise_pct": 10.869565217391301
+      },
+      {
+        "date": "2010-04-22",
+        "symbol": "MSFT",
+        "actualEarningResult": 0.45,
+        "estimatedEarning": 0.42,
+        "surprise_pct": 7.1428571428571495
+      },
+      {
+        "date": "2010-01-28",
+        "symbol": "MSFT",
+        "actualEarningResult": 0.74,
+        "estimatedEarning": 0.59,
+        "surprise_pct": 25.423728813559325
+      },
+      {
+        "date": "2009-10-23",
+        "symbol": "MSFT",
+        "actualEarningResult": 0.4,
+        "estimatedEarning": 0.32,
+        "surprise_pct": 25.000000000000007
+      },
+      {
+        "date": "2009-07-23",
+        "symbol": "MSFT",
+        "actualEarningResult": 0.36,
+        "estimatedEarning": 0.36,
+        "surprise_pct": 0.0
+      },
+      {
+        "date": "2009-04-23",
+        "symbol": "MSFT",
+        "actualEarningResult": 0.39,
+        "estimatedEarning": 0.39,
+        "surprise_pct": 0.0
+      },
+      {
+        "date": "2009-01-22",
+        "symbol": "MSFT",
+        "actualEarningResult": 0.47,
+        "estimatedEarning": 0.49,
+        "surprise_pct": -4.081632653061228
+      },
+      {
+        "date": "2008-10-23",
+        "symbol": "MSFT",
+        "actualEarningResult": 0.48,
+        "estimatedEarning": 0.47,
+        "surprise_pct": 2.1276595744680873
+      },
+      {
+        "date": "2008-07-17",
+        "symbol": "MSFT",
+        "actualEarningResult": 0.46,
+        "estimatedEarning": 0.47,
+        "surprise_pct": -2.1276595744680753
+      },
+      {
+        "date": "2008-04-24",
+        "symbol": "MSFT",
+        "actualEarningResult": 0.47,
+        "estimatedEarning": 0.44,
+        "surprise_pct": 6.818181818181812
+      },
+      {
+        "date": "2008-01-24",
+        "symbol": "MSFT",
+        "actualEarningResult": 0.5,
+        "estimatedEarning": 0.46,
+        "surprise_pct": 8.69565217391304
+      },
+      {
+        "date": "2007-10-25",
+        "symbol": "MSFT",
+        "actualEarningResult": 0.45,
+        "estimatedEarning": 0.39,
+        "surprise_pct": 15.384615384615383
+      },
+      {
+        "date": "2007-07-19",
+        "symbol": "MSFT",
+        "actualEarningResult": 0.39,
+        "estimatedEarning": 0.39,
+        "surprise_pct": 0.0
+      },
+      {
+        "date": "2007-04-26",
+        "symbol": "MSFT",
+        "actualEarningResult": 0.49,
+        "estimatedEarning": 0.46,
+        "surprise_pct": 6.521739130434775
+      },
+      {
+        "date": "2007-01-25",
+        "symbol": "MSFT",
+        "actualEarningResult": 0.26,
+        "estimatedEarning": 0.23,
+        "surprise_pct": 13.043478260869565
+      },
+      {
+        "date": "2006-10-26",
+        "symbol": "MSFT",
+        "actualEarningResult": 0.35,
+        "estimatedEarning": 0.31,
+        "surprise_pct": 12.903225806451607
+      },
+      {
+        "date": "2006-07-20",
+        "symbol": "MSFT",
+        "actualEarningResult": 0.31,
+        "estimatedEarning": 0.3,
+        "surprise_pct": 3.3333333333333366
+      },
+      {
+        "date": "2006-04-27",
+        "symbol": "MSFT",
+        "actualEarningResult": 0.32,
+        "estimatedEarning": 0.33,
+        "surprise_pct": -3.030303030303033
+      },
+      {
+        "date": "2006-01-26",
+        "symbol": "MSFT",
+        "actualEarningResult": 0.33,
+        "estimatedEarning": 0.33,
+        "surprise_pct": 0.0
+      },
+      {
+        "date": "2005-10-27",
+        "symbol": "MSFT",
+        "actualEarningResult": 0.31,
+        "estimatedEarning": 0.3,
+        "surprise_pct": 3.3333333333333366
+      },
+      {
+        "date": "2005-07-21",
+        "symbol": "MSFT",
+        "actualEarningResult": 0.32,
+        "estimatedEarning": 0.31,
+        "surprise_pct": 3.2258064516129057
+      },
+      {
+        "date": "2005-04-28",
+        "symbol": "MSFT",
+        "actualEarningResult": 0.32,
+        "estimatedEarning": 0.32,
+        "surprise_pct": 0.0
+      },
+      {
+        "date": "2005-01-27",
+        "symbol": "MSFT",
+        "actualEarningResult": 0.35,
+        "estimatedEarning": 0.33,
+        "surprise_pct": 6.060606060606049
+      },
+      {
+        "date": "2004-10-21",
+        "symbol": "MSFT",
+        "actualEarningResult": 0.31,
+        "estimatedEarning": 0.3,
+        "surprise_pct": 3.3333333333333366
+      },
+      {
+        "date": "2004-07-22",
+        "symbol": "MSFT",
+        "actualEarningResult": 0.28,
+        "estimatedEarning": 0.29,
+        "surprise_pct": -3.4482758620689493
+      },
+      {
+        "date": "2004-04-22",
+        "symbol": "MSFT",
+        "actualEarningResult": 0.34,
+        "estimatedEarning": 0.29,
+        "surprise_pct": 17.241379310344847
+      },
+      {
+        "date": "2004-01-22",
+        "symbol": "MSFT",
+        "actualEarningResult": 0.34,
+        "estimatedEarning": 0.3,
+        "surprise_pct": 13.333333333333346
+      },
+      {
+        "date": "2003-10-23",
+        "symbol": "MSFT",
+        "actualEarningResult": 0.3,
+        "estimatedEarning": 0.29,
+        "surprise_pct": 3.448275862068969
+      },
+      {
+        "date": "2003-07-17",
+        "symbol": "MSFT",
+        "actualEarningResult": 0.23,
+        "estimatedEarning": 0.24,
+        "surprise_pct": -4.166666666666659
+      },
+      {
+        "date": "2003-04-15",
+        "symbol": "MSFT",
+        "actualEarningResult": 0.27,
+        "estimatedEarning": 0.24,
+        "surprise_pct": 12.50000000000001
+      },
+      {
+        "date": "2003-01-16",
+        "symbol": "MSFT",
+        "actualEarningResult": 0.27,
+        "estimatedEarning": 0.23,
+        "surprise_pct": 17.39130434782609
+      },
+      {
+        "date": "2002-10-17",
+        "symbol": "MSFT",
+        "actualEarningResult": 0.28,
+        "estimatedEarning": 0.21,
+        "surprise_pct": 33.33333333333336
+      },
+      {
+        "date": "2002-07-18",
+        "symbol": "MSFT",
+        "actualEarningResult": 0.21,
+        "estimatedEarning": 0.21,
+        "surprise_pct": 0.0
+      },
+      {
+        "date": "2002-04-18",
+        "symbol": "MSFT",
+        "actualEarningResult": 0.25,
+        "estimatedEarning": 0.25,
+        "surprise_pct": 0.0
+      },
+      {
+        "date": "2002-01-17",
+        "symbol": "MSFT",
+        "actualEarningResult": 0.25,
+        "estimatedEarning": 0.21,
+        "surprise_pct": 19.04761904761905
+      },
+      {
+        "date": "2001-10-18",
+        "symbol": "MSFT",
+        "actualEarningResult": 0.22,
+        "estimatedEarning": 0.2,
+        "surprise_pct": 9.999999999999995
+      },
+      {
+        "date": "2001-07-19",
+        "symbol": "MSFT",
+        "actualEarningResult": 0.22,
+        "estimatedEarning": 0.21,
+        "surprise_pct": 4.761904761904766
+      },
+      {
+        "date": "2001-04-19",
+        "symbol": "MSFT",
+        "actualEarningResult": 0.22,
+        "estimatedEarning": 0.21,
+        "surprise_pct": 4.761904761904766
+      },
+      {
+        "date": "2001-01-18",
+        "symbol": "MSFT",
+        "actualEarningResult": 0.24,
+        "estimatedEarning": 0.23,
+        "surprise_pct": 4.3478260869565135
+      },
+      {
+        "date": "2000-10-18",
+        "symbol": "MSFT",
+        "actualEarningResult": 0.23,
+        "estimatedEarning": 0.21,
+        "surprise_pct": 9.523809523809533
+      },
+      {
+        "date": "2000-07-18",
+        "symbol": "MSFT",
+        "actualEarningResult": 0.22,
+        "estimatedEarning": 0.21,
+        "surprise_pct": 4.761904761904766
+      },
+      {
+        "date": "2000-04-20",
+        "symbol": "MSFT",
+        "actualEarningResult": 0.22,
+        "estimatedEarning": 0.2,
+        "surprise_pct": 9.999999999999995
+      },
+      {
+        "date": "2000-01-18",
+        "symbol": "MSFT",
+        "actualEarningResult": 0.24,
+        "estimatedEarning": 0.21,
+        "surprise_pct": 14.285714285714285
+      },
+      {
+        "date": "1999-10-19",
+        "symbol": "MSFT",
+        "actualEarningResult": 0.19,
+        "estimatedEarning": 0.17,
+        "surprise_pct": 11.764705882352935
+      },
+      {
+        "date": "1999-07-19",
+        "symbol": "MSFT",
+        "actualEarningResult": 0.2,
+        "estimatedEarning": 0.18,
+        "surprise_pct": 11.111111111111121
+      },
+      {
+        "date": "1999-04-20",
+        "symbol": "MSFT",
+        "actualEarningResult": 0.19,
+        "estimatedEarning": 0.16,
+        "surprise_pct": 18.75
+      },
+      {
+        "date": "1999-01-19",
+        "symbol": "MSFT",
+        "actualEarningResult": 0.18,
+        "estimatedEarning": 0.15,
+        "surprise_pct": 20.0
+      },
+      {
+        "date": "1998-10-20",
+        "symbol": "MSFT",
+        "actualEarningResult": 0.14,
+        "estimatedEarning": 0.12,
+        "surprise_pct": 16.666666666666682
+      },
+      {
+        "date": "1998-07-16",
+        "symbol": "MSFT",
+        "actualEarningResult": 0.13,
+        "estimatedEarning": 0.12,
+        "surprise_pct": 8.333333333333341
+      },
+      {
+        "date": "1998-04-22",
+        "symbol": "MSFT",
+        "actualEarningResult": 0.13,
+        "estimatedEarning": 0.12,
+        "surprise_pct": 8.333333333333341
+      },
+      {
+        "date": "1998-01-21",
+        "symbol": "MSFT",
+        "actualEarningResult": 0.11,
+        "estimatedEarning": 0.1,
+        "surprise_pct": 9.999999999999995
+      },
+      {
+        "date": "1997-10-20",
+        "symbol": "MSFT",
+        "actualEarningResult": 0.09,
+        "estimatedEarning": 0.09,
+        "surprise_pct": 0.0
+      },
+      {
+        "date": "1997-07-17",
+        "symbol": "MSFT",
+        "actualEarningResult": 0.1,
+        "estimatedEarning": 0.1,
+        "surprise_pct": 0.0
+      },
+      {
+        "date": "1997-04-17",
+        "symbol": "MSFT",
+        "actualEarningResult": 0.1,
+        "estimatedEarning": 0.08,
+        "surprise_pct": 25.000000000000007
+      },
+      {
+        "date": "1997-01-17",
+        "symbol": "MSFT",
+        "actualEarningResult": 0.07,
+        "estimatedEarning": 0.06,
+        "surprise_pct": 16.666666666666682
+      },
+      {
+        "date": "1996-10-21",
+        "symbol": "MSFT",
+        "actualEarningResult": 0.06,
+        "estimatedEarning": 0.06,
+        "surprise_pct": 0.0
+      },
+      {
+        "date": "1996-07-22",
+        "symbol": "MSFT",
+        "actualEarningResult": 0.05,
+        "estimatedEarning": 0.05,
+        "surprise_pct": 0.0
+      },
+      {
+        "date": "1996-04-18",
+        "symbol": "MSFT",
+        "actualEarningResult": 0.06,
+        "estimatedEarning": 0.05,
+        "surprise_pct": 19.99999999999999
+      },
+      {
+        "date": "1996-01-18",
+        "symbol": "MSFT",
+        "actualEarningResult": 0.05,
+        "estimatedEarning": 0.05,
+        "surprise_pct": 0.0
+      },
+      {
+        "date": "1995-10-17",
+        "symbol": "MSFT",
+        "actualEarningResult": 0.05,
+        "estimatedEarning": 0.04487,
+        "surprise_pct": 11.433028749721423
+      },
+      {
+        "date": "1995-07-17",
+        "symbol": "MSFT",
+        "actualEarningResult": 0.04,
+        "estimatedEarning": 0.0384,
+        "surprise_pct": 4.1666666666666785
+      },
+      {
+        "date": "1995-04-13",
+        "symbol": "MSFT",
+        "actualEarningResult": 0.04,
+        "estimatedEarning": 0.03698,
+        "surprise_pct": 8.1665765278529
+      },
+      {
+        "date": "1995-01-18",
+        "symbol": "MSFT",
+        "actualEarningResult": 0.04,
+        "estimatedEarning": 0.03821,
+        "surprise_pct": 4.684637529442554
+      },
+      {
+        "date": "1994-10-19",
+        "symbol": "MSFT",
+        "actualEarningResult": 0.03,
+        "estimatedEarning": 0.02838,
+        "surprise_pct": 5.708245243128964
+      },
+      {
+        "date": "1994-07-20",
+        "symbol": "MSFT",
+        "actualEarningResult": 0.04,
+        "estimatedEarning": 0.03907,
+        "surprise_pct": 2.3803429741489643
+      },
+      {
+        "date": "1994-04-18",
+        "symbol": "MSFT",
+        "actualEarningResult": 0.03,
+        "estimatedEarning": 0.0274,
+        "surprise_pct": 9.489051094890504
+      },
+      {
+        "date": "1994-01-19",
+        "symbol": "MSFT",
+        "actualEarningResult": 0.03,
+        "estimatedEarning": 0.02944,
+        "surprise_pct": 1.9021739130434714
+      },
+      {
+        "date": "1993-10-20",
+        "symbol": "MSFT",
+        "actualEarningResult": 0.02,
+        "estimatedEarning": 0.01964,
+        "surprise_pct": 1.8329938900203624
+      },
+      {
+        "date": "1993-07-28",
+        "symbol": "MSFT",
+        "actualEarningResult": 0.03,
+        "estimatedEarning": 0.02949,
+        "surprise_pct": 1.7293997965412005
+      },
+      {
+        "date": "1993-04-14",
+        "symbol": "MSFT",
+        "actualEarningResult": 0.03,
+        "estimatedEarning": 0.02942,
+        "surprise_pct": 1.971447994561513
+      },
+      {
+        "date": "1993-01-16",
+        "symbol": "MSFT",
+        "actualEarningResult": 0.02,
+        "estimatedEarning": 0.02008,
+        "surprise_pct": -0.39840637450199307
+      }
+    ],
+    "summary": {
+      "total_quarters": 130,
+      "beats": 106,
+      "misses": 11,
+      "beat_rate": 0.8153846153846154,
+      "average_surprise_pct": 8.722277742625174,
+      "surprise_trend": 7.851822523570308
+    }
+  },
+  "get_peer_valuation_comparison": {
+    "__dataframe__": true,
+    "data": [
+      {
+        "ticker": "MSFT",
+        "price": 474.96,
+        "market_cap_B": 3530.159292416,
+        "forward_pe": 31.7699,
+        "price_to_book": 10.969053,
+        "ev_to_ebitda": 23.835,
+        "profit_margins": 0.35789,
+        "sector": "Technology",
+        "industry": "Software - Infrastructure",
+        "forward_pe_rank": 0.4,
+        "price_to_book_rank": 0.3125,
+        "ev_to_ebitda_rank": 0.4
+      },
+      {
+        "ticker": "ORCL",
+        "price": 215.22,
+        "market_cap_B": 603.526332416,
+        "forward_pe": 30.05866,
+        "price_to_book": 28.788122,
+        "ev_to_ebitda": 28.754,
+        "profit_margins": 0.21677999,
+        "sector": "Technology",
+        "industry": "Software - Infrastructure",
+        "forward_pe_rank": 0.3333333333333333,
+        "price_to_book_rank": 0.6875,
+        "ev_to_ebitda_rank": 0.6666666666666666
+      },
+      {
+        "ticker": "PLTR",
+        "price": 137.4,
+        "market_cap_B": 324.251615232,
+        "forward_pe": 292.34042,
+        "price_to_book": 59.765114,
+        "ev_to_ebitda": 733.128,
+        "profit_margins": 0.18320999,
+        "sector": "Technology",
+        "industry": "Software - Infrastructure",
+        "forward_pe_rank": 1.0,
+        "price_to_book_rank": 0.9375,
+        "ev_to_ebitda_rank": 1.0
+      },
+      {
+        "ticker": "ADBE",
+        "price": 391.68,
+        "market_cap_B": 166.934020096,
+        "forward_pe": 19.059855,
+        "price_to_book": 14.643338,
+        "ev_to_ebitda": 18.965,
+        "profit_margins": 0.30392,
+        "sector": "Technology",
+        "industry": "Software - Application",
+        "forward_pe_rank": 0.13333333333333333,
+        "price_to_book_rank": 0.4375,
+        "ev_to_ebitda_rank": 0.3333333333333333
+      },
+      {
+        "ticker": "PANW",
+        "price": 196.27,
+        "market_cap_B": 130.872836096,
+        "forward_pe": 27.259724,
+        "price_to_book": 18.076075,
+        "ev_to_ebitda": 102.686,
+        "profit_margins": 0.13948,
+        "sector": "Technology",
+        "industry": "Software - Infrastructure",
+        "forward_pe_rank": 0.26666666666666666,
+        "price_to_book_rank": 0.5,
+        "ev_to_ebitda_rank": 0.9333333333333333
+      },
+      {
+        "ticker": "CRWD",
+        "price": 480.62,
+        "market_cap_B": 119.793573888,
+        "forward_pe": 112.55737,
+        "price_to_book": 34.68928,
+        "ev_to_ebitda": -9067.853,
+        "profit_margins": -0.04166,
+        "sector": "Technology",
+        "industry": "Software - Infrastructure",
+        "forward_pe_rank": 0.8,
+        "price_to_book_rank": 0.75,
+        "ev_to_ebitda_rank": 0.06666666666666667
+      },
+      {
+        "ticker": "FTNT",
+        "price": 100.83,
+        "market_cap_B": 77.176897536,
+        "forward_pe": 41.838173,
+        "price_to_book": 39.51019,
+        "ev_to_ebitda": 35.732,
+        "profit_margins": 0.30597,
+        "sector": "Technology",
+        "industry": "Software - Infrastructure",
+        "forward_pe_rank": 0.6,
+        "price_to_book_rank": 0.8125,
+        "ev_to_ebitda_rank": 0.7333333333333333
+      },
+      {
+        "ticker": "SNPS",
+        "price": 478.86,
+        "market_cap_B": 74.300391424,
+        "forward_pe": 32.203094,
+        "price_to_book": 7.49249,
+        "ev_to_ebitda": 48.087,
+        "profit_margins": 0.3477,
+        "sector": "Technology",
+        "industry": "Software - Infrastructure",
+        "forward_pe_rank": 0.4666666666666667,
+        "price_to_book_rank": 0.1875,
+        "ev_to_ebitda_rank": 0.8
+      },
+      {
+        "ticker": "HOOD",
+        "price": 72.6,
+        "market_cap_B": 64.067248128,
+        "forward_pe": 99.45205,
+        "price_to_book": 8.074741,
+        "ev_to_ebitda": NaN,
+        "profit_margins": 0.48773,
+        "sector": "Financial Services",
+        "industry": "Capital Markets",
+        "forward_pe_rank": 0.7333333333333333,
+        "price_to_book_rank": 0.25,
+        "ev_to_ebitda_rank": NaN
+      },
+      {
+        "ticker": "ADYYF",
+        "price": 1923.0,
+        "market_cap_B": 61.615996928,
+        "forward_pe": NaN,
+        "price_to_book": 14.308354,
+        "ev_to_ebitda": 53.194,
+        "profit_margins": 0.45916998,
+        "sector": "Technology",
+        "industry": "Software - Infrastructure",
+        "forward_pe_rank": NaN,
+        "price_to_book_rank": 0.375,
+        "ev_to_ebitda_rank": 0.8666666666666667
+      },
+      {
+        "ticker": "NET",
+        "price": 171.97,
+        "market_cap_B": 59.606519808,
+        "forward_pe": 199.96512,
+        "price_to_book": 41.79101,
+        "ev_to_ebitda": -2411.166,
+        "profit_margins": -0.04616,
+        "sector": "Technology",
+        "industry": "Software - Infrastructure",
+        "forward_pe_rank": 0.9333333333333333,
+        "price_to_book_rank": 0.875,
+        "ev_to_ebitda_rank": 0.13333333333333333
+      },
+      {
+        "ticker": "ZS",
+        "price": 301.95,
+        "market_cap_B": 47.012409344,
+        "forward_pe": 84.81742,
+        "price_to_book": 26.04589,
+        "ev_to_ebitda": -618.941,
+        "profit_margins": -0.01523,
+        "sector": "Technology",
+        "industry": "Software - Infrastructure",
+        "forward_pe_rank": 0.6666666666666666,
+        "price_to_book_rank": 0.625,
+        "ev_to_ebitda_rank": 0.2
+      },
+      {
+        "ticker": "XYZ",
+        "price": 61.57,
+        "market_cap_B": 37.86672128,
+        "forward_pe": 16.136599,
+        "price_to_book": 1.7691003,
+        "ev_to_ebitda": 25.697,
+        "profit_margins": 0.10925,
+        "sector": "Technology",
+        "industry": "Software - Infrastructure",
+        "forward_pe_rank": 0.06666666666666667,
+        "price_to_book_rank": 0.125,
+        "ev_to_ebitda_rank": 0.6
+      },
+      {
+        "ticker": "VRSN",
+        "price": 279.9,
+        "market_cap_B": 26.28260864,
+        "forward_pe": 32.358383,
+        "price_to_book": -13.3222275,
+        "ev_to_ebitda": 24.786,
+        "profit_margins": 0.50203,
+        "sector": "Technology",
+        "industry": "Software - Infrastructure",
+        "forward_pe_rank": 0.5333333333333333,
+        "price_to_book_rank": 0.0625,
+        "ev_to_ebitda_rank": 0.4666666666666667
+      },
+      {
+        "ticker": "GDDY",
+        "price": 175.74,
+        "market_cap_B": 25.040842752,
+        "forward_pe": 26.190762,
+        "price_to_book": 125.34951,
+        "ev_to_ebitda": 25.25,
+        "profit_margins": 0.16203,
+        "sector": "Technology",
+        "industry": "Software - Infrastructure",
+        "forward_pe_rank": 0.2,
+        "price_to_book_rank": 1.0,
+        "ev_to_ebitda_rank": 0.5333333333333333
+      },
+      {
+        "ticker": "IOT",
+        "price": 39.21,
+        "market_cap_B": 22.323664896,
+        "forward_pe": 150.8077,
+        "price_to_book": 19.793034,
+        "ev_to_ebitda": -153.827,
+        "profit_margins": -0.09042,
+        "sector": "Technology",
+        "industry": "Software - Infrastructure",
+        "forward_pe_rank": 0.8666666666666667,
+        "price_to_book_rank": 0.5625,
+        "ev_to_ebitda_rank": 0.26666666666666666
+      }
+    ]
+  },
+  "get_stock_beta": 1.026
+}

@@ -1,0 +1,19 @@
+{
+  "get_stock_metrics": {
+    "key_metrics": {
+      "EPS": "Data unavailable",
+      "ROIC": "7.65%",
+      "Debt_to_Equity": "0.19",
+      "Revenue_Growth": "0.95% YoY",
+      "Free_Cash_Flow": "$3.58B",
+      "Beta": "Data unavailable",
+      "Current_Price": "Data unavailable",
+      "Market_Cap": "$1051.42B",
+      "PE_Ratio": "185.47",
+      "PB_Ratio": "14.08"
+    },
+    "ticker": "TSLA",
+    "last_updated": "2025-06-11 22:31:08"
+  },
+  "get_earnings_calendar": {
+    "get_stock_metrics": 
